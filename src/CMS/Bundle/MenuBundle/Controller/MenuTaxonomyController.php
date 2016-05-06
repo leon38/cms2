@@ -127,7 +127,7 @@ class MenuTaxonomyController extends Controller
 
         return $this->render('MenuBundle:MenuTaxonomy:edit.html.twig', array(
             'entity' => $entity,
-            'form'   => $editForm->createView(),
+            'form'   => $editForm->createView()
         ));
     }
 
