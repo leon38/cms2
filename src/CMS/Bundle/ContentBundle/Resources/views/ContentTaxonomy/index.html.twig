@@ -1,0 +1,67 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+    <div class="section-header">
+        <h2 class="text-primary pull-left">Type de contenu</h2>
+        <a href="{{ path('admin_content-taxonomy_new') }}" class="pull-right btn ink-reaction btn-floating-action btn-primary"><i class="fa fa-plus"></i></a>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="section-body">
+        <p class="lead"></p>
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-callout alert-danger" role="alert">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-callout alert-success" role="alert">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+
+        <table id="data_table" class="table table-striped table-hover" role="grid" aria-describedby="data_table" data-swftools="{{ asset('bundles/core/swf/copy_csv_xls_pdf.swf') }}">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Alias</th>
+                    <th class="no-sort">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.id }}</td>
+                    <td>{{ entity.title }}</td>
+                    <td>{{ entity.alias }}</td>
+                    <td>
+                        <a href="{{ path('admin_content-taxonomy_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
+                         <a data-toggle="modal" href='#modal-delete' class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ entity.id }}">
+                            <i class="fa fa-trash-o"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="modal-delete" aria-labelledby="simpleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ 'tc.content.modal.title_delete'|trans }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ 'tc.content.modal.text_delete'|trans }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ink-reaction btn-raised btn-default-bright" data-dismiss="modal"><i class="fa fa-close"></i> {{ 'cancel'|trans }}</button>
+                    <a href="" class="btn ink-reaction btn-raised btn-danger"><i class="fa fa-trash-o"></i> {{ 'delete'|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

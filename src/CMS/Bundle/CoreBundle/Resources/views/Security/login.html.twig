@@ -1,0 +1,35 @@
+{% extends "::admin/base_login.html.twig" %}
+
+{% block body %}
+<div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+    {% if error %}
+        <div class="card card-hidden error">
+            <div class="col-md-12">
+                <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    {% endif %}
+
+    <form action="{{ path('login_check') }}" method="post">
+        <div class="card card-hidden">
+            <div class="header text-center">Login</div>
+            <div class="content">
+                <div class="form-group">
+                    <label class="form-label" for="username">Username</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Password:</label>
+                    <input type="password" id="password" name="_password" class="form-control" />
+                </div>
+            </div>
+            <div class="footer text-center">
+                <button type="submit" class="btn btn-fill btn-info btn-wd">Login</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock body %}

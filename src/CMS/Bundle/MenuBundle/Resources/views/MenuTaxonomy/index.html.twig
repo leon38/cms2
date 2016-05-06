@@ -1,0 +1,79 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-callout alert-danger" role="alert">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-callout alert-success" role="alert">
+                {{ flashMessage|trans }}
+            </div>
+        {% endfor %}
+        <div id="main-card" class="card">
+            <div class="header">
+                <h4 class="title pull-left">{{ 'cms.menu.menu_taxonomy'|trans }}</h4>
+                <div class="fixed-table-toolbar">
+                    <div class="columns columns-right pull-right">
+                        <a href="{{ path('admin_menutaxonomy_new') }}" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <table id="data_table" class="table table-striped table-hover" role="grid" aria-describedby="data_table">
+                    <thead>
+                        <tr role="row">
+                            <th>{{ 'cms.menu.title'|trans }}</th>
+                            <th>{{ 'cms.menu.slug'|trans }}</th>
+                            <th>{{ 'cms.menu.status'|trans }}</th>
+                            <th class="no-sort text-right" tabindex="0" aria-controls="data_table">{{ 'actions'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for menu in entities %}
+                        <tr role="row">
+                            <td>{{ menu.title }}</td>
+                            <td>{{ menu.slug }}</td>
+                            <td><div class="switch" data-on-label="{{ 'yes'|trans }}" data-off-label="{{ 'no'|trans }}"><input type="checkbox"{% if menu.status %}checked="checked"{% endif %} class="status" data-id="{{ menu.id }}" data-repo="MenuBundle:MenuTaxonomy" data-prop="status"></div></td>
+                            <td class="text-right">
+                                <a href="{{ path('admin_menutaxonomy_edit', {'id': menu.id }) }}" class="btn btn-info btn-simple btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Editer"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="modal" href='#modal-delete' class="btn btn-simple btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ menu.id }}"><i class="fa fa-trash-o"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <div class="modal fade" id="modal-delete" aria-labelledby="simpleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ 'cms.user.modal.title_delete'|trans }}</h4>
+                </div>
+                <div class="modal-body">
+                    {{ 'cms.user.modal.text_delete'|trans }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn ink-reaction btn-raised btn-default-bright" data-dismiss="modal"><i class="fa fa-close"></i> {{ 'cancel'|trans }}</button>
+                    <a href="" class="btn ink-reaction btn-raised btn-danger"><i class="fa fa-trash-o"></i> {{ 'delete'|trans }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
+{% block javascript %}
+<script type="text/javascript">
+$('#modal-delete').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var id = button.data('id');
+      var path = "{{ path(url, {'id': 'PLACEHOLDER'}) }}";
+      path = path.replace("PLACEHOLDER", id);
+      var modal = $(this);
+      modal.find('.modal-footer > a.btn-danger').attr('href', path);
+})
+</script>
+{% endblock javascript %}

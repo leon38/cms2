@@ -1,0 +1,38 @@
+{% if month is not defined or month == 0 %}
+	{% set month = 'now'|date("n") %}
+	{% endif %}
+	{% if year is not defined or year == 0 %}
+		{% set year = 'now'|date('Y') %}
+	{% endif %}
+	{% set first_day = month ~ "/01/" ~ year %}
+	{% set nb_jour = first_day|date('t') %}
+	{% set last_day = month ~ "/" ~ nb_jour ~ "/" ~ year %}
+	{% set decalage_lundi = first_day|date('w') %}
+	{% set last_day_week = 7 - (last_day|date('w')) %}
+
+	{% set decalage = decalage_lundi -1 %}
+	{% if decalage < 0 %}
+		{% set decalage = 7 + decalage %}
+	{% endif %}
+	{% set radius = 7 - decalage %}
+
+	{% set cur_day = "now"|date('d') %}
+	{% set cur_month = "now"|date('m') %}
+	{% set cur_year = "now"|date('Y') %}
+
+	{% set month_prec = month-1 %}
+	{% set month_suiv = month+1 %}
+	{% set year_suiv = year %}
+	{% set year_prec = year %}
+	{% if month == 1 %}
+		{% set month_prec = 12 %}
+		{% set year_prec = year - 1 %}
+	{% endif %}
+	{% if month == 12 %}
+		{% set month_suiv = 1 %}
+		{% set year_suiv = year + 1 %}
+	{% endif %}
+	{# {{ ("first day : " ~ first_day ~ "<br />décalage lundi : " ~ decalage_lundi ~ "<br />décalage : " ~ decalage ~ "<br />last day week : " ~ last_day_week)|raw }} #}
+	{% include "DashboardBundle:Templates/Calendar:headerCalendar.html.twig" %}
+	{% include "DashboardBundle:Templates/Calendar:days.html.twig" %}
+	{# {% include "DashboardBundle:Templates/Calendar:months.html.twig" %} #}

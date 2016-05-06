@@ -1,0 +1,28 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+<div class="section-body row">
+	<!-- INBOX NAV -->
+	<div class="col-sm-4 col-md-3 col-lg-2">
+		<ul class="nav nav-pills nav-stacked nav-icon">
+			<li><small>MAILBOXES</small></li>
+			{% for f,icon in folders %}
+				{% if f == folder %}
+					<li class="active">
+						<a href="{{ path('admin_messages', {'folder': f}) }}">
+							<span class="{{ icon }}"></span> {{ f|trans|capitalize }}
+						</a>
+					</li>
+				{% else %}
+					<li><a href="{{ path('admin_messages', {'folder': f}) }}"><span class="{{ icon }}"></span> {{ f|trans|capitalize }}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+	<!-- End Inbox nav -->
+	<div class="col-sm-8 col-md-9 col-lg-10">
+		<h3>Nouveau message</h3>
+		{{ form(form) }}
+	</div>
+</div>
+{% endblock body %}

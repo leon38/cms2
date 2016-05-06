@@ -1,0 +1,16 @@
+<table class="table calendar month hide no-border" id="months">
+	<tr>
+		{% for j in 1..12 %}
+			{% set numMonth = j %}
+			{% set monthCurrentView = '01-' ~ numMonth ~ '-2015' %}
+			{% if numMonth == month %}
+				<td class="busy"><a href="">{{ monthCurrentView|date('F')|trans|capitalize }}</a></td>
+			{% else %}
+				<td><a href="">{{ monthCurrentView|date('F')|trans|capitalize }}</a></td>
+			{% endif %}
+			{% if j is divisibleby(4) %}
+				</tr><tr>
+			{% endif %}
+		{% endfor %}
+	</tr>
+</table>

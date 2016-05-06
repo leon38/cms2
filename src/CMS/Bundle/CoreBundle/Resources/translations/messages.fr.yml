@@ -1,0 +1,87 @@
+Bad credentials.: "<strong>ERREUR</strong> : nom d'utilisateur invalide. <a href=\"/admin/forgot\">Mot de passe oublié ?</a>"
+
+cms:
+    option:
+        site_title: 'Titre du site'
+        general_options:
+            success: Les réglages ont bien été enregistrés
+    user:
+        user_login: 'Identifiant'
+        user_pass:  'Mot de passe'
+        user_not_found: "L'utilisateur n'existe pas"
+        user_pass_help: "Astuce : Le mot de passe devrait contenir au moins 7 caractères. Pour le rendre plus fort, utilisez des majuscules et des minuscules, des nombres et des symboles tels que ! ? $ % ^ & )."
+        user_pass_confirm: Confirmation
+        user_email: Votre adresse de messagerie
+        email: Email
+        user_email_help: Vérifiez bien cette adresse de messagerie avant de continuer.
+        user_pass_forgot: "Mot de passe oublié ?"
+        user_url: "Site web"
+        user_nicename: "Nom à afficher"
+        user_registered: 'Date de création'
+        user_roles: 'Rôles'
+        back: "← Retour sur %title%"
+        remember_me: "Se souvenir de moi ?"
+        user_login_email: "Identifiant ou adresse de messagerie"
+        forgot_password:
+            generate_password: Générer un mot de passe
+            message: Veuillez saisir votre identifiant ou votre adresse de messagerie. Un lien permettant de créer un nouveau mot de passe vous sera envoyé par e-mail.
+            success: Vérifiez votre messagerie pour y trouver le lien de confirmation.
+        my_profile: Mon profil
+        profile_created:
+            success: L'utilisateur a bien été créé
+        profile_updated:
+            success: L'utilisateur a bien été mis à jour
+        modal:
+            title_delete: Supprimer l'utilisateur
+            text_delete: Voulez-vous vraiment supprimer l'utilisateur ?
+        confirmation:
+            subject: "Confirmation d'inscription"
+        user_confirmation:
+            message: "Un nouveau site 3c CMS a été initialisé. Vous pouvez maintenant vous connecter à l'administration."
+    language:
+        name: Nom
+        code_local: Code local
+        code_lang: Code de la langue
+        sens_ecriture: Système d'écriture
+        sens:
+            left_right: De gauche à droite
+            right_left: De droite à gauche
+        default: Langue par défaut
+        ordre: Ordre
+        flag: Drapeau
+        language: Langue
+
+    install:
+        robots_label: 'Vie privée'
+        robots_txt: "Demander aux moteurs de recherche d'indexer ce site."
+        message:
+            title: "Quel succès !"
+            message: "Le CMS est installé. Vous attendiez-vous à d’autres étapes ? Désolé de vous décevoir ;-)"
+            user_pass: "Le mot de passe que vous avez choisi"
+            connect: "Se connecter"
+        init_command:
+            not_done: "La commande 'php app/console scms:init' n'a pas été exécutée"
+    welcome:
+        title: 'Bienvenue'
+        text: "Bienvenue dans la très célèbre installation en 5 minutes de WordPress ! Vous n'avez qu'à remplir les informations demandées ci-dessous et vous serez prêt à utiliser la plus extensible et puissante plateforme de publication de contenu au monde."
+        infos:
+            title: 'Informations nécessaires'
+            text: 'Veuillez renseigner les informations suivantes. Ne vous inquiétez pas, vous pourrez les modifier plus tard.'
+
+    tables:
+        entries_per_page: "éléments par page"
+        nb_element_on_total: "Affichage de l'élement _START_ à _END_ sur 1 élément|]1,Inf] Affichage de l'élément _START_ à _END_ sur %count% éléments"
+        no_element_display: "Aucun élément à afficher"
+        empty_table: "Aucune donnée disponible dans le tableau"
+    dropzone:
+        defaultMessage: "Glissez déposez vos fichiers ou cliquez pour envoyer les images"
+
+firstname: Prénom
+lastname: Nom
+id_twitter: Identifiant Twitter
+facebook_url: Url de la page facebook
+actions: Actions
+cancel: Annuler
+delete: Supprimer
+Create: Valider
+Update: Mettre à jour

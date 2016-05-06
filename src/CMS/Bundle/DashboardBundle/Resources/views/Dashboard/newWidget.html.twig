@@ -1,0 +1,93 @@
+{% extends "::admin/base_admin.html.twig" %}
+{% block body %}
+<div class="row">
+	<div class="col s5 m5">
+		<div class="row" id="grid">
+			{% for widget in widgets %}
+				<div class="col s4 m4 widget grid__item">
+					<div class="card-panel">
+						<h3 class="h5">{{ widget.Name }}</h3>
+						<p>{{ widget.Description }}</p>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+
+	<div id="drop-area" class="drop-area col s5 m5 offset-s2 offset-m2">
+		<div class="row">
+			<div class="drop-area__item col s12 m12"><div class="card-panel"><br />TOP<br /></div></div>
+		</div>
+		<div class="row">
+			<div class="drop-area__item col s4 m4"><div class="card-panel"><br />LEFT<br /></div></div>
+			<div class="drop-area__item col s8 m8"><div class="card-panel"><br />MIDDLE<br /></div></div>
+		</div>
+		<div class="row">
+			<div class="drop-area__item col s12 m12"><div class="card-panel"><br />BOTTOM<br /></div></div>
+		</div>
+	</div>
+	<div class="drop-overlay"></div>
+</div>
+{% endblock body %}
+{% block javascripts %}
+	<script src="/bundles/scmsadmin/js/modernizr.custom.js"></script>
+	<script src="/bundles/scmsadmin/js/draggabilly.pkgd.min.js"></script>
+	<script src="/bundles/scmsadmin/js/dragdrop.js"></script>
+	<script>
+			(function() {
+				var body = document.body,
+					dropArea = document.getElementById( 'drop-area' ),
+					droppableArr = [], dropAreaTimeout;
+
+				// initialize droppables
+				[].slice.call( document.querySelectorAll( '#drop-area .drop-area__item' )).forEach( function( el ) {
+					droppableArr.push( new Droppable( el, {
+						onDrop : function( instance, draggableEl ) {
+
+							// show checkmark inside the droppabe element
+							classie.add( instance.el, 'drop-feedback' );
+							// clearTimeout( instance.checkmarkTimeout );
+							// instance.checkmarkTimeout = setTimeout( function() {
+							// 	classie.remove( instance.el, 'drop-feedback' );
+							// }, 800 );
+							// ...
+						}
+					} ) );
+				} );
+
+				// initialize draggable(s)
+				[].slice.call(document.querySelectorAll( '#grid .grid__item' )).forEach( function( el ) {
+					new Draggable( el, droppableArr, {
+						draggabilly : { containment: dropArea },
+						animBack : false,
+						helper : true,
+						onStart : function() {
+							// add class 'drag-active' to body
+							classie.add( body, 'drag-active' );
+							// clear timeout: dropAreaTimeout (toggle drop area)
+							clearTimeout( dropAreaTimeout );
+							// show dropArea
+							classie.add( dropArea, 'show' );
+						},
+						onEnd : function( wasDropped ) {
+							var afterDropFn = function() {
+								// hide dropArea
+								classie.remove( dropArea, 'show' );
+								// remove class 'drag-active' from body
+								classie.remove( body, 'drag-active' );
+							};
+
+							if( !wasDropped ) {
+								afterDropFn();
+							}
+							else {
+								// after some time hide drop area and remove class 'drag-active' from body
+								clearTimeout( dropAreaTimeout );
+								dropAreaTimeout = setTimeout( afterDropFn, 400 );
+							}
+						}
+					} );
+				} );
+			})();
+		</script>
+{% endblock javascripts %}
