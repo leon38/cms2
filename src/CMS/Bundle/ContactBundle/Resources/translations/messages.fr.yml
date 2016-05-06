@@ -1,7 +1,0 @@
-inbox: "Courrier entrant"
-sent: "Messages envoyés"
-trash: "Corbeille"
-
-cms:
-    contact:
-        inbox_empty: Votre boîte aux lettres ne contient aucun message

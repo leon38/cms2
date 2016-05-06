@@ -1,4 +1,0 @@
-services:
-    cms.widget:
-        class: CMS\Bundle\WidgetBundle\Classes\WidgetBundle
-        arguments: [@cms.core.repository.option, @doctrine.orm.entity_manager]
