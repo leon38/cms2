@@ -150,7 +150,7 @@ class ContentController extends Controller
             'user'   => $this->getUser()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
