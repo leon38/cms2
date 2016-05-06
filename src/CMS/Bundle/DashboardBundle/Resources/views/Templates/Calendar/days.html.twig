@@ -1,0 +1,40 @@
+<table class="table calendar" id="days">
+	<tr>
+		{% set jour_semaine = ['Lun','Mar','Mer', 'Jeu', 'Ven', 'Sam', 'Dim'] %}
+		{% for i in jour_semaine %}
+			<th>{{ i }}</th>
+		{% endfor %}
+		</tr><tr>
+		{% if decalage != 0 %}
+			{% for i in 1..decalage %}
+				<td></td>
+			{% endfor %}
+		{% endif %}
+		{% set class = '' %}
+		{% set i = 1 %}
+		{% for jour in 1..7-decalage %}
+			{% set class = '' %}
+			{% if jour == cur_day and month == cur_month and year == cur_year %}
+				{% set class = 'today'|e %}
+			{% endif %}
+			<td class="{{ class }}"{>{{ jour }}</td>
+		{% endfor %}
+			</tr><tr>
+		{% for jour in 7-decalage+1..nb_jour %}
+			{% set class = '' %}
+			{% if jour == cur_day and month == cur_month and year == cur_year %}
+				{% set class = 'today'|e %}
+			{% endif%}
+
+			<td class="{{ class }}">{{ jour }}</td>
+			{% if (jour - radius) % 7 == 0 or (jour - radius) == 0 %}
+				</tr><tr>
+			{% endif %}
+		{% endfor %}
+		{% if last_day_week > 0 and last_day_week < 7 %}
+			{% for jour in 1..last_day_week %}
+				<td></td>
+			{% endfor %}
+		{% endif %}
+	</tr>
+</table>

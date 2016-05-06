@@ -1,0 +1,45 @@
+{% extends 'bootstrap_3_layout.html.twig' %}
+
+{% block form_widget_simple %}
+    {{ parent() }}
+
+    {% if help is defined %}
+        <span class="help">{{ help|trans }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block submit_row -%}
+{% spaceless %}
+	{{ form_widget(form) }}
+{% endspaceless %}
+{% endblock submit_row %}
+
+{% block form_row %}
+    <div {{ block('form_row_attributes') }}>
+        {{ form_label(form) }}
+        {{ form_widget(form) }}
+        {{ form_errors(form) }}
+    </div>
+{% endblock form_row %}
+
+{% block form_row_attributes %}
+    {% spaceless %}
+        {% for attrname, attrvalue in row_attr %}{{ attrname }}="{{ attrvalue }}" {% endfor %}
+    {% endspaceless %}
+{% endblock form_row_attributes %}
+
+{% block dropzone_widget %}
+    {% spaceless %}
+        <div class="clearfix"></div>
+        <div {{ block('widget_container_attributes') }}>
+        {% if image_url is defined and image_url != '' %}
+            <div class="{% if class_thumb is defined %} {{class_thumb}} {% else %} col-md-3{% endif %}">
+                <a href="javascript:" class="thumbnail">
+                    <img src="{{ asset(image_url) }}" {% if image_size is defined %}class="{{ image_size }}"{% endif %} />
+                </a>
+            </div>
+        {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    {% endspaceless %}
+{% endblock %}

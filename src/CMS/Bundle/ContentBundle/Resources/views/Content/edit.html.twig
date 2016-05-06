@@ -1,0 +1,88 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+	<div class="section-header">
+		<ol class="breadcrumb">
+			<li><a href="">Contenu</a></li>
+			<li class="active">Edition</li>
+		</ol>
+	</div>
+
+	<div class="section-body contain-lg">
+		{% for flashMessage in app.session.flashbag.get('error') %}
+		    <div class="alert alert-callout alert-danger" role="alert">
+		        {{ flashMessage|trans }}
+		    </div>
+		{% endfor %}
+		{% for flashMessage in app.session.flashbag.get('success') %}
+		    <div class="alert alert-callout alert-success" role="alert">{{ flashMessage|trans }}</div>
+		{% endfor %}
+		<div class="row">
+			<div class="col-md-12">
+				{{ form_start(edit_form) }}
+				<div class="col-md-3 pull-right">
+					<div class="card">
+						<div class="card-head">
+							<header>Langues</header>
+							<div class="tools">
+								<div class="btn-group">
+									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							{{ form_row(edit_form.language) }}
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-head">
+							<header>Infos</header>
+							<div class="tools">
+								<div class="btn-group">
+									<a href="" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.content.preview'|trans }}"><i class="md md-explore"></i></a>
+									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">
+							
+							<ul class="list-unstyled">
+								<li>Author: {{ entity.author }}</li>
+								<li>Date: {{ entity.created|date('d/m/Y H:i:s') }}</li>
+								<li>{{ form_row(edit_form.published) }}</li>
+							</ul>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-head">
+							<header>Catégories</header>
+							<div class="tools">
+								<div class="btn-group">
+									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">{{ form_row(edit_form.categories) }}</div>
+					</div>
+					<div class="card">
+						<div class="card-head">
+							<header>Image</header>
+							<div class="tools">
+								<div class="btn-group">
+									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="card-body">{{ form_row(edit_form.thumbnail) }}</div>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<div class="card">
+						<div class="card-body">{{ form_rest(edit_form) }}</div>
+					</div>
+				</div>
+				{{ form_end(edit_form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}
