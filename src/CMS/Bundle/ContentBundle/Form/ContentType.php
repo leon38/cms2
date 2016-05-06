@@ -43,9 +43,9 @@ class ContentType extends AbstractType
                               ->orderBy('c.lft', 'ASC');
                 },
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => true,
             ))
-            ->add('author', 'entity_hidden', array('class' => 'CMS\Bundle\CoreBundle\Entity\User'))
+            //->add('author', 'entity_hidden', array('class' => 'CMS\Bundle\CoreBundle\Entity\User'))
             ->add('thumbnail', 'dropzone', array('attr' => array('class' => 'dropzone col-md-12', 'data-url' => '/admin/content/upload-thumbnail/'.$options['content_id'], 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'class_thumb' => 'row'));
         ;
 

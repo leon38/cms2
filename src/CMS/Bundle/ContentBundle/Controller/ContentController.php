@@ -75,7 +75,7 @@ class ContentController extends Controller
         if ($form->isValid()) {
             $current_user = $this->get('security.context')->getToken()->getUser();
             $entity->setAuthor($current_user);
-            $this->get('cms.content.content_manager')->update($entity);
+            $this->get('cms.content.content_manager')->save($entity);
 
             $this->get('session')->getFlashBag()->add(
                 'success',
@@ -84,10 +84,11 @@ class ContentController extends Controller
             return $this->redirect($this->generateUrl('admin_content'));
         }
 
-        return array(
+        return $this->render('ContentBundle:Content:new.html.twig',
+        array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -126,10 +127,11 @@ class ContentController extends Controller
             return $this->redirect($this->generateUrl('admin_content'));
         }
 
-        return array(
+        return $this->render('ContentBundle:Content:new.html.twig',
+        array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -173,7 +175,7 @@ class ContentController extends Controller
             'metavalues' => array()
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -226,11 +228,12 @@ class ContentController extends Controller
         $metas = ExtraMetas::loadMetas($this);
         $form   = $this->createTranslationForm($entity, $fields, $metas);
         //
-        return array(
+        return $this->render('ContentBundle:Content:new.html.twig',
+        array(
             'entity'          => $entity,
             'contenttaxonomy' => $content->getTaxonomy(),
             'form'            => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -254,10 +257,11 @@ class ContentController extends Controller
         $metas = ExtraMetas::loadEditMetas($entity, $this);
         $editForm = $this->createEditForm($entity, $fieldvalues, $metas);
 
-        return array(
+        return $this->render('ContentBundle:Content:edit.html.twig',
+        array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        );
+        ));
     }
 
     /**
@@ -281,7 +285,7 @@ class ContentController extends Controller
             'content_id' => $entity->getId(),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -321,10 +325,11 @@ class ContentController extends Controller
             return $this->redirect($this->generateUrl('admin_content'));
         }
 
-        return array(
+        return $this->render('ContentBundle:Content:edit.html.twig',
+        array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Content entity.

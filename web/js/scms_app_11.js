@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $('input:checkbox').not('.status').each(function() {
+        $(this).attr('data-toggle', 'checkbox');
+    });
+
+     $('[data-toggle="checkbox"]').each(function () {
+      var $checkbox = $(this);
+      $checkbox.checkbox();
+    });
+
 	var target = $('.url').data('target');
     $('#'+target).on('keyup', function() {
 		var value = $(this).val();

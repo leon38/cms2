@@ -24,9 +24,11 @@ class CategoryType extends AbstractType
                 'attr' => array('class' => 'summernote')
             ))
             ->add('published', 'choice', array(
-                'choices' => array(0 => 'Non', 1 => 'Oui'),
-                'expanded' => true,
-                'multiple' => false
+                'label' => 'cms.content.status.status',
+                'choices' => array(0 => 'cms.content.status.draft', 1 => 'cms.content.status.published', 2 => 'cms.content.status.pending'),
+                'expanded' => false,
+                'multiple' => false,
+                'data'     => 1
             ))
             ->add('language')
             ->add('parent')

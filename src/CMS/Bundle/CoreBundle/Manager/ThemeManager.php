@@ -46,7 +46,7 @@ class ThemeManager {
 			}
 
 			if ($fs->exists($root_dir.'/../templates/'.$info_theme['dir'].'/style.css')) {
-				$fs->symlink($root_dir.'/../templates/'.$info_theme['dir'], $root_dir.'/../web/templates/'.$info_theme['dir'], true);
+				$fs->mirror($root_dir.'/../templates/'.$info_theme['dir'], $root_dir.'/../web/templates/'.$info_theme['dir']);
 			}
 
 			if (isset($screenshot['screenshot']))

@@ -26,6 +26,7 @@ class ExtraMetas
     {
         $html = '';
         $metas = $controller->getDoctrine()->getRepository('ContentBundle:Meta')->findBy(array('published' => 1));
+        $metas_res = array();
         foreach ($metas as $meta) {
             $display_elem = false;
             foreach ($content->getMetaValues() as $metavalue) {

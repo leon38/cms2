@@ -5,43 +5,46 @@
 				<div class="col-md-3 pull-right">
 					<div class="card">
 						<div class="header">
-							<h4 class="title pull-left">Langues</h4>
-							<a data-toggle="collapse" href="#contentLanguage" class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<h4 class="title">Infos <a data-toggle="collapse" href="#collapseInfos" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
+							
 							<div class="clearfix"></div>
 						</div>
-						<div id="contentLanguage" class="content">
-							{{ form_row(form.language) }}
-						</div>
-					</div>
-					<div class="card">
-						<div class="header">
-							<h4 class="title pull-left">Infos</h4>
-							<a class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
-							<div class="clearfix"></div>
-						</div>
-						<div class="content">
+						<div class="content collapse in" id="collapseInfos" aria-expanded="true">
 							<ul class="list-unstyled">
 								<li>Author: {{ app.user }}</li>
 								<li>Date: {{ 'now'|date('d/m/Y H:i:s') }}</li>
 								<li>{{ form_row(form.published) }}</li>
 							</ul>
 						</div>
+						<div class="footer"></div>
 					</div>
 					<div class="card">
 						<div class="header">
-							<h4 class="title pull-left">Catégories</h4>
-							<a class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<h4 class="title">{{ 'cms.content.languages'|trans }} <a data-toggle="collapse" href="#collapseLanguage" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
 							<div class="clearfix"></div>
 						</div>
-						<div class="content">{{ form_row(form.categories) }}</div>
+						<div id="collapseLanguage" class="content collapse in" aria-expanded="true">
+							{{ form_row(form.language) }}
+						</div>
+						<div class="footer"></div>
 					</div>
 					<div class="card">
 						<div class="header">
-							<h4 class="title pull-left">Image</h4>
-							<a class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<h4 class="title">{{ 'cms.content.categories'|trans }} <a data-toggle="collapse" href="#collapseCategory" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
 							<div class="clearfix"></div>
 						</div>
-						<div class="content">{{ form_row(form.thumbnail) }}</div>
+						<div id="collapseCategory" class="content collapse in" aria-expanded="true">
+							{{ form_row(form.categories) }}
+						</div>
+						<div class="footer"></div>
+					</div>
+					<div class="card">
+						<div class="header">
+							<h4 class="title">{{ 'cms.content.image'|trans }} <a data-toggle="collapse" href="#collapseImage" class="pull-right"><i class="fa fa-angle-down"></i></a></h4>
+							<div class="clearfix"></div>
+						</div>
+						<div id="collapseImage" class="content collapse in" aria-expanded="true">{{ form_row(form.thumbnail) }}</div>
+						<div class="footer"></div>
 					</div>
 				</div>
 				<div class="col-md-9">

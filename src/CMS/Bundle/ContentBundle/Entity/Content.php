@@ -127,10 +127,10 @@ class Content
      */
     public function __construct()
     {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->fieldvalues = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->metavalues = new \Doctrine\Common\Collections\ArrayCollection();
+        // $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        // $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+        // $this->fieldvalues = new \Doctrine\Common\Collections\ArrayCollection();
+        // $this->metavalues = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
 

@@ -17,13 +17,13 @@ class EntryType extends AbstractType
     {
         $entry = $options['entry'];
         $builder
-            ->add('title')
-            ->add('external_url')
-            ->add('parent')
-            ->add('menu_taxonomy')
-            ->add('content')
-            ->add('category')
-            ->add('taxonomy')
+            ->add('title', null, array('label' => 'cms.entry.title'))
+            ->add('status', null, array('attr' => array('data-toggle' => 'checkbox')))
+            ->add('external_url', null, array('label' => 'cms.entry.external'))
+            ->add('content', null, array('label' => 'cms.entry.content'))
+            ->add('category', null, array('label' => 'cms.entry.category'))
+            ->add('taxonomy', null, array('label' => 'cms.entry.taxonomy'))
+            ->add('parent', null, array('label' => 'cms.entry.parent'))
             ->add('ordre', 'entity', array(
                     'class' => 'CMS\Bundle\MenuBundle\Entity\Entry',
                     'query_builder' => function(EntityRepository $er) use ($entry) {

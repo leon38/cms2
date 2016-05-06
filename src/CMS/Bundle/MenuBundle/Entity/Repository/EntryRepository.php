@@ -13,6 +13,22 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
 class EntryRepository extends NestedTreeRepository
 {
 
+	public function findByMenuTaxonomy($slug)
+	{
+		return $this->_em
+					->createQueryBuilder('e')
+					->select('e')
+					->from('MenuBundle:Entry', 'e')
+					->leftJoin('e.menu_taxonomy', 'mt')
+					->where('mt.slug = :slug')
+					->setParameter('slug', $slug)
+					->andWhere('e.lvl > 0')
+					->orderby('e.lft', 'asc')
+					->getQuery()
+					->getResult();
+
+	}
+
 	public function findAll()
 	{
 		return $this->_em

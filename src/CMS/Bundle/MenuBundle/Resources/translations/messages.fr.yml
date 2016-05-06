@@ -1,0 +1,19 @@
+'Symfony2 is great': 'J''aime Symfony2'
+cms.menu.entry: Entrées de menu
+cms.entry.title: Titre
+cms.entry.external: Lien externe
+cms.entry.content: Contenu
+cms.entry.category: Catégorie
+cms.entry.taxonomy: Type de contenu
+cms.entry.status: Publié
+actions: actions
+'yes': oui
+'no': non
+cms.menu.modal.title_delete: Entrée de menu
+cms.menu.modal.text_delete: Êtes-vous sûr de vouloir supprimer cette entrée de menu ?
+cancel: Annuler
+delete: Supprimer
+cms.menu.menu_taxonomy: Type de menu
+cms.menu.title: Titre
+cms.menu.slug: Alias
+cms.menu.status: Publié

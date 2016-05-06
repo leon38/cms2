@@ -25,6 +25,11 @@ class Entry
     protected $title;
 
     /**
+     * @ORM\Column(name="status", type="boolean")
+     */
+     private $status;
+
+    /**
      * @Gedmo\TreeLevel
      * @ORM\Column(type="integer")
      */
@@ -461,5 +466,28 @@ class Entry
             return array('url' => $this->category->getUrl(), 'external' => false);
         }
         return array('url' => $this->content->getUrl(), 'external' => false);
+    }
+
+    /**
+     * Set status
+     *
+     * @param boolean $status
+     * @return Entry
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean 
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

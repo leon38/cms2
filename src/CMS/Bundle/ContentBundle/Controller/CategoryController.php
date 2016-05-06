@@ -31,11 +31,11 @@ class CategoryController extends Controller
 
         $entities = $em->getRepository('ContentBundle:Category')->findAll();
 
-        return array(
+        return $this->render('ContentBundle:Category:index.html.twig',
+            array(
             'entities' => $entities,
-            'bright_style' => true,
             'url' => 'admin_content_delete'
-        );
+        ));
     }
     /**
      * Creates a new Category entity.
@@ -58,10 +58,11 @@ class CategoryController extends Controller
             return $this->redirect($this->generateUrl('admin_category'));
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return $this->render('ContentBundle:Category:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form'   => $form->createView(),
+        ));
     }
 
     /**
@@ -96,10 +97,11 @@ class CategoryController extends Controller
         $entity = new Category();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('ContentBundle:Category:new.html.twig',
+        array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -121,10 +123,11 @@ class CategoryController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('ContentBundle:Category:edit.html.twig',
+        array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -175,10 +178,11 @@ class CategoryController extends Controller
             return $this->redirect($this->generateUrl('admin_category'));
         }
 
-        return array(
+        return $this->render('ContentBundle:Category:edit.html.twig',
+        array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Category entity.

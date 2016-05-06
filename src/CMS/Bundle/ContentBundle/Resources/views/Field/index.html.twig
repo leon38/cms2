@@ -60,7 +60,7 @@
                     <td>{{ entity.type }}</td>
                     <td>{{ entity.field.typefield }}</td>
                     <td>{{ entity.name }}</td>
-                    <td>{{ entity.published|booleanicon|raw }}</td>
+                    <td><div class="switch"><input type="checkbox" class="status"></div></td>
                     <td>{% if entity.created %}{{ entity.created|date('d/m/Y H:i:s') }}{% endif %}</td>
                     <td>
                         <a href="{{ path('admin_field_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
@@ -76,10 +76,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{{ 'tc.field.modal.title_delete'|trans }}</h4>
+                    <h4 class="modal-title">{{ 'cms.field.modal.title_delete'|trans }}</h4>
                 </div>
                 <div class="modal-body">
-                    {{ 'tc.field.modal.text_delete'|trans }}
+                    {{ 'cms.field.modal.text_delete'|trans }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn ink-reaction btn-raised btn-default-bright" data-dismiss="modal"><i class="fa fa-close"></i> {{ 'cancel'|trans }}</button>

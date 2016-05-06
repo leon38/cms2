@@ -63,7 +63,21 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#administration" data-toggle="collapse" aria-expanded="true">
+                    <a href="#content" data-toggle="collapse" aria-expanded="false" class="collapse">
+                        <i class="pe-7s-news-paper"></i>
+                        <p>{{ 'cms.content.content'|trans }} <b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="content">
+                        <ul class="nav">
+                            <li><a href="{{ path('admin_content') }}">{{ 'cms.content.content'|trans }}</a></li>
+                            <li><a href="{{ path('admin_category') }}">{{ 'cms.content.category'|trans }}</a></li>
+                            <li><a href="{{ path('admin_content-taxonomy') }}">{{ 'cms.content.content_taxonomy'|trans }}</a></li>
+                            <li><a href="{{ path('admin_field') }}">{{ 'cms.content.field'|trans }}</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a href="#administration" data-toggle="collapse" aria-expanded="false" class="collapsed">
                         <i class="pe-7s-tools"></i>
                         <p>Administration <b class="caret"></b></p>
                     </a>

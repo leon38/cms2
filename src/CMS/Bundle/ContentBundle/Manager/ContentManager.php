@@ -24,7 +24,10 @@ class ContentManager
 	public function save(Content $content)
 	{
         $content->setTaxonomy($content->getTaxonomy());
-
+        $content->setReferenceContent($content);
+        if (empty($content->getThumbnail())) {
+            $content->setThumbnail('');
+        }
         $this->em->persist($content);
         $this->em->flush();
 
@@ -51,7 +54,9 @@ class ContentManager
 
 	public function update(Content $content)
 	{
-		dump($content); die;
+        if (empty($content->getThumbnail())) {
+            $content->setThumbnail('');
+        }
 		$this->em->persist($content);
 		$this->em->flush();
 	}

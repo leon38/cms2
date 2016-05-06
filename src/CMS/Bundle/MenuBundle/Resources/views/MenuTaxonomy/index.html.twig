@@ -33,7 +33,7 @@
                     <tbody>
                         {% for menu in entities %}
                         <tr role="row">
-                            <td>{{ menu.title }}</td>
+                            <td><a href="{{ path('admin_entry', {'slug': menu.slug}) }}">{{ menu.title }}</a></td>
                             <td>{{ menu.slug }}</td>
                             <td><div class="switch" data-on-label="{{ 'yes'|trans }}" data-off-label="{{ 'no'|trans }}"><input type="checkbox"{% if menu.status %}checked="checked"{% endif %} class="status" data-id="{{ menu.id }}" data-repo="MenuBundle:MenuTaxonomy" data-prop="status"></div></td>
                             <td class="text-right">

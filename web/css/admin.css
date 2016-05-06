@@ -6895,6 +6895,15 @@ star {
   font-weight: 300;
   font-size: 22px;
 }
+
+.card .header h4 {
+  font-size: 18px;
+}
+
+.card .header h4 a {
+  color: #333;
+}
+
 .card .category,
 .card .form-group label {
   font-size: 14px;

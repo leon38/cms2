@@ -21,32 +21,35 @@ class EntryController extends Controller
     /**
      * Lists all Entry entities.
      *
-     * @Route("/", name="admin_entry")
+     * @Route("/{slug}", name="admin_entry")
      * @Method("GET")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($slug)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('MenuBundle:Entry')->findAll();
+        $entities = $em->getRepository('MenuBundle:Entry')->findByMenuTaxonomy($slug);
 
-        return array(
-            'bright_style' => true,
+        return $this->render('MenuBundle:Entry:index.html.twig', 
+            array(
             'url' => 'admin_entry_delete',
             'entities' => $entities,
-        );
+            'slug' => $slug
+        ));
     }
     /**
      * Creates a new Entry entity.
      *
-     * @Route("/", name="admin_entry_create")
+     * @Route("/{slug}", name="admin_entry_create")
      * @Method("POST")
      * @Template("MenuBundle:Entry:new.html.twig")
      */
-    public function createAction(Request $request)
+    public function createAction($slug, Request $request)
     {
         $entity = new Entry();
+        $menu_taxonomy = $this->getDoctrine()->getRepository('MenuBundle:MenuTaxonomy')->findOneBy(array('slug' => $slug));
+        $entity->setMenuTaxonomy($menu_taxonomy);
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -59,13 +62,14 @@ class EntryController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_entry'));
+            return $this->redirect($this->generateUrl('admin_entry', array('slug' => $slug)));
         }
 
-        return array(
+        return $this->render('MenuBundle:Entry:new.html.twig', 
+            array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -78,11 +82,11 @@ class EntryController extends Controller
     private function createCreateForm(Entry $entity)
     {
         $form = $this->createForm(new EntryType(), $entity, array(
-            'action' => $this->generateUrl('admin_entry_create'),
+            'action' => $this->generateUrl('admin_entry_create', array('slug' => $entity->getMenuTaxonomy()->getSlug())),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-fill')));
 
         return $form;
     }
@@ -90,19 +94,23 @@ class EntryController extends Controller
     /**
      * Displays a form to create a new Entry entity.
      *
-     * @Route("/new", name="admin_entry_new")
+     * @Route("/new/{slug}", name="admin_entry_new")
      * @Method("GET")
      * @Template()
      */
-    public function newAction()
+    public function newAction($slug)
     {
         $entity = new Entry();
+        $menu_taxonomy = $this->getDoctrine()->getRepository('MenuBundle:MenuTaxonomy')->findOneBy(array('slug' => $slug));
+        $entity->setMenuTaxonomy($menu_taxonomy);
+
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('MenuBundle:Entry:new.html.twig', 
+            array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -124,10 +132,10 @@ class EntryController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('MenuBundle:Entry:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -179,13 +187,13 @@ class EntryController extends Controller
             }
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_entry'));
+            return $this->redirect($this->generateUrl('admin_entry', array('slug' => $entity->getMenuTaxonomy()->getSlug())));
         }
 
-        return array(
+        return $this->render('MenuBundle:Entry:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a Entry entity.
