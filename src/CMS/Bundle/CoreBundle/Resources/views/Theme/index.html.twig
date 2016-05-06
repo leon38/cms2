@@ -12,39 +12,40 @@
 		{% for theme in themes %}
 			<div class="col-md-4 col-xs-12">
 				<div class="card">
-					<div class="card-head">
-						<header>{{ theme['Theme name'] }}</header>
-						<div class="tools">
-							<div class="btn-group">
+					<div class="header">
+						<h4 class="title pull-left">{{ theme['Theme name'] }}</h4>
+						<div class="fixed-table-toolbar">
+							<div class="columns columns-right pull-right">
 								{% if activated != theme['dir'] %}
-									<a href="javascript:activateTheme('{{ theme['dir'] }}');" data-theme="{{ theme['dir'] }}" class="btn btn-icon-toggle theme" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.core.activate'|trans }}"><i class="md md-favorite-outline"></i></a>
+									<a href="javascript:activateTheme('{{ theme['dir'] }}');" data-theme="{{ theme['dir'] }}" class="btn btn-icon-toggle theme" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.core.activate'|trans }}"><i class="fa fa-heart-o"></i></a>
 								{% else %}
-									<a href="javascript:activateTheme('{{ theme['dir'] }}');" data-theme="{{ theme['dir'] }}" class="btn btn-icon-toggle theme" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.core.activated'|trans }}"><i class="md md-favorite"></i></a>
+									<a href="javascript:activateTheme('{{ theme['dir'] }}');" data-theme="{{ theme['dir'] }}" class="btn btn-icon-toggle theme" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.core.activated'|trans }}"><i class="fa fa-heart"></i></a>
 								{% endif %}
-								<a href="" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.content.preview'|trans }}"><i class="md md-explore"></i></a>
+								<a href="" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="{{ 'cms.content.preview'|trans }}"><i class="fa fa-eye"></i></a>
 								<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
 							</div>
 						</div>
 					</div>
-					<div class="card-body">
+					<div class="content">
 						<a data-toggle="modal" href='#modal-{{ loop.index }}'>
 							{% if asset_exists(theme['screenshot']) %}
-								<img src="{{ asset(theme['screenshot']) }}" alt="thumbnail theme">
+								<img src="{{ asset(theme['screenshot']) }}" alt="thumbnail theme" class="img-responsive">
 							{% endif %}
 						</a>
 					</div>
 				</div>
+				<div class="clearfix"></div>
 			</div>
 			<div class="modal fade" id="modal-{{ loop.index }}">
 				<div class="modal-dialog modal-large">
 					<div class="modal-content modal-square">
 						<div class="modal-header">
-							<a href="javascript:"><i class="fa fa-angle-left"></i></a> 
-							<a href="javascript:"><i class="fa fa-angle-right"></i></a> 
+							<a href="javascript:"><i class="fa fa-angle-left"></i></a>
+							<a href="javascript:"><i class="fa fa-angle-right"></i></a>
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						</div>
 						<div class="modal-body">
-							
+
 							<div class="clearfix"></div>
 							<div class="row">
 								<div class="col-md-7">

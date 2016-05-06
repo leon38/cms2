@@ -38,3 +38,6 @@ login_check:
 
 logout:
     path: /admin/logout
+
+fos_js_routing:
+     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

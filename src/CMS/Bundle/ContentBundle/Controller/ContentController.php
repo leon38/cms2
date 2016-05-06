@@ -44,13 +44,13 @@ class ContentController extends Controller
 
         $option = $em->getRepository('CoreBundle:Option')->findOneBy(array('option_name' => 'date_format'));
 
-        return array(
+        return $this->render('ContentBundle:Content:index.html.twig',
+            array(
             'entities' => $entities,
-            'bright_style' => true,
             'url' => 'admin_content_delete',
             'languages' => $languages,
             'date_format' => $option->getOptionValue()
-        );
+        ));
     }
     /**
      * Creates a new Content entity.
@@ -198,11 +198,12 @@ class ContentController extends Controller
 
         $form = $this->createCreateForm($entity, $fields, $metas);
         //$metas = ExtraMetas::loadMetas($this);
-        return array(
+        return $this->render('ContentBundle:Content:new.html.twig',
+         array(
             'entity'          => $entity,
             'contenttaxonomy' => $contenttaxonomy,
             'form'            => $form->createView(),
-        );
+        ));
     }
 
     /**

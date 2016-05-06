@@ -28,7 +28,6 @@ class ThemeController extends Controller
 	 * Retourne la liste des themes
 	 *
 	 * @Route("/themes", name="admin_themes")
-	 * @Template()
 	 */
 	public function indexAction()
 	{
@@ -39,7 +38,7 @@ class ThemeController extends Controller
 		$activated = $this->get('cms.core.option_manager')->get('theme', '');
 
 
-		return array('themes' => $themes, 'dir' => $dir, 'activated' => $activated);
+		return $this->render('CoreBundle:Theme:index.html.twig', array('themes' => $themes, 'dir' => $dir, 'activated' => $activated));
 	}
 
 

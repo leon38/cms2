@@ -16,7 +16,8 @@
         'bundles/core/css/bootstrap.min.css'
 		'bundles/core/css/pe-icon-7-stroke.css'
         'bundles/core/css/light-bootstrap-dashboard.css'
-		'bundles/core/css/dropzone.css'
+        'bundles/core/css/dropzone.css'
+		'bundles/core/css/summernote.css'
 	 		filter='cssrewrite' output='css/admin.css' %}
 		<link rel="stylesheet" type="text/css" href="{{ asset_url }}">
 	{% endstylesheets %}
@@ -42,7 +43,7 @@
                     <img src="{{ asset(app.user.webPath) }}" alt="">
                 </div>
                 <div class="info">
-                    <a data-toggle="collapse" href="#collapseExample" class="collapsed">
+                    <a data-toggle="collapse" href="#collapseExample" class="collapsed" aria-expanded="false">
                         {{ app.user }}
                         <b class="caret"></b>
                     </a>
@@ -64,12 +65,13 @@
                 <li>
                     <a href="#administration" data-toggle="collapse" aria-expanded="true">
                         <i class="pe-7s-tools"></i>
-                        <p>Administration</p>
+                        <p>Administration <b class="caret"></b></p>
                     </a>
                     <div class="collapse" id="administration">
                         <ul class="nav">
                             <li><a href="{{ path('admin_menutaxonomy') }}">Menus</a></li>
                             <li><a href="{{ path('admin_users') }}">Utilisateurs</a></li>
+                            <li><a href="{{ path('admin_themes') }}">Thèmes</a></li>
                         </ul>
                     </div>
                 </li>
@@ -197,6 +199,8 @@
 
 
     <!--   Core JS Files   -->
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     {% javascripts filter="?jsqueeze" output='js/scms.js'
         '@CoreBundle/Resources/public/js/jquery-ui.min.js'
@@ -208,7 +212,8 @@
 		'@CoreBundle/Resources/public/js/light-bootstrap-dashboard.js'
 		'@CoreBundle/Resources/public/js/chartist.min.js'
         '@CoreBundle/Resources/public/js/summernote.min.js'
-		'@CoreBundle/Resources/public/js/dropzone.js'
+        '@CoreBundle/Resources/public/js/dropzone.js'
+		'@CoreBundle/Resources/public/js/app.js'
 	%}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}

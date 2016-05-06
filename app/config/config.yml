@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: doctrine_extensions.yml }
-    
+
 parameters:
     locale: fr
     db.table_prefix: cms_
@@ -102,3 +102,6 @@ core:
 sensio_framework_extra:
     view:   { annotations: false }
     router: { annotations: true }
+
+fos_js_routing:
+     routes_to_expose: [ (.*) ]

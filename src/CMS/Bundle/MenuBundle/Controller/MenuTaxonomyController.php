@@ -166,14 +166,18 @@ class MenuTaxonomyController extends Controller
             throw $this->createNotFoundException('Unable to find MenuTaxonomy entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_menutaxonomy_edit', array('id' => $id)));
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'cms.menu.menu_updated.success'
+            );
+
+            return $this->redirect($this->generateUrl('admin_menutaxonomy'));
         }
 
         return $this->render('MenuBundle:MenuTaxonomy:edit.html.twig', array(

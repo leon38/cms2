@@ -1,49 +1,25 @@
 {% extends "::admin/base_admin.html.twig" %}
 
 {% block body %}
-	<div class="section-header">
-		<ol class="breadcrumb">
-			<li><a href="">Contenu</a></li>
-			<li class="active">Création</li>
-		</ol>
-	</div>
-
-	<div class="section-body contain-lg">
-		{% for flashMessage in app.session.flashbag.get('error') %}
-		    <div class="alert alert-callout alert-danger" role="alert">
-		        {{ flashMessage|trans }}
-		    </div>
-		{% endfor %}
-		{% for flashMessage in app.session.flashbag.get('success') %}
-		    <div class="alert alert-callout alert-success" role="alert">{{ flashMessage|trans }}</div>
-		{% endfor %}
-		<div class="row">
-			<div class="col-md-12">
-				{{ form_start(form) }}
+	{{ form_start(form) }}
 				<div class="col-md-3 pull-right">
 					<div class="card">
-						<div class="card-head">
-							<header>Langues</header>
-							<div class="tools">
-								<div class="btn-group">
-									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
-								</div>
-							</div>
+						<div class="header">
+							<h4 class="title pull-left">Langues</h4>
+							<a data-toggle="collapse" href="#contentLanguage" class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<div class="clearfix"></div>
 						</div>
-						<div class="card-body">
+						<div id="contentLanguage" class="content">
 							{{ form_row(form.language) }}
 						</div>
 					</div>
 					<div class="card">
-						<div class="card-head">
-							<header>Infos</header>
-							<div class="tools">
-								<div class="btn-group">
-									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
-								</div>
-							</div>
+						<div class="header">
+							<h4 class="title pull-left">Infos</h4>
+							<a class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<div class="clearfix"></div>
 						</div>
-						<div class="card-body">
+						<div class="content">
 							<ul class="list-unstyled">
 								<li>Author: {{ app.user }}</li>
 								<li>Date: {{ 'now'|date('d/m/Y H:i:s') }}</li>
@@ -52,31 +28,25 @@
 						</div>
 					</div>
 					<div class="card">
-						<div class="card-head">
-							<header>Catégories</header>
-							<div class="tools">
-								<div class="btn-group">
-									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
-								</div>
-							</div>
+						<div class="header">
+							<h4 class="title pull-left">Catégories</h4>
+							<a class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<div class="clearfix"></div>
 						</div>
-						<div class="card-body">{{ form_row(form.categories) }}</div>
+						<div class="content">{{ form_row(form.categories) }}</div>
 					</div>
 					<div class="card">
-						<div class="card-head">
-							<header>Image</header>
-							<div class="tools">
-								<div class="btn-group">
-									<a class="btn btn-icon-toggle btn-collapse"><i class="fa fa-angle-down"></i></a>
-								</div>
-							</div>
+						<div class="header">
+							<h4 class="title pull-left">Image</h4>
+							<a class="btn-icon-toggle btn-collapse pull-right"><i class="fa fa-angle-down"></i></a>
+							<div class="clearfix"></div>
 						</div>
-						<div class="card-body">{{ form_row(form.thumbnail) }}</div>
+						<div class="content">{{ form_row(form.thumbnail) }}</div>
 					</div>
 				</div>
 				<div class="col-md-9">
 					<div class="card">
-						<div class="card-body">{{ form_rest(form) }}</div>
+						<div class="content">{{ form_rest(form) }} <div class="clearfix"></div></div>
 					</div>
 				</div>
 				{{ form_end(form) }}

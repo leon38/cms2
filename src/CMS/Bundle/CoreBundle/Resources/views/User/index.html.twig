@@ -76,8 +76,7 @@
 $('#modal-delete').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget);
 	  var id = button.data('id');
-	  var path = "{{ path(url, {'id': 'PLACEHOLDER'}) }}";
-	  path = path.replace("PLACEHOLDER", id);
+	  var path = Routing.generate('{{ url }}', {id: id});
 	  var modal = $(this);
 	  modal.find('.modal-footer > a.btn-danger').attr('href', path);
 })

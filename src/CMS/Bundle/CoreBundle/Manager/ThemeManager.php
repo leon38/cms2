@@ -48,7 +48,12 @@ class ThemeManager {
 			if ($fs->exists($root_dir.'/../templates/'.$info_theme['dir'].'/style.css')) {
 				$fs->symlink($root_dir.'/../templates/'.$info_theme['dir'], $root_dir.'/../web/templates/'.$info_theme['dir'], true);
 			}
-			$info_theme['screenshot'] = '/themes/'.$info_theme['dir'].'/'.$screenshot['screenshot']['name'];
+
+			if (isset($screenshot['screenshot']))
+				$info_theme['screenshot'] = '/templates/'.$info_theme['dir'].'/'.$screenshot['screenshot']['name'];
+			else
+				$info_theme['screenshot'] = '';
+
 			$info_theme = array_merge($info_theme, self::_getInfoTheme($theme_file->getContents()));
 			$themes[] = $info_theme;
 
