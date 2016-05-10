@@ -70,17 +70,17 @@ class ContentController extends Controller
         $data = $request->request->get('tc_bundle_contentbundle_content');
         $taxonomy = $data['taxonomy'];
         $taxonomy = $this->getDoctrine()->getRepository('ContentBundle:ContentTaxonomy')->find($taxonomy);
-        $entity->setTaxonomy($taxonomy);
+        $this->content->setTaxonomy($taxonomy);
         $metas = ExtraMetas::loadMetas($this);
 
-        $form = $this->createCreateForm($entity, $taxonomy->getFields(), $metas);
+        $form = $this->createCreateForm($this->content, $taxonomy->getFields(), $metas);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $current_user = $this->get('security.context')->getToken()->getUser();
-            $entity->setAuthor($current_user);
-            $this->get('cms.content.content_manager')->save($entity);
+            $this->content->setAuthor($current_user);
+            $this->get('cms.content.content_manager')->save($this->content);
 
             $this->get('session')->getFlashBag()->add(
                 'success',
@@ -208,7 +208,7 @@ class ContentController extends Controller
         //$metas = ExtraMetas::loadMetas($this);
         return $this->render('ContentBundle:Content:new.html.twig',
          array(
-            'entity'          => $entity,
+            'entity'          => $this->content,
             'contenttaxonomy' => $contenttaxonomy,
             'form'            => $form->createView(),
         ));

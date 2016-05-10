@@ -1,3 +1,13 @@
+rest_api:
+    resource: "@RestAPIBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+contents:
+    type:   rest
+    resource: CMS\Bundle\RestAPIBundle\Controller\ContentsController
+    prefix: /rest
+
 widget:
     resource: "@WidgetBundle/Controller/"
     type:     annotation
@@ -41,3 +51,4 @@ logout:
 
 fos_js_routing:
      resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
