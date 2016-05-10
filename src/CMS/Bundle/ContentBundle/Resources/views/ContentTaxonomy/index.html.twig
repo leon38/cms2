@@ -1,26 +1,27 @@
 {% extends "::admin/base_admin.html.twig" %}
 
 {% block body %}
-    <div class="section-header">
-        <h2 class="text-primary pull-left">Type de contenu</h2>
-        <a href="{{ path('admin_content-taxonomy_new') }}" class="pull-right btn ink-reaction btn-floating-action btn-primary"><i class="fa fa-plus"></i></a>
-        <div class="clearfix"></div>
+{% for flashMessage in app.session.flashbag.get('error') %}
+    <div class="alert alert-callout alert-danger" role="alert">
+        {{ flashMessage|trans }}
     </div>
-
-    <div class="section-body">
-        <p class="lead"></p>
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-callout alert-danger" role="alert">
-                {{ flashMessage|trans }}
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <div class="alert alert-callout alert-success" role="alert">
+        {{ flashMessage|trans }}
+    </div>
+{% endfor %}
+<div id="main-card" class="card">
+    <div class="header">
+        <h4 class="title pull-left">{{ 'cms.content.content' |trans }}</h4>
+        <div class="fixed-table-toolbar">
+            <div class="columns columns-right pull-right">
+                <a href="{{ path('admin_content-taxonomy_new') }}" class="btn btn-default"><i class="fa fa-plus"></i></a>
             </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="alert alert-callout alert-success" role="alert">
-                {{ flashMessage|trans }}
-            </div>
-        {% endfor %}
-
-        <table id="data_table" class="table table-striped table-hover" role="grid" aria-describedby="data_table" data-swftools="{{ asset('bundles/core/swf/copy_csv_xls_pdf.swf') }}">
+        </div>
+    </div>
+    <div class="content">
+        <table id="data_table" class="table table-striped table-hover" role="grid" aria-describedby="data_table">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -36,8 +37,8 @@
                     <td>{{ entity.title }}</td>
                     <td>{{ entity.alias }}</td>
                     <td>
-                        <a href="{{ path('admin_content-taxonomy_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
-                         <a data-toggle="modal" href='#modal-delete' class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ entity.id }}">
+                        <a class="btn btn-simple btn-xs btn-infos" href="{{ path('admin_content-taxonomy_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
+                         <a data-toggle="modal" href='#modal-delete' class="btn btn-simple btn-xs btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ entity.id }}">
                             <i class="fa fa-trash-o"></i>
                         </a>
                     </td>
@@ -45,6 +46,7 @@
             {% endfor %}
             </tbody>
         </table>
+    </div>
     </div>
 
     <div class="modal fade" id="modal-delete" aria-labelledby="simpleModalLabel" aria-hidden="true">

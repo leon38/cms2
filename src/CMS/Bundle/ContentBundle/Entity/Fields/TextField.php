@@ -68,6 +68,7 @@ class TextField extends Fields
         $this->params = $params;
         return $this;
     }
+    
     // faire une classe avec les display des differents types: checkbox, select, input etc.
     public function getOptions()
     {
@@ -77,4 +78,11 @@ class TextField extends Fields
 
         return $options;
     }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    
 }

@@ -4,6 +4,7 @@ namespace CMS\Bundle\ContentBundle\Manager;
 
 use CMS\ Bundle\ContentBundle\Entity\Content;
 use Doctrine\ORM\EntityManager;
+use CMS\Bundle\ContentBundle\Entity\FieldValue;
 
 class ContentManager
 {
@@ -28,14 +29,37 @@ class ContentManager
         if (empty($content->getThumbnail())) {
             $content->setThumbnail('');
         }
+
         $this->em->persist($content);
         $this->em->flush();
 
+        //dump($content->getFieldvalues()->isEmpty()); die;
+        
         if (!empty($content->getFieldValuesTemp())) {
-            foreach($content->getFieldValuesTemp() as $fieldvalue) {
+            foreach($content->getFieldValuesTemp() as $fieldname => $value) {
+                foreach($content->getTaxonomy()->getFields() as $field) {
+                    if ($field->getName() == $fieldname) {
+                        $update = false;
+                        if (is_object($content->getFieldvalues()) && !$content->getFieldvalues()->isEmpty()) {
+                            foreach($content->getFieldvalues() as $fieldvalue) {
+                                if ($fieldvalue->getField()->getId() == $field->getId()) {
+                                    $fieldvalue->setValue($value);
+                                    $update = true;
+                                }
+                            }
+                        }
+                        if (!$update) {
+                            $fieldvalue = new FieldValue();
+                            $fieldvalue->setField($field);
+                            $fieldvalue->setValue($value);
+                            $fieldvalue->setContent($content);
+                        }
+                    }
+                }
+
                 $fieldvalue->setContent($content);
-                $content->addFieldvalue($fieldvalue);
                 $this->em->persist($fieldvalue);
+                $this->em->flush();
             }
         }
 
@@ -44,6 +68,7 @@ class ContentManager
                 $metavalue->setContent($content);
                 $content->addMetavalue($metavalue);
                 $this->em->persist($metavalue);
+                $this->em->flush();
             }
         }
         $this->em->persist($content);

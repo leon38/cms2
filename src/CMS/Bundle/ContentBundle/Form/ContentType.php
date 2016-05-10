@@ -21,7 +21,7 @@ class ContentType extends AbstractType
     {
         $builder
             ->add('title', null, array('label' => 'cms.content.title'))
-            ->add('url', 'text', array('label' => 'cms.content.url', 'attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_content_title')))
+            ->add('url', 'text', array('label' => 'cms.content.alias', 'attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_content_title')))
             ->add('description', null, array('label' => 'cms.content.description','attr' => array('class' => 'summernote')))
             ->add('published', 'choice', array(
                 'label' => 'cms.content.status.status',
@@ -46,30 +46,70 @@ class ContentType extends AbstractType
                 'expanded' => true,
             ))
             //->add('author', 'entity_hidden', array('class' => 'CMS\Bundle\CoreBundle\Entity\User'))
-            ->add('thumbnail', 'dropzone', array('attr' => array('class' => 'dropzone col-md-12', 'data-url' => '/admin/content/upload-thumbnail/'.$options['content_id'], 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'class_thumb' => 'row'));
+            ->add('thumbnail', 'dropzone', array('attr' => array('class' => 'dropzone col-md-12', 'data-url' => '/admin/content/upload-thumbnail/'.$options['content_id'], 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'class_thumb' => 'row'))
+            ->add('fieldValuesTemp', null, array('compound' => true, 'label' => ' '))
         ;
 
         $fields = $options['fields'];
         $fieldvalues = $options['fieldvalues'];
+
+        // edit
         if ( !empty($fieldvalues) ) {
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function(FormEvent $event) use ($fieldvalues) {
+                function(FormEvent $event) use ($fieldvalues, $fields) {
                     $form = $event->getForm();
+                    $fieldvaluesTemp = $form->get('fieldValuesTemp');
+                    $names = array();
                     foreach($fieldvalues as $fieldvalue) {
                         $field = $fieldvalue->getField();
-                        $form->add( $field->getName(), strtolower( $field->getField()->getTypeField() ), array( 'label' => $field->getTitle(), 'data' => $fieldvalue->getValue(), 'required' => false ) );
+                        $names[] = $field->getName();
+                        $params = $field->getField()->getParams();
+                        $required = (isset($params['required'])) ? $params['required'] : false;
+                        $input = (isset($params['format'])) ? $params['format'] : '';
+                        $options = array( 'label' => $field->getTitle(), 'data' => $fieldvalue->getValue(), 'required' => $required);
+                        $type = $field->getField()->getTypeField();
+                        if (isset($params['format'])) {
+                            $options['attr'] = array('class' => 'datetimepicker');
+                            $options['row_attr'] = array('class' => 'row col-md-12');
+                            $type = 'text';
+                        }
+
+                        $fieldvaluesTemp->add( $field->getName(), strtolower( $type ), $options );
                     }
+                    $diff = array_diff(array_keys($fields), $names);
+                    foreach($diff as $name) {
+                        $field = $fields[$name];
+                        $params = $field->getField()->getParams();
+                        $required = (isset($params['required'])) ? $params['required'] : false;
+                        $options = array( 'label' => $field->getTitle(), 'required' => $required);
+                        $type = $field->getField()->getTypeField();
+                        if (isset($params['format'])) {
+                            $options['attr'] = array('class' => 'datetimepicker') ;
+                            $type = 'text';
+                        }
+                        $fieldvaluesTemp->add($field->getName(), strtolower( $type ), $options);
+                    }
+
 
                 }
             );
-        } else {
+        } else { // new
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function(FormEvent $event) use ($fields) {
                     $form = $event->getForm();
+                    $fieldvaluesTemp = $form->get('fieldValuesTemp');
                     foreach($fields as $field) {
-                        $form->add($field->getName(), strtolower( $field->getField()->getTypeField() ), array('label' => $field->getTitle(), 'required' => false));
+                        $params = $field->getField()->getParams();
+                        $required = (isset($params['required'])) ? $params['required'] : false;
+                        $options = array( 'label' => $field->getTitle(), 'required' => $required);
+                        $type = $field->getField()->getTypeField();
+                        if (isset($params['format'])) {
+                            $options['attr'] = array('class' => 'datetimepicker') ;
+                            $type = 'text';
+                        }
+                        $fieldvaluesTemp->add($field->getName(), strtolower( $type ), $options);
                     }
 
                 }
@@ -84,7 +124,6 @@ class ContentType extends AbstractType
                 FormEvents::PRE_SET_DATA,
                 function(FormEvent $event) use ($metavalues) {
                     $form = $event->getForm();
-                    //dump($metavalues); die;
                     foreach($metavalues as $key => $metas_temp) {
                         foreach($metas_temp as $meta_meta) {
                             if ($key == 'metavalue') {

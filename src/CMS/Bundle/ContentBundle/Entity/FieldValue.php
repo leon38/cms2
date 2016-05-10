@@ -111,6 +111,6 @@ class FieldValue
         return $this->field;
     }
     public function __toString() {
-        return $this->field->getField()->display($this->value);
+        return (string)$this->value;
     }
 }

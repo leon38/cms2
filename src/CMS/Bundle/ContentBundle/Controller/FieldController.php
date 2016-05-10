@@ -50,12 +50,12 @@ class FieldController extends Controller
         $entities = $this->getDoctrine()->getRepository('ContentBundle:Field')->findAll();
         $session = $this->get('session');
         $session->set('active', 'Contenus');
-        return array(
+        return $this->render('ContentBundle:Field:index.html.twig', 
+            array(
             'entities' => $entities,
             'fieldstype' => $fieldslist,
-            'bright_style' => true,
             'url' => 'admin_field_delete'
-            );
+            ));
     }
 
     /**
@@ -92,7 +92,7 @@ class FieldController extends Controller
         $fieldsListType = $this->_getFieldsType();
         $fieldsDirectory = $this->_getFieldPath();
         $path = $this->_getEntityPath();
-        $html = '<select name="fieldtype" id="fieldtype">';
+        $html = '<select name="fieldtype" id="fieldtype" class="form-control">';
         foreach ($fieldsListType as $key => $fieldtype) {
             $fieldclass = $fieldsDirectory.$fieldtype;
             $field = new $fieldclass;
@@ -139,7 +139,6 @@ class FieldController extends Controller
         if ($fieldtype == "") {
             $fieldtype = $request->query->get('fieldtype');
         }
-        // var_dump($fieldtype); die;
 
         if ($fieldtype != "") {
             $fieldPath = $this->_getFieldPath();
@@ -156,10 +155,8 @@ class FieldController extends Controller
                 $fieldPath = $this->_getFieldPath();
                 $fieldclass = $fieldPath.$fieldtype;
                 $fieldValue = new $fieldclass;
-                $fieldsOptions = $request->request->get('options');
-                $fieldValue->setParams($fieldsOptions);
-                $created = $this->getDateTimeObject($field->getCreated());
-                $field->setCreated($created);
+                $params = $form['params']->getData();
+                $fieldValue->setParams($params);
                 $field->setField($fieldValue);
                 $field->setType($fieldtype);
                 foreach ($field->getContentTaxonomy() as $key => $type) {
@@ -171,7 +168,8 @@ class FieldController extends Controller
                 return $this->redirect($this->generateUrl('admin_field'));
             }
         }
-        return array('form' => $form->createView(), 'fieldsOptions' => $fieldsOptions, 'field' => $field, 'fieldtype' => $fieldtype);
+        return $this->render('ContentBundle:Field:new.html.twig',
+            array('form' => $form->createView(), 'fieldsOptions' => $fieldsOptions, 'field' => $field, 'fieldtype' => $fieldtype));
     }
     /**
      * @Route("/fields/edit/{id}", name="admin_field_edit")
@@ -180,13 +178,15 @@ class FieldController extends Controller
     public function editAction(Request $request, $id)
     {
         $field = $this->getDoctrine()->getRepository('ContentBundle:Field')->find($id);
-        $field = $this->getStringDate($field);
         $fieldsOptions = null;
-        if (is_object($field->getField())) {
-            $fieldsOptions = $field->getField()->getOptions();
+        $fieldtype = get_class($field->getField());
+        $fieldclass = '';
+        if ($fieldtype != "") {
+            $fieldclass = new $fieldtype;
+            $fieldclass->setParams($field->getField()->getParams());
         }
-        $fieldtype = $field->getType();
-        $form = $this->createForm(new FieldType(), $field);
+        
+        $form = $this->createEditForm($field, $fieldtype, $fieldclass);
 
         if ($request->isMethod('POST')) {
             $old_field = $field;
@@ -194,11 +194,11 @@ class FieldController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $options = $request->request->get('options');
-                $created = $this->getDateTimeObject($field->getCreated());
-                $field->setCreated($created);
+                $params = $form['params']->getData();
+                $field->setParams($params);
                 $fieldClass = $field->getField();
                 if (is_object($fieldClass)) {
-                    $fieldClass->setParams($options);
+                    $fieldClass->setParams($params);
                 }
                 $field->setField(null);
                 foreach ($field->getContentType() as $key => $type) {
@@ -212,8 +212,14 @@ class FieldController extends Controller
                 return $this->redirect($this->generateUrl('admin_field'));
             }
         }
-        return array('edit_form' => $form->createView(), 'fieldsOptions' => $fieldsOptions, 'field' => $field, 'fieldtype' => $fieldtype);
+        return $this->render('ContentBundle:Field:edit.html.twig',
+            array(
+                'edit_form' => $form->createView(), 
+                'fieldsOptions' => $fieldsOptions, 
+                'field' => $field, 
+                'fieldtype' => $fieldtype));
     }
+
     private function getDateTimeObject($date)
     {
         //input format : M/d/Y
@@ -229,6 +235,7 @@ class FieldController extends Controller
         }
         return $date;
     }
+
     private function getStringDate($content)
     {
         $datetime = $content->getCreated();
@@ -236,6 +243,7 @@ class FieldController extends Controller
         $content->setCreated($datetime);
         return $content;
     }
+
     private function getCopyItem($field)
     {
         $copy = new Field();
@@ -245,6 +253,7 @@ class FieldController extends Controller
         $copy->setType($field->getType());
         return $copy;
     }
+
     /**
      * @Route("/fields/copy/{id}", name="fields_copy")
      * @Template("CMSContentBundle:ContentManager:list.html.twig")
@@ -258,6 +267,7 @@ class FieldController extends Controller
            $em->flush();
         return $this->redirect($this->generateUrl('admin_field'));
     }
+
     /**
      * @Route("/fields/published/{id}", name="fields_published")
      * @Template("CMSContentBundle:ContentManager:list.html.twig")
@@ -274,6 +284,7 @@ class FieldController extends Controller
            $em->flush();
         return $this->redirect($this->generateUrl('admin_field'));
     }
+
     /**
      * @Route("/field/delete/{id}", name="admin_field_delete")
      * @Template("CMSContentBundle:ContentManager:list.html.twig")
@@ -305,7 +316,7 @@ class FieldController extends Controller
             'fieldtype'  => $fieldtype
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -317,14 +328,15 @@ class FieldController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Field $entity, $field_type)
+    private function createEditForm(Field $entity, $fieldtype, $fieldclass)
     {
         $form = $this->createForm(new FieldType(), $entity, array(
             'action' => $this->generateUrl('admin_field_edit', array('id' => $entity->getId())),
-            'field_type' => $field_type
+            'fieldtype' => $fieldtype,
+            'fieldclass' => $fieldclass
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }

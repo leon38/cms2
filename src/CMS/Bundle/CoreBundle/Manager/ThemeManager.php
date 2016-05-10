@@ -22,7 +22,7 @@ class ThemeManager {
 		$finder = new Finder();
 
 		// On récupère tous les dossiers du chemin donné dans config.yml
-		$dirs = $finder->directories()->in($dir_theme);
+		$dirs = $finder->depth('<=0')->directories()->in($dir_theme);
 		$fs = new Filesystem();
 		// On parcourt tous les dossiers
 		foreach($dirs as $dir) {

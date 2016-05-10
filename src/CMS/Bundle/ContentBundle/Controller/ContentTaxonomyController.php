@@ -31,11 +31,11 @@ class ContentTaxonomyController extends Controller
 
         $entities = $em->getRepository('ContentBundle:ContentTaxonomy')->findAll();
 
-        return array(
+        return $this->render('ContentBundle:ContentTaxonomy:index.html.twig',
+            array(
             'entities' => $entities,
-            'bright_style' => true,
             'url' => 'admin_content-taxonomy_delete'
-        );
+        ));
     }
     /**
      * Creates a new ContentTaxonomy entity.
@@ -58,10 +58,11 @@ class ContentTaxonomyController extends Controller
             return $this->redirect($this->generateUrl('admin_content-taxonomy'));
         }
 
-        return array(
+        return $this->render('ContentBundle:ContentTaxonomy:new.html.twig',
+        array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -78,7 +79,7 @@ class ContentTaxonomyController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -95,10 +96,11 @@ class ContentTaxonomyController extends Controller
         $entity = new ContentTaxonomy();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('ContentBundle:ContentTaxonomy:new.html.twig',
+        array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -120,10 +122,11 @@ class ContentTaxonomyController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('ContentBundle:ContentTaxonomy:edit.html.twig',
+        array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -140,7 +143,7 @@ class ContentTaxonomyController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -170,10 +173,11 @@ class ContentTaxonomyController extends Controller
             return $this->redirect($this->generateUrl('admin_content-taxonomy'));
         }
 
-        return array(
+        return $this->render('ContentBundle:ContentTaxonomy:edit.html.twig',
+        array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
     /**
      * Deletes a ContentTaxonomy entity.

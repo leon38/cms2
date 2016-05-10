@@ -206,9 +206,9 @@ class Content
     public function removeUpload()
     {
         $file = $this->getAbsolutePath();
-        if ($file) {
+        /*if ($file) {
             unlink($file);
-        }
+        }*/
     }
 
     /**
@@ -625,44 +625,46 @@ class Content
         }
     }
 
-    public function __set($name, $value)
-    {
-        foreach($this->getTaxonomy()->getFields() as $field) {
-            if ($field->getName() == $name) {
-                $update = false;
-                foreach($this->fieldvalues as $fieldvalue) {
-                    if ($fieldvalue->getField()->getId() == $field->getId()) {
-                        $fieldvalue->setValue($value);
-                        $update = true;
-                    }
-                }
-                if (!$update) {
-                    $fieldvalue = new FieldValue();
-                    $fieldvalue->setField($field);
-                    $fieldvalue->setValue($value);
-                    $fieldvalue->setContent($this);
-                }
-            }
-        }
+    // public function __set($name, $value)
+    // {
+    //     foreach($this->getTaxonomy()->getFields() as $field) {
+    //         if ($field->getName() == $name) {
+    //             $update = false;
+    //             if (is_array($this->fieldvalues)) {
+    //                 foreach($this->fieldvalues as $fieldvalue) {
+    //                     if ($fieldvalue->getField()->getId() == $field->getId()) {
+    //                         $fieldvalue->setValue($value);
+    //                         $update = true;
+    //                     }
+    //                 }
+    //             }
+    //             if (!$update) {
+    //                 $fieldvalue = new FieldValue();
+    //                 $fieldvalue->setField($field);
+    //                 $fieldvalue->setValue($value);
+    //                 $fieldvalue->setContent($this);
+    //             }
+    //         }
+    //     }
 
-        foreach($this->getTaxonomy()->getMetas() as $meta) {
-            if ($meta->getName() == $name) {
-                $update = false;
-                foreach($this->metavalues as $metavalue) {
-                    if ($metavalue->getMeta()->getId() == $meta->getId()) {
-                        $metavalue->setValue($value);
-                        $update = true;
-                    }
-                }
-                if (!$update) {
-                    $metavalue = new MetaValueContent();
-                    $metavalue->setMeta($meta);
-                    $metavalue->setValue($value);
-                    $metavalue->setContent($this);
-                }
-            }
-        }
-    }
+    //     foreach($this->getTaxonomy()->getMetas() as $meta) {
+    //         if ($meta->getName() == $name) {
+    //             $update = false;
+    //             foreach($this->metavalues as $metavalue) {
+    //                 if ($metavalue->getMeta()->getId() == $meta->getId()) {
+    //                     $metavalue->setValue($value);
+    //                     $update = true;
+    //                 }
+    //             }
+    //             if (!$update) {
+    //                 $metavalue = new MetaValueContent();
+    //                 $metavalue->setMeta($meta);
+    //                 $metavalue->setValue($value);
+    //                 $metavalue->setContent($this);
+    //             }
+    //         }
+    //     }
+    // }
 
 
     public function getMetaValuesTemp()
@@ -674,6 +676,11 @@ class Content
     public function getFieldValuesTemp()
     {
         return $this->fieldValuesTemp;
+    }
+
+    public function setFieldValuesTemp($fieldValuesTemp)
+    {
+        $this->fieldValuesTemp = $fieldValuesTemp;
     }
 
     /**

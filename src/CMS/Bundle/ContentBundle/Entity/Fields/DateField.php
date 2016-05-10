@@ -80,11 +80,15 @@ class DateField extends Fields
     // faire une classe avec les display des differents types: checkbox, select, input etc.
     public function getOptions()
     {
-        $options['Size'] = array('type' => 'text' ,'name' => 'size', 'value' => $this->getParamsValue($this->params, 'size'));
-        //$options['Default Value'] = array('type' => 'text', 'name' => 'defaultvalue', 'value' => $this->getParamsValue($this->params, 'size'));
+        $options['Format de la date'] = array('type' => 'text' ,'name' => 'format', 'value' => $this->getParamsValue($this->params, 'format'));
         $options['Required'] = array('type' => 'choice', 'name' => 'required','choices' => array(0 => 'No', 1 => 'Yes'), 'value' => $this->getParamsValue($this->params, 'required'));
-        $options['Format de la date'] = array('type' => 'text' ,'name' => 'size', 'value' => $this->getParamsValue($this->params, 'format'));
+        
 
         return $options;
+    }
+
+    public function getParams()
+    {
+        return $this->params;
     }
 }

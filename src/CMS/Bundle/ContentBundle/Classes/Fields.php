@@ -7,14 +7,14 @@ class Fields
     {
         switch ($type) {
             case 'default':
-                if (array_key_exists($name, $params)) {
+                if (is_array($params) && array_key_exists($name, $params)) {
                     return $params[$name];
                 } else {
                     return '';
                 }
                 break;
             case 'select':
-                if (array_key_exists($name, $params)) {
+                if (is_array($params) && array_key_exists($name, $params)) {
                     if($option == $params[$name])
                         return ' selected="selected" ';
                     else
@@ -24,5 +24,15 @@ class Fields
                 }
                 break;
         }
+    }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
+
+    public function setParams($params)
+    {
+        $this->params = $params;
     }
 }

@@ -21,30 +21,32 @@ class FieldType extends AbstractType
         $fieldtype = $options['fieldtype'];
         $builder
             ->add('title')
-            ->add('name')
+            ->add('name', null, array('attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_field_title')))
             ->add('published', 'choice', array(
                 'choices'=> array('1'=>'Oui', '0'=>'Non'),
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => false,
                 'label'=>'Published'
             ))
             ->add('contentTaxonomy')
             ->add('fieldtype', 'hidden', array('data' => $fieldtype))
+            ->add('params', null, array('compound' => true))
         ;
 
-        
+
         if (is_object($fieldclass)) {
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function(FormEvent $event) use ($fieldclass) {
                     $form = $event->getForm();
+                    $params = $form->get('params');
                     foreach($fieldclass->getOptions() as $label => $infos) {
                         switch($infos['type']) {
                             case 'choice':
-                                $form->add($infos['name'], $infos['type'], array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
+                                $params->add($infos['name'], $infos['type'], array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
                                 break;
                             default:
-                                $form->add($infos['name'], $infos['type'], array('label' => $label, 'data' => $infos['value']));
+                                $params->add($infos['name'], $infos['type'], array('label' => $label, 'data' => $infos['value']));
                                 break;
                         }
                     }

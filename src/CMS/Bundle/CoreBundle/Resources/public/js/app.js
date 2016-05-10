@@ -21,6 +21,34 @@ $(document).ready(function() {
         height: 300,
     });
 
+    moment.locale("fr");
+
+    $('.datetimepicker').datetimepicker({
+            format: 'DD/MM/YYYY',
+            icons: {
+                time: "fa fa-clock-o",
+                date: "fa fa-calendar",
+                up: "fa fa-chevron-up",
+                down: "fa fa-chevron-down",
+                previous: 'fa fa-chevron-left',
+                next: 'fa fa-chevron-right',
+                today: 'fa fa-screenshot',
+                clear: 'fa fa-trash',
+                close: 'fa fa-remove'
+            }
+     });
+
+    Dropzone.autoDiscover = false;
+    // $('div[data-type=dropzone]').each(function () {
+    //     var url = $(this).data('url');
+    //     $(this).dropzone({
+    //         url: url,  
+    //         maxFiles: 1,
+    //         acceptedFiles: ".jpeg,.jpg,.png,.gif",
+    //         dictDefaultMessage: "{{ 'cms.dropzone.defaultMessage'|trans }}"
+    //     });
+    // });
+
 });
 
 var defaultDiacriticsRemovalMap = [

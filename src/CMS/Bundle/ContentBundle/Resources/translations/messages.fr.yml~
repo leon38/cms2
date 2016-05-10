@@ -1,0 +1,32 @@
+cms.content.modal.title_delete: 'Suppression du contenu'
+cms.content.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer ce contenu ?'
+cms.content.status.published: Publié
+cms.content.status.draft: Brouillon
+cms.content.status.pending: 'En attente'
+cms.content.status.status: Statut
+cms.content.title: Titre
+cms.content.description: Description
+cms.content.translations: Traductions
+cms.content.created: 'Date de création'
+cms.content.modified: 'Date de modification'
+cms.content.url: Url
+cms.content.actions: Actions
+cms.content.categories: Catégories
+cms.content.languages: Langues
+cms.content.date: Date
+cms.content.preview: Visualiser
+cms.content.content_updated.success: 'Votre contenu a été édité avec succès !'
+cms.content.content_created.success: 'Votre contenu a été créé avec succès !'
+cms.category.modal.title_delete: 'Suppression de catégorie'
+cms.category.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
+cms.content.content: Contenu
+cms.content.category: Catégorie
+cms.content.content_taxonomy: Type de contenu
+cms.content.field: Champ
+cms.content.author: Auteur
+cms.content.image: Image
+CHOOSE_FIELD_TYPE: Choisissez le type de champ
+Close: Fermer
+New: Nouveau
+cms.field.modal.title_delete: 'Suppression du champ'
+cms.field.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer ce champ ?'

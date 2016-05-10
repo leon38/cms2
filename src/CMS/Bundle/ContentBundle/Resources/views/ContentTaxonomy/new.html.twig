@@ -1,24 +1,14 @@
 {% extends "::admin/base_admin.html.twig" %}
 
-{% block body %}
-	<div class="section-header">
-		<ol class="breadcrumb">
-			<li><a href="">Type de contenu</a></li>
-			<li class="active">Création</li>
-		</ol>
-	</div>
-
-	<div class="section-body contain-lg">
-		{% for flashMessage in app.session.flashbag.get('error') %}
-		    <div class="alert alert-callout alert-danger" role="alert">
-		        {{ flashMessage|trans }}
-		    </div>
-		{% endfor %}
-		{% for flashMessage in app.session.flashbag.get('success') %}
-		    <div class="alert alert-callout alert-success" role="alert">{{ flashMessage|trans }}</div>
-		{% endfor %}
+{% block body -%}
+	<div class="col-md-8 col-md-offset-2 col-xs-12">
 		<div class="card">
-			<div class="card-body">{{ form(form) }}</div>
+			<div class="header">{{ 'cms.content.content_taxonomy'|trans }}</div>
+			<div class="content">
+				{{ form_start(form) }}
+				{{ form_rest(form) }}
+				{{ form_end(form) }}
+			</div>
 		</div>
 	</div>
 {% endblock %}

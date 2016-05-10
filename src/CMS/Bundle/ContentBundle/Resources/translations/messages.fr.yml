@@ -10,6 +10,7 @@ cms.content.translations: Traductions
 cms.content.created: 'Date de création'
 cms.content.modified: 'Date de modification'
 cms.content.url: Url
+cms.content.alias: Alias
 cms.content.actions: Actions
 cms.content.categories: Catégories
 cms.content.languages: Langues
@@ -21,12 +22,27 @@ cms.category.modal.title_delete: 'Suppression de catégorie'
 cms.category.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
 cms.content.content: Contenu
 cms.content.category: Catégorie
-cms.content.content_taxonomy: Type de contenu
+cms.content.content_taxonomy: 'Type de contenu'
 cms.content.field: Champ
 cms.content.author: Auteur
 cms.content.image: Image
-CHOOSE_FIELD_TYPE: Choisissez le type de champ
+CHOOSE_FIELD_TYPE: 'Choisissez le type de champ'
 Close: Fermer
 New: Nouveau
 cms.field.modal.title_delete: 'Suppression du champ'
 cms.field.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer ce champ ?'
+tc.category.modal.title_delete: 'Suppression de la catégorie'
+tc.category.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
+cancel: Annuler
+delete: Supprimer
+cms.content.taxonomies: Types de contenu
+cms.content.status: Statut
+cms.field.id: Id
+cms.field.title: Titre du champ
+cms.field.type: Type de champ
+cms.field.field: Champ
+cms.field.name: Nom du champ
+cms.field.status: Statut
+cms.field.created: Créé le
+actions: Actions
+cms.content.choose_field_type: Choisissez un type de champ
