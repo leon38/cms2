@@ -26,7 +26,7 @@
 		<div id="content" class="row" ng-controller="contentListController as contentList">
 			<div class="col-sm-12 col-md-4" ng-repeat="content in contentList.contents">
 				<div class="card">
-					<div class="image">
+					<div class="image" ng-show="{{content.thumbnail != ''}}">
 						<img ng-src="/uploads/thumbs/{{content.thumbnail}}" />
 						<div class="header">
 							<h2 class="title">{{content.title}}</h2>
@@ -35,8 +35,10 @@
 					</div>
 					<div class="content">
 						<div class="pull-left">
-							<img ng-src="/uploads/avatar/{{content.author.thumbnail}}" alt="{{content.author.user_nicename}}" title="{{content.author.user_nicename}}" class="avatar">
+							<img ng-src="/uploads/avatars/{{content.author.id}}/{{content.author.avatar}}" alt="{{content.author.user_nicename}}" title="{{content.author.user_nicename}}" class="avatar">
+							<span class="author">{{content.author.user_nicename}}</span>
 						</div>
+						<div class="clearfix"></div>
 					</div>
 				</div>
 			</div>

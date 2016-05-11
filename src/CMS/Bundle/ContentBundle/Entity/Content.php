@@ -108,6 +108,7 @@ class Content
     /**
      * @JMS\Expose
      * @JMS\Type("CMS\Bundle\CoreBundle\Entity\User")
+     * @JMS\Groups({"list"})
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\User", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
@@ -130,6 +131,12 @@ class Content
 
     private $fieldValuesTemp;
     private $metaValuesTemp;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("boolean")
+     */
+    private $hasThumbnail;
 
     /**
      * Constructor
@@ -743,5 +750,14 @@ class Content
     public function getPermalink()
     {
         return "/".$this->url;
+    }
+
+    /**
+     * @ORM\PostLoad()
+     */
+    public function getHasThumbnail()
+    {
+        $this->hasThumbnail = ($this->thumbnail != '');
+        return $this->hasThumbnail;
     }
 }

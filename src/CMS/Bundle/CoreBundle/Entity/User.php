@@ -14,7 +14,6 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields="user_login",message="Your E-Mail adress has already been registered")
  * @JMS\ExclusionPolicy("all")
- * @JMS\AccessType("public_method")
  */
 class User implements UserInterface, \Serializable
 {
@@ -22,6 +21,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id()
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose
      */
     protected $id;
 
