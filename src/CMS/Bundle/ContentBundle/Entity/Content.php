@@ -4,6 +4,7 @@ namespace CMS\Bundle\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as JMS;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -11,6 +12,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Entity(repositoryClass="CMS\Bundle\ContentBundle\Entity\Repository\ContentRepository")
  * @ORM\Table(name="content")
  * @ORM\HasLifecycleCallbacks
+ * @JMS\ExclusionPolicy("all")
  */
 class Content
 {
@@ -22,6 +24,7 @@ class Content
     protected $id;
 
     /**
+     * @JMS\Expose
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -45,6 +48,7 @@ class Content
     private $taxonomy;
 
     /**
+     * @JMS\Expose
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinTable(name="categories_contents")
      */
@@ -52,7 +56,7 @@ class Content
 
     /**
      * @var \DateTime $created
-     *
+     * @JMS\Expose
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
@@ -75,6 +79,7 @@ class Content
 
     /**
      * @var string url
+     * @JMS\Expose
      * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
      private $url;
@@ -101,12 +106,16 @@ class Content
     private $metavalues;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\User", inversedBy="posts")
+     * @JMS\Expose
+     * @JMS\Type("CMS\Bundle\CoreBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\User", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
     private $author;
 
     /**
+     * @JMS\Expose
+     * @JMS\Type("string")
      * @ORM\Column(name="thumbnail", type="string", length=255, nullable=true)
      */
     private $thumbnail;

@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContentRepository extends EntityRepository
 {
+
+	public function getAllContentsPublished()
+	{
+		return $this->_em
+			        ->createQueryBuilder('c, u, cat')
+			        ->select('c, u, cat')
+			        ->from('ContentBundle:Content', 'c')
+			        ->join('c.author', 'u')
+			        ->join('c.categories', 'cat')
+			        ->where('c.published = 1')
+			        ->getQuery()
+			        ->getResult();
+
+	}
 }

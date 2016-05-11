@@ -5,12 +5,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use JMS\Serializer\Annotation as JMS;
+
 
 /**
  * @ORM\Entity(repositoryClass="CMS\Bundle\CoreBundle\Entity\Repository\UserRepository")
  * @ORM\Table(name="users")
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields="user_login",message="Your E-Mail adress has already been registered")
+ * @JMS\ExclusionPolicy("all")
+ * @JMS\AccessType("public_method")
  */
 class User implements UserInterface, \Serializable
 {
@@ -22,6 +26,7 @@ class User implements UserInterface, \Serializable
     protected $id;
 
     /**
+     * @JMS\Exclude
      * @ORM\Column(name="user_login", type="string", length=60)
      */
     private $user_login;
@@ -37,11 +42,13 @@ class User implements UserInterface, \Serializable
     private $salt;
 
 	/**
+     * @JMS\Expose
 	 * @ORM\Column(name="user_nicename", type="string", length=50, nullable=true)
 	 */
 	private $user_nicename;
 
 	/**
+     * @JMS\Exclude
 	 * @ORM\Column(name="user_email", type="string", length=100)
 	 */
 	private $user_email;
@@ -85,7 +92,9 @@ class User implements UserInterface, \Serializable
     private $metas;
 
     /**
-     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
+     * @JMS\Expose
+     * @JMS\Type("string")
+     * @ORM\Column(name="avatar", type="string", length=255)
      */
     private $avatar;
 

@@ -16,7 +16,8 @@ class ContentsController extends FOSRestController
     public function getContentsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $contents = $em->getRepository('ContentBundle:Content')->findBy(array('published' => true));
+        $contents = $em->getRepository('ContentBundle:Content')->getAllContentsPublished();
+        //dump($contents); die;
         return array('contents' => $contents);
     }
 }
