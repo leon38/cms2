@@ -31,6 +31,7 @@ class Content
 
     /**
      * @var text $description
+     * @JMS\Expose
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;

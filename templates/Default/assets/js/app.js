@@ -2,6 +2,11 @@
     'use strict';
     var app = angular.module('CMSApp', []);
 
+    app.filter('rawHtml', ['$sce', function($sce){
+	  return function(val) {
+	    return $sce.trustAsHtml(val);
+	  };
+	}]);
 	// app.controller('phoneController', function() {
 	// 	this.phone = nexus_s;
 	// 	this.mainImageUrl = this.phone.images[0];

@@ -34,6 +34,11 @@
 						</div>
 					</div>
 					<div class="content">
+						<div class="no-thumb" ng-show="{{content.thumbnail == ''}}" >
+							<h2 class="title">{{content.title}}</h2>
+							<div class="date">{{content.created | date : 'dd/MM/yyyy'}}</div>
+							<div class="description" ng-bind-html="content.description | rawHtml"></div>
+						</div>
 						<div class="pull-left">
 							<img ng-src="/uploads/avatars/{{content.author.id}}/{{content.author.avatar}}" alt="{{content.author.user_nicename}}" title="{{content.author.user_nicename}}" class="avatar">
 							<span class="author">{{content.author.user_nicename}}</span>
