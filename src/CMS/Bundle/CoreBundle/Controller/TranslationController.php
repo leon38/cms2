@@ -26,6 +26,6 @@ class TranslationController extends Controller
     	$translator = new Translator($_locale);
         $translator->addLoader('yml', new YamlFileLoader());
 		$translator->addResource('yml', $root_dir.'/../src/Locabri/Bundle/CoreBundle/Resources/translations/messages.'.$_locale.'.yml', $_locale);
-		$message = new MessageCatalogue
+		$message = new MessageCatalogue();
     }
 }

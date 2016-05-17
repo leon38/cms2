@@ -22,6 +22,7 @@ class ContentsController extends FOSRestController
         $serializer = SerializerBuilder::create()->build();
         $contents = $serializer->serialize($contents, 'json');
         $contents = $serializer->deserialize($contents, 'Doctrine\Common\Collections\ArrayCollection', 'json');
-        return array('contents' => $contents);
+        $view = $this->view($contents, 200);
+        return $this->handleView($view);
     }
 }
