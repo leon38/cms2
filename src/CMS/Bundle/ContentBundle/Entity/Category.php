@@ -4,11 +4,13 @@ namespace CMS\Bundle\ContentBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="CMS\Bundle\ContentBundle\Entity\Repository\CategoryRepository")
  * @Gedmo\Tree(type="nested")
  * @ORM\Table(name="category")
+ * @JMS\ExclusionPolicy("all")
  */
 class Category
 {
@@ -23,7 +25,8 @@ class Category
 
     /**
      * @var string $title
-     *
+     * @JMS\Expose()
+     * @JMS\Type("string")
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -90,6 +93,8 @@ class Category
      * @var string url
      * @Gedmo\Slug(fields={"title"}, updatable=false, separator="-")
      * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @JMS\Expose()
+     * @JMS\Type("string")
      */
      private $url;
 

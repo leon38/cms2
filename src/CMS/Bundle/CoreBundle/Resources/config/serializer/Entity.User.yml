@@ -5,7 +5,7 @@ CMS\Bundle\CoreBundle\Entity\User:
             expose: true
         user_login:
             expose: true
-        user_email:
+        avatar:
             expose: true
         user_nicename:
             expose: true

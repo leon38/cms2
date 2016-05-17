@@ -104,6 +104,13 @@ header {
   z-index: 2;
 }
 
+header.transparent {
+  background: transparent;
+  position: absolute;
+  z-index: 3;
+  width: 100%;
+}
+
 header .buttons {
 	padding-top: 13px;
 }
@@ -120,7 +127,7 @@ header .buttons {
 	width: 980px;
 	margin: 0 auto;
 	position: relative;
-  z-index: 2; 
+  z-index: 2;
 }
 
 .card {
@@ -236,7 +243,7 @@ header .buttons {
   text-transform: uppercase;
 }
 .card .title {
-  margin: 0 0 3px 0; 
+  margin: 0 0 3px 0;
   color: #333333;
   font-weight: 300;
 }
@@ -410,4 +417,14 @@ header .buttons {
   color: #ff0000;
   border:1px solid #ff0000;
   padding: 10px;
+}
+
+.travel {}
+
+.travel .header {
+  width: 100%;
+  text-decoration: center;
+  color: #fff;
+  position: absolute;
+  top: 300px;
 }

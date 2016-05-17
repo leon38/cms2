@@ -25,6 +25,7 @@ class Content
 
     /**
      * @JMS\Expose
+     * @JMS\Type("string")
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
@@ -32,6 +33,7 @@ class Content
     /**
      * @var text $description
      * @JMS\Expose
+     * @JMS\Type("string")
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
@@ -50,6 +52,7 @@ class Content
 
     /**
      * @JMS\Expose
+     * @JMS\Type("ArrayCollection")
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinTable(name="categories_contents")
      */
@@ -58,6 +61,7 @@ class Content
     /**
      * @var \DateTime $created
      * @JMS\Expose
+     * @JMS\Type("DateTime<'d/m/Y'>")
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
@@ -81,6 +85,7 @@ class Content
     /**
      * @var string url
      * @JMS\Expose
+     * @JMS\Type("string")
      * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
      private $url;
@@ -109,7 +114,6 @@ class Content
     /**
      * @JMS\Expose
      * @JMS\Type("CMS\Bundle\CoreBundle\Entity\User")
-     * @JMS\Groups({"list"})
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\User", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */

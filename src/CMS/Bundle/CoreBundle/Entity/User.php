@@ -22,6 +22,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Type("integer")
      */
     protected $id;
 
@@ -43,12 +44,12 @@ class User implements UserInterface, \Serializable
 
 	/**
      * @JMS\Expose
+     * @JMS\Type("string")
 	 * @ORM\Column(name="user_nicename", type="string", length=50, nullable=true)
 	 */
 	private $user_nicename;
 
 	/**
-     * @JMS\Exclude
 	 * @ORM\Column(name="user_email", type="string", length=100)
 	 */
 	private $user_email;
@@ -92,9 +93,9 @@ class User implements UserInterface, \Serializable
     private $metas;
 
     /**
-     * @JMS\Expose
-     * @JMS\Type("string")
      * @ORM\Column(name="avatar", type="string", length=255)
+     * @JMS\Expose()
+     * @JMS\Type("string")
      */
     private $avatar;
 

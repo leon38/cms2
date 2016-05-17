@@ -6,7 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations\View;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use JMS\Serializer\SerializerBuilder;
+use FOS\RestBundle\Controller\Annotations\Get;
 
 class ContentsController extends FOSRestController
 {
@@ -18,11 +18,22 @@ class ContentsController extends FOSRestController
     {
         $em = $this->getDoctrine()->getManager();
         $contents = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1));
-
-        $serializer = SerializerBuilder::create()->build();
-        $contents = $serializer->serialize($contents, 'json');
-        $contents = $serializer->deserialize($contents, 'Doctrine\Common\Collections\ArrayCollection', 'json');
         $view = $this->view($contents, 200);
+        return $this->handleView($view);
+    }
+
+    /**
+     * @return array
+     * @param  String $alias alias du contenu
+     * @return View
+     *
+     * @Get("/{slug}")
+     */
+    public function getContentAction($slug)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $content = $em->getRepository('ContentBundle:Content')->findOneBy(array('published' => 1, 'url' => $slug));
+        $view = $this->view($content, 200);
         return $this->handleView($view);
     }
 }
