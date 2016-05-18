@@ -1,0 +1,7 @@
+CMS\Bundle\ContentBundle\Entity\FieldValue:
+    exclusion_policy: ALL
+    properties:
+        field:
+            expose: false
+        value:
+            expose: true

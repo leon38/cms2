@@ -92,6 +92,7 @@ class Content
 
     /**
      * @ORM\OneToMany(targetEntity="Content", mappedBy="referenceContent")
+     * @JMS\Expose()
      */
     private $translations;
 
@@ -764,5 +765,18 @@ class Content
     {
         $this->hasThumbnail = ($this->thumbnail != '');
         return $this->hasThumbnail;
+    }
+
+    /**
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("fields")
+     */
+    public function getFieldsValues()
+    {
+        $res = array();
+        foreach($this->fieldvalues as $fieldvalue) {
+            $res[$fieldvalue->getField()->getName()] = $fieldvalue->getValue();
+        }
+        return $res;
     }
 }

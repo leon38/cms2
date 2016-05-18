@@ -1,0 +1,9 @@
+CMS\Bundle\ContentBundle\Entity\Field:
+    exclusion_policy: ALL
+    properties:
+        name:
+            expose: true
+        params:
+            expose: false
+        content_taxonomy:
+            expose: false

@@ -2,6 +2,8 @@
 namespace CMS\Bundle\ContentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+
 /**
  * FieldValue
  *
@@ -21,12 +23,15 @@ class FieldValue
      * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldvalues")
      */
     private $field;
+    
     /**
      * @var string value
      *
      * @ORM\Column(name="value",type="string")
      */
     private $value;
+
+
     /**
      * @ORM\PostLoad
      */
@@ -34,6 +39,7 @@ class FieldValue
     {
         $this->value = unserialize($this->value);
     }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -42,6 +48,7 @@ class FieldValue
     {
         $this->value = serialize($this->value);
     }
+    
     /**
      * Constructor
      */
