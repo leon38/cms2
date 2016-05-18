@@ -74,6 +74,10 @@ class ContentType extends AbstractType
                             $options['row_attr'] = array('class' => 'row col-md-12');
                             $type = 'text';
                         }
+                        dump($params);
+                        if (isset($params['editor']) && $params['editor'] == true) {
+                            $options['attr'] = array('class' => 'summernote');
+                        }
 
                         $fieldvaluesTemp->add( $field->getName(), strtolower( $type ), $options );
                     }
@@ -88,6 +92,10 @@ class ContentType extends AbstractType
                             $options['attr'] = array('class' => 'datetimepicker') ;
                             $type = 'text';
                         }
+                        if (isset($params['editor']) && $params['editor'] == true) {
+                            $options['attr'] = array('class' => 'summernote');
+                        }
+                        dump($params);
                         $fieldvaluesTemp->add($field->getName(), strtolower( $type ), $options);
                     }
 
@@ -105,9 +113,13 @@ class ContentType extends AbstractType
                         $required = (isset($params['required'])) ? $params['required'] : false;
                         $options = array( 'label' => $field->getTitle(), 'required' => $required);
                         $type = $field->getField()->getTypeField();
+                        dump($params);
                         if (isset($params['format'])) {
                             $options['attr'] = array('class' => 'datetimepicker') ;
                             $type = 'text';
+                        }
+                        if (isset($params['editor']) && $params['editor'] == true) {
+                            $options['attr'] = array('class' => 'summernote');
                         }
                         $fieldvaluesTemp->add($field->getName(), strtolower( $type ), $options);
                     }

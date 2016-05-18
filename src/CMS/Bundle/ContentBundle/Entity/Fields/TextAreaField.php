@@ -99,4 +99,9 @@ class TextAreaField extends Fields
 
         return $options;
     }
+
+    public function getParams()
+    {
+        return $this->params;
+    }
 }
