@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new CMS\Bundle\CoreBundle\CoreBundle(),
             new CMS\Bundle\ContactBundle\ContactBundle(),
             new CMS\Bundle\ContentBundle\ContentBundle(),

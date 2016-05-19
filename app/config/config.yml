@@ -124,3 +124,10 @@ fos_rest:
         default_format: json
     serializer:
         serialize_null: true
+
+liip_imagine:
+    filter_sets:
+        thumb_list:
+            quality: 90
+            filters:
+                thumbnail: {size: [286, 215], mode: outbound }

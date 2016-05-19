@@ -1,6 +1,6 @@
 <div class="card">
 	<div class="image" ng-show="{{content.thumbnail != ''}}">
-		<img ng-src="http://localhost:8000/uploads/thumbs/{{content.thumbnail}}" />
+		<img ng-src="{{content.thumbnail}}" />
 		<div class="header">
 			<h2 class="title"><a href="#/content/{{content.url}}" class="thumb">{{content.title}}</a></h2>
 			<div class="date">{{content.created | date : 'dd/MM/yyyy'}}</div>
