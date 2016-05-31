@@ -5,10 +5,10 @@
         function ($routeProvider) {
             $routeProvider.
             when('/', {
-                templateUrl: 'views/home.html',
+                templateUrl: 'views/home.html'
             }).
             when('/content/:contentId', {
-                templateUrl: 'views/content.html',
+                templateUrl: 'views/content.html'
             }).
             otherwise({
                 redirectTo: '/'

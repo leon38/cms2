@@ -10,6 +10,7 @@
 
 	app.controller('contentListController', ['Travel', function(Travel) {
         this.contents = Travel.query();
+		this.title = "Travel";
 	}]);
 
 	app.controller('contentController', ['Travel', '$routeParams', '$rootScope', function(Travel, $routeParams, $rootScope) {
@@ -17,6 +18,7 @@
         this.content = Travel.get({contentId: $routeParams.contentId}, function (content) {
             c.content = content;
             $rootScope.classHeader = 'transparent';
+			$rootScope.title = content.title;
         });
 	}]);
 
