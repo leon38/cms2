@@ -229,8 +229,8 @@
 		'@CoreBundle/Resources/public/js/light-bootstrap-dashboard.js'
 		'@CoreBundle/Resources/public/js/chartist.min.js'
         '@CoreBundle/Resources/public/js/summernote.min.js'
+        '@CoreBundle/Resources/public/js/app.js'
         '@CoreBundle/Resources/public/js/dropzone.js'
-		'@CoreBundle/Resources/public/js/app.js'
 	%}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
@@ -242,16 +242,6 @@
             $sidebar_img_container = $sidebar.find('.sidebar-background');
             $('.card-user .image img').attr('src', $sidebar.data('image'));
 
-             Dropzone.autoDiscover = false;
-            $('div[data-type=dropzone]').each(function () {
-                var url = $(this).data('url');
-                $(this).dropzone({
-                    url: url,
-                    maxFiles: 1,
-                    acceptedFiles: ".jpeg,.jpg,.png,.gif",
-                    dictDefaultMessage: "{{ 'cms.dropzone.defaultMessage'|trans }}"
-                });
-            });
 
             $('input[type=checkbox].status').on('change', function() {
                 var elem = $(this);

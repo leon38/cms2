@@ -1,0 +1,13 @@
+services:
+    cms.media.repository.media:
+        class: CMS\Bundle\MediaBundle\Entity\Repository\MediaRepository
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        arguments: ['MediaBundle:Media']
+
+    cms.media.twig.file_details.extension:
+        class: CMS\Bundle\MediaBundle\Twig\Extension\FileDetailsExtension
+        arguments: ['@kernel', '@cms.media.repository.media']
+        public: true
+        tags:
+            - { name: twig.extension }
