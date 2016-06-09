@@ -21,6 +21,8 @@ $(document).ready(function() {
         height: 300,
     });
 
+    moment.locale("fr");
+
     $('.datetimepicker').datetimepicker({
             format: 'DD/MM/YYYY',
             icons: {
@@ -37,16 +39,23 @@ $(document).ready(function() {
      });
 
     Dropzone.autoDiscover = false;
-    // $('div[data-type=dropzone]').each(function () {
-    //     var url = $(this).data('url');
-    //     $(this).dropzone({
-    //         url: url,  
-    //         maxFiles: 1,
-    //         acceptedFiles: ".jpeg,.jpg,.png,.gif",
-    //         dictDefaultMessage: "{{ 'cms.dropzone.defaultMessage'|trans }}"
-    //     });
-    // });
+    $('div[data-type=dropzone]').each(function () {
+        var url = $(this).data('url');
+        var zone = $(this);
+        $(this).dropzone({
+            url: url,
+            dictDefaultMessage: "<i class='fa fa-cloud-upload fa-3'></i>",
+            success: function(file) {
+                var response = JSON.parse(file.xhr.response);
+                console.log(response);
+                var path = "/uploads/thumbs/" + response.media.path;
+                $('.row.thumbs').prepend('<div class="col-md-2 centered thumb" id="media-'+ response.media.id +'"><a href="javascript:" class="thumbnail text-center" data-toggle="modal" data-target="#modal-thumb" data-image="true" data-url="'+path+'" data-id="'+response.media.id+'" data-alt="'+response.media.metas['alt_1']+'"><img src="'+path+'" data-url="'+path+'" alt="'+response.media.metas['alt_1']+'"></a></div>');
+                $('.dz-preview').remove();
+                zone.removeClass('dz-started');
+            }
+        });
 
+    });
 });
 
 var defaultDiacriticsRemovalMap = [

@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new CMS\Bundle\MenuBundle\MenuBundle(),
             new CMS\Bundle\WidgetBundle\WidgetBundle(),
             new CMS\Bundle\RestAPIBundle\RestAPIBundle(),
+            new CMS\Bundle\MediaBundle\MediaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

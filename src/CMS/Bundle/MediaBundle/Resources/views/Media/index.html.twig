@@ -1,0 +1,16 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+{{ form(form) }}
+<div class="row thumbs">
+	{% for medium in media %}
+		<div class="col-md-2 centered thumb">
+      <a href="javascript:" class="thumbnail text-center" data-toggle="modal" data-target="#modal-thumb" data-url="{{ asset(medium.webPath) }}" data-id="{{ medium.id }}" data-alt="{{ medium.metas['alt_1'] }}">
+        <img src="{{ asset(medium.webPath) }}" alt="{{ medium.metas['alt_1'] }}" title="{{ medium.metas['title_1'] }}">
+        <div class="caption">{{ file_details(medium.id)|raw }}</div>
+      </a>
+    </div>
+	{% endfor %}
+</div>
+
+{% endblock body %}

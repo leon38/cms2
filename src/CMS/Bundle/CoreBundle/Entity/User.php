@@ -93,7 +93,7 @@ class User implements UserInterface, \Serializable
     private $metas;
 
     /**
-     * @ORM\Column(name="avatar", type="string", length=255)
+     * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      * @JMS\Expose()
      * @JMS\Type("string")
      */
