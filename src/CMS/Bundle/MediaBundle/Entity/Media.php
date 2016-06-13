@@ -65,6 +65,14 @@ class Media implements \JsonSerializable
     return null;
   }
 
+  public function getWebPathList() {
+    if ( isset( $this->path ) ) {
+      return ( null === $this->path ) ? null : '/uploads/thumb_list/' . basename($this->path);
+    }
+
+    return null;
+  }
+
   protected function getUploadRootDir() {
     // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
     return __DIR__ . '/../../../../../web' . $this->getUploadDir();

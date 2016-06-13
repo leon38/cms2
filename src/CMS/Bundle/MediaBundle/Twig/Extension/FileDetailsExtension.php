@@ -42,7 +42,12 @@ class FileDetailsExtension extends \Twig_Extension
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
             $response["filetype"] = finfo_file($finfo, $file->getRealPath());
             finfo_close($finfo);
-            $response["size"] = number_format($file->getSize()/1024, 1).'kB';
+            $file_size = $file->getSize()/1024;
+            if ($file_size < 1000) {
+              $response["size"] = number_format($file_size, 1).'kB';
+            } else {
+              $response["size"] = number_format($file_size / 1024, 1) . 'MB';
+            }
             $response["dimensions"] = getimagesize($file->getRealPath());
         }
         return '<span class="title">'.$media->getMetas()['title_1'].'</span><br />'.$response['dimensions'][0].'x'.$response['dimensions'][1].' px<br />'.$response['size'];

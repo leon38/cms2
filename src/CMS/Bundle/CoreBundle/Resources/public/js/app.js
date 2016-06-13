@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('input:checkbox').not('.status').each(function() {
         $(this).attr('data-toggle', 'checkbox');
     });
@@ -45,11 +46,9 @@ $(document).ready(function() {
         $(this).dropzone({
             url: url,
             dictDefaultMessage: "<i class='fa fa-cloud-upload fa-3'></i>",
-            success: function(file) {
-                var response = JSON.parse(file.xhr.response);
-                console.log(response);
-                var path = "/uploads/thumbs/" + response.media.path;
-                $('.row.thumbs').prepend('<div class="col-md-2 centered thumb" id="media-'+ response.media.id +'"><a href="javascript:" class="thumbnail text-center" data-toggle="modal" data-target="#modal-thumb" data-image="true" data-url="'+path+'" data-id="'+response.media.id+'" data-alt="'+response.media.metas['alt_1']+'"><img src="'+path+'" data-url="'+path+'" alt="'+response.media.metas['alt_1']+'"></a></div>');
+            success: function(msg) {
+                var response = msg.xhr.response;
+                $('.row.thumbs').prepend(response);
                 $('.dz-preview').remove();
                 zone.removeClass('dz-started');
             }
@@ -166,3 +165,4 @@ function activateTheme(theme) {
         }
     });
 }
+

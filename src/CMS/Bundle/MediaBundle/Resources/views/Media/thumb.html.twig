@@ -1,0 +1,6 @@
+<div class="col-md-2 centered thumb">
+    <a href="javascript:" class="thumbnail text-center" data-toggle="modal" data-target="#modal-thumb" data-url="{{ asset(media.webPath) }}" data-id="{{ media.id }}" data-alt="{{ media.metas['alt_1'] }}">
+        <img src="{{ asset(media.webPathList) }}" alt="{{ media.metas['alt_1'] }}" title="{{ media.metas['title_1'] }}">
+        <div class="caption">{{ file_details(media.id)|raw }}</div>
+    </a>
+</div>
