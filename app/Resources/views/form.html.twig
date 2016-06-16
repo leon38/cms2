@@ -9,9 +9,9 @@
 {% endblock %}
 
 {% block submit_row -%}
-{% spaceless %}
-	{{ form_widget(form) }}
-{% endspaceless %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
 {% endblock submit_row %}
 
 {% block form_row %}
@@ -32,14 +32,23 @@
     {% spaceless %}
         <div class="clearfix"></div>
         <div {{ block('widget_container_attributes') }}>
-        {% if image_url is defined and image_url != '' %}
-            <div class="{% if class_thumb is defined %} {{class_thumb}} {% else %} col-md-3{% endif %}">
-                <a href="javascript:" class="thumbnail">
-                    <img src="{{ asset(image_url) }}" {% if image_size is defined %}class="{{ image_size }}"{% endif %} />
-                </a>
-            </div>
-        {% endif %}
+            {% if image_url is defined and image_url != '' %}
+                <div class="{% if class_thumb is defined %} {{ class_thumb }} {% else %} col-md-3{% endif %}">
+                    <a href="javascript:" class="thumbnail">
+                        <img src="{{ asset(image_url) }}"
+                             {% if image_size is defined %}class="{{ image_size }}"{% endif %} />
+                    </a>
+                </div>
+            {% endif %}
         </div>
         <div class="clearfix"></div>
     {% endspaceless %}
 {% endblock %}
+
+{% block media_size_widget %}
+    {% spaceless %}
+        {{ form_row(form.name) }}
+        {{ form_row(form.width) }}
+        {{ form_row(form.height) }}
+    {% endspaceless %}
+{% endblock media_size_widget %}

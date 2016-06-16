@@ -1,0 +1,41 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+    <h1>Media</h1>
+    {{ form_start(form) }}
+    <ul id="size-fields-list" data-prototype="{{ form_widget(form.settings.vars.prototype)|e }}">
+    {% for setting in form.settings %}
+        <li>{{ form_row(setting) }}</li>
+    {% endfor %}
+    </ul>
+    {{ form_end(form) }}
+    <a href="#" id="add-another-email">Add size</a>
+
+
+{% endblock body %}
+{% block javascript %}
+<script type="text/javascript">
+    // keep track of how many email fields have been rendered
+    var sizeCount = '{{ form.settings|length }}';
+
+    jQuery(document).ready(function() {
+        jQuery('#add-another-email').click(function(e) {
+            e.preventDefault();
+
+            var sizeList = jQuery('#size-fields-list');
+
+            // grab the prototype template
+            var newWidget = sizeList.attr('data-prototype');
+            // replace the "__name__" used in the id and name of the prototype
+            // with a number that's unique to your emails
+            // end name attribute looks like name="contact[emails][2]"
+            newWidget = newWidget.replace(/__name__/g, sizeCount);
+            sizeCount++;
+
+            // create a new list element and add it to the list
+            var newLi = jQuery('<li></li>').html(newWidget);
+            newLi.appendTo(sizeList);
+        });
+    })
+</script>
+{% endblock javascript %}

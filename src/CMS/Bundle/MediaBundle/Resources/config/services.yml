@@ -16,3 +16,11 @@ services:
         class: CMS\Bundle\MediaBundle\Manager\MediaManager
         arguments: ['@kernel', '@cms.media.repository.media']
 
+    cms.media.form.type.media_size:
+        class: CMS\Bundle\MediaBundle\Form\MediaSizeType
+        tags:
+            - { name: form.type, alias: media_size }
+
+    cms.media.media_option_manager:
+        class: CMS\Bundle\MediaBundle\Manager\MediaOptionManager
+        arguments: [@doctrine.orm.entity_manager, @cms.core.repository.option]
