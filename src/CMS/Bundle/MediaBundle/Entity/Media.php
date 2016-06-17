@@ -67,7 +67,7 @@ class Media implements \JsonSerializable
 
   public function getWebPathList() {
     if ( isset( $this->path ) ) {
-      return ( null === $this->path ) ? null : '/uploads/thumb_list/' . basename($this->path);
+      return ( null === $this->path ) ? null : '/uploads/square/' . basename($this->path);
     }
 
     return null;

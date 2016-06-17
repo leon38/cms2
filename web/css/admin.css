@@ -8808,3 +8808,16 @@ star {
 .modal-dialog {
   z-index: 1051;
 }
+
+.fa-2 {
+    font-size: 3em;
+}
+
+.fa-3 {
+    font-size: 5em;
+}
+
+
+.modal-large {
+    width: 90%;
+}

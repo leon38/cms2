@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('input:checkbox').not('.status').each(function() {
         $(this).attr('data-toggle', 'checkbox');
     });
@@ -44,9 +45,10 @@ $(document).ready(function() {
         var zone = $(this);
         $(this).dropzone({
             url: url,
-            dictDefaultMessage: "<i class='fa fa-cloud-upload fa-3'></i>",
+            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
             success: function(msg) {
                 var response = msg.xhr.response;
+                console.log(response);
                 $('.row.thumbs').prepend(response);
                 $('.dz-preview').remove();
                 zone.removeClass('dz-started');
@@ -164,3 +166,4 @@ function activateTheme(theme) {
         }
     });
 }
+

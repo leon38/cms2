@@ -1,6 +1,14 @@
-<div class="col-md-2 centered thumb">
-    <a href="javascript:" class="thumbnail text-center" data-toggle="modal" data-target="#modal-thumb" data-url="{{ asset(media.webPath) }}" data-id="{{ media.id }}" data-alt="{{ media.metas['alt_1'] }}">
-        <img src="{{ asset(media.webPathList) }}" alt="{{ media.metas['alt_1'] }}" title="{{ media.metas['title_1'] }}">
-        <div class="caption">{{ file_details(media.id)|raw }}</div>
-    </a>
+<div class="col-md-2 centered thumb" id="thumb-{{ media.id }}">
+    <div class="thumbnail">
+        <a href="javascript:" class="text-center" data-toggle="modal" data-target="#modal-thumb" data-url="{{ asset(media.webPath) }}" data-id="{{ media.id }}" data-alt="{{ media.metas['alt_1'] }}">
+            <img src="{{ asset(media.webPathList) }}" alt="{{ media.metas['alt_1'] }}" title="{{ media.metas['title_1'] }}">
+        </a>
+        <div class="caption text-center">
+            {{ file_details(media.id)|raw }}
+        </div>
+        <a href="#modal-delete" data-toggle="modal" rel="tooltip" class="btn btn-simple btn-danger btn-xs pull-right" data-id="{{ media.id }}" data-placement="top" data-original-title="Supprimer">
+            <i class="fa fa-trash-o"></i>
+        </a>
+        <div class="clearfix"></div>
+    </div>
 </div>

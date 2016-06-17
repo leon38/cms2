@@ -10,8 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -46,8 +46,6 @@ class MediaController extends Controller
    */
   public function resizeAllMediaAction()
   {
-
-
     $response = new StreamedResponse();
     $response->setCallback(function () {
       $option_manager = $this->get('cms.media.media_option_manager');
@@ -56,16 +54,16 @@ class MediaController extends Controller
       $finder = new Finder();
       $finder->files()->in($this->container->getParameter('kernel.root_dir') . '/..' . $dir);
       $i = 0;
-      $nb_files = $finder->count()*count($options);
+      $nb_files = $finder->count() * count($options);
       ob_get_flush();
       foreach ($finder as $file) {
         foreach ($options as $option) {
-          if (!is_dir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName())) {
-            mkdir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName());
+          if (!is_dir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/' . $option->getOptionName())) {
+            mkdir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/' . $option->getOptionName());
           }
           $sizes = json_decode($option->getOptionValue());
           $image = $this->_resizeThumb($sizes->width, $sizes->height, $this->container->getParameter('kernel.root_dir') . '/../web/uploads/thumbs/2016/' . $file->getRelativePathname());
-          $image->save($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName().'/' . $file->getFilename());
+          $image->save($this->container->getParameter('kernel.root_dir') . '/../web/uploads/' . $option->getOptionName() . '/' . $file->getFilename());
           $image->__destruct();
           $i++;
           echo json_encode(array("percent" => (int)(($i / $nb_files) * 100), "filename" => $file->getFilename()));
@@ -80,13 +78,42 @@ class MediaController extends Controller
 
   /**
    * @param Media $media
-   * @Route("/delete", name="admin_media_delete")
+   * @Route("/delete/{id}", name="admin_media_delete")
    */
-  public function deleteMediaAction(Media $media)
+  public function deleteMediaAction($id)
   {
+    $option_manager = $this->get('cms.media.media_option_manager');
+    $options = $option_manager->getAllOptions();
     $em = $this->getDoctrine()->getManager();
+    $media = $em->getRepository('MediaBundle:Media')->find($id);
+    $origin_path = $media->getWebPath();
+    $filename = basename($origin_path);
+    $fs = new Filesystem();
+    foreach($options as $option) {
+      $fs->remove($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName().'/'.$filename);
+    }
+
+    $fs->remove($this->container->getParameter('kernel.root_dir') . '/../web'.$origin_path);
     $em->remove($media);
     $em->flush();
+    $response = new JsonResponse();
+    $response->setData(array('status' => true));
+    return $response;
+  }
+
+  private function _resizeMedia($file)
+  {
+    $option_manager = $this->get('cms.media.media_option_manager');
+    $options = $option_manager->getAllOptions();
+    foreach ($options as $option) {
+      if (!is_dir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/' . $option->getOptionName())) {
+        mkdir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/' . $option->getOptionName());
+      }
+      $sizes = json_decode($option->getOptionValue());
+      $image = $this->_resizeThumb($sizes->width, $sizes->height, $file->getPathname());
+      $image->save($this->container->getParameter('kernel.root_dir') . '/../web/uploads/' . $option->getOptionName() . '/' . $file->getFilename());
+      $image->__destruct();
+    }
   }
 
   private function _resizeThumb($targetWidth, $targetHeight, $sourceFilename)
@@ -110,7 +137,9 @@ class MediaController extends Controller
     $tempBox = new Box($w, $h);
     $img = $originalImage->thumbnail($tempBox, ImageInterface::THUMBNAIL_OUTBOUND);
     // Here is the magic..
+
     return $img->crop($cropBy, $target); // Return "ready to save" final image instance
+
   }
 
 
@@ -126,43 +155,49 @@ class MediaController extends Controller
     $languages = $this->getDoctrine()->getRepository('CoreBundle:Language')->findAll();
     $file = $request->files->get('file');
     $fs = new Filesystem();
-    $fileName = $file->getClientOriginalName();
-    $name = pathinfo($fileName, PATHINFO_FILENAME);
-    $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    if ($file !== null) {
+      $fileName = $file->getClientOriginalName();
+      $name = pathinfo($fileName, PATHINFO_FILENAME);
+      $ext = pathinfo($fileName, PATHINFO_EXTENSION);
 
-    $thumbDir = $this->container->getParameter('kernel.root_dir') . '/../web/uploads/thumbs/' . date('Y') . '/' . date('m');
+      $thumbDir = $this->container->getParameter('kernel.root_dir') . '/../web/uploads/thumbs/' . date('Y') . '/' . date('m');
 
 
-    if (!$fs->exists($thumbDir)) {
-      $fs->mkdir($thumbDir);
-    }
-    $i = 1;
-    while ($fs->exists($thumbDir . '/' . $fileName)) {
-      $fileName = $name . '-' . $i . '.' . $ext;
-      $i++;
-    }
-    if ($file->move($thumbDir, $fileName)) {
-      $em = $this->getDoctrine()->getManager();
-      $medium = new Media();
-      $fileName = date('Y') . '/' . date('m') . '/' . $fileName;
-      $medium->setPath($fileName);
-      $metas = array();
-      foreach ($languages as $language) {
-        $metas['alt_' . $language->getId()] = str_replace('-', ' ', $name);
-        $metas['title_' . $language->getId()] = str_replace('-', ' ', $name);
+      if (!$fs->exists($thumbDir)) {
+        $fs->mkdir($thumbDir);
       }
-      $medium->setMetas($metas);
-      $em->persist($medium);
-      $em->flush();
+      $i = 1;
+      while ($fs->exists($thumbDir . '/' . $fileName)) {
+        $fileName = $name . '-' . $i . '.' . $ext;
+        $i++;
+      }
+      try {
+        $file = $file->move($thumbDir, $fileName);
+        $em = $this->getDoctrine()->getManager();
+        $medium = new Media();
+        $fileName = date('Y') . '/' . date('m') . '/' . $fileName;
+        $medium->setPath($fileName);
+        $metas = array();
+        foreach ($languages as $language) {
+          $metas['alt_' . $language->getId()] = str_replace('-', ' ', $name);
+          $metas['title_' . $language->getId()] = str_replace('-', ' ', $name);
+        }
+        $medium->setMetas($metas);
+        $em->persist($medium);
+        $em->flush();
 
-      $media_manager = $this->get('cms.media.manager');
-      $media_manager->resizeMedia($this->container->getParameter('kernel.root_dir') . '/../web/uploads/thumbs/' . $fileName);
-      return $this->render('MediaBundle:Media:thumb.html.twig', array('media' => $medium));
+        $this->_resizeMedia($file);
+        return $this->render('MediaBundle:Media:thumb.html.twig', array('media' => $medium));
+      } catch (FileException $e) {
+        $response = new JsonResponse();
+        $response->setData(array('status' => false, "message" => $e->getMessage()));
+        return $response;
+      }
+
     }
-
-
     $response = new JsonResponse();
     $response->setData(array('status' => false));
     return $response;
+
   }
 }
