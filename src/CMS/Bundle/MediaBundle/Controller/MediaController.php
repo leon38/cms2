@@ -46,21 +46,32 @@ class MediaController extends Controller
    */
   public function resizeAllMediaAction()
   {
+
+
     $response = new StreamedResponse();
     $response->setCallback(function () {
+      $option_manager = $this->get('cms.media.media_option_manager');
+      $options = $option_manager->getAllOptions();
       $dir = "/web/uploads/thumbs/*";
       $finder = new Finder();
       $finder->files()->in($this->container->getParameter('kernel.root_dir') . '/..' . $dir);
       $i = 0;
-      $nb_files = $finder->count();
+      $nb_files = $finder->count()*count($options);
       ob_get_flush();
       foreach ($finder as $file) {
-        $image = $this->_resizeThumb(240,240, $this->container->getParameter('kernel.root_dir').'/../web/uploads/thumbs/2016/'.$file->getRelativePathname());
-        $image->save($this->container->getParameter('kernel.root_dir').'/../web/uploads/thumb_list/'.$file->getFilename());
-        $i++;
-        echo (int)(($i/$nb_files)*100);
-        flush();
-        sleep(1);
+        foreach ($options as $option) {
+          if (!is_dir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName())) {
+            mkdir($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName());
+          }
+          $sizes = json_decode($option->getOptionValue());
+          $image = $this->_resizeThumb($sizes->width, $sizes->height, $this->container->getParameter('kernel.root_dir') . '/../web/uploads/thumbs/2016/' . $file->getRelativePathname());
+          $image->save($this->container->getParameter('kernel.root_dir') . '/../web/uploads/'.$option->getOptionName().'/' . $file->getFilename());
+          $image->__destruct();
+          $i++;
+          echo json_encode(array("percent" => (int)(($i / $nb_files) * 100), "filename" => $file->getFilename()));
+          flush();
+          sleep(1);
+        }
       }
     });
     $response->send();
@@ -80,20 +91,20 @@ class MediaController extends Controller
 
   private function _resizeThumb($targetWidth, $targetHeight, $sourceFilename)
   {
-    $target = new Box($targetWidth, $targetHeight );
+    $target = new Box($targetWidth, $targetHeight);
     $imagine = new Imagine();
-    $originalImage = $imagine->open( $sourceFilename );
+    $originalImage = $imagine->open($sourceFilename);
     $orgSize = $originalImage->getSize();
     if ($orgSize->getWidth() > $orgSize->getHeight()) {
       // Landscaped.. We need to crop image by horizontally
-      $w = $orgSize->getWidth() * ( $target->getHeight() / $orgSize->getHeight() );
-      $h =  $target->getHeight();
-      $cropBy = new Point( ( max ( $w - $target->getWidth(), 0 ) ) / 2, 0);
+      $w = $orgSize->getWidth() * ($target->getHeight() / $orgSize->getHeight());
+      $h = $target->getHeight();
+      $cropBy = new Point((max($w - $target->getWidth(), 0)) / 2, 0);
     } else {
       // Portrait..
       $w = $target->getWidth(); // Use target box's width and crop vertically
-      $h = $orgSize->getHeight() * ( $target->getWidth() / $orgSize->getWidth() );
-      $cropBy = new Point( 0, ( max( $h - $target->getHeight() , 0 ) ) / 2);
+      $h = $orgSize->getHeight() * ($target->getWidth() / $orgSize->getWidth());
+      $cropBy = new Point(0, (max($h - $target->getHeight(), 0)) / 2);
     }
 
     $tempBox = new Box($w, $h);

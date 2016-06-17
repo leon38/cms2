@@ -16,7 +16,18 @@ class MediaOptionManager extends OptionManager
 
   public function getAllOptions()
   {
-    return $this->repo->findBy(array('general' => 2));
+    return $this->repo->findBy(array('type' => 2));
   }
 
+
+  public function getAllOptionsForm()
+  {
+    $options = $this->getAllOptions();
+    $settings = array('settings' => array());
+    foreach($options as $option) {
+      $sizes = json_decode($option->getOptionValue());
+      $settings['settings'][] = array_merge(array('name' => $option->getOptionName()), (array)$sizes);
+    }
+    return $settings;
+  }
 }

@@ -67,6 +67,7 @@ class MediaManager
       foreach ($finder as $file) {
         $image = $this->_resizeThumb(240,240, $this->kernel->getRootDir().'/../web/uploads/thumbs/2016/'.$file->getRelativePathname());
         $image->save($this->kernel->getRootDir().'/../web/uploads/thumb_list/'.$file->getFilename());
+        $image->__destruct();
         $i++;
         echo (int)(($i/$nb_files)*100);
         flush();

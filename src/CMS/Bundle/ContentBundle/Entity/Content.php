@@ -121,8 +121,6 @@ class Content
     private $author;
 
     /**
-     * @JMS\Expose
-     * @JMS\Type("string")
      * @ORM\Column(name="thumbnail", type="string", length=255, nullable=true)
      */
     private $thumbnail;

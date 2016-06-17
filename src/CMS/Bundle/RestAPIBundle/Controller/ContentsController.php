@@ -21,9 +21,11 @@ class ContentsController extends FOSRestController
         $contents = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1));
         $tmp_contents = array();
         foreach($contents as $content) {
-            $imagemanagerResponse = $this->container->get('liip_imagine.controller')->filterAction(new Request(), $content->getWebPath(), 'thumb_list');
-            $url = $imagemanagerResponse->getTargetUrl();
-            $content->setThumbnail($url);
+            if ($content->getThumbnail() != '') {
+              $imagemanagerResponse = $this->container->get('liip_imagine.controller')->filterAction(new Request(), $content->getWebPath(), 'thumb_list');
+              $url = $imagemanagerResponse->getTargetUrl();
+              $content->setThumbnail($url);
+            }
             $tmp_contents[] = $content;
         }
         $view = $this->view($tmp_contents, 200);

@@ -8,7 +8,7 @@ use CMS\Bundle\CoreBundle\Entity\Repository\OptionRepository;
 
 class OptionManager
 {
-	
+
 	protected $em;
 	protected $repo;
 
@@ -18,15 +18,15 @@ class OptionManager
 		$this->repo = $repo;
 	}
 
-	public function add($name, $value, $general = false)
-	{	
+	public function add($name, $value, $type = 0)
+	{
 		$option = $this->_exists($name);
 		if ($option === null) {
 			$option = new Option();
 			$option->setOptionName($name);
 		}
 		$option->setOptionValue($value);
-		$option->setGeneral($general);
+		$option->setType($type);
 		$this->em->persist($option);
 		$this->em->flush();
 	}

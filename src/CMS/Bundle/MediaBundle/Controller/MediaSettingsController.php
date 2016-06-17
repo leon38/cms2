@@ -9,6 +9,7 @@
 namespace CMS\Bundle\MediaBundle\Controller;
 
 
+use CMS\Bundle\CoreBundle\Entity\Option;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -30,16 +31,17 @@ class MediaSettingsController extends Controller
   public function indexAction(Request $request)
   {
     $option_manager = $this->get('cms.media.media_option_manager');
-    $options = $option_manager->getAllOptions();
-    if(empty($options)) {
-      $option_manager->add('size_1', '', 2);
-      $options = $option_manager->getAllOptions();
-    }
+    $options = $option_manager->getAllOptionsForm();
+
     $form = $this->createForm(new MediaSettingsType(), $options);
     if ($request->isMethod('POST')) {
       $form->handleRequest($request);
       if ($form->isValid()) {
+        $data = $form->getData();
 
+        foreach ($data['settings'] as $setting) {
+          $option_manager->add($setting['name'], json_encode(array('width' => $setting['width'], 'height' => $setting['height'])), 2);
+        }
       }
     }
 

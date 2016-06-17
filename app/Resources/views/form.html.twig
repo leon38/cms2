@@ -47,8 +47,15 @@
 
 {% block media_size_widget %}
     {% spaceless %}
-        {{ form_row(form.name) }}
-        {{ form_row(form.width) }}
-        {{ form_row(form.height) }}
+        <div class="row">
+            <div class="col-md-11">
+                <div class="row">
+                    <div class="col-md-4">{{ form_row(form.name) }}</div>
+                    <div class="col-md-4">{{ form_row(form.width) }}</div>
+                    <div class="col-md-4">{{ form_row(form.height) }}</div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
     {% endspaceless %}
 {% endblock media_size_widget %}

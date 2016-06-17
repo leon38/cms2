@@ -34,7 +34,8 @@ class MediaSizeType extends AbstractType
   public function configureOptions(OptionsResolver $resolver)
   {
     $resolver->setDefaults(array(
-      'data_class' => 'CMS\Bundle\CoreBundle\Entity\Option',
+      'data_class' => null,
+      'general_options' => array()
     ));
   }
 

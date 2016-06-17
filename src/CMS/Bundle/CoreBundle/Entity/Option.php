@@ -28,9 +28,9 @@ class Option
       private $option_value;
 
     /**
-     * @ORM\Column(name="general", type="boolean")
+     * @ORM\Column(name="type", type="integer")
      */
-    private $general = 0;
+    private $type = 0;
 
     /**
      * Get id
@@ -110,7 +110,7 @@ class Option
     /**
      * Get general
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getGeneral()
     {
@@ -120,5 +120,29 @@ class Option
     public function __toString()
     {
         return $this->option_value;
+    }
+
+    /**
+     * Set type
+     *
+     * @param integer $type
+     *
+     * @return Option
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }
