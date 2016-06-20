@@ -119,7 +119,14 @@
             var link = $(event.relatedTarget);
             var modal = $(this);
             modal.find('.modal-title').html(link.data('alt'));
-            modal.find('.modal-content .col-md-9').html('<img src="' + link.data('url') + '" class="img-responsive" />')
+            modal.find('.modal-content .col-md-9').html('<img src="' + link.data('url') + '" class="img-responsive" />');
+            $.ajax({
+                url: Routing.generate('admin_media_edit', {id: link.data("id")}),
+                type: "GET",
+                success: function(msg) {
+                    modal.find('.modal-content .col-md-3').html(msg);
+                }
+            })
         });
 
 

@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\MediaBundle\Controller;
 
+use CMS\Bundle\MediaBundle\Form\MediaInfoType;
 use Imagine\Gd\Imagine;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Box;
@@ -199,5 +200,28 @@ class MediaController extends Controller
     $response->setData(array('status' => false));
     return $response;
 
+  }
+
+  /**
+   * @param $id
+   * @param Request $request
+   * @return Response
+   *
+   * @Route("/{id}/edit", name="admin_media_edit")
+   * @Method({"GET", "POST"})
+   */
+  public function editAction($id, Request $request)
+  {
+    $em = $this->getDoctrine()->getManager();
+    $medium = $em->getRepository('MediaBundle:Media')->find($id);
+    $form = $this->createForm(new MediaInfoType(), $medium, array("id" => $id));
+    if ($request->isMethod('POST')) {
+      $form->handleRequest($request);
+      if($form->isValid()) {
+        $em->persist($medium);
+        $em->flush();
+      }
+    }
+    return $this->render("MediaBundle:Media:edit.html.twig", array("form" => $form->createView(), "medium" => $medium));
   }
 }
