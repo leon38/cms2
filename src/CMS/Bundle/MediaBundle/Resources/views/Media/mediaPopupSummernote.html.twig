@@ -1,0 +1,29 @@
+<div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#medias-summernote" aria-controls="medias" role="tab" data-toggle="tab">Mediathèque</a></li>
+        <li role="presentation"><a href="#upload-summernote" aria-controls="upload" role="tab" data-toggle="tab">Ajouter</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="medias-summernote">
+            {% for medium in media %}
+                {% if asset_exists(medium.webPath) %}
+                    {% set alt = "alt_" ~ defaultLanguage.id %}
+                    {% set title = "title_" ~ defaultLanguage.id %}
+                    <div class="col-md-2 thumb">
+
+                        <a href="javascript:" class="thumbnail text-center" data-url="{{ asset(medium.webPath) }}" data-id="{{ medium.id }}" data-alt="{{ medium.metas[alt] }}" data-title="{{ medium.metas[title] }}">
+                            <img src="{{ asset(medium.webPathList) }}" alt="{{ medium.metas[alt] }}" title="{{ medium.metas[title] }}">
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="upload-summernote">
+            <div id="media_path" class="dropzone col-md-12 dz-clickable" data-url="/admin/media/upload-media" data-type="dropzone">
+                <div class="dz-default dz-message"><span>Glissez déposez vos fichiers ou cliquez pour envoyer les images</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>

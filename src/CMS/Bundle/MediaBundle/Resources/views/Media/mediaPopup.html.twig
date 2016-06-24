@@ -1,0 +1,25 @@
+<div class="row">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#medias" aria-controls="medias" role="tab" data-toggle="tab">Mediathèque</a></li>
+        <li role="presentation"><a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">Ajouter</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="medias">
+            {% for medium in media %}
+                {% set alt = "alt_" ~ defaultLanguage.id %}
+                {% set title = "title_" ~ defaultLanguage.id %}
+                <div class="col-md-2 thumb">
+                    <a href="javascript:" onclick="getMediumInfo(this);" class="thumbnail text-center" data-url="{{ asset(medium.webPath) }}" data-id="{{ medium.id }}" data-alt="{{ medium.metas[alt] }}">
+                        <img src="{{ asset(medium.webPathList) }}" alt="{{ medium.metas[alt] }}" title="{{ medium.metas[title] }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+        <div role="tabpanel" class="tab-pane" id="upload">
+            <div id="media_path" class="dropzone col-md-12 dz-clickable" data-url="/admin/media/upload-media" data-type="dropzone">
+                <div class="dz-default dz-message"><span>Glissez déposez vos fichiers ou cliquez pour envoyer les images</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

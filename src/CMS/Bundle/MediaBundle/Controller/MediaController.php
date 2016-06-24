@@ -242,4 +242,37 @@ class MediaController extends Controller
 
     return new JsonResponse(array('status' => true));
   }
+
+  /**
+   * Récupère tous les médias et les présente dans une modal
+   * @Route("/media-popup", name="admin_media_popup")
+   * @Method("GET")
+   * @Template()
+   */
+  public function mediaPopupAction()
+  {
+    $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->findBy(array(), array('id' => 'DESC'));
+    $defaultLanguage = $this->getDoctrine()->getRepository('CoreBundle:Language')->find(1);
+    return $this->render('MediaBundle:Media:mediaPopup.html.twig', array(
+      'media' => $media,
+      'defaultLanguage' => $defaultLanguage
+    ));
+  }
+
+  /**
+   * Récupère tous les médias et les présente dans une modal
+   * Au clic sur une image elle s'insère dans l'éditeur
+   * @return array
+   * @Route("/media-popup-summernote", name="admin_media_popup_summernote")
+   * @Method("GET")
+   */
+  public function mediaPopupSummernoteAction()
+  {
+    $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->findBy(array(), array('id' => 'DESC'));
+    $defaultLanguage = $this->getDoctrine()->getRepository('CoreBundle:Language')->find(1);
+    return $this->render('MediaBundle:Media:mediaPopupSummernote.html.twig', array(
+      'media' => $media,
+      'defaultLanguage' => $defaultLanguage
+    ));
+  }
 }
