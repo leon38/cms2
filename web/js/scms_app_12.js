@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $('input:checkbox').not('.status').each(function() {
         $(this).attr('data-toggle', 'checkbox');
     });
@@ -21,7 +22,10 @@ $(document).ready(function() {
         height: 300,
     });
 
+    moment.locale("fr");
+
     $('.datetimepicker').datetimepicker({
+            format: 'DD/MM/YYYY',
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",
@@ -36,16 +40,22 @@ $(document).ready(function() {
      });
 
     Dropzone.autoDiscover = false;
-    // $('div[data-type=dropzone]').each(function () {
-    //     var url = $(this).data('url');
-    //     $(this).dropzone({
-    //         url: url,  
-    //         maxFiles: 1,
-    //         acceptedFiles: ".jpeg,.jpg,.png,.gif",
-    //         dictDefaultMessage: "{{ 'cms.dropzone.defaultMessage'|trans }}"
-    //     });
-    // });
+    $('div[data-type=dropzone]').each(function () {
+        var url = $(this).data('url');
+        var zone = $(this);
+        $(this).dropzone({
+            url: url,
+            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
+            success: function(msg) {
+                var response = msg.xhr.response;
+                console.log(response);
+                $('.row.thumbs').prepend(response);
+                $('.dz-preview').remove();
+                zone.removeClass('dz-started');
+            }
+        });
 
+    });
 });
 
 var defaultDiacriticsRemovalMap = [

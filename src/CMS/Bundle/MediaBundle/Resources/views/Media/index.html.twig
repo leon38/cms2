@@ -38,7 +38,7 @@
                     <div class="caption text-center">
                         {{ file_details(medium.id)|raw }}
                     </div>
-                    <a href="#modal-delete" data-toggle="modal" rel="tooltip"
+                    <a data-toggle="swal-delete" rel="tooltip"
                        class="btn btn-simple btn-danger btn-xs pull-right" data-id="{{ medium.id }}"
                        data-placement="top" data-original-title="Supprimer">
                         <i class="fa fa-trash-o"></i>
@@ -49,113 +49,54 @@
         {% endfor %}
     </div>
 
-    <div class="modal fade" id="modal-thumb">
-        <div class="modal-dialog modal-large">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title"></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-9"></div>
-                        <div class="col-md-3"></div>
+
+{% endblock body %}
+{% block modals %}
+
+<div class="modal" id="modal-thumb">
+    <div class="modal-dialog modal-large">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="cssload-loader">
+                            <div class="cssload-inner cssload-one"></div>
+                            <div class="cssload-inner cssload-two"></div>
+                            <div class="cssload-inner cssload-three"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-    <div class="modal fade" id="modal-delete" aria-labelledby="simpleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">{{ 'cms.content.modal.title_delete'|trans }}</h4>
-                </div>
-                <div class="modal-body">
-                    {{ 'cms.content.modal.text_delete'|trans }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn ink-reaction btn-raised btn-default-bright" data-dismiss="modal"><i
-                                class="fa fa-close"></i> {{ 'cancel'|trans }}</button>
-                    <a href="javascript:" class="btn ink-reaction btn-raised btn-danger"><i
-                                class="fa fa-trash-o"></i> {{ 'delete'|trans }}</a>
-                </div>
+<div class="modal fade" id="modal-delete" aria-labelledby="simpleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ 'cms.content.modal.title_delete'|trans }}</h4>
+            </div>
+            <div class="modal-body">
+                {{ 'cms.content.modal.text_delete'|trans }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn ink-reaction btn-raised btn-default-bright" data-dismiss="modal"><i
+                            class="fa fa-close"></i> {{ 'cancel'|trans }}</button>
+                <a href="javascript:" class="btn ink-reaction btn-raised btn-danger"><i
+                            class="fa fa-trash-o"></i> {{ 'delete'|trans }}</a>
             </div>
         </div>
     </div>
-{% endblock body %}
+</div>
+{% endblock modals %}
 {% block javascript %}
-    <script type="text/javascript">
-        var id = null;
-        $('#modal-delete').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget);
-            id = button.data('id');
-        });
-        $(document).ready(function () {
-            $('#modal-delete').find('.modal-footer > a.btn-danger').on('click', function () {
-                var path = Routing.generate('{{ url }}', {id: id});
-                console.log(path);
-                $.ajax({
-                    url: path,
-                    type: "GET",
-                    dataType: "json",
-                    success: function (msg) {
-                        if (msg.status) {
-                            $('#modal-delete').modal('hide');
-                            $('#thumb-' + id).fadeOut();
-                        }
-                    }
-                })
-            });
-        });
-
-        $('#modal-thumb').on('show.bs.modal', function (event) {
-            var link = $(event.relatedTarget);
-            var modal = $(this);
-            modal.find('.modal-title').html(link.data('alt'));
-            modal.find('.modal-content .col-md-9').html('<img src="' + link.data('url') + '" class="img-responsive" />');
-            $.ajax({
-                url: Routing.generate('admin_media_edit', {id: link.data("id")}),
-                type: "GET",
-                success: function(msg) {
-                    modal.find('.modal-content .col-md-3').html(msg);
-                }
-            })
-        });
-
-
-        function resizeMedia() {
-            $('.row.resized .col-md-6').hide().removeClass('hide').fadeIn();
-            var last_response_len = false;
-            $.ajax("{{ path('admin_media_resize') }}", {
-                xhrFields: {
-                    onprogress: function (e) {
-                        var this_response, response = e.currentTarget.response;
-                        if (last_response_len === false) {
-                            this_response = response;
-                            last_response_len = response.length;
-                        }
-                        else {
-                            this_response = response.substring(last_response_len);
-                            last_response_len = response.length;
-                        }
-                        var value = JSON.parse(this_response);
-
-                        $('.row.resized .progress .progress-bar').attr('aria-valuenow', value.percent).css('width', value.percent + '%').html(value.percent + '%');
-                        $('.row.resized .content span.filename').html(value.filename);
-                    }
-                }
-            }).done(function () {
-                setTimeout(function (data) {
-                    $('.row.resized .col-md-6').fadeOut();
-                }, 5000)
-            })
-        }
-    </script>
+    <script type="text/javascript" src="{{ asset('bundles/media/js/media.js') }}"></script>
 {% endblock javascript %}

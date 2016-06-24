@@ -26,7 +26,7 @@ class MediaInfoType  extends AbstractType {
     $builder
       ->add('metas')
       ->add('id', 'hidden', array('data' => $options['id']))
-      ->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+      ->add('button', 'button', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right', 'onclick' => 'updateMetas(this)')));
   }
 
   /**

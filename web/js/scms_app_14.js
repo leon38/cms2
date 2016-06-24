@@ -166,4 +166,3 @@ function activateTheme(theme) {
         }
     });
 }
-

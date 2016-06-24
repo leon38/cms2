@@ -224,7 +224,7 @@ class MediaController extends Controller
     }
     return $this->render("MediaBundle:Media:edit.html.twig", array("form" => $form->createView(), "medium" => $medium));
   }
-  
+
   /**
    * Mise à jour des metas en ajax
    * @return JsonResponse
@@ -232,14 +232,14 @@ class MediaController extends Controller
    */
   public function updateMetasAction(Request $request)
   {
-    $media_edit = $request->request->get('media_edit');
-    $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->find($media_edit['id']);
-    $media->setMetas($media_edit['metas']);
-    
+    $media_info = $request->request->get('media_info');
+    $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->find($media_info['id']);
+    $media->setMetas($media_info['metas']);
+
     $em = $this->getDoctrine()->getManager();
     $em->persist($media);
     $em->flush();
-    
+
     return new JsonResponse(array('status' => true));
   }
 }

@@ -1,2 +1,7 @@
-{{ file_details(medium, "list")|raw }}
-{{ form(form) }}
+<div class="col-md-9">
+    <img src="{{ medium.webPath }}" class="img-responsive" />
+</div>
+<div class="col-md-3">
+    {{ file_details(medium, "list")|raw }}
+    {{ form(form) }}
+</div>

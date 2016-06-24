@@ -24,62 +24,62 @@ var mobile_menu_visible = 0,
    }
 })();
 
-$(document).ready(function(){
-
-    window_width = $(window).width();
-    $sidebar = $('.sidebar');
-
-    // check if there is an image set for the sidebar's background
-    lbd.checkSidebarImage();
-
-    // Init navigation toggle for small screens
-    if(window_width <= 991){
-        if($sidebar.length != 0){
-
-            // we inith the sidebar if we we are in a page that contains the sidebar
-            lbd.initSidebarMenu();
-        } else {
-
-            // if we don't have a sidebar we transform the regular navbar from bootstrap into a side menu for mobile
-            lbd.initBootstrapNavbarMenu();
-        }
-
-    }
-
-    $('.form-control').on("focus", function(){
-        $(this).parent('.input-group').addClass("input-group-focus");
-    }).on("blur", function(){
-        $(this).parent(".input-group").removeClass("input-group-focus");
-    });
-
-    // Init Collapse Areas
-    lbd.initCollapseArea();
-
-    // Init Tooltips
-    $('[rel="tooltip"]').tooltip();
-
-    // Init Tags Input
-    if($(".tagsinput").length != 0){
-        $(".tagsinput").tagsInput();
-    }
-
-    //  Init Bootstrap Select Picker
-    if($(".selectpicker").length != 0){
-        $(".selectpicker").selectpicker();
-    }
-
-});
-
-// activate mobile menus when the windows is resized
-$(window).resize(function(){
-    if($(window).width() <= 991){
-        if($sidebar.length != 0){
-            lbd.initSidebarMenu();
-        } else {
-            lbd.initBootstrapNavbarMenu();
-        }
-    }
-});
+// $(document).ready(function(){
+//
+//     window_width = $(window).width();
+//     $sidebar = $('.sidebar');
+//
+//     // check if there is an image set for the sidebar's background
+//     //lbd.checkSidebarImage();
+//
+//     // Init navigation toggle for small screens
+//     if(window_width <= 991){
+//         if($sidebar.length != 0){
+//
+//             // we inith the sidebar if we we are in a page that contains the sidebar
+//             lbd.initSidebarMenu();
+//         } else {
+//
+//             // if we don't have a sidebar we transform the regular navbar from bootstrap into a side menu for mobile
+//             lbd.initBootstrapNavbarMenu();
+//         }
+//
+//     }
+//
+//     $('.form-control').on("focus", function(){
+//         $(this).parent('.input-group').addClass("input-group-focus");
+//     }).on("blur", function(){
+//         $(this).parent(".input-group").removeClass("input-group-focus");
+//     });
+//
+//     // Init Collapse Areas
+//     lbd.initCollapseArea();
+//
+//     // Init Tooltips
+//     $('[rel="tooltip"]').tooltip();
+//
+//     // Init Tags Input
+//     if($(".tagsinput").length != 0){
+//         $(".tagsinput").tagsInput();
+//     }
+//
+//     //  Init Bootstrap Select Picker
+//     if($(".selectpicker").length != 0){
+//         $(".selectpicker").selectpicker();
+//     }
+//
+// });
+//
+// // activate mobile menus when the windows is resized
+// $(window).resize(function(){
+//     if($(window).width() <= 991){
+//         if($sidebar.length != 0){
+//             lbd.initSidebarMenu();
+//         } else {
+//             lbd.initBootstrapNavbarMenu();
+//         }
+//     }
+// });
 
 lbd = {
     checkSidebarImage: function(){
