@@ -6,7 +6,9 @@
         <div class="caption text-center">
             {{ file_details(media.id)|raw }}
         </div>
-        <a href="#modal-delete" data-toggle="modal" rel="tooltip" class="btn btn-simple btn-danger btn-xs pull-right" data-id="{{ media.id }}" data-placement="top" data-original-title="Supprimer">
+        <a data-toggle="swal-delete" rel="tooltip"
+           class="btn btn-simple btn-danger btn-xs pull-right" data-id="{{ media.id }}"
+           data-placement="top" data-original-title="Supprimer">
             <i class="fa fa-trash-o"></i>
         </a>
         <div class="clearfix"></div>

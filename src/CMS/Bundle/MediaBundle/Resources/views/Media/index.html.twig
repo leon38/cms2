@@ -25,31 +25,17 @@
     <div class="clearfix"></div>
 
     {{ form(form) }}
-    <div class="row thumbs">
-        {% for medium in media %}
-            <div class="col-md-2 centered thumb" id="thumb-{{ medium.id }}">
-                <div class="thumbnail">
-                    <a href="#modal-thumb" class="text-center" data-toggle="modal" data-target="#modal-thumb"
-                       data-url="{{ asset(medium.webPath) }}" data-id="{{ medium.id }}"
-                       data-alt="{{ medium.metas['alt_1'] }}">
-                        <img src="{{ asset(medium.webPathList) }}" alt="{{ medium.metas['alt_1'] }}"
-                             title="{{ medium.metas['title_1'] }}">
-                    </a>
-                    <div class="caption text-center">
-                        {{ file_details(medium.id)|raw }}
-                    </div>
-                    <a data-toggle="swal-delete" rel="tooltip"
-                       class="btn btn-simple btn-danger btn-xs pull-right" data-id="{{ medium.id }}"
-                       data-placement="top" data-original-title="Supprimer">
-                        <i class="fa fa-trash-o"></i>
-                    </a>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        {% endfor %}
+    <div class="thumbnails">
+        {% include "MediaBundle:Media:media.html.twig" %}
     </div>
-
-
+    <div class="loader hide">
+        <div class="cssload-loader">
+            <div class="cssload-inner cssload-one"></div>
+            <div class="cssload-inner cssload-two"></div>
+            <div class="cssload-inner cssload-three"></div>
+        </div>
+    </div>
+    <button type="button" id="lazy" class="btn btn-fill btn-primary center-block">Plus de résultats</button>
 {% endblock body %}
 {% block modals %}
 
@@ -99,4 +85,7 @@
 {% endblock modals %}
 {% block javascript %}
     <script type="text/javascript" src="{{ asset('bundles/media/js/media.js') }}"></script>
+    <script type="text/javascript">
+        var nb_total = '{{ nb_media_total }}';
+    </script>
 {% endblock javascript %}

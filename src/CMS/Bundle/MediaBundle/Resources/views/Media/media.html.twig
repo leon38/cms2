@@ -1,0 +1,5 @@
+<div class="row thumbs">
+    {% for medium in media %}
+        {% include "MediaBundle:Media:thumb.html.twig" with {'media': medium} only %}
+    {% endfor %}
+</div>

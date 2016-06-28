@@ -31,13 +31,36 @@ class MediaController extends Controller
    */
   public function indexAction()
   {
+    $nb_media = 6;
     $em = $this->getDoctrine()->getManager();
-    $media = $em->getRepository('MediaBundle:Media')->findBy(array(), array('dateAdded' => 'desc'));
+    $media = $em->getRepository('MediaBundle:Media')->findBy(array(), array('dateAdded' => 'desc'), $nb_media, 0);
     $medium = new Media();
+    $page = 1;
     $form = $this->createForm('CMS\Bundle\MediaBundle\Form\MediaType', $medium);
+    $nb_media_total = $em->getRepository('MediaBundle:Media')->getNbMedia()[0][1];
+    $nb_media_left = $nb_media_total - ($page+1)*$nb_media;
+    $more_pages = ($nb_media_left > 0);
     return $this->render('MediaBundle:Media:index.html.twig', array(
       'media' => $media,
       'form' => $form->createView(),
+      'url' => 'admin_media_delete',
+      'nb_media_total' => $nb_media_total,
+    ));
+  }
+
+  /**
+   * @param $page
+   * @param int $nb_media
+   * @return Template
+   *
+   * @Route("/media/{page}/{nb_media}", name="admin_media_page", defaults={"nb_media":6, "page":2})
+   */
+  public function mediaAction($page = 2, $nb_media = 6)
+  {
+    $em = $this->getDoctrine()->getManager();
+    $media = $em->getRepository('MediaBundle:Media')->findBy(array(), array('dateAdded' => 'desc'), $nb_media, ($page * $nb_media));
+    return $this->render('MediaBundle:Media:media.html.twig', array(
+      'media' => $media,
       'url' => 'admin_media_delete',
     ));
   }

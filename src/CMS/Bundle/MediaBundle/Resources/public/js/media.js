@@ -103,3 +103,25 @@ function updateMetas(elm) {
     });
     return false;
 }
+
+$('#lazy').on('click', function(event) {
+    var page = Math.ceil($('.thumb').length / 6);
+    var nb_left = nb_total - ((page+1)*6);
+    $('#lazy').fadeOut();
+    $.ajax(Routing.generate('admin_media_page', {'page': page}), {
+        type: 'GET',
+        beforeSend: function() {
+            $('.loader').removeClass('hide').fadeIn(200);
+
+        },
+        success: function(msg) {
+            $('.loader').fadeOut();
+            $('.thumbnails').append(msg);
+            if (nb_left < 0) {
+                $('#lazy').prop('disabled', true).fadeIn();
+            } else {
+                $('#lazy').fadeIn();
+            }
+        }
+    });
+});

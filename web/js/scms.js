@@ -7330,8 +7330,10 @@ $(document).ready(function () {
             dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
             success: function (msg) {
                 var response = msg.xhr.response;
-                console.log(response);
-                $('.row.thumbs').prepend(response);
+                if ($('.thumb').length > 6) {
+                    $('.thumb:last').remove();
+                }
+                $('.row.thumbs').eq(0).prepend(response);
                 $('.dz-preview').remove();
                 zone.removeClass('dz-started');
             }

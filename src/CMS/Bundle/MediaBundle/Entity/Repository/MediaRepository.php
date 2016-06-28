@@ -10,4 +10,14 @@ namespace CMS\Bundle\MediaBundle\Entity\Repository;
  */
 class MediaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  public function getNbMedia()
+  {
+    return $this->_em
+      ->createQueryBuilder('m')
+      ->select('COUNT(m)')
+      ->from('MediaBundle:Media', 'm')
+      ->getQuery()
+      ->getArrayResult();
+  }
 }
