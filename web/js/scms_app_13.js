@@ -1,5 +1,25 @@
 $(document).ready(function () {
 
+    Dropzone.autoDiscover = false;
+    $('div[data-type=dropzone]').each(function () {
+        var url = $(this).data('url');
+        var zone = $(this);
+        $(this).dropzone({
+            url: url,
+            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
+            success: function (msg) {
+                var response = msg.xhr.response;
+                if ($('.thumb').length >= 6) {
+                    $('.thumb:last').remove();
+                }
+                $('.row.thumbs').eq(0).prepend(response);
+                $('.dz-preview').remove();
+                zone.removeClass('dz-started');
+            }
+        });
+
+    });
+
     $('input:checkbox').not('.status').each(function () {
         $(this).attr('data-toggle', 'checkbox');
     });
@@ -18,6 +38,8 @@ $(document).ready(function () {
             $('.url').val('');
         }
     });
+
+
     $('.summernote').summernote({
         height: 300,
         toolbar: [
@@ -43,10 +65,27 @@ $(document).ready(function () {
                 ['link', ['link-custom', 'unlink']]
             ]
         },
-        onImageUpload: function (files) {
+        onImageUpload: function(files) {
             sendFile(files[0], $(this));
         }
     });
+
+    function sendFile(file, editor) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "{{ path('admin_media_upload', {'editor': true}) }}",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(media) {
+                editor.summernote('insertImage', media.image);
+            }
+        });
+    }
+
 
     $('#modal-media-summernote').on('show.bs.modal', function (event) {
         $.ajax({
@@ -56,22 +95,20 @@ $(document).ready(function () {
             },
             success: function (msg) {
                 $('#modal-media-summernote').find('.modal-body').html('<div class="col-md-12">' + msg + '</div>');
-                $('div[data-type=dropzone]').each(function () {
-                    var url = $(this).data('url');
-                    $(this).dropzone({
+                    var url = $('div#media_path').data('url');
+                    $('div#media_path').dropzone({
                         url: url,
                         dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
                         success: function (file) {
                             var response = JSON.parse(file.xhr.response);
                             var path = "/uploads/thumbs/" + response.media.path;
-                            $('#medias-summernote').prepend('<div class="col-md-2 centered thumb" id="media-' + response.media.id + '"><a href="javascript:" class="thumbnail text-center" data-image="true" data-url="' + path + '" data-id="' + response.media.id + '" data-alt="' + response.media.metas['alt_francais'] + '"><img src="' + path + '" data-url="' + path + '" alt="' + response.media.metas['alt_francais'] + '"></a></div>');
+                            $('#medias-summernote').prepend('<div class="col-md-2 centered thumb" id="media-' + response.media.id + '"><a href="javascript:" class="thumbnail text-center" data-image="true" data-url="' + path + '" data-id="' + response.media.id + '" data-alt="' + response.media.metas['alt_1'] + '"><img src="' + path + '" data-url="' + path + '" alt="' + response.media.metas['alt_1'] + '"></a></div>');
                             $('.nav-tabs li a[href="#medias-summernote"]').tab('show');
                             $('.thumbnail').off('click').on('click', function () {
                                 insertImagePopupSummernote($(this))
                             });
                         }
                     });
-                });
                 $('.thumbnail').on('click', function () {
                     insertImagePopupSummernote($(this));
                 });
@@ -96,25 +133,7 @@ $(document).ready(function () {
         }
     });
 
-    Dropzone.autoDiscover = false;
-    $('div[data-type=dropzone]').each(function () {
-        var url = $(this).data('url');
-        var zone = $(this);
-        $(this).dropzone({
-            url: url,
-            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
-            success: function (msg) {
-                var response = msg.xhr.response;
-                if ($('.thumb').length > 6) {
-                    $('.thumb:last').remove();
-                }
-                $('.row.thumbs').eq(0).prepend(response);
-                $('.dz-preview').remove();
-                zone.removeClass('dz-started');
-            }
-        });
 
-    });
 });
 
 var defaultDiacriticsRemovalMap = [

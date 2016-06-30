@@ -88,3 +88,14 @@ services:
         tags:
          - { name: twig.extension }
 
+    cms.core.form.type.image:
+            class: CMS\Bundle\CoreBundle\Form\Type\ImageType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: form.type, alias: image }
+
+    cms.core.form.type.image_extension:
+            class: CMS\Bundle\CoreBundle\Form\Extension\ImageTypeExtension
+            tags:
+                - { name: form.type_extension, alias: image }
+

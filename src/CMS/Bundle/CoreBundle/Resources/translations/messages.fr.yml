@@ -62,19 +62,22 @@ cms:
         init_command:
             not_done: "La commande 'php app/console scms:init' n'a pas été exécutée"
     welcome:
-        title: 'Bienvenue'
+        title: Bienvenue
         text: "Bienvenue dans la très célèbre installation en 5 minutes de WordPress ! Vous n'avez qu'à remplir les informations demandées ci-dessous et vous serez prêt à utiliser la plus extensible et puissante plateforme de publication de contenu au monde."
         infos:
-            title: 'Informations nécessaires'
-            text: 'Veuillez renseigner les informations suivantes. Ne vous inquiétez pas, vous pourrez les modifier plus tard.'
+            title: Informations nécessaires
+            text: Veuillez renseigner les informations suivantes. Ne vous inquiétez pas, vous pourrez les modifier plus tard.
 
     tables:
-        entries_per_page: "éléments par page"
-        nb_element_on_total: "Affichage de l'élement _START_ à _END_ sur 1 élément|]1,Inf] Affichage de l'élément _START_ à _END_ sur %count% éléments"
-        no_element_display: "Aucun élément à afficher"
-        empty_table: "Aucune donnée disponible dans le tableau"
+        entries_per_page: éléments par page
+        nb_element_on_total: Affichage de l'élement _START_ à _END_ sur 1 élément|]1,Inf] Affichage de l'élément _START_ à _END_ sur %count% éléments
+        no_element_display: Aucun élément à afficher
+        empty_table: Aucune donnée disponible dans le tableau
     dropzone:
-        defaultMessage: "Glissez déposez vos fichiers ou cliquez pour envoyer les images"
+        defaultMessage: Glissez déposez vos fichiers ou cliquez pour envoyer les images
+    media:
+        media: Media
+        featured_image: Ajouter image
 
 firstname: Prénom
 lastname: Nom

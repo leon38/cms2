@@ -1,5 +1,25 @@
 $(document).ready(function () {
 
+    Dropzone.autoDiscover = false;
+    $('div[data-type=dropzone]').each(function () {
+        var url = $(this).data('url');
+        var zone = $(this);
+        $(this).dropzone({
+            url: url,
+            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
+            success: function (msg) {
+                var response = msg.xhr.response;
+                if ($('.thumb').length >= 6) {
+                    $('.thumb:last').remove();
+                }
+                $('.row.thumbs').eq(0).prepend(response);
+                $('.dz-preview').remove();
+                zone.removeClass('dz-started');
+            }
+        });
+
+    });
+
     $('input:checkbox').not('.status').each(function () {
         $(this).attr('data-toggle', 'checkbox');
     });
@@ -18,6 +38,8 @@ $(document).ready(function () {
             $('.url').val('');
         }
     });
+
+
     $('.summernote').summernote({
         height: 300,
         toolbar: [
@@ -43,12 +65,29 @@ $(document).ready(function () {
                 ['link', ['link-custom', 'unlink']]
             ]
         },
-        onImageUpload: function (files) {
+        onImageUpload: function(files) {
             sendFile(files[0], $(this));
         }
     });
 
-    $('#modal-media-summernote').on('show.bs.modal', function (event) {
+    function sendFile(file, editor) {
+        data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            data: data,
+            type: "POST",
+            url: "{{ path('admin_media_upload', {'editor': true}) }}",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(media) {
+                editor.summernote('insertImage', media.image);
+            }
+        });
+    }
+
+
+    $('#modal-media-summernote').on('show.bs.modal', function () {
         $.ajax({
             url: Routing.generate('admin_media_popup_summernote'),
             beforeSend: function () {
@@ -56,22 +95,20 @@ $(document).ready(function () {
             },
             success: function (msg) {
                 $('#modal-media-summernote').find('.modal-body').html('<div class="col-md-12">' + msg + '</div>');
-                $('div[data-type=dropzone]').each(function () {
-                    var url = $(this).data('url');
-                    $(this).dropzone({
+                    var url = $('div#media_path').data('url');
+                    $('div#media_path').dropzone({
                         url: url,
                         dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
                         success: function (file) {
                             var response = JSON.parse(file.xhr.response);
                             var path = "/uploads/thumbs/" + response.media.path;
-                            $('#medias-summernote').prepend('<div class="col-md-2 centered thumb" id="media-' + response.media.id + '"><a href="javascript:" class="thumbnail text-center" data-image="true" data-url="' + path + '" data-id="' + response.media.id + '" data-alt="' + response.media.metas['alt_francais'] + '"><img src="' + path + '" data-url="' + path + '" alt="' + response.media.metas['alt_francais'] + '"></a></div>');
+                            $('#medias-summernote').prepend('<div class="col-md-2 centered thumb" id="media-' + response.media.id + '"><a href="javascript:" class="thumbnail text-center" data-image="true" data-url="' + path + '" data-id="' + response.media.id + '" data-alt="' + response.media.metas['alt_1'] + '"><img src="' + path + '" data-url="' + path + '" alt="' + response.media.metas['alt_1'] + '"></a></div>');
                             $('.nav-tabs li a[href="#medias-summernote"]').tab('show');
                             $('.thumbnail').off('click').on('click', function () {
                                 insertImagePopupSummernote($(this))
                             });
                         }
                     });
-                });
                 $('.thumbnail').on('click', function () {
                     insertImagePopupSummernote($(this));
                 });
@@ -79,7 +116,38 @@ $(document).ready(function () {
         });
     });
 
-    moment.locale("fr");
+    $('a[data-media=true]').each(function() {
+        var target = $(this).data('target');
+        $(target).on('show.bs.modal', function () {
+            $.ajax({
+                url: Routing.generate("admin_media_popup"),
+                beforeSend: function() {
+                    $(target).find('.modal-body .col-md-9').html('<div class="text-center"><div class="preloader-wrapper big active"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div>');
+                },
+                success: function(msg) {
+                    $(target).find('.modal-body .col-md-9').html(msg);
+                    $('div[data-type=dropzone]').each(function () {
+                        var url = $(this).data('url');
+                        $(this).dropzone({
+                            url: url,
+                            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
+                            success: function(file) {
+                                var response = JSON.parse(file.xhr.response);
+                                var path = "/uploads/thumbs/" + response.media.path;
+                                $('#medias').prepend('<div class="col-md-2 centered thumb" id="media-'+ response.media.id +'"><a href="javascript:" onclick="getMediumInfo(this);" class="thumbnail text-center" data-image="true" data-url="'+path+'" data-id="'+response.media.id+'" data-alt="'+response.media.metas['alt_francais']+'"><img src="'+path+'" data-url="'+path+'" alt="'+response.media.metas['alt_francais']+'"></a></div>');
+                                $('.nav-tabs li a[href="#medias"]').tab('show');
+                            }
+                            // },
+                            // queuecomplete: function() {
+                            //     window.reload();
+                            // }
+                        });
+                    });
+                }
+            });
+        });
+    });
+
 
     $('.datetimepicker').datetimepicker({
         format: 'DD/MM/YYYY',
@@ -96,25 +164,7 @@ $(document).ready(function () {
         }
     });
 
-    Dropzone.autoDiscover = false;
-    $('div[data-type=dropzone]').each(function () {
-        var url = $(this).data('url');
-        var zone = $(this);
-        $(this).dropzone({
-            url: url,
-            dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
-            success: function (msg) {
-                var response = msg.xhr.response;
-                if ($('.thumb').length >= 6) {
-                    $('.thumb:last').remove();
-                }
-                $('.row.thumbs').eq(0).prepend(response);
-                $('.dz-preview').remove();
-                zone.removeClass('dz-started');
-            }
-        });
 
-    });
 });
 
 var defaultDiacriticsRemovalMap = [
@@ -301,6 +351,23 @@ function activateTheme(theme) {
     });
 }
 
+function getMediumInfo(elm) {
+    elm = $(elm);
+    var id_image = elm.data('id');
+    var name = elm.closest('.modal.media').attr('id');
+    $.ajax({
+        url: Routing.generate('admin_media_details', {form_edit: "false"}),
+        data: 'id='+id_image,
+        type: 'POST',
+        beforeSend: function() {
+            $('#'+name).find('.modal-body .col-md-3').html('<div class="text-center centered"><div class="preloader-wrapper big active"><div class="spinner-layer spinner-blue-only"><div class="circle-clipper left"><div class="circle"></div></div><div class="gap-patch"><div class="circle"></div></div><div class="circle-clipper right"><div class="circle"></div></div></div></div></div>');
+        },
+        success: function(msg) {
+            $('#'+name).find('.modal-body .col-md-3').html(msg);
+        }
+    })
+}
+
 function insertImagePopupSummernote(elem) {
     var url = elem.data('url');
     var alt = elem.data('alt');
@@ -310,4 +377,22 @@ function insertImagePopupSummernote(elem) {
         }
     );
     $('#modal-media-summernote').modal('hide');
+}
+
+function addMedia(elm) {
+    elm = $(elm);
+    var name = elm.closest('.modal.media').attr('id');
+    var id_media = elm.data('id');
+    $('a.delete-media').remove();
+    $('a[data-target="#'+name+'"]').html($('a.thumbnail[data-id="'+id_media+'"]').html());
+    $('a[data-target="#'+name+'"]').parent().prepend('<a href="javascript:" onclick="deleteMedia(\'#'+name.replace('_modal', '')+'\')" class="delete-media" data-target="#'+name.replace('_modal', '')+'"><i class="fa fa-times-circle"></i></a>');
+    $('input[data-hidden="'+name+'"]').val(id_media);
+    elm.closest('.modal .col-md-3.details').html('');
+    $('#'+name).modal('hide');
+}
+
+function deleteMedia(id) {
+    $('a[data-target="'+id+'_modal"]').html('<i class="fa fa-file-image-o fa-3"></i>');
+    $('input'+id).val('');
+    $('a[data-target="'+id+'"].delete-media').remove();
 }

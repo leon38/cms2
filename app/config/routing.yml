@@ -13,11 +13,6 @@ contents:
     resource: CMS\Bundle\RestAPIBundle\Controller\ContentsController
     prefix: /rest
 
-widget:
-    resource: "@WidgetBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 menu:
     resource: "@MenuBundle/Controller/"
     type:     annotation

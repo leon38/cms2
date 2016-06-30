@@ -59,3 +59,52 @@
         </div>
     {% endspaceless %}
 {% endblock media_size_widget %}
+
+{% block image_widget %}
+    {% spaceless %}
+        <div class="clearfix"></div>
+        <div {{ block('widget_container_attributes') }} class="form-group">
+            {{- form_label(form) -}}
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="media-link{% if image_size is defined %}{{ " " ~ image_size }}{% endif %}">
+                    {% if image_url is defined and image_url is not null %}
+                        <a href="javascript:" onclick="deleteMedia('#{{ id }}')" class="delete-media" data-target="#{{ id }}"><i class="fa fa-times-circle"></i></a>
+                    {% endif %}
+                    <a href="javascript:" data-media="true" data-toggle="modal" data-target="#{{ id }}_modal">
+                        {% if image_url is defined and image_url is not null %}
+                            <img src="{{ asset(image_url) }}" class="img-responsive" />
+                        {% else %}
+                            <i class="fa fa-file-image-o fa-3"></i>
+                        {% endif %}
+                    </a>
+                    {% if help is defined and help != '' %}
+                        <div class="clearfix"></div>
+                        <span class="help">{{ help|trans }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% block modals %}
+            <input type="hidden" {{ block('widget_attributes') }} data-hidden="{{ id }}_modal" value="{{ value }}" />
+            <div class="modal fade media" id="{{ id }}_modal" tabindex="-1" role="dialog" aria-labelledby="{{id}}">
+                <div class="modal-dialog modal-large" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Médias</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="col-md-9"></div>
+                            <div class="col-md-3 details">
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock modals %}
+        </div>
+        <div class="clearfix"></div>
+    {% endspaceless %}
+{% endblock %}

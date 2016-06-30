@@ -1,3 +1,3 @@
 cms.user.my_profile: __cms.user.my_profile
 cms.dropzone.defaultMessage: Glissez-déposer des fichiers ou cliquer pour ajouter des fichiers
-cms.login: __cms.login
+cms.login: SCMS Login

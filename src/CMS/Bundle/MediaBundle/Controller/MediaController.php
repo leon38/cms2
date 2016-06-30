@@ -298,4 +298,33 @@ class MediaController extends Controller
       'defaultLanguage' => $defaultLanguage
     ));
   }
+
+  /**
+   * Récupère les détails sur le média
+   * @Route("/details-image/{form_edit}", name="admin_media_details", defaults={"form_edit": "true"})
+   * @Method("POST")
+   */
+  public function getDetailsMediaAction(Request $request, $form_edit = "true")
+  {
+    $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->find($request->request->get('id'));
+    if ($media === null) {
+      return new JsonResponse(array('status' => false, 'msg' => 'cms.media.not_found'));
+    }
+    $response['medium'] = $media;
+
+    if ($form_edit == "true") {
+      $form = $this->createForm('CMS\Bundle\MediaBundle\Form\MediaInfoType', $media, array(
+        'action' => $this->generateUrl('admin_media_edit', array('id' => $media->getId()))
+      ));
+      $response['form'] = $form->createView();
+      $response['url_delete'] = $this->generateUrl('admin_media_delete', array('medium' => $media->getId()));
+    } else {
+      $form = $this->createForm('CMS\Bundle\MediaBundle\Form\MediaInfoType', $media, array(
+        'action' => $this->generateUrl('admin_update_meta'),
+        'id' => $media->getId()
+      ));
+      $response['form'] = $form->createView();
+    }
+    return $this->render("MediaBundle:Media:details.html.twig", $response);
+  }
 }

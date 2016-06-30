@@ -121,7 +121,8 @@ class Content
     private $author;
 
     /**
-     * @ORM\Column(name="thumbnail", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="CMS\Bundle\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="thumbnail", referencedColumnName="id")
      */
     private $thumbnail;
 
@@ -166,7 +167,7 @@ class Content
 
     public function getWebPath()
     {
-        return null === $this->thumbnail ? null : $this->getUploadDir().$this->thumbnail;
+        return null === $this->thumbnail ? null : $this->thumbnail->getWebPath();
     }
 
     protected function getUploadRootDir()

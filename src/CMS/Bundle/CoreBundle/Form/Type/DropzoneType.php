@@ -6,10 +6,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DropzoneType extends AbstractType
 {
-	
+
 	public function configureOptions(OptionsResolver $resolver)
 	{
-		$resolver->setDefaults(array('attr' => array('class' => 'dropzone','data-type' => 'dropzone','data-url' => '')));
+		$resolver->setDefaults(array('attr' => array('data-type' => 'dropzone','data-url' => '')));
 	}
 
 	public function getParent()

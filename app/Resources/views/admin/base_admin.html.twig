@@ -225,10 +225,10 @@
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     {% javascripts filter="?jsqueeze" output='js/scms.js'
+        '@CoreBundle/Resources/public/js/dropzone.js'
         '@CoreBundle/Resources/public/js/jquery-ui.min.js'
         '@CoreBundle/Resources/public/js/bootstrap.min.js'
 		'@CoreBundle/Resources/public/js/moment.min.js'
-        '@CoreBundle/Resources/public/js/fr.js'
 		'@CoreBundle/Resources/public/js/bootstrap-checkbox-radio-switch-tags.js'
         '@CoreBundle/Resources/public/js/bootstrap-datetimepicker.js'
 		'@CoreBundle/Resources/public/js/bootstrap-notify.js'
@@ -239,8 +239,8 @@
         '@CoreBundle/Resources/public/js/summernote.min.js'
         '@CoreBundle/Resources/public/js/summernote-ext-link.js'
         '@CoreBundle/Resources/public/js/summernote-ext-img.js'
+        '@CoreBundle/Resources/public/js/summernote-img-attribute.js'
         '@CoreBundle/Resources/public/js/app.js'
-        '@CoreBundle/Resources/public/js/dropzone.js'
         '@CoreBundle/Resources/public/js/sweetalert2.min.js'
 	%}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
