@@ -38,7 +38,7 @@ class FrontController extends Controller
 	/**
 	 * Affiche les postes de la catégorie
 	 * @param  String  $categoryName alias de la category
-	 * @param  Request $request      
+	 * @param  Request $request
 	 * @return template
 	 *
 	 * @Route("/category/{categoryName}")
@@ -56,7 +56,7 @@ class FrontController extends Controller
 	 * @param  String $alias Alias d'une catégorie ou d'un post
 	 * @return template
 	 *
-	 * @Route("/{alias}")
+	 * @Route("/{alias}", name="front_single")
 	 */
 	public function singleAction($alias, Request $request)
 	{

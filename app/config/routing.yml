@@ -3,16 +3,6 @@ media:
     type:     annotation
     prefix:   /
 
-rest_api:
-    resource: "@RestAPIBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-contents:
-    type:   rest
-    resource: CMS\Bundle\RestAPIBundle\Controller\ContentsController
-    prefix: /rest
-
 menu:
     resource: "@MenuBundle/Controller/"
     type:     annotation
@@ -22,6 +12,16 @@ front:
     resource: "@FrontBundle/Controller/"
     type:     annotation
     prefix:   /
+
+rest_api:
+    resource: "@RestAPIBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+contents:
+    type:   rest
+    resource: CMS\Bundle\RestAPIBundle\Controller\ContentsController
+    prefix: /rest
 
 dashboard:
     resource: "@DashboardBundle/Controller/"

@@ -1,0 +1,28 @@
+<div class="card">
+	<div class="image" ng-show="{{content.thumbnail != ''}}">
+		<img ng-src="{{content.thumbnail}}" />
+		<div class="header">
+			<h2 class="title"><a href="#/content/{{content.url}}" class="thumb">{{content.title}}</a></h2>
+			<div class="date">{{content.created | date : 'dd/MM/yyyy'}}</div>
+		</div>
+	</div>
+	<div class="content" ng-show="{{content.thumbnail == ''}}">
+		<div class="no-thumb">
+			<h2 class="title"><a href="#/content/{{content.url}}" class="thumb">{{content.title}}</a></h2>
+			<div class="date">{{content.created | date : 'dd/MM/yyyy'}}</div>
+			<div class="description" ng-bind-html="content.description | rawHtml"></div>
+		</div>
+	</div>
+	<div class="content infos">
+		<div class="pull-left">
+			<img ng-src="http://localhost:8000/uploads/avatars/{{content.author.id}}/{{content.author.avatar}}" alt="{{content.author.user_nicename}}" title="{{content.author.user_nicename}}" class="avatar">
+		</div>
+		<div class="pull-left">
+			<span class="author"><a href="">{{content.author.user_nicename}}</a><br /></span>
+			<span class="taxonomy">{{content.categories[0].title}}</span>
+		</div>
+		<div class="clearfix"></div>
+		<div class="chapo" ng-bind-html="content.fields.chapo | rawHtml"></div>
+	</div>
+	<div class="clearfix"></div>
+</div>
