@@ -14,11 +14,13 @@ class FrontController extends Controller
 {
 	private $_theme;
 	private $_title;
+  private $_parameters;
 
 	public function init()
 	{
 		$this->_theme = $this->get('cms.core.option_manager')->get('theme', '');
 		$this->_title = $this->get('cms.core.option_manager')->get('sitename', '');
+    $this->_parameters = array('sitename' => $this->title);
 	}
 
 	/**
@@ -32,7 +34,8 @@ class FrontController extends Controller
 		$this->init();
 		$em = $this->getDoctrine()->getManager();
 		$contents = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1), array('created' => 'DESC'));
-		return $this->render('@cms/'.$this->_theme.'/category.html.twig', array('title' => $this->_title, 'theme' => $this->_theme, 'contents' => $contents));
+    $parameters = array_merge($this->_parameters, array('title' => $this->_title, 'theme' => $this->_theme, 'contents' => $contents));
+		return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
 	}
 
 	/**
@@ -48,7 +51,8 @@ class FrontController extends Controller
 		$this->init();
 		$em = $this->getDoctrine()->getManager();
 		$category = $em->getRepository('ContentBundle:Category')->findOneBy(array('url' => $categoryName));
-		return $this->render('@cms/'.$this->_theme.'/category.html.twig', array('title' => $category->getTitle(), 'theme' => $this->_theme, 'contents' => $category->getContents()));
+    $parameters = array_merge($this->_parameters, array('title' => $category->getTitle(), 'theme' => $this->_theme, 'contents' => $category->getContents()));
+		return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
 	}
 
 	/**
@@ -68,13 +72,16 @@ class FrontController extends Controller
 			if (is_null($category)) {
 				$taxonomy = $em->getRepository('ContentBundle:ContentTaxonomy')->findOneBy(array('alias' => $alias));
 				if (!is_null($taxonomy)) {
-					return $this->render('@cms/'.$this->_theme.'/archive.html.twig', array('title' => $taxonomy->getTitle(), 'theme' => $this->_theme, 'contents' => $taxonomy->getContents()));
+          $parameters = array_merge($this->_parameters, array('title' => $taxonomy->getTitle(), 'theme' => $this->_theme, 'contents' => $taxonomy->getContents()));
+          return $this->render('@cms/'.$this->_theme.'/archive.html.twig', $parameters);
 				}
 				throw new NotFoundHttpException("Page not found");
 			}
-			return $this->render('@cms/'.$this->_theme.'/category.html.twig', array('title' => $category->getTitle(), 'theme' => $this->_theme, 'contents' => $category->getContents()));
+      $parameters = array_merge($this->_parameters,array('title' => $category->getTitle(), 'theme' => $this->_theme, 'contents' => $category->getContents()));
+      return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
 		}
-		return $this->render('@cms/'.$this->_theme.'/single.html.twig', array('title' => $content->getTitle(), 'theme' => $this->_theme, 'content' => $content));
+    $parameters = array_merge($this->_parameters,array('title' => $content->getTitle(), 'theme' => $this->_theme, 'content' => $content));
+    return $this->render('@cms/'.$this->_theme.'/single.html.twig', $parameters);
 	}
 
 }
