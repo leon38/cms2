@@ -1,0 +1,33 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <div class="col-md-3 pull-right">
+        <div class="card">
+            <div class="header">
+                <h4 class="title">
+                    Infos <a data-toggle="collapse" href="#collapseInfos" class="pull-right"><i
+                                class="fa fa-angle-down"></i></a>
+                </h4>
+                <div class="clearfix"></div>
+            </div>
+            <div class="content collapse in" id="collapseInfos" aria-expanded="true">
+                <ul class="list-unstyled">
+                    <li>{{ 'cms.contactform.created' }}: {{ 'now'|date('d/m/Y H:i:s') }}</li>
+                    <li>{{ 'cms.contactform.modified' }}: {{ 'now'|date('d/m/Y H:i:s') }}</li>
+
+                </ul>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="content">{{ form_rest(form) }}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}
