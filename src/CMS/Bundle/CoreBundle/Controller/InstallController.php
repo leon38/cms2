@@ -62,7 +62,7 @@ class InstallController extends Controller
             	$factory = $this->container->get('security.encoder_factory');
             	$encoder = $factory->getEncoder($user);
             	$user->setUserPass($encoder->encodePassword($user->getUserPass(), $user->getSalt()));
-
+              $user->setUserStatus(1);
                 if ($role !== null) {
                     $role->addUser($user);
                     $user->addRole($role);

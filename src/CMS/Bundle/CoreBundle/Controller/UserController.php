@@ -212,12 +212,7 @@ class UserController extends Controller
                 $data = $form->getData();
                 $factory = $this->container->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($user);
-                if ($data->getUserPass() !== null) {
-                    $user->setUserPass($encoder->encodePassword($data['user_pass'], $user->getSalt()));
-                } else {
-                    $user->setUserPass($encoder->encodePassword($user->getUserPass(), $user->getSalt()));
-                }
-
+                $user->setUserPass($encoder->encodePassword($data->getUserPass(), $user->getSalt()));
                 $em->persist($user);
                 $em->flush();
 
