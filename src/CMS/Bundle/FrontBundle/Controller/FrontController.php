@@ -20,7 +20,7 @@ class FrontController extends Controller
 	{
 		$this->_theme = $this->get('cms.core.option_manager')->get('theme', '');
 		$this->_title = $this->get('cms.core.option_manager')->get('sitename', '');
-    $this->_parameters = array('sitename' => $this->title);
+    $this->_parameters = array('sitename' => $this->_title);
 	}
 
 	/**

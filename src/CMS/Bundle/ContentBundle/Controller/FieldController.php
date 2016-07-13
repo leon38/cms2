@@ -50,7 +50,7 @@ class FieldController extends Controller
         $entities = $this->getDoctrine()->getRepository('ContentBundle:Field')->findAll();
         $session = $this->get('session');
         $session->set('active', 'Contenus');
-        return $this->render('ContentBundle:Field:index.html.twig', 
+        return $this->render('ContentBundle:Field:index.html.twig',
             array(
             'entities' => $entities,
             'fieldstype' => $fieldslist,
@@ -135,7 +135,7 @@ class FieldController extends Controller
     {
         $field = new Field();
         $fieldsOptions = null;
-        
+
         if ($fieldtype == "") {
             $fieldtype = $request->query->get('fieldtype');
         }
@@ -185,7 +185,7 @@ class FieldController extends Controller
             $fieldclass = new $fieldtype;
             $fieldclass->setParams($field->getField()->getParams());
         }
-        
+
         $form = $this->createEditForm($field, $fieldtype, $fieldclass);
 
         if ($request->isMethod('POST')) {
@@ -195,13 +195,12 @@ class FieldController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $options = $request->request->get('options');
                 $params = $form['params']->getData();
-                $field->setParams($params);
                 $fieldClass = $field->getField();
                 if (is_object($fieldClass)) {
                     $fieldClass->setParams($params);
                 }
                 $field->setField(null);
-                foreach ($field->getContentType() as $key => $type) {
+                foreach ($field->getContentTaxonomy() as $key => $type) {
                     $em->persist($type);
                 }
                 $em->persist($field);
@@ -214,9 +213,9 @@ class FieldController extends Controller
         }
         return $this->render('ContentBundle:Field:edit.html.twig',
             array(
-                'edit_form' => $form->createView(), 
-                'fieldsOptions' => $fieldsOptions, 
-                'field' => $field, 
+                'edit_form' => $form->createView(),
+                'fieldsOptions' => $fieldsOptions,
+                'field' => $field,
                 'fieldtype' => $fieldtype));
     }
 

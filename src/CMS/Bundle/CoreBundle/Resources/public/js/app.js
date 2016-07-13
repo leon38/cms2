@@ -396,3 +396,20 @@ function deleteMedia(id) {
     $('input'+id).val('');
     $('a[data-target="'+id+'"].delete-media').remove();
 }
+
+function changeProp(elem) {
+    var $elem = $(elem);
+    var id = $elem.data('id');
+    var repo = $elem.data('repo');
+    var prop = $elem.data('prop');
+
+    $.ajax({
+        url: Routing.generate('admin_content_change_prop', {id: id, repo: repo, prop: prop}),
+        dataType: 'json',
+        success: function (msg) {
+            if (msg.status == false) {
+                $('#main-card').before('<div class="alert alert-callout alert-danger" role="alert">La propriété n\'a pas été modifiée</div>');
+            }
+        }
+    })
+}

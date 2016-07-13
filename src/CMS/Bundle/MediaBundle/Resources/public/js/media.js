@@ -61,7 +61,7 @@ $('#modal-thumb').on('hide.bs.modal', function (event) {
 function resizeMedia() {
     $('.row.resized .col-md-6').hide().removeClass('hide').fadeIn();
     var last_response_len = false;
-    $.ajax("{{ path('admin_media_resize') }}", {
+    $.ajax(Routing.generate('admin_media_resize'), {
         xhrFields: {
             onprogress: function (e) {
                 var this_response, response = e.currentTarget.response;

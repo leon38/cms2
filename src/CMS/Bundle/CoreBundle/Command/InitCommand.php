@@ -1,6 +1,7 @@
 <?php
 namespace CMS\Bundle\CoreBundle\Command;
 
+use CMS\Bundle\CoreBundle\Entity\UserMeta;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,14 +40,14 @@ class InitCommand extends ContainerAwareCommand
 		$output->writeln($option_value);
 
 		$output->write('Adresse de messagerie => ');
-		$email = new Option();
-		$option_name = 'email_admin';
-		$option_value = '';
-		$email->set($option_name, $option_value);
-		$em->persist($email);
-		$output->writeln($option_value);
+    $email = new Option();
+    $option_name = 'email_admin';
+    $option_value = '';
+    $email->set($option_name, $option_value);
+    $em->persist($email);
+    $output->writeln($option_value);
 
-		$output->write('Fuseau horaire => ');
+    $output->write('Fuseau horaire => ');
 		$timezone = new Option();
 		$option_name = 'timezone';
 		$option_value = 'UTC+0';
@@ -54,7 +55,7 @@ class InitCommand extends ContainerAwareCommand
 		$em->persist($timezone);
 		$output->writeln($option_value);
 
-		$output->write('Fuseau horaire => ');
+		$output->write('Date Format => ');
 		$date_format = new Option();
 		$option_name = 'date_format';
 		$option_value = 'd/m/Y';
@@ -85,7 +86,7 @@ class InitCommand extends ContainerAwareCommand
 		$em->persist($language);
 		$output->write('Français');
 
-		
+
 		$output->write('Catégories => ');
 		$category = new Category();
 		$category->setTitle('Root');

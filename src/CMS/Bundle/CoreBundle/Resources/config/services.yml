@@ -25,6 +25,12 @@ services:
         factory_method: getRepository
         arguments: ['CoreBundle:UserMeta']
 
+    cms.core.repository.user:
+            class: CMS\Bundle\CoreBundle\Entity\Repository\UserRepository
+            factory_service: doctrine.orm.default_entity_manager
+            factory_method: getRepository
+            arguments: ['CoreBundle:User']
+
     cms.core.repository.option:
         class: CMS\Bundle\CoreBundle\Entity\Repository\OptionRepository
         factory_service: doctrine.orm.default_entity_manager
@@ -37,7 +43,7 @@ services:
 
     cms.core.meta_manager:
         class: CMS\Bundle\CoreBundle\Manager\UserMetaManager
-        arguments: [@doctrine.orm.entity_manager, @cms.core.repository.user_meta]
+        arguments: [@doctrine.orm.entity_manager, @cms.core.repository.user_meta, @cms.core.repository.user]
 
     cms.core.theme_manager:
         class: CMS\Bundle\CoreBundle\Manager\ThemeManager

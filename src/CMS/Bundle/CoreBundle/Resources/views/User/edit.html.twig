@@ -26,7 +26,11 @@
 				<div class="content">
 					<div class="author">
 						<a href="{{ app.user.userUrl }}">
-							<img src="{{ asset('bundles/core/images/default-avatar.png') }}" class="avatar border-gray">
+                            {% if app.user.avatar != '' %}
+                                <img src="{{ asset(app.user.webPath) }}" alt="{{ app.user }}" class="avatar border-gray">
+                            {% else %}
+							    <img src="{{ asset('bundles/core/images/default-avatar.png') }}" class="avatar border-gray">
+                            {% endif %}
 							<h4 class="title">
 								<span class="nicename">{{ user.userNicename }}</span><br /><small class="login">{{ user.userLogin }}</small>
 							</h4>

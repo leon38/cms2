@@ -4,3 +4,8 @@ services:
     cms.content.content_manager:
         class: CMS\Bundle\ContentBundle\Manager\ContentManager
         arguments: [ @doctrine.orm.entity_manager ]
+
+    cms.content.form.type.map:
+            class: CMS\Bundle\ContentBundle\Form\Type\MapType
+            tags:
+                - { name: form.type, alias: map }

@@ -3,6 +3,7 @@
 namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * CMS\Bundle\ContentBundle\Entity\Fields\BooleanField
@@ -43,7 +44,7 @@ class BooleanField extends Fields
         $values = $this->getOptions($value);
         $options = $field->getField()->getParams();
         $html = '<label>'.$field->getTitle().'</label><div class="switch"><input type="checkbox" data-toggle="checkbox" /></div>';
-        
+
         return $html;
     }
 

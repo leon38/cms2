@@ -1,54 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/style.css') }}">
-</head>
-<body
-<header>
-    <div class="container">
-        <div class="left-header pull-left">
-            <a href=""><span id="logo"></span><span class="title"></span></a>
-        </div>
-        <div class="right-header pull-right">
-            <div class="buttons pull-right">
-                <a href="" class="btn btn-fill">Inscription</a>
-                <a href="" class="btn btn-simple">Login</a>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/style.css') }}">
+    </head>
+    <body>
+        <header>
+            <div class="container">
+                <div class="left-header pull-left">
+                    <a href=""><span id="logo"></span><span class="title">{{ sitename }}</span></a>
+                </div>
+                <div class="right-header pull-right">
+                    <div class="buttons pull-right">
+                        <a href="" class="btn btn-fill">Inscription</a>
+                        <a href="" class="btn btn-simple">Login</a>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </header>
+        <div class="travel">
+            <div class="travel-background">
+                <div id="content"></div>
+                <img src="{{ content.thumbnail.webPath }}" alt="{{ content.title }}" class="img-responsive"/>
+                <div class="header">
+                    <h1>{{ content.title }}</h1>
+                    {#<h3 class="subtitle">{{ content.subtitle }}</h3>#}
+                </div>
+            </div>
+            <div class="container content">
+                {{ content.description|raw }}
             </div>
         </div>
-        <div class="clearfix"></div>
-    </div>
-</header>
-	<div class="container">
-		<div id="content" class="row">
-			<div class="col-sm-12 col-md-4">
-				<div class="card">
-                    {% if content.thumbnail != null %}
-					<div class="image">
-						<img src="{{ content.thumbnail.webPath }}" />
-						<div class="header">
-							<h2 class="title">{{ content.title }}</h2>
-							<div class="date">{{ content.created|date('d/m/Y') }}</div>
-						</div>
-					</div>
-                    {% endif %}
-					<div class="content">
-						<div class="no-thumb" >
-							<h2 class="title">{{content.title}}</h2>
-                            <div class="date">{{ content.created|date('d/m/Y') }}</div>
-							<div class="description">{{ content.description|raw }}</div>
-						</div>
-						<div class="pull-left">
-							<img src="/uploads/avatars/{{ content.author.id }}/{{ content.author.avatar }}" alt="{{ content.author.userNicename }}" title="{{ content.author.userNicename }}" class="avatar">
-							<span class="author">{{ content.author.userNicename }}</span>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
-</html>>
+    </body>
+</html>

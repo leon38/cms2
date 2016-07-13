@@ -148,7 +148,7 @@ class Install
 		$user->setUserLogin($this->user_login);
 		$user->setUserPass($this->user_pass);
 		$user->setUserEmail($this->user_email);
-
+    $user->setUserStatus(true);
 		return $user;
 	}
 
