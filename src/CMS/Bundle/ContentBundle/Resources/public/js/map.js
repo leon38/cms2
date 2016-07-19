@@ -3,7 +3,6 @@
  */
 var map;
 var geocoder;
-var infowindow;
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
@@ -17,10 +16,10 @@ function initMap() {
 
 function codeAddress() {
     var address = document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_carte_address").value;
-    var latitude = "";
-    var longitude = "";
+    var latitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value;
+    var longitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_longitude').value;
 
-    if (address != "") {
+    if (address != "" && latitude == "" && longitude == "") {
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value = results[0].geometry.location.lat();
@@ -36,25 +35,25 @@ function codeAddress() {
             }
         });
     } else {
-        geocodeLatLng(geocoder, map, infowindow)
+        geocodeLatLng(geocoder, map)
     }
 }
 
-function geocodeLatLng(geocoder, map, infowindow) {
+function geocodeLatLng(geocoder, map) {
     var latitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value;
     var longitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_longitude').value;
     var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
+    console.log(latlng);
     geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {
                 map.setZoom(11);
-                var marker = new google.maps.Marker({
+                new google.maps.Marker({
                     position: latlng,
-                    map: map
+                    map: map,
+                    animation: google.maps.Animation.DROP
                 });
-                infowindow.setContent(results[1].formatted_address);
-                infowindow.open(map, marker);
-                document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_carte_address").value = results[1].formatted_address;
+                map.setCenter(latlng);
             } else {
                 window.alert('No results found');
             }

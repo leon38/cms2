@@ -9,3 +9,13 @@ services:
             class: CMS\Bundle\ContentBundle\Form\Type\MapType
             tags:
                 - { name: form.type, alias: map }
+
+    cms.content.fields:
+        class: CMS\Bundle\ContentBundle\Classes\Fields
+        calls:
+            - [ setTemplating, [ @twig ] ]
+
+    cms.content.map_field:
+            class: CMS\Bundle\ContentBundle\Entity\Fields\MapField
+            calls:
+                - [ setTemplating, [ @twig ] ]

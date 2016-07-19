@@ -1,8 +1,15 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Classes;
 
+use Symfony\Component\Templating\EngineInterface;
+use Tree\Fixture\Transport\Engine;
+
 class Fields
 {
+  
+    protected $templating;
+  
+  
     public function getParamsValue($params, $name, $type="default", $option=null)
     {
         switch ($type) {
@@ -34,5 +41,9 @@ class Fields
     public function setParams($params)
     {
         $this->params = $params;
+    }
+    
+    public function setTemplating(EngineInterface $templating) {
+      $this->templating = $templating;
     }
 }

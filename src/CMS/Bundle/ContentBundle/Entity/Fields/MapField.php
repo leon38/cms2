@@ -10,7 +10,11 @@
 namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 
-class MapField
+use CMS\Bundle\ContentBundle\Classes\Fields;
+use Symfony\Component\Templating\EngineInterface;
+
+
+class MapField extends Fields
 {
   /**
    * @var string Type du champ
@@ -21,9 +25,11 @@ class MapField
    * @var array paramètres du champs
    */
   private $params;
+  
 
   public function __construct()
   {
+
     $this->type = $this->getTypeField();
     $this->params = array();
   }
@@ -43,12 +49,9 @@ class MapField
     return 'MapField';
   }
 
-  public function display($value)
+  public function display()
   {
-
-    $html = '<div class="map"></div>';
-    $html .= '<script src="/bundles/content/js/map.js"></script>';
-    return $html;
+    return $this->templating->render('ContentBundle:Fields:map.html.twig', array('params' => $this->params));
   }
 
   public function setParams($params)

@@ -15,7 +15,7 @@ class FieldValue
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="fieldvalues")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="fieldvalues", cascade={"persist", "remove"})
      */
     private $content;
     /**

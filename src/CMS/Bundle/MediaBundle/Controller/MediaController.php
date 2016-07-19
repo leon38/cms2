@@ -171,10 +171,10 @@ class MediaController extends Controller
    * Upload l'avatar de l'utilisateur
    * @return boolean
    *
-   * @Route("/upload-media", name="admin_media_upload")
+   * @Route("/upload-media/{popup}", name="admin_media_upload", defaults={"popup": false})
    *
    */
-  public function uploadMediaAction(Request $request)
+  public function uploadMediaAction(Request $request, $popup = false)
   {
     $languages = $this->getDoctrine()->getRepository('CoreBundle:Language')->findAll();
     $file = $request->files->get('file');
@@ -211,7 +211,14 @@ class MediaController extends Controller
         $em->flush();
 
         $this->_resizeMedia($file);
-        return $this->render('MediaBundle:Media:thumb.html.twig', array('media' => $medium));
+        if (!$popup) {
+          return $this->render('MediaBundle:Media:thumb.html.twig', array('media' => $medium));
+        } else {
+          $response = new JsonResponse();
+          $response->setData(array('status' => true, "media" => $medium, 'path' => $medium->getWebPathList()));
+          return $response;
+        }
+        
       } catch (FileException $e) {
         $response = new JsonResponse();
         $response->setData(array('status' => false, "message" => $e->getMessage()));

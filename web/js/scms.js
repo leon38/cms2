@@ -9087,8 +9087,8 @@ $(document).ready(function () {
                             dictDefaultMessage: "<i class='pe-7s-cloud-upload fa-3'></i>",
                             success: function(file) {
                                 var response = JSON.parse(file.xhr.response);
-                                var path = "/uploads/thumbs/" + response.media.path;
-                                $('#medias').prepend('<div class="col-md-2 centered thumb" id="media-'+ response.media.id +'"><a href="javascript:" onclick="getMediumInfo(this);" class="thumbnail text-center" data-image="true" data-url="'+path+'" data-id="'+response.media.id+'" data-alt="'+response.media.metas['alt_francais']+'"><img src="'+path+'" data-url="'+path+'" alt="'+response.media.metas['alt_francais']+'"></a></div>');
+                                var path = response.path;
+                                $('#medias').prepend('<div class="col-md-2 centered thumb" id="media-'+ response.media.id +'"><a href="javascript:" onclick="getMediumInfo(this);" class="thumbnail text-center" data-image="true" data-url="'+path+'" data-id="'+response.media.id+'" data-alt="'+response.media.metas['alt_1']+'"><img src="'+path+'" data-url="'+path+'" alt="'+response.media.metas['alt_1']+'"></a></div>');
                                 $('.nav-tabs li a[href="#medias"]').tab('show');
                             }
                             // },

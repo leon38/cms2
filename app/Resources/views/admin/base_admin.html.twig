@@ -249,6 +249,11 @@
 	<script type="text/javascript">
     	$(document).ready(function(){
 
+    	    $('.modal').each(function() {
+    	       var modal = $(this).detach();
+               modal.appendTo('body');
+            });
+
         	$sidebar = $('.sidebar');
             $sidebar_img_container = $sidebar.find('.sidebar-background');
             $('.card-user .image img').attr('src', $sidebar.data('image'));
