@@ -1,0 +1,19 @@
+{% include "@cms/Borderland/header.html.twig" %}
+<div class="container-category">
+    <h1>{{ category.title }}</h1>
+    <div class="section">
+        {% for content in contents %}
+            <div class="col col-4">
+                <div class="image">
+                    <img src="{{ content.thumbnail.getWebPathSize("medium") }}" class="img-responsive"
+                         alt="{{ content.thumbnail.metas['alt_1'] }}" title="{{ content.thumbnail.metas['title_1'] }}">
+                </div>
+                <div class="text">
+                    {{ content.title }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="clearfix"></div>
+</div>
+{% include "@cms/Borderland/footer.html.twig" %}
