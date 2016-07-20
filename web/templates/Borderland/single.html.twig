@@ -1,8 +1,14 @@
 {% include "@cms/Borderland/header.html.twig" %}
     <div class="container">
         <h1>{{ content.title }}</h1>
-        <div class="col-2-of-3">
-            {{ content.description|raw }}
+        <div class="section">
+	        <div class="col-9">
+	            {{ content.description|raw }}
+	        </div>
+
+	        <div class="col-3">
+	            {{ content.get('carte')|raw }}
+	        </div>
         </div>
     </div>
 {% include "@cms/Borderland/footer.html.twig" %}
