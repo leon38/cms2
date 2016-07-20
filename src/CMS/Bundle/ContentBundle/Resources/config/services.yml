@@ -19,3 +19,14 @@ services:
             class: CMS\Bundle\ContentBundle\Entity\Fields\MapField
             calls:
                 - [ setTemplating, [ @twig ] ]
+
+    cms.content.doctrine.entity_listener_resolver:
+        class: CMS\Bundle\ContentBundle\Doctrine\EntityListenerResolver
+        arguments: [ "@service_container" ]
+        
+
+    cms.content.entity_listener.content:
+        class: CMS\Bundle\ContentBundle\Listener\ContentListener
+        arguments: [ "@service_container" ]
+        tags:
+            -  { name: doctrine.entity_listener }

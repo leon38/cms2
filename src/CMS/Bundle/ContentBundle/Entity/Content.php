@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass="CMS\Bundle\ContentBundle\Entity\Repository\ContentRepository")
+ * @ORM\EntityListeners({ "CMS\Bundle\ContentBundle\Listener\ContentListener" })
  * @ORM\Table(name="content")
  * @ORM\HasLifecycleCallbacks
  * @JMS\ExclusionPolicy("all")
@@ -135,6 +136,7 @@ class Content
   
   
   private $fieldValuesTemp;
+  public $fieldValuesHtml;
   private $metaValuesTemp;
   
   /**
@@ -651,13 +653,10 @@ class Content
   
   public function get($name)
   {
+
     
-    foreach ($this->getFieldvalues() as $fieldvalue) {
-      if ($fieldvalue->getField()->getName() == $name) {
-        $fieldtype = get_class($fieldvalue->getField()->getField());
-        $fieldtype = new $fieldtype;
-        return $fieldtype->display();
-      }
+    if (isset($this->fieldValuesHtml[$name])) {
+      return $this->fieldValuesHtml[$name];
     }
     
     foreach ($this->getMetavalues() as $metavalue) {
