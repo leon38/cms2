@@ -21,14 +21,25 @@ html, body {
 }
 
 .container {
-    width:800px;
+    width:900px;
     margin:0 auto;
+}
+
+.container-category {
+    width:90%;
+    padding: 0 5%;
+    margin:0 auto;
+    background-color: #f3f3f3;
 }
 
 .list-unstyled {
     padding: 0;
     margin: 0;
     list-style-type: none;
+}
+
+.clearfix {
+    clear: both;
 }
 
 h1 {
@@ -113,4 +124,77 @@ h1 {
 
 button.hamburger {
     outline: none;
+}
+
+.img-responsive {
+    max-width: 100%;
+}
+
+.col {
+    display: block;
+    float:left;
+    margin: 1% 0 1% 1%;
+}
+.col:first-child { margin-left: 0; }
+
+/*  GROUPING  */
+.group:before,
+.group:after { content:""; display:table; }
+.group:after { clear:both;}
+.group { zoom:1; /* For IE 6/7 */ }
+/*  GRID OF TWELVE  */
+.col-12 {
+    width: 100%;
+}
+
+.col-11 {
+    width: 91.58%;
+}
+.col-10 {
+    width: 83.16%;
+}
+
+.col-9 {
+    width: 74.75%;
+}
+
+.col-8 {
+    width: 66.33%;
+}
+
+.col-7 {
+    width: 57.91%;
+}
+
+.col-6 {
+    width: 49.5%;
+}
+
+.col-5 {
+    width: 41.08%;
+}
+
+.col-4 {
+    width: 32.66%;
+}
+
+.col-3 {
+    width: 24.25%;
+}
+
+.col-2 {
+    width: 15.83%;
+}
+
+.col-1 {
+    width: 7.416%;
+}
+
+/*  GO FULL WIDTH BELOW 480 PIXELS */
+@media only screen and (max-width: 480px) {
+    .col {  margin: 1% 0 1% 0%; }
+
+    .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
+        width: 100%;
+    }
 }
