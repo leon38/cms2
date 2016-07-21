@@ -16,6 +16,10 @@ html, body {
     color: #222;
 }
 
+* {
+    margin-top: 0;
+}
+
 .pull-right {
     float: right;
 }
@@ -27,7 +31,7 @@ html, body {
 
 .container-category {
     width:90%;
-    padding: 0 5%;
+    padding: 0 5% 5%;
     margin:0 auto;
     background-color: #f3f3f3;
 }
@@ -74,11 +78,11 @@ h1 {
 }
 
 @keyframes fade-out {
-    0% {opacity: 0;}
-    25% {opacity: 0.25; visibility: visible;}
+    0% {opacity: 1;}
+    25% {opacity: 0.75; visibility: visible;}
     50% {opacity: 0.5; visibility: visible;}
-    75% {opacity: 0.75; visibility: visible;}
-    100% {opacity: 1; visibility: visible;}
+    75% {opacity: 0.25; visibility: visible;}
+    100% {opacity: 0; visibility: visible;}
 }
 
 #main-nav {
@@ -90,10 +94,16 @@ h1 {
     width: 100%;
     height: 100%;
     background-color: rgba(50, 50, 50, 1);
-    opacity: 0;
-    visibility: hidden;
+    display: none;
     color: #fff;
+    z-index: 1500;
 }
+
+.hamburger {
+    z-index: 1501;
+    position: relative;
+}
+
 #main-nav a {
     color: #fff;
     text-decoration: none;
@@ -125,6 +135,13 @@ h1 {
     animation-duration: 0.5s;
     visibility: visible;
     opacity: 1;
+}
+
+#main-nav.out {
+    animation-name: fade-out;
+    animation-duration: 0.5s;
+    visibility: hidden;
+    opacity: 0;
 }
 
 button.hamburger {
@@ -202,4 +219,140 @@ button.hamburger {
     .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
         width: 100%;
     }
+}
+
+/**********************
+ * Category
+ **********************/
+article {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+    text-align: left;
+    width: 23.5%;
+    margin-right: 1.5%;
+}
+
+article:hover .image-article .image img {
+    transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+}
+
+article:hover .image-shader, article:hover .text-article {
+    opacity:0;
+}
+
+.article-holder {
+    position: relative;
+    overflow: hidden;
+}
+
+article .link-article {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    left: 0;
+}
+
+article .image-article {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+article .text-article {
+    position: absolute;
+    padding: 10%;
+    font-size: 14px;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    background-color: transparent;
+    top: 0;
+    text-align: left;
+    box-sizing: border-box;
+    z-index: 4;
+    opacity: 1;
+    color: #fff;
+    transition: opacity .5s cubic-bezier(.165,.84,.44,1);
+    -webkit-transition: opacity .5s cubic-bezier(.165,.84,.44,1);
+}
+
+article .text-article .text-centerer {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+article .text-article .text-centerer .text-inner {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+article .text-article .text-centerer .text-inner h5 {
+    color: #ffffff;
+    font-family: Raleway;
+    font-size: 15px;
+    line-height: 30px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+article .image-shader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.45);
+    z-index: 3;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    opacity: 1;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+article .image-article .image {
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    -ms-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    opacity: 1;
+    display: block;
+    -webkit-perspective: 1500px;
+    perspective: 1500px;
+    -webkit-backface-visibility: hidden;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    -moz-transform: translateZ(0px);
+    -webkit-transform: translateZ(0px);
+}
+
+article .image-article .image img {
+    position: relative;
+    display: block;
+    width: 100%;
+    z-index: 100;
+    -webkit-transition: -webkit-transform .15s ease-out;
+    -moz-transition: -moz-transform .15s ease-out;
+    -ms-transition: -ms-transform .15s ease-out;
+    -o-transition: -o-transform .15s ease-out;
+    transition: transform .15s ease-out;
 }

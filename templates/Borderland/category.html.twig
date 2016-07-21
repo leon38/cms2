@@ -1,17 +1,31 @@
 {% include "@cms/Borderland/header.html.twig" %}
 <div class="container-category">
-    <h1>{{ category.title }}</h1>
+    <ul class="nav nav-category">
+        {% for cat in categories %}
+            <li><a href="{{ path('front_single', {'alias': cat.url}) }}">{{ cat.title }}</a></li>
+        {% endfor %}
+    </ul>
     <div class="section">
         {% for content in contents %}
-            <div class="col col-3">
-                <div class="image">
-                    <img src="{{ content.thumbnail.getWebPathSize("medium") }}" class="img-responsive"
-                         alt="{{ content.thumbnail.metas['alt_1'] }}" title="{{ content.thumbnail.metas['title_1'] }}">
+            <article>
+                <div class="article-holder">
+                    <div class="text-article">
+                        <div class="text-centerer">
+                            <div class="text-inner">
+                                <h5>{{ content.title }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="" class="link-article"></a>
+                    <div class="image-shader"></div>
+                    <div class="image-article">
+                        <span class="image"><img src="{{ content.thumbnail.getWebPathSize("medium") }}"
+                                                 class="img-responsive"
+                                                 alt="{{ content.thumbnail.metas['alt_1'] }}"
+                                                 title="{{ content.thumbnail.metas['title_1'] }}"></span>
+                    </div>
                 </div>
-                <div class="text">
-                    {{ content.title }}
-                </div>
-            </div>
+            </article>
         {% endfor %}
     </div>
     <div class="clearfix"></div>
