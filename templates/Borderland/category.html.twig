@@ -1,10 +1,19 @@
 {% include "@cms/Borderland/header.html.twig" %}
 <div class="container-category">
-    <ul class="nav nav-category">
-        {% for cat in categories %}
-            <li><a href="{{ path('front_single', {'alias': cat.url}) }}">{{ cat.title }}</a></li>
-        {% endfor %}
-    </ul>
+    <div class="nav-category-outer">
+        <div class="nav-category-holder">
+            <ul class="nav nav-category">
+                {% for cat in categories %}
+                    {% if cat.id == category.id %}
+                        <li><span>{{ cat.title }}</span></li>
+                    {% else %}
+                        <li><a href="{{ path('front_single', {'alias': cat.url}) }}">{{ cat.title }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
     <div class="section">
         {% for content in contents %}
             <article>

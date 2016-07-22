@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d6dfbbd-f51c-4650-a92d-8f0fad1b5bf2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/Borderland/assets/borderland.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/CategoryRepository.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/CategoryRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/FrontBundle/Controller/FrontController.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/FrontBundle/Controller/FrontController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/category.html.twig" afterPath="$PROJECT_DIR$/templates/Borderland/category.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/footer.html.twig" afterPath="$PROJECT_DIR$/templates/Borderland/footer.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/style.css" afterPath="$PROJECT_DIR$/templates/Borderland/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/category.html.twig" afterPath="$PROJECT_DIR$/web/templates/Borderland/category.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/footer.html.twig" afterPath="$PROJECT_DIR$/web/templates/Borderland/footer.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/style.css" afterPath="$PROJECT_DIR$/web/templates/Borderland/style.css" />
     </list>
     <ignored path="cms2.iws" />
@@ -92,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="category.html.twig" pinned="false" current-in-tab="true">
+      <file leaf-file-name="category.html.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/Borderland/category.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="73" selection-start-line="4" selection-start-column="73" selection-end-line="4" selection-end-column="73" />
+            <state relative-caret-position="320">
+              <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -112,11 +107,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/Borderland/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="244" column="32" selection-start-line="244" selection-start-column="32" selection-end-line="244" selection-end-column="32" />
+            <state relative-caret-position="485">
+              <caret line="417" column="0" selection-start-line="417" selection-start-column="0" selection-end-line="417" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -201,10 +196,10 @@
         <option value="$PROJECT_DIR$/templates/Borderland/header.html.twig" />
         <option value="$PROJECT_DIR$/templates/Borderland/footer.html.twig" />
         <option value="$PROJECT_DIR$/templates/Borderland/assets/borderland.css" />
-        <option value="$PROJECT_DIR$/templates/Borderland/style.css" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/CategoryRepository.php" />
-        <option value="$PROJECT_DIR$/templates/Borderland/category.html.twig" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/FrontBundle/Controller/FrontController.php" />
+        <option value="$PROJECT_DIR$/templates/Borderland/category.html.twig" />
+        <option value="$PROJECT_DIR$/templates/Borderland/style.css" />
       </list>
     </option>
   </component>
@@ -621,12 +616,12 @@
       <workItem from="1468829298619" duration="28912000" />
       <workItem from="1468942399250" duration="2700000" />
       <workItem from="1469025163801" duration="3121000" />
-      <workItem from="1469082497878" duration="16371000" />
+      <workItem from="1469082497878" duration="19303000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="252561000" />
+    <option name="totallyTimeSpent" value="255493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -992,22 +987,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Borderland/assets/borderland.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="1258" column="32" selection-start-line="1258" selection-start-column="27" selection-end-line="1258" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Borderland/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="244" column="32" selection-start-line="244" selection-start-column="32" selection-end-line="244" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/CategoryRepository.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="534">
@@ -1032,10 +1011,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Borderland/assets/borderland.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="1258" column="32" selection-start-line="1258" selection-start-column="27" selection-end-line="1258" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/Borderland/category.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="73" selection-start-line="4" selection-start-column="73" selection-end-line="4" selection-end-column="73" />
+        <state relative-caret-position="320">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Borderland/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="417" column="0" selection-start-line="417" selection-start-column="0" selection-end-line="417" selection-end-column="0" />
           <folding />
         </state>
       </provider>

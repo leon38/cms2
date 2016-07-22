@@ -31,7 +31,7 @@ html, body {
 
 .container-category {
     width:90%;
-    padding: 0 5% 5%;
+    padding: 40px 5% 5%;
     margin:0 auto;
     background-color: #f3f3f3;
 }
@@ -238,11 +238,11 @@ article {
 }
 
 article:hover .image-article .image img {
-    transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -o-transform: scale(1.1);
-    -moz-transform: scale(1.1);
+    transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -webkit-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -moz-transform: scale(1.05);
 }
 
 article:hover .image-shader, article:hover .text-article {
@@ -355,4 +355,64 @@ article .image-article .image img {
     -ms-transition: -ms-transform .15s ease-out;
     -o-transition: -o-transform .15s ease-out;
     transition: transform .15s ease-out;
+}
+
+.nav-category-outer {
+    display: table;
+    width: 100%;
+    margin: 0 auto 36px;
+    text-align: center;
+}
+
+.nav-category-holder {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.nav.nav-category {
+    padding: 0;
+    display: inline-block;
+    list-style: none;
+    vertical-align: middle;
+}
+
+.nav-category li {
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    float: left;
+    text-align: center;
+}
+
+.nav-category li a, .nav-category li span {
+    position: relative;
+    color: #222;
+    font-family: Raleway,sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+     display: inline-block;
+    vertical-align: middle;
+    padding: 0 25px;
+    -webkit-transition: color .15s ease-out;
+    -moz-transition: color .15s ease-out;
+    -ms-transition: color .15s ease-out;
+    -o-transition: color .15s ease-out;
+    transition: color .15s ease-out;
+}
+
+.nav-category li a {
+    color: #8c8c8c;
+}
+
+.nav-category li a:after {
+    content: '|';
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    width: 1px;
+    color: #e5e5e5;
 }
