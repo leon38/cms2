@@ -9,6 +9,6 @@ services:
     cms.render_menu.twig_extension:
         class: CMS\Bundle\MenuBundle\Twig\RenderMenuExtension
         public: false
-        arguments: [@cms.repository.menu_taxonomy_repository]
+        arguments: [@cms.repository.menu_taxonomy_repository, @service_container]
         tags:
             - { name: twig.extension }

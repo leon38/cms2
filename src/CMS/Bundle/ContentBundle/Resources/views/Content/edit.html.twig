@@ -1,6 +1,12 @@
 {% extends "::admin/base_admin.html.twig" %}
 
 {% block body %}
+    <div class="section-header">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('admin_content') }}">Contenus</a></li>
+            <li class="active">Edition</li>
+        </ol>
+    </div>
     {{ form_start(edit_form) }}
     <div class="col-md-3 pull-right">
         <div class="card">

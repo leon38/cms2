@@ -77,7 +77,7 @@ class FrontController extends Controller
 				}
 				throw new NotFoundHttpException("Page not found");
 			}
-			$categories = $em->getRepository('ContentBundle:Category')->findAll();
+			$categories = $em->getRepository('ContentBundle:Category')->getAll(true);
       $parameters = array_merge($this->_parameters,array('title' => $category->getTitle(), 'category' => $category,'theme' => $this->_theme, 'contents' => $category->getContents(), 'categories' => $categories));
       return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
 		}

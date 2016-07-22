@@ -416,3 +416,7 @@ article .image-article .image img {
     width: 1px;
     color: #e5e5e5;
 }
+
+.nav-category li:last-child a:after {
+    content: '';
+}

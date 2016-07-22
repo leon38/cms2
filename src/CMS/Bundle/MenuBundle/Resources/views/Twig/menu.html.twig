@@ -1,0 +1,23 @@
+<ul class="{{ class }}" id="{{ id }}">
+    {% set oldlvl = 1 %}
+    {% set multilvl = false %}
+    {% for entry in entries %}
+        {% if entry.lvl >= 1 %}
+            {% if entry.lvl < oldlvl %}
+                </ul></li>
+                {% set oldlvl = entry.lvl %}
+                {% set multilvl = false %}
+            {% elseif entry.lvl > oldlvl %}
+                <ul class="menu-items-children">
+                {% set oldlvl = entry.lvl %}
+                {% set multilvl = true %}
+            {% endif %}
+            <li class="menu-item lvl-{{ entry.lvl }}{% if entry.hasChildren() %} menu-parent{% endif %}">
+                <a href="{{ path('front_single', {'alias': entry.url}) }}"{% if entry.external %}
+                   target="_blank"{% endif %}>{{ entry.title }}</a>
+            </li>
+            {% if multilvl %}</ul>{% endif %}
+        {% endif %}
+
+    {% endfor %}
+</ul>

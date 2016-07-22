@@ -377,7 +377,6 @@ article .image-article .image img {
 }
 
 .nav-category li {
-    cursor: pointer;
     display: block;
     margin: 0;
     float: left;
@@ -408,11 +407,15 @@ article .image-article .image img {
     color: #8c8c8c;
 }
 
-.nav-category li a:after {
+.nav-category li a:after, .nav-category li span:after {
     content: '|';
     position: absolute;
     right: 0;
     display: inline-block;
     width: 1px;
     color: #e5e5e5;
+}
+
+.nav-category li:last-child a:after, .nav-category li:last-child span:after {
+    content: '';
 }

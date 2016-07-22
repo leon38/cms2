@@ -1,0 +1,40 @@
+<div class="form-group">
+    <label for="content-link" class="control-label">Contenu</label>
+    <select name="content-link" id="content-link" class="form-control">
+        <option value=""></option>
+        {% set old_language = contents.0.language.id %}
+        {% for content in contents %}
+        {% if old_language != content.language.id %}
+        </optgroup><optgroup label="{{ content.language.name }}">
+            {% set old_language = content.language.id %}
+            {% endif %}
+            {% if loop.index == 1 %}
+            <optgroup label="{{ content.language.name }}">
+                {% endif %}
+                <option value="{{ path('front_single', {'alias': content.url}) }}">{{ content.title }}</option>
+                {% endfor %}
+            </optgroup>
+    </select>
+</div>
+<div class="form-group">
+    <label for="category-link" class="control-label">Catégorie</label>
+    <select name="category-link" id="category-link" class="form-control">
+        <option value=""></option>
+        {% set old_language = categories.0.language.id %}
+        {% for category in categories %}
+        {% if old_language != category.language.id %}
+        </optgroup><optgroup label="{{ category.language.name }}">
+            {% set old_language = category.language.id %}
+            {% endif %}
+            {% if loop.index == 1 %}
+            <optgroup label="{{ category.language.name }}">
+                {% endif %}
+                <option value="{{ path('front_single', {'alias': category.url}) }}">{{ category.title }}</option>
+                {% endfor %}
+            </optgroup>
+    </select>
+</div>
+<div class="form-group">
+    <label for="externe-link" class="control-label">Externe</label>
+    <input type="url" name="externe" id="externe-link" class="form-control" placeholder="http://" />
+</div>

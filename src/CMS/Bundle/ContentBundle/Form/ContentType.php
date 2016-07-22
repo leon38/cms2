@@ -124,7 +124,7 @@ class ContentType extends AbstractType
 
                 }
             );
-        } else { // new
+        } else { // new content
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function(FormEvent $event) use ($fields) {
@@ -161,6 +161,7 @@ class ContentType extends AbstractType
 
         $metas = $options['metas'];
         $metavalues = $options['metavalues'];
+      // edit content
         if ( !empty($metavalues) ) {
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
@@ -182,7 +183,7 @@ class ContentType extends AbstractType
 
                 }
             );
-        } else {
+        } else { //new content
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function(FormEvent $event) use ($metas) {

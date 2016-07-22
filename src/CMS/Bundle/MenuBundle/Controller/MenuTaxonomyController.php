@@ -56,6 +56,7 @@ class MenuTaxonomyController extends Controller
             $entry = new Entry();
             $entry->setTitle("Root ".$entity->getTitle());
             $entry->setRoot($entry);
+            $entry->setStatus(0);
             $entry->setMenuTaxonomy($entity);
             $em->persist($entry);
             $em->flush();

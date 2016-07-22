@@ -12,48 +12,65 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class CategoryRepository extends NestedTreeRepository
 {
-
-	public function findAll()
-	{
-		return $this->_em
-			        ->createQueryBuilder('c')
-			        ->select('c')
-			        ->from('ContentBundle:Category', 'c')
-			        ->where('c.level > 0')
-			        ->orderby('c.lft', 'asc')
-			        ->getQuery()
-			        ->getResult();
-	}
-
-	public function getSiblings($id)
+  
+  public function findAll()
   {
-		if ($id == 0) {
-			$this->_em
-			        ->createQueryBuilder('c')
-			        ->select('c')
-			        ->from('ContentBundle:Category', 'c')
-			        ->where('c.level > 0');
-		}
-
-		return $this->_em
-					->createQueryBuilder('c')
-					->select('c')
-					->from('ContentBundle:Category', 'c')
-					->where('c.id != :id')
-					->setParameter('id', $id);
-	}
-	
-	public function getAll($notEmpty = false)
+    return $this->_em
+      ->createQueryBuilder('c')
+      ->select('c')
+      ->from('ContentBundle:Category', 'c')
+      ->where('c.level > 0')
+      ->orderby('c.lft', 'asc')
+      ->getQuery()
+      ->getResult();
+  }
+  
+  public function getSiblings($id)
   {
-    $query =  $this->_em
+    if ($id == 0) {
+      $this->_em
+        ->createQueryBuilder('c')
+        ->select('c')
+        ->from('ContentBundle:Category', 'c')
+        ->where('c.level > 0')
+        ->orderBy('c.lft', 'ASC');
+    }
+    
+    return $this->_em
+      ->createQueryBuilder('c')
+      ->select('c')
+      ->from('ContentBundle:Category', 'c')
+      ->where('c.id != :id')
+      ->setParameter('id', $id)
+      ->orderBy('c.lft', 'ASC');
+  }
+  
+  public function getAll($notEmpty = false)
+  {
+    $query = $this->_em
       ->createQueryBuilder('c')
       ->select('c')
       ->from('ContentBundle:Category', 'c');
-      if ($notEmpty) {
-          $query->groupBy('c.id');
-          $query->having('COUNT(c.contents) > 0');
-      }
-      $query->getQuery()->getResult();
+    if ($notEmpty) {
+      $query->innerJoin('c.contents', 'co');
+      $query->groupBy('c.id');
+      $query->having('COUNT(co.id) > 0');
+    }
+    
+    return $query->getQuery()->getResult();
   }
-
+  
+  public function getCategoriesLinks()
+  {
+    return $this->_em
+      ->createQueryBuilder('c')
+      ->select('c')
+      ->from('ContentBundle:Category', 'c')
+      ->where('c.level > 0')
+      ->orderBy('c.language, c.lft', 'ASC')
+      ->addOrderBy('c.lft', 'ASC')
+      ->getQuery()
+      ->getResult();
+  }
+  
 }
