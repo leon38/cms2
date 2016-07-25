@@ -36,12 +36,12 @@
                     <tbody>
                         {% for menu in entities %}
                         <tr role="row">
-                            <td>{{ menu.title }}</td>
+                            <td>{{ menu }}</td>
                             <td>{{ menu.externalUrl }}</td>
                             <td>{% if menu.content is not null %}{{ menu.content.title }}{% endif %}</td>
                             <td>{% if menu.category is not null %}{{ menu.category.title }}{% endif %}</td>
                             <td>{% if menu.taxonomy is not null %}{{ menu.taxonomy.name }}{% endif %}</td>
-                            <td><div class="switch" data-on-label="{{ 'yes'|trans }}" data-off-label="{{ 'no'|trans }}"><input type="checkbox"{% if menu.status %}checked="checked"{% endif %} class="status" data-id="{{ menu.id }}" data-repo="MenuBundle:MenuTaxonomy" data-prop="status"></div></td>
+                            <td><div class="switch" data-on-label="{{ 'yes'|trans }}" data-off-label="{{ 'no'|trans }}"><input type="checkbox"{% if menu.status %}checked="checked"{% endif %} class="status" data-id="{{ menu.id }}" data-repo="MenuBundle:Entry" data-prop="status"></div></td>
                             <td class="text-right">
                                 <a href="{{ path('admin_entry_edit', {'id': menu.id }) }}" class="btn btn-info btn-simple btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Editer"><i class="fa fa-pencil"></i></a>
                                 <a data-toggle="modal" href='#modal-delete' class="btn btn-simple btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ menu.id }}"><i class="fa fa-trash-o"></i></a>

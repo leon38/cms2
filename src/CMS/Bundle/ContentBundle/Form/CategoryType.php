@@ -40,6 +40,7 @@ class CategoryType extends AbstractType
                     'empty_value' => 'Après l\'élément',
                     'required'    => false
                 ))
+          ->add('banner', 'image', array('class' => 'CMS\Bundle\MediaBundle\Entity\Media', 'image_path' => 'webPath', 'image_size' => 'col-md-12'))
         ;
     }
 

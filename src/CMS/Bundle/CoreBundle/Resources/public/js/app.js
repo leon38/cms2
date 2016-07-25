@@ -409,3 +409,21 @@ function changeProp(elem) {
         }
     })
 }
+
+function updateMetas(elm) {
+    var elm = $(elm);
+    var parente = elm.parent();
+    var datas = {}
+    $('#media_info input:text, input:hidden').each(function() {
+        datas[$(this).attr('name')] = $(this).val();
+    });
+    $.ajax({
+        url: Routing.generate('admin_update_meta'),
+        type: 'POST',
+        data: datas,
+        success: function(msg) {
+            parente.parent().prepend('<div class="alert alert-success">Metas updated</div>');
+        }
+    });
+    return false;
+}

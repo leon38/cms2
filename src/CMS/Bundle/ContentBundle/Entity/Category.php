@@ -137,6 +137,12 @@ class Category
    */
   private $modified;
   
+  /**
+   * @ORM\ManyToOne(targetEntity="CMS\Bundle\MediaBundle\Entity\Media")
+   * @ORM\JoinColumn(name="banner", referencedColumnName="id")
+   */
+  private $banner;
+  
   
   /**
    * Constructor
@@ -548,52 +554,81 @@ class Category
   {
     return ($this->getLevel() > 0) ? str_repeat(html_entity_decode('&nbsp;', ENT_QUOTES, 'UTF-8'), ($this->getLevel() - 1) * 3) . $this->getTitle() : $this->getTitle();
   }
-
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return Category
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set modified
-     *
-     * @param \DateTime $modified
-     *
-     * @return Category
-     */
-    public function setModified($modified)
-    {
-        $this->modified = $modified;
-
-        return $this;
-    }
-
-    /**
-     * Get modified
-     *
-     * @return \DateTime
-     */
-    public function getModified()
-    {
-        return $this->modified;
-    }
+  
+  /**
+   * Set created
+   *
+   * @param \DateTime $created
+   *
+   * @return Category
+   */
+  public function setCreated($created)
+  {
+    $this->created = $created;
+    
+    return $this;
+  }
+  
+  /**
+   * Get created
+   *
+   * @return \DateTime
+   */
+  public function getCreated()
+  {
+    return $this->created;
+  }
+  
+  /**
+   * Set modified
+   *
+   * @param \DateTime $modified
+   *
+   * @return Category
+   */
+  public function setModified($modified)
+  {
+    $this->modified = $modified;
+    
+    return $this;
+  }
+  
+  /**
+   * Get modified
+   *
+   * @return \DateTime
+   */
+  public function getModified()
+  {
+    return $this->modified;
+  }
+  
+  /**
+   * Set banner
+   *
+   * @param \CMS\Bundle\MediaBundle\Entity\Media $banner
+   *
+   * @return Category
+   */
+  public function setBanner(\CMS\Bundle\MediaBundle\Entity\Media $banner = null)
+  {
+    $this->banner = $banner;
+    
+    return $this;
+  }
+  
+  /**
+   * Get banner
+   *
+   * @return \CMS\Bundle\MediaBundle\Entity\Media
+   */
+  public function getBanner()
+  {
+    return $this->banner;
+  }
+  
+  public function getWebPath()
+  {
+    return null === $this->banner ? null : $this->banner->getWebPath();
+  }
 }

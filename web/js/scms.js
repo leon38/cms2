@@ -9091,10 +9091,6 @@ $(document).ready(function () {
                                 $('#medias').prepend('<div class="col-md-2 centered thumb" id="media-'+ response.media.id +'"><a href="javascript:" onclick="getMediumInfo(this);" class="thumbnail text-center" data-image="true" data-url="'+path+'" data-id="'+response.media.id+'" data-alt="'+response.media.metas['alt_1']+'"><img src="'+path+'" data-url="'+path+'" alt="'+response.media.metas['alt_1']+'"></a></div>');
                                 $('.nav-tabs li a[href="#medias"]').tab('show');
                             }
-                            // },
-                            // queuecomplete: function() {
-                            //     window.reload();
-                            // }
                         });
                     });
                 }
@@ -9366,4 +9362,22 @@ function changeProp(elem) {
             }
         }
     })
+}
+
+function updateMetas(elm) {
+    var elm = $(elm);
+    var parente = elm.parent();
+    var datas = {}
+    $('#media_info input:text, input:hidden').each(function() {
+        datas[$(this).attr('name')] = $(this).val();
+    });
+    $.ajax({
+        url: Routing.generate('admin_update_meta'),
+        type: 'POST',
+        data: datas,
+        success: function(msg) {
+            parente.parent().prepend('<div class="alert alert-success">Metas updated</div>');
+        }
+    });
+    return false;
 }
