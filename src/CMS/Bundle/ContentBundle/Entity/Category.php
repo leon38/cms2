@@ -131,7 +131,8 @@ class Category
   
   /**
    * @var \DateTime $modified
-   *
+   * @JMS\Expose
+   * @JMS\Type("DateTime<'d/m/Y'>")
    * @Gedmo\Timestampable(on="update")
    * @ORM\Column(name="modified", type="datetime")
    */

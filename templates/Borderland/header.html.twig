@@ -13,7 +13,7 @@
 </head>
 <body>
 <div id="wrapper">
-    <header id="main-header" data-background="{% if content is defined and content.thumbnail is not null %}{{ content.thumbnail.webPath }}{% elseif category is defined and category.banner is not null %}{{ category.webPath }}{% else %}/uploads/thumbs/2016/07/photo-1466970601638-4e5fb6556584.jpg{% endif %}">
+    <header id="main-header" data-background="{% if content is defined and content.thumbnail is not null %}{{ content.thumbnail.webPath }}{% elseif category is defined and category.banner is not null %}{{ category.webPath }}{% else %}{{ getOption('banner') }}{% endif %}">
         <div class="pull-right">
             <button class="hamburger hamburger--elastic" type="button">
                 <span class="hamburger-box">

@@ -21,9 +21,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 
-/**
- * @Route("/admin/media")
- */
 class MediaController extends Controller
 {
   /**

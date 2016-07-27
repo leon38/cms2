@@ -16,26 +16,33 @@ class EntityToIdTransformer implements DataTransformerInterface
      * @var string
      */
     protected $class;
+    
     public function __construct(ObjectManager $objectManager, $class)
     {
         $this->objectManager = $objectManager;
         $this->class = $class;
     }
+    
     public function transform($entity)
     {
         if (null === $entity) {
             return;
         }
-        return $entity->getId();
+        if (is_object($entity)) {
+            return $entity->getId();
+        }
+        return null;
     }
+    
     public function reverseTransform($id)
     {
+        
         if (!$id) {
             return null;
         }
         $entity = $this->objectManager
-                       ->getRepository($this->class)
-                       ->find($id);
+            ->getRepository($this->class)
+            ->find($id);
         if (null === $entity) {
             throw new TransformationFailedException();
         }

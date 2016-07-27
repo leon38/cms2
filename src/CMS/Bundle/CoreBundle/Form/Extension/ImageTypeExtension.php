@@ -59,7 +59,7 @@ class ImageTypeExtension extends AbstractTypeExtension
           if (isset($parentData['image'])) {
             $imageUrl = $parentData['image']->getWebPath();
           }
-        } else if (get_class($parentData) == 'Locabri\Bundle\CoreBundle\Classes\GeneralOptions') {
+        } else if (get_class($parentData) == 'CMS\Bundle\CoreBundle\Classes\GeneralOptions') {
           $tmp_options = $parentData->getOptions();
 
           foreach($tmp_options as $option) {

@@ -2,10 +2,11 @@
 <nav id="main-nav">
     <div class="container">
         <h4 class="dancing">Partir c'est crever un pneu</h4>
-        {{ 'menu-principal'|render_menu|raw }}
+        {{ render_menu('menu-principal') }}
     </div>
 </nav>
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
 <script>
     // Look for .hamburger
     var hamburgers = $(".hamburger");
@@ -28,6 +29,22 @@
         $('#main-header').css('background-image', 'url(' + image + ')');
 
     })
+
+    // external js: isotope.pkgd.js
+
+    // init Isotope
+    var $grid = $('.section').isotope({
+        itemSelector: '.element-item',
+        layoutMode: 'fitRows'
+    });
+
+    // bind filter button click
+    $('.nav-category > li > a').on( 'click', function() {
+        var filterValue = $( this ).attr('data-filter');
+        console.log(filterValue);
+        $grid.isotope({ filter: filterValue });
+    });
+
 </script>
 </body>
 </html>

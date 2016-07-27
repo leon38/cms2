@@ -3,11 +3,12 @@
     <div class="nav-category-outer">
         <div class="nav-category-holder">
             <ul class="nav nav-category">
+                <li><a href="javascript:" data-filter="*">Accueil</a></li>
                 {% for cat in categories %}
-                    {% if cat.id == category.id %}
+                    {% if category is defined and cat.id == category.id %}
                         <li><span>{{ cat.title }}</span></li>
                     {% else %}
-                        <li><a href="{{ path('front_single', {'alias': cat.url}) }}">{{ cat.title }}</a></li>
+                        <li><a href="javascript:" data-filter=".{{ cat.url }}">{{ cat.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -16,7 +17,7 @@
 
     <div class="section">
         {% for content in contents %}
-            <article>
+            <article class="element-item {{ content.getCategoriesClass() }}">
                 <div class="article-holder">
                     <div class="text-article">
                         <div class="text-centerer">

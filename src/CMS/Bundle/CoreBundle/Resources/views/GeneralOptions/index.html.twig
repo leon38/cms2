@@ -18,7 +18,10 @@
 		    <div class="alert alert-callout alert-success" role="alert">{{ flashMessage|trans }}</div>
 		{% endfor %}
 		<div class="card">
-			<div class="card-body">{{ form(form) }}</div>
+			<div class="content">
+                {{ form(form) }}
+                <div class="clearfix"></div>
+            </div>
 		</div>
 	</div>
 {% endblock body %}

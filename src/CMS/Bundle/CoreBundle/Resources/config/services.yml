@@ -1,6 +1,7 @@
 parameters:
     cms_core.form.extension.help.class: 'CMS\Bundle\CoreBundle\Form\Extension\FieldTypeHelpExtension'
     cms_core.file.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\FileExtension'
+    cms_core.option.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\OptionExtension'
     cms_core.boolean.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\BooleanIconExtension'
     cms_core.meta_user.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\MetaUserExtension'
 
@@ -50,7 +51,7 @@ services:
 
     cms.core.class.general_option:
         class: CMS\Bundle\CoreBundle\Classes\GeneralOptions
-        arguments: [@cms.core.repository.option]
+        arguments: [@cms.core.repository.option, @cms.media.repository.media]
 
     cms.core.form.type.dropzone:
         class: CMS\Bundle\CoreBundle\Form\Type\DropzoneType
@@ -94,6 +95,12 @@ services:
         tags:
          - { name: twig.extension }
 
+    cms.core.twig.option.extension:
+            class: %cms_core.option.twig.extension.class%
+            arguments: ['@cms.core.repository.option']
+            tags:
+                - { name: twig.extension }
+
     cms.core.form.type.image:
             class: CMS\Bundle\CoreBundle\Form\Type\ImageType
             arguments: ["@doctrine.orm.entity_manager"]
@@ -105,3 +112,8 @@ services:
             tags:
                 - { name: form.type_extension, alias: image }
 
+    cms.core.form.type.general_options:
+            class: CMS\Bundle\CoreBundle\Form\GeneralOptionsType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: form.type }

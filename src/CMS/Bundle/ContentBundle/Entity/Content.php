@@ -757,4 +757,13 @@ class Content
     }
     return $res;
   }
+  
+  public function getCategoriesClass()
+  {
+      $cat_temp = array();
+      foreach ($this->categories as $category) {
+          $cat_temp[] = $category->getUrl();
+      }
+      return implode(' ', $cat_temp);
+  }
 }
