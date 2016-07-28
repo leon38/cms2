@@ -3,15 +3,17 @@ menu:
     type:     annotation
     prefix:   /
 
+media:
+    resource: "@MediaBundle/Controller/"
+    type:     annotation
+    prefix:   /admin/media
+
 front:
     resource: "@FrontBundle/Controller/"
     type:     annotation
     prefix:   /
 
-media:
-    resource: "@MediaBundle/Controller/"
-    type:     annotation
-    prefix:   /admin/media
+
 
 rest_api:
     resource: "@RestAPIBundle/Controller/"

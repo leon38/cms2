@@ -103,13 +103,15 @@ class FrontController extends Controller
                 throw new NotFoundHttpException("Page not found");
             }
             $categories = $em->getRepository('ContentBundle:Category')->getAll(true);
+            $contents = $em->getRepository('ContentBundle:Content')->getAllContents($category);
+
             $parameters = array_merge(
                 $this->_parameters,
                 array(
                     'title' => $category->getTitle(),
                     'category' => $category,
                     'theme' => $this->_theme,
-                    'contents' => $category->getContents(),
+                    'contents' => $contents,
                     'categories' => $categories,
                 )
             );

@@ -15,8 +15,7 @@
             <li class="menu-item lvl-{{ entry.lvl }}{% if entry.hasChildren() %} menu-parent{% endif %}">
                 <a href="{{ path('front_single', {'alias': entry.url.url}) }}"{% if entry.url.external %}
                    target="_blank" rel="noopener"{% endif %}>{{ entry.title }}</a>
-            </li>
-            {% if multilvl %}</ul>{% endif %}
+
         {% endif %}
 
     {% endfor %}

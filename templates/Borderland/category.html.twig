@@ -8,7 +8,7 @@
                     {% if category is defined and cat.id == category.id %}
                         <li><span>{{ cat.title }}</span></li>
                     {% else %}
-                        <li><a href="javascript:" data-filter=".{{ cat.url }}">{{ cat.title }}</a></li>
+                        <li><a href="{{ path('front_single', {'alias': cat.url}) }}">{{ cat.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -23,6 +23,8 @@
                         <div class="text-centerer">
                             <div class="text-inner">
                                 <h5>{{ content.title }}</h5>
+                                <span class="separator"></span>
+                                <span class="project_category">{{ content.getCategoriesArticle() }}</span>
                             </div>
                         </div>
                     </div>

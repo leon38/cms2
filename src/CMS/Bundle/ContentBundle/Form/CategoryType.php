@@ -20,6 +20,7 @@ class CategoryType extends AbstractType
 
         $builder
             ->add('title')
+            ->add('url', 'text', array('label' => 'cms.content.alias', 'attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_category_title')))
             ->add('description', null, array(
                 'attr' => array('class' => 'summernote')
             ))

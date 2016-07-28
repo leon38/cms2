@@ -12,18 +12,41 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContentRepository extends EntityRepository
 {
-
-	public function getAllContentsPublished()
-	{
-		return $this->_em
-			        ->createQueryBuilder('c, u, cat')
-			        ->select('c, u, cat')
-			        ->from('ContentBundle:Content', 'c')
-			        ->join('c.author', 'u')
-			        ->join('c.categories', 'cat')
-			        ->where('c.published = 1')
-			        ->getQuery()
-			        ->getResult();
-
-	}
+    
+    public function getAllContentsPublished()
+    {
+        return $this->_em
+            ->createQueryBuilder('c, u, cat')
+            ->select('c, u, cat')
+            ->from('ContentBundle:Content', 'c')
+            ->join('c.author', 'u')
+            ->join('c.categories', 'cat')
+            ->where('c.published = 1')
+            ->getQuery()
+            ->getResult();
+        
+    }
+    
+    public function getAllContents($cat)
+    {
+        $temp_children = $cat->getChildren();
+        $children = array();
+        foreach($temp_children as $child) {
+            $children[] = $child->getId();
+        }
+        
+        return $this->_em
+            ->createQueryBuilder('co')
+            ->select('co')
+            ->from('ContentBundle:Content', 'co')
+            ->join('co.categories', 'c')
+            ->where('c.id = :cat_id')
+            ->orWhere('c.id IN (:cats)')
+            ->andWhere('co.published = 1')
+            ->setParameter('cat_id', $cat->getId())
+            ->setParameter('cats', $children)
+            ->getQuery()
+            ->getResult();
+        
+    }
 }

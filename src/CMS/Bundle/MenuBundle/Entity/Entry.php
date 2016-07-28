@@ -86,7 +86,7 @@ class Entry
     /**
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\ContentBundle\Entity\Category")
      * @ORM\JoinColumn(name="category", referencedColumnName="id")
-     * @ORM\OrderBy({"title" = "ASC"})
+     * @ORM\OrderBy({"lft" = "ASC"})
      */
     protected $category;
 
@@ -484,7 +484,7 @@ class Entry
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {

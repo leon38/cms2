@@ -766,4 +766,13 @@ class Content
       }
       return implode(' ', $cat_temp);
   }
+    
+    public function getCategoriesArticle()
+    {
+        $cat_temp = array();
+        foreach ($this->categories as $category) {
+            $cat_temp[] = $category->getTitle();
+        }
+        return implode(' / ', $cat_temp);
+    }
 }

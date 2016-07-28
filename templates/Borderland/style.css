@@ -30,8 +30,8 @@ html, body {
 }
 
 .container-category {
-    width:90%;
-    padding: 40px 5% 5%;
+    width:96%;
+    padding: 40px 2% 2%;
     margin:0 auto;
     background-color: #f3f3f3;
 }
@@ -151,6 +151,16 @@ h1 {
 
 button.hamburger {
     outline: none;
+}
+
+.menu-items-children {
+    display: none;
+    padding-left: 20px;
+    list-style-type: none;
+}
+
+.menu-items-children.in {
+    display: block;
 }
 
 .img-responsive {
@@ -313,7 +323,39 @@ article .text-article .text-centerer .text-inner h5 {
     font-weight: 600;
     letter-spacing: 2px;
     text-transform: uppercase;
+    margin-bottom: 0;
 }
+
+.separator {
+    position: relative;
+    display: inline-block;
+    height: 1px;
+    background-color: #fff;
+    border: 0;
+    width: 75px;
+}
+
+.separator.animate {
+    width: 75px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: width .2s ease-out;
+    transition: width .2s ease-in-out;
+}
+
+.project_category {
+    display: block;
+    color: #ffffff;
+    font-family: 'Dancing Script', cursive;
+    font-size: 19px;
+    line-height: 25px;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: 0px;
+    text-transform: lowercase;
+    margin: 10px 0;
+}
+
 
 
 article .image-shader {

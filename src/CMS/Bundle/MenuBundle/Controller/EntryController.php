@@ -31,7 +31,7 @@ class EntryController extends Controller
 
         $entities = $em->getRepository('MenuBundle:Entry')->findByMenuTaxonomy($slug);
 
-        return $this->render('MenuBundle:Entry:index.html.twig', 
+        return $this->render('MenuBundle:Entry:index.html.twig',
             array(
             'url' => 'admin_entry_delete',
             'entities' => $entities,
@@ -65,7 +65,7 @@ class EntryController extends Controller
             return $this->redirect($this->generateUrl('admin_entry', array('slug' => $slug)));
         }
 
-        return $this->render('MenuBundle:Entry:new.html.twig', 
+        return $this->render('MenuBundle:Entry:new.html.twig',
             array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -86,7 +86,7 @@ class EntryController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary btn-fill')));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));
 
         return $form;
     }
@@ -106,7 +106,7 @@ class EntryController extends Controller
 
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('MenuBundle:Entry:new.html.twig', 
+        return $this->render('MenuBundle:Entry:new.html.twig',
             array(
             'entity' => $entity,
             'form'   => $form->createView(),
@@ -153,7 +153,7 @@ class EntryController extends Controller
             'entry' => $entity,
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
 
         return $form;
     }

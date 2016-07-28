@@ -16,7 +16,7 @@ class MediaOptionManager extends OptionManager
 
   public function getAllOptions()
   {
-    return $this->repo->findBy(array('type' => 2));
+    return $this->repo->findBy(array('type' => 'image_settings'));
   }
 
 
