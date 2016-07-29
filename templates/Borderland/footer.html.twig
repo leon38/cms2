@@ -5,14 +5,27 @@
         {{ render_menu('menu-principal') }}
     </div>
 </nav>
+
+<footer>
+    <div class="footer-inner">
+        <div class="col-3">
+            <span class="bordered">TRAVELCLOUD</span>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3">
+
+        </div>
+    </div>
+</footer>
+
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
     // Look for .hamburger
     var hamburgers = $(".hamburger");
     var main_nav = $("#main-nav");
-    hamburgers.each(function() {
+    hamburgers.each(function () {
         var hamburger = $(this);
-        hamburger.on('click', function() {
+        hamburger.on('click', function () {
             if (!$(this).hasClass('is-active')) {
                 $('.hamburger').addClass('is-active');
                 main_nav.fadeIn('slow');
@@ -30,7 +43,7 @@
     })
 
     var link_parents = $('.menu-parent > a');
-    link_parents.on('click', function(e) {
+    link_parents.on('click', function (e) {
         var $this = $(this);
         if (!$this.parent().hasClass('opened')) {
             e.preventDefault();
@@ -38,11 +51,6 @@
             $this.parent('li').addClass('opened');
         }
     });
-
-
-
-
-
 </script>
 </body>
 </html>

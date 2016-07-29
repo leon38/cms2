@@ -5,15 +5,27 @@
         {{ render_menu('menu-principal') }}
     </div>
 </nav>
+
+<footer>
+    <div class="footer-inner">
+        <div class="col-3">
+            <span class="bordered">TRAVELCLOUD</span>
+        </div>
+        <div class="col-6"></div>
+        <div class="col-3">
+
+        </div>
+    </div>
+</footer>
+
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script type="text/javascript" src="https://npmcdn.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
 <script>
     // Look for .hamburger
     var hamburgers = $(".hamburger");
     var main_nav = $("#main-nav");
-    hamburgers.each(function() {
+    hamburgers.each(function () {
         var hamburger = $(this);
-        hamburger.on('click', function() {
+        hamburger.on('click', function () {
             if (!$(this).hasClass('is-active')) {
                 $('.hamburger').addClass('is-active');
                 main_nav.fadeIn('slow');
@@ -30,21 +42,15 @@
 
     })
 
-    // external js: isotope.pkgd.js
-
-    // init Isotope
-    var $grid = $('.section').isotope({
-        itemSelector: '.element-item',
-        layoutMode: 'fitRows'
+    var link_parents = $('.menu-parent > a');
+    link_parents.on('click', function (e) {
+        var $this = $(this);
+        if (!$this.parent().hasClass('opened')) {
+            e.preventDefault();
+            $this.parent('li').find('ul.menu-items-children').toggle('slide');
+            $this.parent('li').addClass('opened');
+        }
     });
-
-    // bind filter button click
-    $('.nav-category > li > a').on( 'click', function() {
-        var filterValue = $( this ).attr('data-filter');
-        console.log(filterValue);
-        $grid.isotope({ filter: filterValue });
-    });
-
 </script>
 </body>
 </html>

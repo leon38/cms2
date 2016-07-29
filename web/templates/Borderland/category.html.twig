@@ -8,7 +8,7 @@
                     {% if category is defined and cat.id == category.id %}
                         <li><span>{{ cat.title }}</span></li>
                     {% else %}
-                        <li><a href="javascript:" data-filter=".{{ cat.url }}">{{ cat.title }}</a></li>
+                        <li><a href="{{ path('front_single', {'alias': cat.url}) }}">{{ cat.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
