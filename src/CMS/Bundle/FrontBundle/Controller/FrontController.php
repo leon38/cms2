@@ -14,13 +14,15 @@ class FrontController extends Controller
 {
     private $_theme;
     private $_title;
+    private $_date_format;
     private $_parameters;
     
     public function init()
     {
         $this->_theme = $this->get('cms.core.option_manager')->get('theme', '');
         $this->_title = $this->get('cms.core.option_manager')->get('sitename', '');
-        $this->_parameters = array('sitename' => $this->_title);
+        $this->_date_format = $this->get('cms.core.option_manager')->get('date_format', '');
+        $this->_parameters = array('sitename' => $this->_title, 'date_format' => $this->_date_format);
     }
     
     /**
@@ -75,7 +77,7 @@ class FrontController extends Controller
     /**
      * Affiche le post ou les posts de la catégorie
      * @param  String $alias Alias d'une catégorie ou d'un post
-     * @return template
+     * @return Response Renvoie la vue avec le bon template selon l'alias
      *
      * @Route("/{alias}", name="front_single")
      */

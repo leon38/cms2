@@ -17,6 +17,7 @@ class MenuTaxonomyType extends AbstractType
         $builder
             ->add('title')
             ->add('slug', 'text', array('label' => 'cms.menu.alias', 'attr' => array('class' => 'url', 'data-target' => 'cms_bundle_menubundle_menutaxonomy_title')))
+            ->add('position', 'choice', array('choices' => $options['positions'], 'expanded' => false, 'multiple' => false))
             ->add('language')
         ;
     }
@@ -27,7 +28,8 @@ class MenuTaxonomyType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'CMS\Bundle\MenuBundle\Entity\MenuTaxonomy'
+            'data_class' => 'CMS\Bundle\MenuBundle\Entity\MenuTaxonomy',
+            'positions'  => array()
         ));
     }
 

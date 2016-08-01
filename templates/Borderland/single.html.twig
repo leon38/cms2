@@ -1,5 +1,9 @@
 {% include "@cms/Borderland/header.html.twig" %}
     <div class="container">
+        <div class="dancing pull-left">
+            {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle() }}
+        </div>
+        <div class="clearfix"></div>
         <h1>{{ content.title }}</h1>
         <div class="section">
 	        <div class="col col-8">
@@ -9,6 +13,8 @@
 	        <div class="col col-4">
 	            {{ content.get('carte')|raw }}
 	        </div>
+            <div class="clearfix"></div>
         </div>
+        <div class="clearfix"></div>
     </div>
 {% include "@cms/Borderland/footer.html.twig" %}

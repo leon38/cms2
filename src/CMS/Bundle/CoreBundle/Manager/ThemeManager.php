@@ -60,7 +60,29 @@ class ThemeManager {
 		}
 		return $themes;
 	}
+    
+    /**
+     * Récupère les infos d'un thème donné
+     * @param $dir_theme Répertoire du theme dont on veut récupérer les infos
+     * @return array Les infos du thème
+     */
+	public static function getInfo($dir_theme)
+    {
+        $finder = new Finder();
+        $theme_files = $finder->files()->in($dir_theme)->name('style.css');
+        foreach($theme_files as $theme_file) {
+            $current_theme_info = $theme_file;
+            break;
+        }
 
+        return self::_getInfoTheme($current_theme_info->getContents());
+    }
+    
+    /**
+     * Récupère la css de l'admin
+     * @param $dir_theme Nom du répertoire du thème
+     * @return bool|string retourne le chemin vers la css si elle existe, faux sinon
+     */
 	public function getAdminCss($dir_theme)
 	{
 		$finder = new Finder();
@@ -68,7 +90,12 @@ class ThemeManager {
 			return $dir_theme.'/admin.css';
 		return false;
 	}
-
+    
+    /**
+     * Récupère toutes les infos sur le thème
+     * @param $content Contenu de la css
+     * @return array Infos du thème
+     */
 	private static function _getInfoTheme($content)
 	{
 		$info_theme = array();

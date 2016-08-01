@@ -26,6 +26,7 @@
                         <tr role="row">
                             <th>{{ 'cms.menu.title'|trans }}</th>
                             <th>{{ 'cms.menu.slug'|trans }}</th>
+                            <th>{{ 'cms.menu.position'|trans }}</th>
                             <th>{{ 'cms.menu.status'|trans }}</th>
                             <th class="no-sort text-right" tabindex="0" aria-controls="data_table">{{ 'actions'|trans }}</th>
                         </tr>
@@ -35,6 +36,7 @@
                         <tr role="row">
                             <td><a href="{{ path('admin_entry', {'slug': menu.slug}) }}">{{ menu.title }}</a></td>
                             <td>{{ menu.slug }}</td>
+                            <td>{{ menu.position }}</td>
                             <td><div class="switch" data-on-label="{{ 'yes'|trans }}" data-off-label="{{ 'no'|trans }}"><input type="checkbox"{% if menu.status %}checked="checked"{% endif %} class="status" data-id="{{ menu.id }}" data-repo="MenuBundle:MenuTaxonomy" data-prop="status"></div></td>
                             <td class="text-right">
                                 <a href="{{ path('admin_menutaxonomy_edit', {'id': menu.id }) }}" class="btn btn-info btn-simple btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Editer"><i class="fa fa-pencil"></i></a>

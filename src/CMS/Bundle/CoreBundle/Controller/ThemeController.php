@@ -51,6 +51,9 @@ class ThemeController extends Controller
 	 */
 	public function activateAction($theme)
 	{
+        $infos = ThemeManager::getInfo($this->get('kernel')->getRootDir().'/../templates/'.$theme);
+        $positions = explode(', ',$infos['Positions']);
+        $this->get('cms.core.option_manager')->add('positions', serialize($positions), 'array');
 		$this->get('cms.core.option_manager')->add('theme', $theme);
 
 		return new JsonResponse(array('theme' => $theme));

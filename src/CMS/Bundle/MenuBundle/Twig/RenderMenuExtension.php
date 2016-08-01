@@ -22,11 +22,14 @@ class RenderMenuExtension extends \Twig_Extension
         );
     }
     
-    public function renderMenu($slugMenu, $class = 'list-unstyled', $id = '')
+    public function renderMenu($position, $class = 'list-unstyled', $id = '')
     {
-        $menuTax = $this->_menuTaxRepository->findOneBy(array('slug' => $slugMenu));
+        $menuTax = $this->_menuTaxRepository->findOneBy(array('position' => $position));
+        if ($menuTax == null) {
+            return '';
+        }
         $entries = $menuTax->getEntries();
-        $id = ($id != '') ? $id : $slugMenu;
+        $id = ($id != '') ? $id : $position;
         $class = ($class != '') ? 'menu '.$class : 'menu';
         
         return $this->_container->get('templating')->render(

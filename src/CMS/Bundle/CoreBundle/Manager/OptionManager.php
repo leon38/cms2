@@ -18,7 +18,7 @@ class OptionManager
 		$this->repo = $repo;
 	}
 
-	public function add($name, $value, $type = 0)
+	public function add($name, $value, $type = 'text', $general = false)
 	{
 		$option = $this->_exists($name);
 		if ($option === null) {
@@ -27,6 +27,7 @@ class OptionManager
 		}
 		$option->setOptionValue($value);
 		$option->setType($type);
+		$option->setGeneral($general);
 		$this->em->persist($option);
 		$this->em->flush();
 	}

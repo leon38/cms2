@@ -4,6 +4,7 @@
  * Author URI: http://gitlab.com/leon38
  * Description: In 2016, our default theme lets you create a responsive magazine website with a sleek, modern design. Feature your favorite homepage content in either a grid or a slider. Use the three widget areas to customize your website, and change your content’s layout with a full-width page template and a contributor page to show off your authors. Creating a magazine website with WordPress has never been easier.
  * Theme URI: http://gitlab.com/leon38/cms
+ * Positions : header, footer
  * Date: 16/12/2015
  * Version: 1.0
  * Tags: responsive-layout, fluid-layout, translation-ready, microformats
@@ -175,7 +176,6 @@ button.hamburger {
 footer {
     background-color: #121212;
     color: #fff;
-    height: 115px;
 }
 
 .footer-inner {

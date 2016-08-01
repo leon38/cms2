@@ -18,7 +18,7 @@ use CMS\Bundle\MenuBundle\Form\MenuTaxonomyType;
  */
 class MenuTaxonomyController extends Controller
 {
-
+    
     /**
      * Lists all MenuTaxonomy entities.
      *
@@ -29,14 +29,18 @@ class MenuTaxonomyController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entities = $em->getRepository('MenuBundle:MenuTaxonomy')->findAll();
-
-        return $this->render('MenuBundle:MenuTaxonomy:index.html.twig', array(
-            'url' => 'admin_menutaxonomy_delete',
-            'entities' => $entities,
-        ));
+        
+        return $this->render(
+            'MenuBundle:MenuTaxonomy:index.html.twig',
+            array(
+                'url' => 'admin_menutaxonomy_delete',
+                'entities' => $entities,
+            )
+        );
     }
+    
     /**
      * Creates a new MenuTaxonomy entity.
      *
@@ -49,7 +53,7 @@ class MenuTaxonomyController extends Controller
         $entity = new MenuTaxonomy();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
@@ -60,16 +64,19 @@ class MenuTaxonomyController extends Controller
             $entry->setMenuTaxonomy($entity);
             $em->persist($entry);
             $em->flush();
-
+            
             return $this->redirect($this->generateUrl('admin_menutaxonomy', array('id' => $entity->getId())));
         }
-
-        return $this->render('MenuBundle:MenuTaxonomy:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        
+        return $this->render(
+            'MenuBundle:MenuTaxonomy:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
-
+    
     /**
      * Creates a form to create a MenuTaxonomy entity.
      *
@@ -79,16 +86,20 @@ class MenuTaxonomyController extends Controller
      */
     private function createCreateForm(MenuTaxonomy $entity)
     {
-        $form = $this->createForm(new MenuTaxonomyType(), $entity, array(
-            'action' => $this->generateUrl('admin_menutaxonomy_create'),
-            'method' => 'POST',
-        ));
-
+        $form = $this->createForm(
+            new MenuTaxonomyType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_menutaxonomy_create'),
+                'method' => 'POST',
+            )
+        );
+        
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
-
+        
         return $form;
     }
-
+    
     /**
      * Displays a form to create a new MenuTaxonomy entity.
      *
@@ -99,14 +110,17 @@ class MenuTaxonomyController extends Controller
     public function newAction()
     {
         $entity = new MenuTaxonomy();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('MenuBundle:MenuTaxonomy:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
+        $form = $this->createCreateForm($entity);
+        
+        return $this->render(
+            'MenuBundle:MenuTaxonomy:new.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $form->createView(),
+            )
+        );
     }
-
+    
     /**
      * Displays a form to edit an existing MenuTaxonomy entity.
      *
@@ -117,39 +131,51 @@ class MenuTaxonomyController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entity = $em->getRepository('MenuBundle:MenuTaxonomy')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find MenuTaxonomy entity.');
         }
-
+        
         $editForm = $this->createEditForm($entity);
-
-        return $this->render('MenuBundle:MenuTaxonomy:edit.html.twig', array(
-            'entity' => $entity,
-            'form'   => $editForm->createView()
-        ));
+        
+        return $this->render(
+            'MenuBundle:MenuTaxonomy:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $editForm->createView(),
+            )
+        );
     }
-
+    
     /**
-    * Creates a form to edit a MenuTaxonomy entity.
-    *
-    * @param MenuTaxonomy $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a MenuTaxonomy entity.
+     *
+     * @param MenuTaxonomy $entity The entity
+     * @param Array $positions un tableau de positions définies dans le thème
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(MenuTaxonomy $entity)
     {
-        $form = $this->createForm(new MenuTaxonomyType(), $entity, array(
-            'action' => $this->generateUrl('admin_menutaxonomy_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
+        $positions = unserialize($this->get('cms.core.option_manager')->get('positions', 'N;'));
+        $positions = array_combine($positions, $positions);
+        $form = $this->createForm(
+            new MenuTaxonomyType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('admin_menutaxonomy_update', array('id' => $entity->getId())),
+                'method' => 'PUT',
+                'positions' => $positions
+            )
+        );
+        
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
-
+        
         return $form;
     }
+    
     /**
      * Edits an existing MenuTaxonomy entity.
      *
@@ -160,32 +186,36 @@ class MenuTaxonomyController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entity = $em->getRepository('MenuBundle:MenuTaxonomy')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find MenuTaxonomy entity.');
         }
-
+        
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
-
+        
         if ($editForm->isValid()) {
             $em->flush();
-
+            
             $this->get('session')->getFlashBag()->add(
                 'success',
                 'cms.menu.menu_updated.success'
             );
-
+            
             return $this->redirect($this->generateUrl('admin_menutaxonomy'));
         }
-
-        return $this->render('MenuBundle:MenuTaxonomy:edit.html.twig', array(
-            'entity' => $entity,
-            'form'   => $editForm->createView(),
-        ));
+        
+        return $this->render(
+            'MenuBundle:MenuTaxonomy:edit.html.twig',
+            array(
+                'entity' => $entity,
+                'form' => $editForm->createView(),
+            )
+        );
     }
+    
     /**
      * Deletes a MenuTaxonomy entity.
      *
@@ -195,16 +225,16 @@ class MenuTaxonomyController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('MenuBundle:MenuTaxonomy')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find MenuTaxonomy entity.');
         }
-
+        
         $em->remove($entity);
         $em->flush();
-
+        
         return $this->redirect($this->generateUrl('admin_menutaxonomy'));
     }
-
-
+    
+    
 }

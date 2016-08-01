@@ -2,6 +2,7 @@
 namespace CMS\Bundle\MenuBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Tests\StringableObject;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -45,6 +46,12 @@ class MenuTaxonomy
      * @ORM\JoinColumn(name="language", referencedColumnName="id")
      */
      private $language;
+    
+    /**
+     * @var String
+     * @ORM\Column(name="position", type="string", length=100, nullable=true)
+     */
+    private $position;
 
     /**
      * Constructor
@@ -167,7 +174,7 @@ class MenuTaxonomy
     /**
      * Get status
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getStatus()
     {
@@ -190,10 +197,34 @@ class MenuTaxonomy
     /**
      * Get language
      *
-     * @return \CMS\Bundle\CoreBundle\Entity\Language 
+     * @return \CMS\Bundle\CoreBundle\Entity\Language
      */
     public function getLanguage()
     {
         return $this->language;
+    }
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     *
+     * @return MenuTaxonomy
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 }
