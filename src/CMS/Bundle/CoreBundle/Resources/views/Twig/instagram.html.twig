@@ -1,0 +1,6 @@
+{% for media in medias %}
+ {% if media.type == 'image' %}
+
+    <img src="{{ media.getStandardResImage().url }}" width="100" />
+{% endif %}
+{% endfor %}

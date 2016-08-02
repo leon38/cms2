@@ -8,6 +8,11 @@ media:
     type:     annotation
     prefix:   /admin/media
 
+core:
+    resource: "@CoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 front:
     resource: "@FrontBundle/Controller/"
     type:     annotation
@@ -40,10 +45,7 @@ contact:
     type:     annotation
     prefix:   /
 
-core:
-    resource: "@CoreBundle/Controller/"
-    type:     annotation
-    prefix:   /
+
 
 login_check:
     path: /admin/login_check

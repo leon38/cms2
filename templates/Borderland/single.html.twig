@@ -1,7 +1,7 @@
 {% include "@cms/Borderland/header.html.twig" %}
     <div class="container">
         <div class="dancing pull-left">
-            {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle() }}
+            {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle(',') }} | par {{ content.author }}
         </div>
         <div class="clearfix"></div>
         <h1>{{ content.title }}</h1>

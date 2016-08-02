@@ -21,6 +21,10 @@ html, body {
     margin-top: 0;
 }
 
+.pull-left {
+    float: left;
+}
+
 .pull-right {
     float: right;
 }
@@ -179,7 +183,7 @@ footer {
 }
 
 .footer-inner {
-    padding:75px 34px 65px 34px;
+    padding:30px 34px 35px 34px;
     margin-top: 20px;
 }
 
@@ -190,6 +194,14 @@ footer a {
 
 footer a:hover {
     color: #fff;
+}
+
+footer h4 {
+    line-height: 32px;
+}
+
+footer .logo {
+    margin-top: 85px;
 }
 
 .img-responsive {

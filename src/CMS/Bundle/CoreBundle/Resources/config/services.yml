@@ -117,3 +117,10 @@ services:
             arguments: ["@doctrine.orm.entity_manager"]
             tags:
                 - { name: form.type }
+
+    cms.core.instagram.twig_extension:
+            class: CMS\Bundle\CoreBundle\Twig\Extension\InstagramExtension
+            public: false
+            arguments: [@service_container]
+            tags:
+                - { name: twig.extension }
