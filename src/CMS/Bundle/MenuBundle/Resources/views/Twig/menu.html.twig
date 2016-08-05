@@ -13,9 +13,12 @@
                 {% set multilvl = true %}
             {% endif %}
             <li class="menu-item lvl-{{ entry.lvl }}{% if entry.hasChildren() %} menu-parent{% endif %}">
-                <a href="{{ path('front_single', {'alias': entry.url.url}) }}"{% if entry.url.external %}
-                   target="_blank" rel="noopener"{% endif %}>{{ entry.title }}</a>
-
+                {% if entry.url is not null %}
+                    <a href="{{ path('front_single', {'alias': entry.url.url}) }}"{% if entry.url.external %}
+                        target="_blank" rel="noopener"{% endif %}>{{ entry.title }}</a>
+                {% else %}
+                    <a href="{{ path('home') }}">{{ entry.title }}</a>
+                {% endif %}
         {% endif %}
 
     {% endfor %}

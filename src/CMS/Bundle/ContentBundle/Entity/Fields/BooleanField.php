@@ -3,7 +3,6 @@
 namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * CMS\Bundle\ContentBundle\Entity\Fields\BooleanField

@@ -10,6 +10,11 @@ services:
             tags:
                 - { name: form.type, alias: map }
 
+    cms.content.form.type.weather:
+                class: CMS\Bundle\ContentBundle\Form\Type\WeatherType
+                tags:
+                    - { name: form.type, alias: weather }
+
     cms.content.fields:
         class: CMS\Bundle\ContentBundle\Classes\Fields
         calls:
@@ -20,10 +25,15 @@ services:
             calls:
                 - [ setTemplating, [ @twig ] ]
 
+    cms.content.weather_field:
+                class: CMS\Bundle\ContentBundle\Entity\Fields\WeatherField
+                calls:
+                    - [ setTemplating, [ @twig ] ]
+
     cms.content.doctrine.entity_listener_resolver:
         class: CMS\Bundle\ContentBundle\Doctrine\EntityListenerResolver
         arguments: [ "@service_container" ]
-        
+
 
     cms.content.entity_listener.content:
         class: CMS\Bundle\ContentBundle\Listener\ContentListener

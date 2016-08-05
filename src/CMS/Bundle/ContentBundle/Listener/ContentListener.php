@@ -28,7 +28,8 @@ class ContentListener
         foreach($fieldvalues as $fieldvalue) {
             $template = 'ContentBundle:Fields:'.$fieldvalue->getField()->getField()->getTypeField().'.html.twig';
             if ($this->templating->exists($template)) {
-                $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $fieldvalue->getValue()));    
+                //$value = @unserialize($fieldvalue->getValue());
+                $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $fieldvalue->getValue(), "title" => $fieldvalue->getField()->getTitle()));
             }
         }
 

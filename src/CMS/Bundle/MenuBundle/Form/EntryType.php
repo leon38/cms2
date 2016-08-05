@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\MenuBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -23,8 +24,15 @@ class EntryType extends AbstractType
             ->add('content', null, array('label' => 'cms.entry.content'))
             ->add('category', null, array('label' => 'cms.entry.category'))
             ->add('taxonomy', null, array('label' => 'cms.entry.taxonomy'))
-            ->add('parent', null, array('label' => 'cms.entry.parent'))
-            ->add('ordre', 'entity', array(
+            ->add('parent', EntityType::class, array(
+                'label' => 'cms.entry.parent',
+                'class' => 'CMS\Bundle\MenuBundle\Entity\Entry',
+                'query_builder' => function(EntityRepository $er) use ($entry) {
+                    return $er->getAllEntriesMenu($entry->getMenuTaxonomy());
+                },
+                'empty_value' => '--',
+                'required'    => false))
+            ->add('ordre', EntityType::class, array(
                     'class' => 'CMS\Bundle\MenuBundle\Entity\Entry',
                     'query_builder' => function(EntityRepository $er) use ($entry) {
                         return $er->getSiblings($entry);
