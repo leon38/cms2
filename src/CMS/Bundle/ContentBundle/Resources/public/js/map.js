@@ -34,7 +34,7 @@ function codeAddress() {
                 alert("Geocode was not successful for the following reason: " + status);
             }
         });
-    } else {
+    } else if (latitude != "" && longitude != "") {
         geocodeLatLng(geocoder, map)
     }
 }
@@ -43,7 +43,6 @@ function geocodeLatLng(geocoder, map) {
     var latitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value;
     var longitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_longitude').value;
     var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
-    console.log(latlng);
     geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[1]) {

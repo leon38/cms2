@@ -45,6 +45,7 @@ class ContentRepository extends EntityRepository
             ->andWhere('co.published = 1')
             ->setParameter('cat_id', $cat->getId())
             ->setParameter('cats', $children)
+            ->orderBy('co.created', 'DESC')
             ->getQuery()
             ->getResult();
         

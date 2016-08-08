@@ -31,7 +31,7 @@
                     <a href="{{ path('front_single', {'alias': content.url}) }}" class="link-article"></a>
                     <div class="image-shader"></div>
                     <div class="image-article">
-                        <span class="image"><img src="{{ content.thumbnail.getWebPathSize("medium") }}"
+                        <span class="image"><img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_list') }}"
                                                  class="img-responsive"
                                                  alt="{{ content.thumbnail.metas['alt_1'] }}"
                                                  title="{{ content.thumbnail.metas['title_1'] }}"></span>

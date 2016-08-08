@@ -291,6 +291,7 @@ article {
     text-align: left;
     width: 23.5%;
     margin-right: 1.5%;
+    margin-bottom: 1.5%;
 }
 
 article:hover .image-article .image img {
@@ -374,6 +375,10 @@ article .text-article .text-centerer .text-inner h5 {
     background-color: #fff;
     border: 0;
     width: 75px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: width .2s ease-out;
+    transition: width .2s ease-in-out;
 }
 
 .separator.animate {
@@ -507,4 +512,12 @@ article .image-article .image img {
 
 .nav-category li:last-child a:after {
     content: '';
+}
+
+
+.section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
 }
