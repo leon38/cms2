@@ -15,10 +15,10 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * @ORM\Entity(repositoryClass="CMS\Bundle\ContentBundle\Entity\Repository\FieldRepository")
- * @ORM\Table(name="widget")
+ * @ORM\Table(name="sidebar")
  * @ORM\HasLifecycleCallbacks
  */
-class Widget
+class Sidebar
 {
     /**
      * @ORM\Id()
@@ -40,17 +40,17 @@ class Widget
     private $name;
     
     /**
-     * @var object field
-     *
-     * @ORM\Column(name="widget_object",type="object")
+     * @ORM\OneToMany(targetEntity="CMS\Bundle\CoreBundle\Entity\Widget", mappedBy="sidebar")
      */
-    private $widget;
+    private $widgets;
     
     /**
-     * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\Sidebar", inversedBy="widgets")
+     * Constructor
      */
-    private $sidebar;
-    
+    public function __construct()
+    {
+        $this->widgets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -67,7 +67,7 @@ class Widget
      *
      * @param string $title
      *
-     * @return Widget
+     * @return Sidebar
      */
     public function setTitle($title)
     {
@@ -91,7 +91,7 @@ class Widget
      *
      * @param string $name
      *
-     * @return Widget
+     * @return Sidebar
      */
     public function setName($name)
     {
@@ -111,26 +111,36 @@ class Widget
     }
 
     /**
-     * Set widget
+     * Add widget
      *
-     * @param \stdClass $widget
+     * @param \CMS\Bundle\CoreBundle\Entity\Widget $widget
      *
-     * @return Widget
+     * @return Sidebar
      */
-    public function setWidget($widget)
+    public function addWidget(\CMS\Bundle\CoreBundle\Entity\Widget $widget)
     {
-        $this->widget = $widget;
+        $this->widgets[] = $widget;
 
         return $this;
     }
 
     /**
-     * Get widget
+     * Remove widget
      *
-     * @return \stdClass
+     * @param \CMS\Bundle\CoreBundle\Entity\Widget $widget
      */
-    public function getWidget()
+    public function removeWidget(\CMS\Bundle\CoreBundle\Entity\Widget $widget)
     {
-        return $this->widget;
+        $this->widgets->removeElement($widget);
+    }
+
+    /**
+     * Get widgets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWidgets()
+    {
+        return $this->widgets;
     }
 }

@@ -163,6 +163,28 @@
     <script src="{{ asset('/bundles/content/js/weather.js') }}"></script>
 {% endblock weather_widget %}
 
+
+{% block spotify_widget %}
+    {% spaceless %}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-11">{{ form_row(form.artist) }}</div>
+                    <div class="col-md-1">
+                        <div class="form-group"><label class="form-label">&nbsp;</label><a
+                                    href="javascript:searchArtist()" class="btn btn-fill form-control">OK</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="spotify"></div>
+            </div>
+        </div>
+    {% endspaceless %}
+
+    <script src="{{ asset('/bundles/content/js/spotify.js') }}"></script>
+{% endblock spotify_widget %}
+
 {% use "form_div_layout.html.twig" %}
 
 {# Widgets #}

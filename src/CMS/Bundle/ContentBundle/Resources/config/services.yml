@@ -6,14 +6,19 @@ services:
         arguments: [ @doctrine.orm.entity_manager ]
 
     cms.content.form.type.map:
-            class: CMS\Bundle\ContentBundle\Form\Type\MapType
-            tags:
-                - { name: form.type, alias: map }
+        class: CMS\Bundle\ContentBundle\Form\Type\MapType
+        tags:
+            - { name: form.type, alias: map }
 
     cms.content.form.type.weather:
-                class: CMS\Bundle\ContentBundle\Form\Type\WeatherType
-                tags:
-                    - { name: form.type, alias: weather }
+        class: CMS\Bundle\ContentBundle\Form\Type\WeatherType
+        tags:
+            - { name: form.type, alias: weather }
+
+    cms.content.form.type.spotify:
+        class: CMS\Bundle\ContentBundle\Form\Type\SpotifyType
+        tags:
+            - { name: form.type, alias: spotify }
 
     cms.content.fields:
         class: CMS\Bundle\ContentBundle\Classes\Fields

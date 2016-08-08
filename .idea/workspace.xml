@@ -2,36 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7d6dfbbd-f51c-4650-a92d-8f0fad1b5bf2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/weather.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/Widget.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/WidgetExtension.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/SpotifyField.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/SpotifyType.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/spotify.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/SpotifyAuth.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Sidebar.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/views/Twig/social.html.twig" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/SocialExtension.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/FontAwesome.otf" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/FontAwesome.otf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.woff" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.woff2" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.woff2" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Resources/views/form.html.twig" afterPath="$PROJECT_DIR$/app/Resources/views/form.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Classes/Fields.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Classes/Fields.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/FieldController.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/FieldController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/BooleanField.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/BooleanField.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/MapField.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/MapField.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Listener/ContentListener.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Listener/ContentListener.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/map.html.twig" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/map.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Command/DumpCommand.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Command/DumpCommand.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Controller/EntryController.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Controller/EntryController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Controller/MenuTaxonomyController.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Controller/MenuTaxonomyController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Entity/Entry.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Entity/Entry.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Entity/Repository/EntryRepository.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Entity/Repository/EntryRepository.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Form/EntryType.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Form/EntryType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Resources/views/Twig/menu.html.twig" afterPath="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Resources/views/Twig/menu.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/category.html.twig" afterPath="$PROJECT_DIR$/templates/Borderland/category.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/footer.html.twig" afterPath="$PROJECT_DIR$/templates/Borderland/footer.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig" afterPath="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/config/services.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/css/font-awesome.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/public/fonts/fontawesome-webfont.svg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/header.html.twig" afterPath="$PROJECT_DIR$/templates/Borderland/header.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/single.html.twig" afterPath="$PROJECT_DIR$/templates/Borderland/single.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/Borderland/style.css" afterPath="$PROJECT_DIR$/templates/Borderland/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/category.html.twig" afterPath="$PROJECT_DIR$/web/templates/Borderland/category.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/footer.html.twig" afterPath="$PROJECT_DIR$/web/templates/Borderland/footer.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/header.html.twig" afterPath="$PROJECT_DIR$/web/templates/Borderland/header.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/single.html.twig" afterPath="$PROJECT_DIR$/web/templates/Borderland/single.html.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/Borderland/style.css" afterPath="$PROJECT_DIR$/web/templates/Borderland/style.css" />
@@ -55,76 +50,84 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="map.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/map.html.twig">
+      <file leaf-file-name="SpotifyField.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/SpotifyField.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="1" column="16" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+            <state relative-caret-position="574">
+              <caret line="52" column="91" selection-start-line="52" selection-start-column="90" selection-end-line="52" selection-end-column="91" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/Borderland/style.css">
+      <file leaf-file-name="WeatherType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+            <state relative-caret-position="340">
+              <caret line="25" column="5" selection-start-line="0" selection-start-column="0" selection-end-line="31" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="single.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Borderland/single.html.twig">
+      <file leaf-file-name="SpotifyType.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/SpotifyType.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+            <state relative-caret-position="140">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="services.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="274">
+              <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/form.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="174" column="65" selection-start-line="174" selection-start-column="65" selection-end-line="174" selection-end-column="65" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spotify.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/spotify.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="500">
+              <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
               <folding>
-                <element signature="e#12#44#0#Twig" expanded="true" />
+                <element signature="e#0#40#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="weather.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig">
+      <file leaf-file-name="map.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/map.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+            <state relative-caret-position="340">
+              <caret line="17" column="113" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="113" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base_admin.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Resources/views/admin/base_admin.html.twig">
+      <file leaf-file-name="SpotifyAuth.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/SpotifyAuth.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="16">
-              <caret line="224" column="4" selection-start-line="224" selection-start-column="4" selection-end-line="225" selection-end-column="95" />
+            <state relative-caret-position="-20">
+              <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.html.twig" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/Borderland/header.html.twig">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="weather.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/weather.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="19" selection-end-column="1" />
-              <folding>
-                <element signature="n#!!doc;n#getWeather#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -132,31 +135,19 @@
       <file leaf-file-name="WeatherField.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="51" column="114" selection-start-line="51" selection-start-column="108" selection-end-line="51" selection-end-column="114" />
+            <state relative-caret-position="554">
+              <caret line="70" column="5" selection-start-line="16" selection-start-column="4" selection-end-line="70" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContentListener.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Listener/ContentListener.php">
+      <file leaf-file-name="TextField.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/TextField.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="31" column="204" selection-start-line="31" selection-start-column="204" selection-end-line="31" selection-end-column="204" />
+            <state relative-caret-position="60">
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="44" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Field.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Field.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="34" column="19" selection-start-line="29" selection-start-column="4" selection-end-line="34" selection-end-column="19" />
-              <folding>
-                <element signature="e#50#82#0#PHP" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -167,8 +158,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
-        <option value="JavaScript File" />
         <option value="Twig" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -184,15 +175,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Resources/views/Entry/edit.html.twig" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Resources/views/Entry/new.html.twig" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/MediaBundle/Manager/MediaOptionManager.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/CategoryController.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/ContentController.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/CategoryRepository.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/ContentRepository.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Manager/ThemeManager.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Manager/OptionManager.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Controller/ThemeController.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Entity/MenuTaxonomy.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Form/MenuTaxonomyType.php" />
@@ -205,7 +187,6 @@
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/composer.lock" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Controller/ApiController.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/views/Twig/instagram.html.twig" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/InstagramExtension.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Controller/MenuTaxonomyController.php" />
@@ -216,25 +197,35 @@
         <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Form/EntryType.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/MenuBundle/Controller/EntryController.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Command/DumpCommand.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/FieldController.php" />
-        <option value="$PROJECT_DIR$/app/Resources/views/form.html.twig" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Classes/Fields.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/BooleanField.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/Widget.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/WidgetExtension.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/MapField.php" />
         <option value="$PROJECT_DIR$/templates/Borderland/footer.html.twig" />
-        <option value="$PROJECT_DIR$/templates/Borderland/header.html.twig" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/weather.js" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Listener/ContentListener.php" />
-        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig" />
         <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/map.html.twig" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/SocialController.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/config/services.yml" />
         <option value="$PROJECT_DIR$/templates/Borderland/single.html.twig" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig" />
+        <option value="$PROJECT_DIR$/templates/Borderland/header.html.twig" />
+        <option value="$PROJECT_DIR$/templates/Borderland/assets/font-awesome.min.css" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/SocialExtension.php" />
         <option value="$PROJECT_DIR$/templates/Borderland/style.css" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/views/Twig/social.html.twig" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Sidebar.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/SpotifyAuth.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/SpotifyField.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/SpotifyType.php" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml" />
+        <option value="$PROJECT_DIR$/app/Resources/views/form.html.twig" />
+        <option value="$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/spotify.js" />
       </list>
     </option>
   </component>
@@ -304,7 +295,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -334,38 +324,6 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Borderland" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -444,38 +402,6 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Entity" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cms2" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Resources" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -494,7 +420,49 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMS" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ContentBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms2" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMS" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ContentBundle" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -502,11 +470,59 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
+              <option name="myItemId" value="js" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms2" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CMS" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Bundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ContentBundle" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Resources" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cms2" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -530,6 +546,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -538,6 +555,11 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\dca\GIT\cms2\src\CMS\Bundle\ContentBundle\Form\Type" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -634,26 +656,26 @@
       <workItem from="1470034635635" duration="35386000" />
       <workItem from="1470230831727" duration="574000" />
       <workItem from="1470232063840" duration="12422000" />
-      <workItem from="1470303727949" duration="19260000" />
+      <workItem from="1470303727949" duration="19481000" />
+      <workItem from="1470638349816" duration="16406000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="387473000" />
+    <option name="totallyTimeSpent" value="404100000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29424307" sideWeight="0.58785945" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29744136" sideWeight="0.58224165" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2636656" sideWeight="0.50373137" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32955536" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29424307" sideWeight="0.41214058" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2636656" sideWeight="0.49626866" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29744136" sideWeight="0.41775838" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2636656" sideWeight="0.49626866" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26972282" sideWeight="0.6157205" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -661,6 +683,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -690,102 +713,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Repository/ContentRepository.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="40" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/doctrine/dbal/lib/Doctrine/DBAL/Driver/Statement.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="113" column="13" selection-start-line="113" selection-start-column="13" selection-end-line="113" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dump-sql-20160804-065226.sql" />
-    <entry file="file://$PROJECT_DIR$/dump-sql-20160804-070049.sql" />
-    <entry file="file://$PROJECT_DIR$/dump-sql-20160804-070716.sql" />
-    <entry file="file://$PROJECT_DIR$/dump-sql-20160804-071009.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Downloads/cms2.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12440">
-          <caret line="622" column="0" selection-start-line="622" selection-start-column="0" selection-end-line="622" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DRa0.895/dump-2016-08-04">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DRa0.863/dump-2016-08-04">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="65" selection-start-line="8" selection-start-column="65" selection-end-line="8" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Temp/Rar$DRa0.235/dump-2016-08-04">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="122" column="59" selection-start-line="122" selection-start-column="59" selection-end-line="122" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Console/Helper/SymfonyQuestionHelper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-561">
-          <caret line="31" column="20" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/symfony/symfony/src/Symfony/Component/Console/Style/SymfonyStyle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="339" column="43" selection-start-line="339" selection-start-column="43" selection-end-line="339" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/console">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/doctrine/doctrine-bundle/Command/DropDatabaseDoctrineCommand.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/doctrine/doctrine-bundle/Command/GenerateEntitiesDoctrineCommand.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-960">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -793,7 +724,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3035">
           <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -801,9 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
           <caret line="105" column="77" selection-start-line="105" selection-start-column="77" selection-end-line="105" selection-end-column="77" />
-          <folding>
-            <element signature="e#49#114#0#PHP" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -811,7 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="73" column="13" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -819,7 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="77" column="42" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -828,7 +753,6 @@
         <state relative-caret-position="120">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="17" />
           <caret line="6" column="21" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -852,11 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="1373" column="47" selection-start-line="1373" selection-start-column="47" selection-end-line="1373" selection-end-column="47" />
-          <folding>
-            <marker date="1462521035196" expanded="true" signature="17180:17223" ph="DELETE FROM " />
-            <marker date="1462521035196" expanded="true" signature="20394:20448" ph="INSERT INTO ${$tableExpression}... " />
-            <marker date="1462521035196" expanded="true" signature="20513:20674" ph="INSERT INTO ${$tableExpression}... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -864,15 +783,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
           <caret line="164" column="36" selection-start-line="164" selection-start-column="20" selection-end-line="164" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -886,43 +796,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
-          <folding>
-            <element signature="e#118#158#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/FieldController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="353" column="86" selection-start-line="353" selection-start-column="86" selection-end-line="353" selection-end-column="86" />
           <folding>
-            <element signature="e#442#499#0#PHP" expanded="true" />
+            <element signature="e#442#499#0#PHP" expanded="false" />
             <marker date="1470380591239" expanded="true" signature="11723:11814" ph="select * fro... forecast" />
             <marker date="1470380591239" expanded="true" signature="11723:11825" ph="select * fro... forecast" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/form.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="157" column="20" selection-start-line="157" selection-start-column="20" selection-end-line="157" selection-end-column="20" />
-          <folding>
-            <element signature="e#8#33#0#Twig" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/map.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="71" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -942,36 +824,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/InstagramExtension.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="31" column="5" selection-start-line="26" selection-start-column="4" selection-end-line="31" selection-end-column="5" />
-          <folding>
-            <element signature="e#120#181#0#PHP" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/WidgetExtension.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="35" column="7" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/Widget.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="31" column="5" selection-start-line="31" selection-start-column="5" selection-end-line="31" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -996,7 +852,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1680">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1004,22 +859,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="500">
           <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/admin/base_admin.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
+        <state relative-caret-position="4480">
           <caret line="224" column="4" selection-start-line="224" selection-start-column="4" selection-end-line="225" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/Borderland/header.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -1044,34 +890,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Field.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
+        <state relative-caret-position="620">
           <caret line="34" column="19" selection-start-line="29" selection-start-column="4" selection-end-line="34" selection-end-column="19" />
-          <folding>
-            <element signature="e#50#82#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Listener/ContentListener.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="31" column="204" selection-start-line="31" selection-start-column="204" selection-end-line="31" selection-end-column="204" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="51" column="114" selection-start-line="51" selection-start-column="108" selection-end-line="51" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1084,21 +904,234 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/SocialController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="514">
+          <caret line="128" column="66" selection-start-line="128" selection-start-column="66" selection-end-line="128" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/Borderland/single.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="44" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+        <state relative-caret-position="220">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="35" selection-end-line="11" selection-end-column="35" />
           <folding>
-            <element signature="e#12#44#0#Twig" expanded="true" />
+            <element signature="e#12#44#0#Twig" expanded="false" />
+            <element signature="e#791#823#0#Twig" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/views/Fields/weather.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="460">
+          <caret line="23" column="8" selection-start-line="23" selection-start-column="8" selection-end-line="23" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Borderland/assets/font-awesome.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="3" column="49" selection-start-line="3" selection-start-column="49" selection-end-line="3" selection-end-column="49" />
+          <caret line="3" column="98" selection-start-line="3" selection-start-column="98" selection-end-line="3" selection-end-column="98" />
+          <caret line="3" column="178" selection-start-line="3" selection-start-column="178" selection-end-line="3" selection-end-column="178" />
+          <caret line="3" column="241" selection-start-line="3" selection-start-column="241" selection-end-line="3" selection-end-column="241" />
+          <caret line="3" column="302" selection-start-line="3" selection-start-column="302" selection-end-line="3" selection-end-column="302" />
+          <caret line="3" column="366" selection-start-line="3" selection-start-column="366" selection-end-line="3" selection-end-column="366" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/Borderland/header.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="14" column="51" selection-start-line="14" selection-start-column="51" selection-end-line="14" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/SocialExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="32" column="43" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
+          <folding>
+            <element signature="e#812#846#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Controller/ContentController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-360">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/Borderland/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        <state relative-caret-position="525">
+          <caret line="294" column="20" selection-start-line="294" selection-start-column="20" selection-end-line="294" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Twig/Extension/InstagramExtension.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+          <folding>
+            <element signature="e#6#69#0#PHP" expanded="false" />
+            <element signature="e#120#181#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Listener/ContentListener.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="31" column="203" selection-start-line="31" selection-start-column="195" selection-end-line="31" selection-end-column="203" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Resources/views/Twig/social.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="12" column="11" selection-start-line="12" selection-start-column="11" selection-end-line="12" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/php-instagram-api/php-instagram-api/Instagram/Auth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1860">
+          <caret line="97" column="5" selection-start-line="74" selection-start-column="4" selection-end-line="97" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/php-instagram-api/php-instagram-api/Instagram/Instagram.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3600">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Widget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="29" column="7" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Entity/Sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/Widget.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/TextField.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/WeatherField.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="70" column="5" selection-start-line="16" selection-start-column="4" selection-end-line="70" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Entity/Fields/SpotifyField.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="52" column="91" selection-start-line="52" selection-start-column="90" selection-end-line="52" selection-end-column="91" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/WeatherType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="25" column="5" selection-start-line="0" selection-start-column="0" selection-end-line="31" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Form/Type/SpotifyType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/config/services.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/map.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="17" column="113" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/CoreBundle/Classes/SpotifyAuth.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-20">
+          <caret line="25" column="6" selection-start-line="25" selection-start-column="6" selection-end-line="25" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/form.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="174" column="65" selection-start-line="174" selection-start-column="65" selection-end-line="174" selection-end-column="65" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/CMS/Bundle/ContentBundle/Resources/public/js/spotify.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="500">
+          <caret line="27" column="35" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

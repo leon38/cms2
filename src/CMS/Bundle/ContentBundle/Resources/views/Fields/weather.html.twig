@@ -1,3 +1,4 @@
+{% if value is defined and value.ville is defined %}
 <h3>{{ title }}</h3>
 <div class="weather"></div>
 {% block javascripts %}
@@ -20,3 +21,4 @@
     }
 </script>
 {% endblock %}
+{% endif %}

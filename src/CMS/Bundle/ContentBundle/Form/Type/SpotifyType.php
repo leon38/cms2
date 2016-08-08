@@ -13,11 +13,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class WeatherType extends AbstractType
+class SpotifyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('ville', TextType::class);
+        $builder->add('artist', TextType::class);
     }
     
     public function getParent()
@@ -27,6 +27,6 @@ class WeatherType extends AbstractType
     
     public function getName()
     {
-        return 'weather';
+        return 'spotify';
     }
 }

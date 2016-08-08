@@ -283,6 +283,19 @@ footer .logo {
 }
 
 /**********************
+ * Single
+ **********************/
+
+.social a {
+    color: #000;
+    margin-right: 5px;
+}
+
+.social a:last-child {
+    margin-right: 0;
+}
+
+/**********************
  * Category
  **********************/
 article {

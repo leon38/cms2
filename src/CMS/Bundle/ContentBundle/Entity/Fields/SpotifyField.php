@@ -1,8 +1,8 @@
 <?php
 /**
  * User: DCA
- * Date: 04/08/2016
- * Time: 17:21
+ * Date: 08/08/2016
+ * Time: 17:04
  * cms2
  */
 
@@ -11,9 +11,8 @@ namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
 
-class WeatherField extends Fields
+class SpotifyField extends Fields
 {
-    
     // Requête : select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="Grenoble, France")
     
     /**
@@ -36,22 +35,22 @@ class WeatherField extends Fields
     
     public function getTypeField()
     {
-        return 'weather';
+        return 'spotify';
     }
     
     public function getName()
     {
-        return 'Champ météo';
+        return 'Champ Spotify';
     }
     
     public function getClassName()
     {
-        return 'WeatherField';
+        return 'SpotifyField';
     }
     
     public function display()
     {
-        return $this->templating->render('ContentBundle:Fields:weather.html.twig', array('params' => $this->params));
+        return $this->templating->render('ContentBundle:Fields:spotify.html.twig', array('params' => $this->params));
     }
     
     public function setParams($params)
@@ -69,5 +68,4 @@ class WeatherField extends Fields
     {
         return $this->params;
     }
-    
 }
