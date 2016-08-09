@@ -16,6 +16,7 @@ namespace CMS\Bundle\ContentBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use CMS\Bundle\ContentBundle\Entity\Field;
 use CMS\Bundle\ContentBundle\Form\FieldType;
@@ -338,5 +339,25 @@ class FieldController extends Controller
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
+    }
+    
+    /**
+     * @param $city
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
+     * @Route("/weather/{city}", name="weather_ajax")
+     */
+    public function getWeatherAction($city)
+    {
+        $BASE_URL = "http://query.yahooapis.com/v1/public/yql";
+        $yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'.$city.'")';
+        $yql_query_url = $BASE_URL . "?q=" . urlencode($yql_query) . "&format=json&u=c";
+        // Make call with cURL
+        $session = curl_init($yql_query_url);
+        curl_setopt($session, CURLOPT_RETURNTRANSFER,true);
+        $json = curl_exec($session);
+        // Convert JSON to PHP object
+//        $phpObj =  json_decode($json);
+        return new JsonResponse(json_decode($json));
     }
 }

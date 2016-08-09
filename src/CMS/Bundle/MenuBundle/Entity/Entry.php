@@ -459,6 +459,9 @@ class Entry
         if ($this->content == null) {
             if ($this->category == null) {
                 if ($this->taxonomy == null) {
+                    if ($this->external_url == "") {
+                        return null;
+                    }
                     return array('url' => $this->external_url, 'external' => true);
                 }
                 return array('url' => $this->taxonomy->getAlias(), 'external' => false);

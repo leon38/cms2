@@ -86,12 +86,15 @@ class MenuTaxonomyController extends Controller
      */
     private function createCreateForm(MenuTaxonomy $entity)
     {
+        $positions = unserialize($this->get('cms.core.option_manager')->get('positions', 'N;'));
+        $positions = array_combine($positions, $positions);
         $form = $this->createForm(
             new MenuTaxonomyType(),
             $entity,
             array(
                 'action' => $this->generateUrl('admin_menutaxonomy_create'),
                 'method' => 'POST',
+                'positions' => $positions
             )
         );
         

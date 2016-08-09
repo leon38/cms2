@@ -6,9 +6,19 @@ services:
         arguments: [ @doctrine.orm.entity_manager ]
 
     cms.content.form.type.map:
-            class: CMS\Bundle\ContentBundle\Form\Type\MapType
-            tags:
-                - { name: form.type, alias: map }
+        class: CMS\Bundle\ContentBundle\Form\Type\MapType
+        tags:
+            - { name: form.type, alias: map }
+
+    cms.content.form.type.weather:
+        class: CMS\Bundle\ContentBundle\Form\Type\WeatherType
+        tags:
+            - { name: form.type, alias: weather }
+
+    cms.content.form.type.spotify:
+        class: CMS\Bundle\ContentBundle\Form\Type\SpotifyType
+        tags:
+            - { name: form.type, alias: spotify }
 
     cms.content.fields:
         class: CMS\Bundle\ContentBundle\Classes\Fields
@@ -20,10 +30,15 @@ services:
             calls:
                 - [ setTemplating, [ @twig ] ]
 
+    cms.content.weather_field:
+                class: CMS\Bundle\ContentBundle\Entity\Fields\WeatherField
+                calls:
+                    - [ setTemplating, [ @twig ] ]
+
     cms.content.doctrine.entity_listener_resolver:
         class: CMS\Bundle\ContentBundle\Doctrine\EntityListenerResolver
         arguments: [ "@service_container" ]
-        
+
 
     cms.content.entity_listener.content:
         class: CMS\Bundle\ContentBundle\Listener\ContentListener

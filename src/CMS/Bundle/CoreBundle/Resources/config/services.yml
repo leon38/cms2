@@ -124,3 +124,10 @@ services:
             arguments: [@service_container]
             tags:
                 - { name: twig.extension }
+
+    cms.core.social.twig_extension:
+                class: CMS\Bundle\CoreBundle\Twig\Extension\SocialExtension
+                public: false
+                arguments: [@service_container]
+                tags:
+                    - { name: twig.extension }

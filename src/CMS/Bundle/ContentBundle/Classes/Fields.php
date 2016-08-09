@@ -2,7 +2,6 @@
 namespace CMS\Bundle\ContentBundle\Classes;
 
 use Symfony\Component\Templating\EngineInterface;
-use Tree\Fixture\Transport\Engine;
 
 class Fields
 {

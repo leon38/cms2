@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\MenuBundle\Controller;
 
+use CMS\Bundle\MenuBundle\Entity\MenuTaxonomy;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -59,6 +60,10 @@ class EntryController extends Controller
                 $root = $em->getRepository('MenuBundle:Entry')->findOneBy(array('lft' => 1, 'menu_taxonomy' => $entity->getMenuTaxonomy()));
                 $entity->setParent($root);
             }
+    
+            if ($entity->getOrdre() != null) {
+                $em->getRepository('Entry')->persistAsNextSiblingOf($entity, $entity->getOrdre());
+            }
             $em->persist($entity);
             $em->flush();
 
@@ -84,6 +89,7 @@ class EntryController extends Controller
         $form = $this->createForm(new EntryType(), $entity, array(
             'action' => $this->generateUrl('admin_entry_create', array('slug' => $entity->getMenuTaxonomy()->getSlug())),
             'method' => 'POST',
+            'entry'  => $entity
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));

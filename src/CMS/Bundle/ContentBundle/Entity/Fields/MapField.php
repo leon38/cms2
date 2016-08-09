@@ -49,11 +49,6 @@ class MapField extends Fields
     return 'MapField';
   }
 
-  public function display()
-  {
-    return $this->templating->render('ContentBundle:Fields:map.html.twig', array('params' => $this->params));
-  }
-
   public function setParams($params)
   {
     $this->params = $params;
