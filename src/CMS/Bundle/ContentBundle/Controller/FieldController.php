@@ -360,4 +360,44 @@ class FieldController extends Controller
 //        $phpObj =  json_decode($json);
         return new JsonResponse(json_decode($json));
     }
+    
+    /**
+     * @Route("/spotify/artist/{query}", name="spotify_search_artist")
+     */
+    public function getArtistSpotify($query)
+    {
+        $BASE_URL = 'https://api.spotify.com/v1/search?q='.urlencode($query).'&type=artist';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $BASE_URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $json = curl_exec($ch);
+        $json = json_decode($json);
+        curl_close($ch);
+        return new JsonResponse($json);
+    }
+    
+    /**
+     * @param $id_artist Identifiant de l'artiste
+     *
+     * @return JsonResponse
+     * @Route("/spotify/top-tracks/{id_artist}", name="spotify_top_tracks")
+     */
+    public function getTopTracksSpotify($id_artist)
+    {
+        $BASE_URL = "https://api.spotify.com/v1/artists/".$id_artist."/top-tracks?country=FR";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $BASE_URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $json = curl_exec($ch);
+        $json = json_decode($json);
+        curl_close($ch);
+        return $this->render('ContentBundle:Fields:result_spotify.html.twig', array("tracks" => $json->tracks));
+        //new JsonResponse(json_decode($json));
+    }
 }

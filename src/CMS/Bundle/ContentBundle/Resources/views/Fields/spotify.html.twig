@@ -1,0 +1,10 @@
+{% if value is defined and value.artist is defined %}
+<h4>{{ title }}</h4>
+<div class="spotify"></div>
+<script type="text/javascript" src="{{ asset('bundles/content/js/spotify.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        searchTopTracks("{{ value.artist }}");
+    });
+</script>
+{% endif %}

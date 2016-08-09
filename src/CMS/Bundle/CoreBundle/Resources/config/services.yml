@@ -131,3 +131,9 @@ services:
                 arguments: [@service_container]
                 tags:
                     - { name: twig.extension }
+
+    cms.core.gmdate.twig_extension:
+                    class: CMS\Bundle\CoreBundle\Twig\Extension\GMDateExtension
+                    public: true
+                    tags:
+                        - { name: twig.extension }

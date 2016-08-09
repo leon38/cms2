@@ -30,6 +30,7 @@
 # Assets and user uploads
 /web/bundles/
 /web/uploads/
+/web/medias/
 
 # Assets managed by Bower
 /web/assets/vendor/
@@ -49,3 +50,7 @@
 
 cms2.sublime-project
 /.idea/
+bin/
+src/CMS/Bundle/CoreBundle/Widgets/
+web/05/
+web/media/

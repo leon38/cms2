@@ -1,63 +1,68 @@
 /**
  * Created by DCA on 08/08/2016.
  */
-// find template and compile it
-var templateSource = document.getElementsByClassName('spotify')[0].innerHTML,
-    resultsPlaceholder = document.getElementById('results'),
-    playingCssClass = 'playing',
-    audioObject = null;
+var activeSong;
+var activeSongJ;
+$(document).ready(function() {
+    var artist = $('#tc_bundle_contentbundle_content_fieldValuesTemp_spotify_artist').val();
+    if (artist != '') {
+        searchTopTracks(artist);
+    }
+});
 
-var fetchTracks = function (albumId, callback) {
-    $.ajax({
-        url: 'https://api.spotify.com/v1/artists//top-tracks?country=FR' + albumId,
-        success: function (response) {
-            callback(response);
-        }
-    });
-};
+
+
+function playPause(id){
+    //Sets the active song since one of the functions could be play.
+    activeSong = document.getElementById(id);
+    activeSongJ = $('#'+id);
+
+    //Checks to see if the song is paused, if it is, play it from where it left off otherwise pause it.
+    if (activeSong.paused){
+        $(activeSongJ.data('target')).addClass('active');
+        $(activeSongJ.data('target')).find('.play-pause').find('.fa').removeClass('fa-pause').addClass('fa-play');
+        activeSong.play();
+    }else{
+        $(activeSongJ.data('target')).removeClass('active');
+        $(activeSongJ.data('target')).find('.play-pause').find('.fa').removeClass('fa-play').addClass('fa-pause');
+        activeSong.pause();
+    }
+}
+
+function updateTime(){
+    var currentSeconds = (Math.floor(activeSong.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeSong.currentTime % 60);
+    var currentMinutes = Math.floor(activeSong.currentTime / 60);
+
+    //Sets the current song location compared to the song duration.
+    $(activeSongJ.data('target')).find('.song-time').html(currentMinutes + ":" + currentSeconds + ' / ' + Math.floor(activeSong.duration / 60) + ":" + (Math.floor(activeSong.duration % 60) < 10 ? '0' : '') + Math.floor(activeSong.duration % 60));
+
+    //Fills out the slider with the appropriate position.
+    var percentageOfSong = (activeSong.currentTime/activeSong.duration);
+    var percentageOfSlider = $(activeSongJ.data('target')).find('.song-slider').offsetWidth * percentageOfSong;
+
+    //Updates the track progress div.
+    $(activeSongJ.data('target')).find('.track-progress').css('width', Math.round(percentageOfSlider) + "px");
+}
 
 var fetchTopTracks = function (artistId) {
     $.ajax({
-        url: 'https://api.spotify.com/v1/artists/'+artistId+'/top-tracks?country=FR',
+        url: Routing.generate('spotify_top_tracks', {id_artist: artistId}),
         success: function (response) {
-            var tracks = response.tracks;
-            var resultPlaceHolder = document.getElementsByClassName('spotify')[0];
-            var result = '<ul class="list-unstyled">';
-            for (var i = 0; i < 5; i++) {
-                var track = tracks[i];
-                console.log(track);
-                var duration = durationMsToFormat(track.duration_ms);
-                result += '<li><img src="'+track.album.images[0].url+'" width="64" height="64"> '+track.name+'<span class="pull-right">'+duration+'</span></li>';
-            }
-            result += '</ul>';
-            $('.spotify').append(result);
+            $('.spotify').html(response);
         }
     })
 }
 
 var searchTopTracks = function (query) {
     $.ajax({
-        url: 'https://api.spotify.com/v1/search',
-        data: {
-            q: query,
-            type: 'artist'
-        },
+        url: Routing.generate('spotify_search_artist', {query: query}),
+        dataType: "json",
         success: function (response) {
            var id_artist = response.artists.items[0].id;
            fetchTopTracks(id_artist);
         }
     });
 };
-
-var durationMsToFormat = function (duration_ms) {
-    var duration = duration_ms / 1000;
-    var minute = Math.ceil(duration / 60);
-    minute += ":" + Math.ceil(duration % 60);
-    console.log(minute);
-    return minute;
-}
-
-
 
 function searchArtist() {
     searchTopTracks(document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_spotify_artist").value);

@@ -9663,3 +9663,52 @@ star {
         -moz-transform: rotateX(35deg) rotateY(55deg) rotateZ(360deg);
     }
 }
+
+.spotify audio {
+    display: none;
+}
+
+.spotify .track {
+    margin-bottom: 5px;
+}
+
+.spotify .track .infos {
+    float: left;
+    width: 78%;
+}
+
+.spotify img {
+    display: block;
+    float: left;
+}
+
+.spotify span {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 45px;
+}
+
+.spotify span.track-name {
+    padding-left: 10px;
+}
+
+.spotify .audio {
+    font-size: 12px;
+    display: flex;
+    flex-flow: row nowrap;
+    padding-left: 5px;
+}
+
+.spotify .audio .song-slider-back {
+    background-color: #ccc;
+    height: 6px;
+    width: 59%;
+    position: relative;
+    margin: 4px 10px 0;
+}
+
+.spotify .audio .song-slider {
+    background-color: #000;
+    height: 12px;
+    position: absolute;
+}

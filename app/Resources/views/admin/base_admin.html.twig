@@ -10,6 +10,10 @@
 	{% endif %}
 	</title>
 	<link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
+    {% block scripts %}
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="{{ asset('/bundles/content/js/mediaelement-and-player.min.js') }}"></script>
+    {% endblock %}
 	{% stylesheets
 		'bundles/core/css/animate.min.css'
 		'bundles/core/css/font-awesome.min.css'
@@ -224,7 +228,7 @@
     <!--   Core JS Files   -->
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
     {% javascripts filter="?jsqueeze" output='js/scms.js'
         '@CoreBundle/Resources/public/js/dropzone.js'
         '@CoreBundle/Resources/public/js/jquery-ui.min.js'
