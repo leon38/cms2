@@ -29,7 +29,7 @@ class TextAreaField extends Fields
 
     public function getName()
     {
-        return 'Textarea field type';
+        return 'Zone de texte';
     }
 
     public function getClassName()

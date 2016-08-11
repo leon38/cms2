@@ -12,7 +12,6 @@
 	<link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
     {% block scripts %}
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="{{ asset('/bundles/content/js/mediaelement-and-player.min.js') }}"></script>
     {% endblock %}
 	{% stylesheets
 		'bundles/core/css/animate.min.css'
@@ -230,16 +229,16 @@
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
     {% javascripts filter="?jsqueeze" output='js/scms.js'
+        '@CoreBundle/Resources/public/js/10_moment.min.js'
         '@CoreBundle/Resources/public/js/dropzone.js'
         '@CoreBundle/Resources/public/js/jquery-ui.min.js'
         '@CoreBundle/Resources/public/js/bootstrap.min.js'
-		'@CoreBundle/Resources/public/js/moment.min.js'
 		'@CoreBundle/Resources/public/js/bootstrap-checkbox-radio-switch-tags.js'
-        '@CoreBundle/Resources/public/js/bootstrap-datetimepicker.js'
 		'@CoreBundle/Resources/public/js/bootstrap-notify.js'
 		'@CoreBundle/Resources/public/js/bootstrap-select.js'
 		'@CoreBundle/Resources/public/js/bootstrap-table.js'
 		'@CoreBundle/Resources/public/js/light-bootstrap-dashboard.js'
+        '@CoreBundle/Resources/public/js/bootstrap-datetimepicker.js'
 		'@CoreBundle/Resources/public/js/chartist.min.js'
         '@CoreBundle/Resources/public/js/summernote.min.js'
         '@CoreBundle/Resources/public/js/summernote-ext-link.js'
@@ -247,10 +246,11 @@
         '@CoreBundle/Resources/public/js/summernote-img-attribute.js'
         '@CoreBundle/Resources/public/js/app.js'
         '@CoreBundle/Resources/public/js/sweetalert2.min.js'
+        '@CoreBundle/Resources/public/js/fr.js'
 	%}
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
 	<script type="text/javascript">
     	$(document).ready(function(){
 

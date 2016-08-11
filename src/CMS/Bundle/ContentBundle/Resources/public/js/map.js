@@ -11,19 +11,19 @@ function initMap() {
         zoom: 8
     });
     infowindow = new google.maps.InfoWindow;
-    codeAddress();
+    //codeAddress();
 }
 
-function codeAddress() {
-    var address = document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_carte_address").value;
-    var latitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value;
-    var longitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_longitude').value;
+function codeAddress(id_address, id_latitude, id_longitude) {
+    var address = document.getElementById(id_address).value;
+    var latitude = document.getElementById(id_latitude).value;
+    var longitude = document.getElementById(id_longitude).value;
 
     if (address != "" && latitude == "" && longitude == "") {
         geocoder.geocode( { 'address': address}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value = results[0].geometry.location.lat();
-                document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_longitude').value = results[0].geometry.location.lng();
+                document.getElementById(id_latitude).value = results[0].geometry.location.lat();
+                document.getElementById(id_longitude).value = results[0].geometry.location.lng();
                 map.setCenter(results[0].geometry.location);
                 var marker = new google.maps.Marker({
                     map: map,
@@ -35,13 +35,13 @@ function codeAddress() {
             }
         });
     } else if (latitude != "" && longitude != "") {
-        geocodeLatLng(geocoder, map)
+        geocodeLatLng(geocoder, map, id_latitude, id_longitude)
     }
 }
 
-function geocodeLatLng(geocoder, map) {
-    var latitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_latitude').value;
-    var longitude = document.getElementById('tc_bundle_contentbundle_content_fieldValuesTemp_carte_longitude').value;
+function geocodeLatLng(geocoder, map, id_latitude, id_longitude) {
+    var latitude = document.getElementById(id_latitude).value;
+    var longitude = document.getElementById(id_latitude).value;
     var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
     geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {

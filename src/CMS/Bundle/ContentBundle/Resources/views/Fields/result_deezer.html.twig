@@ -1,0 +1,29 @@
+<ul class="list-unstyled">
+    {% for i in 0..4 %}
+        <li class="track">
+            <div class="pull-left">
+                <img src="{{ tracks[loop.index].album.cover_medium }}" width="64"
+                     alt="{{ tracks[loop.index].album.title }}">
+            </div>
+            <div class="infos">
+                <span class="track-name">{{ tracks[loop.index].title }}</span>
+                <span class="pull-right duration">{{ tracks[loop.index].duration|gmdate("i:s") }}</span>
+                <div class="clearfix"></div>
+                <audio id="audio-player-{{ loop.index }}" data-target="#song-{{ loop.index }}" class="player-audio"
+                       src="{{ tracks[loop.index].preview }}" type="audio/mp3" ontimeupdate="updateTime()"></audio>
+                <div id="song-{{ loop.index }}" class="audio">
+                    <a class="play-pause pull-left" onclick="playPause('audio-player-{{ loop.index }}')"><i
+                                class="fa fa-play"></i></a>
+                    <div class="song-slider-back pull-left">
+                        <div class="song-slider" onclick="setSongPosition(this,event)">
+                            <div class="track-progress"></div>
+                        </div>
+                    </div>
+                    <div class="song-time pull-right">0:00 / 0:00</div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </li>
+    {% endfor %}
+</ul>

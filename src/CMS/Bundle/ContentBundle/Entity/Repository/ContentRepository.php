@@ -31,7 +31,7 @@ class ContentRepository extends EntityRepository
     {
         $temp_children = $cat->getChildren();
         $children = array();
-        foreach($temp_children as $child) {
+        foreach ($temp_children as $child) {
             $children[] = $child->getId();
         }
         
@@ -50,4 +50,18 @@ class ContentRepository extends EntityRepository
             ->getResult();
         
     }
+    
+    public function getCountByTaxonomy()
+    {
+        return $this->_em
+            ->createQueryBuilder('c')
+            ->select('COUNT(c) as total, t.title')
+            ->from('ContentBundle:Content', 'c')
+            ->leftJoin('c.taxonomy', 't')
+            ->groupBy('c.taxonomy')
+            ->having('total > 0')
+            ->getQuery()
+            ->getResult();
+    }
+    
 }

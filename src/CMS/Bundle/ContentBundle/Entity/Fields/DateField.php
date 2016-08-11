@@ -29,7 +29,7 @@ class DateField extends Fields
 
     public function getName()
     {
-        return 'Date field type';
+        return 'Date';
     }
 
     public function getClassName()

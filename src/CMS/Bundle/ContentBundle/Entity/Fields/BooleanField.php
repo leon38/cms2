@@ -30,7 +30,7 @@ class BooleanField extends Fields
 
     public function getName()
     {
-        return 'Boolean field type';
+        return 'Oui / Non';
     }
 
     public function getClassName()

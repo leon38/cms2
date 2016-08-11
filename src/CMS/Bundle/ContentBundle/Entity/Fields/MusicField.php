@@ -11,7 +11,7 @@ namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
 
-class SpotifyField extends Fields
+class MusicField extends Fields
 {
     // Requête : select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="Grenoble, France")
     
@@ -35,22 +35,22 @@ class SpotifyField extends Fields
     
     public function getTypeField()
     {
-        return 'spotify';
+        return 'music';
     }
     
     public function getName()
     {
-        return 'Champ Spotify';
+        return 'Musique';
     }
     
     public function getClassName()
     {
-        return 'SpotifyField';
+        return 'MusicField';
     }
     
     public function display()
     {
-        return $this->templating->render('ContentBundle:Fields:spotify.html.twig', array('params' => $this->params));
+        return $this->templating->render('ContentBundle:Fields:music.html.twig', array('params' => $this->params));
     }
     
     public function setParams($params)
@@ -59,9 +59,11 @@ class SpotifyField extends Fields
         return $this;
     }
     
+    // faire une classe avec les display des differents types: checkbox, select, input etc.
     public function getOptions()
     {
-        return array();
+        $options['api'] = array('type' => 'choice', 'name' => 'api', 'value' => $this->getParamsValue($this->params, 'api'), 'choices' => array('deezer' => 'Deezer', 'spotify' => 'spotify'));
+        return $options;
     }
     
     public function getParams()

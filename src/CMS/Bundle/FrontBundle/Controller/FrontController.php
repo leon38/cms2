@@ -99,6 +99,9 @@ class FrontController extends Controller
                             'contents' => $taxonomy->getContents(),
                         )
                     );
+                    if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig')) {
+                        return $this->render('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig', $parameters);
+                    }
                     
                     return $this->render('@cms/'.$this->_theme.'/archive.html.twig', $parameters);
                 }
@@ -124,7 +127,11 @@ class FrontController extends Controller
             $this->_parameters,
             array('title' => $content->getTitle(), 'theme' => $this->_theme, 'content' => $content)
         );
-        
+        $taxonomy = $content->getTaxonomy();
+
+        if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig')) {
+            return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig', $parameters);
+        }
         return $this->render('@cms/'.$this->_theme.'/single.html.twig', $parameters);
     }
     

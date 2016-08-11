@@ -26,10 +26,19 @@ class ContentListener
         $fieldvalues = $content->getFieldValues();
 
         foreach($fieldvalues as $fieldvalue) {
-            $template = 'ContentBundle:Fields:'.$fieldvalue->getField()->getField()->getTypeField().'.html.twig';
-            if ($this->templating->exists($template)) {
-                //$value = @unserialize($fieldvalue->getValue());
-                $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $fieldvalue->getValue(), "title" => $fieldvalue->getField()->getTitle()));
+            if ($fieldvalue->getField()->getField()->getTypeField() != 'text' && $fieldvalue->getField()->getField()->getTypeField() != 'Date') {
+                $type = $fieldvalue->getField()->getField()->getTypeField();
+                if ($type == 'music') {
+                    $params = $fieldvalue->getField()->getField()->getParams();
+                    $type = isset($params['api']) ? $params['api'] : 'deezer';
+                }
+                $template = 'ContentBundle:Fields:'.$type.'.html.twig';
+                if ($this->templating->exists($template)) {
+                    //$value = @unserialize($fieldvalue->getValue());
+                    $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $fieldvalue->getValue(), "title" => $fieldvalue->getField()->getTitle()));
+                }
+            } else {
+                $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $fieldvalue->getValue();
             }
         }
 

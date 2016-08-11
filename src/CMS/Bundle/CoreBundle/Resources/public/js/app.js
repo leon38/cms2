@@ -146,7 +146,7 @@ $(document).ready(function () {
 
 
     $('.datetimepicker').datetimepicker({
-        format: 'DD/MM/YYYY',
+        locale: 'fr',
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",

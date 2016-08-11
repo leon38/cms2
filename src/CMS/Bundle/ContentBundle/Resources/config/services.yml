@@ -20,6 +20,11 @@ services:
         tags:
             - { name: form.type, alias: spotify }
 
+    cms.content.form.type.deeze:
+            class: CMS\Bundle\ContentBundle\Form\Type\DeezerType
+            tags:
+                - { name: form.type, alias: deezer }
+
     cms.content.fields:
         class: CMS\Bundle\ContentBundle\Classes\Fields
         calls:

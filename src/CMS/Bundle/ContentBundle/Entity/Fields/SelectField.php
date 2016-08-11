@@ -29,7 +29,7 @@ class SelectField extends Fields
 
     public function getName()
     {
-        return 'Select field type';
+        return 'Liste déroulante';
     }
 
     public function getClassName()

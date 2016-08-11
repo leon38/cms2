@@ -295,53 +295,58 @@ footer .logo {
     margin-right: 0;
 }
 
-.spotify audio {
+.music audio {
     display: none;
 }
 
-.spotify .track {
+.music .track {
     margin-bottom: 5px;
 }
 
-.spotify .track .infos {
+.music .track .infos {
     float: left;
     width: 78%;
 }
 
-.spotify img {
+.music img {
     display: block;
     float: left;
 }
 
-.spotify span {
+.music span {
     display: inline-block;
     font-size: 12px;
     line-height: 45px;
 }
 
-.spotify span.track-name {
+.music span.track-name {
     padding-left: 10px;
 }
 
-.spotify .audio {
+.music .audio {
     font-size: 12px;
     display: flex;
     flex-flow: row nowrap;
     padding-left: 5px;
 }
 
-.spotify .audio .song-slider-back {
+.music .audio .song-slider-back {
     background-color: #ccc;
     height: 6px;
-    width: 59%;
+    width: 80%;
     position: relative;
     margin: 4px 10px 0;
 }
 
-.spotify .audio .song-slider {
+.music .audio .song-slider {
     background-color: #000;
     height: 12px;
     position: absolute;
+}
+
+.music .audio .song-time {
+    width: 15%;
+    text-align: right;
 }
 
 /**********************

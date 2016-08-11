@@ -458,4 +458,19 @@ class ContentController extends Controller
             array('contents' => $contents, 'categories' => $categories)
         );
     }
+    
+    /**
+     * @Route("/stats", name="admin_content_stats")
+     */
+    public function getStatsAction()
+    {
+        $contents = $this->getDoctrine()->getRepository('ContentBundle:Content')->getCountByTaxonomy();
+        $labels = array();
+        $data   = array();
+        foreach($contents as $content) {
+            $labels[] = $content['title'];
+            $data[] = $content['total'];
+        }
+        return new JsonResponse(array('labels' => $labels, 'data' => $data));
+    }
 }

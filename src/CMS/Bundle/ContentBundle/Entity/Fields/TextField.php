@@ -32,7 +32,7 @@ class TextField extends Fields
 
   public function getName()
   {
-    return 'Champ texte';
+    return 'Texte';
   }
 
   public function getClassName()

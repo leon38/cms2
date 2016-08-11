@@ -30,7 +30,7 @@ class FileField extends Fields
 
     public function getName()
     {
-        return 'File field type';
+        return 'Fichier';
     }
 
     public function getClassName()

@@ -48,7 +48,7 @@ var fetchTopTracks = function (artistId) {
     $.ajax({
         url: Routing.generate('spotify_top_tracks', {id_artist: artistId}),
         success: function (response) {
-            $('.spotify').html(response);
+            $('.music').html(response);
         }
     })
 }

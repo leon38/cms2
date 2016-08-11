@@ -41,7 +41,7 @@ class MapField extends Fields
 
   public function getName()
   {
-    return 'Champ carte google maps';
+    return 'Carte google maps';
   }
 
   public function getClassName()

@@ -79,6 +79,9 @@ cms:
         media: Media
         featured_image: Ajouter image
 
+    core:
+        share: Partagez
+
 firstname: Prénom
 lastname: Nom
 id_twitter: Identifiant Twitter
