@@ -1,3 +1,7 @@
+core_widget:
+    resource: "@CoreBundle/Controller/WidgetController.php"
+    type:     annotation
+
 menu:
     resource: "@MenuBundle/Controller/"
     type:     annotation

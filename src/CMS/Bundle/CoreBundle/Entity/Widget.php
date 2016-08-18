@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @ORM\Entity(repositoryClass="CMS\Bundle\ContentBundle\Entity\Repository\FieldRepository")
+ * @ORM\Entity(repositoryClass="CMS\Bundle\CoreBundle\Entity\Repository\WidgetRepository")
  * @ORM\Table(name="widget")
  * @ORM\HasLifecycleCallbacks
  */
@@ -132,5 +132,56 @@ class Widget
     public function getWidget()
     {
         return $this->widget;
+    }
+
+    /**
+     * Set sidebar
+     *
+     * @param \CMS\Bundle\CoreBundle\Entity\Sidebar $sidebar
+     *
+     * @return Widget
+     */
+    public function setSidebar(\CMS\Bundle\CoreBundle\Entity\Sidebar $sidebar = null)
+    {
+        $this->sidebar = $sidebar;
+
+        return $this;
+    }
+
+    /**
+     * Get sidebar
+     *
+     * @return \CMS\Bundle\CoreBundle\Entity\Sidebar
+     */
+    public function getSidebar()
+    {
+        return $this->sidebar;
+    }
+    
+    public function __get($name)
+    {
+        $widgetObj = $this->getWidget();
+        if(is_object($widgetObj)) {
+            $options = $widgetObj->getOptions();
+            foreach ($options as $key => $option) {
+                if ($key == $name) {
+                    return $option;
+                }
+            }
+        }
+    }
+    
+    public function __set($name, $value)
+    {
+        $widgetObj = $this->getWidget();
+        if(is_array($widgetObj->getOptions())) {
+            $options = $widgetObj->getOptions();
+            foreach ($options as $key => $option) {
+                if ($key == $name) {
+                    $option[$key]['value'] = $value;
+                    return $this;
+                }
+            }
+        }
     }
 }

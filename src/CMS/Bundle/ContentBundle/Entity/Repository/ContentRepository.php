@@ -64,4 +64,31 @@ class ContentRepository extends EntityRepository
             ->getResult();
     }
     
+    
+    public function getRelatedPosts($id_post, $limit)
+    {
+        $categories = $this->_em
+            ->createQueryBuilder()
+            ->select('cat.id')
+            ->from('ContentBundle:Category', 'cat')
+            ->leftJoin('cat.contents', 'c')
+            ->where('c.id = :id')
+            ->setParameter('id', $id_post)
+            ->getQuery()
+            ->getScalarResult();
+        
+        return $this->_em
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('ContentBundle:Content', 'c')
+            ->leftJoin('c.categories', 'cat')
+            ->where('cat.id IN (:ids)')
+            ->setParameter('ids', $categories)
+            ->andWhere('c.id != :id')
+            ->setParameter('id', $id_post)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+    
 }

@@ -1,0 +1,9 @@
+<h3>{{ title }}</h3>
+<div class="section">
+{% for content in contents %}
+    <div class="col col-3">
+        <img src="{{ content.thumbnail.webPath }}" alt="" class="img-responsive">
+        {{ content.title }}
+    </div>
+{% endfor %}
+</div>

@@ -165,8 +165,7 @@ class Content
         $nb_fields = count($this->fieldvalues);
         
         for ($i=0; $i < $nb_fields; $i++) {
-            dump($this->fieldvalues[$i]->getValue());
-           //$this->fieldvalues[$i]->setValue(@unserialize($this->fieldvalues[$i]->getValue()));
+           $this->fieldvalues[$i]->setValue(@unserialize($this->fieldvalues[$i]->getValue()));
         }
     }
     

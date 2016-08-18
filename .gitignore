@@ -51,6 +51,6 @@
 cms2.sublime-project
 /.idea/
 bin/
-src/CMS/Bundle/CoreBundle/Widgets/
+src/CMS/Bundle/CoreBundle/Classes/Widgets/
 web/05/
 web/media/

@@ -7,51 +7,56 @@ parameters:
 
 services:
     cms_core.form.extension.help:
-        class: %cms_core.form.extension.help.class%
+        class: '%cms_core.form.extension.help.class%'
         tags:
             - { name: form.type_extension, alias: form }
     cms.core.repository.language:
         class: CMS\Bundle\CoreBundle\Entity\Repository\LanguageRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments: ['CoreBundle:Language']
 
     cms.core.mailer:
         class: CMS\Bundle\CoreBundle\Manager\MailerManager
-        arguments: [@mailer, @templating, @doctrine.orm.entity_manager, @translator]
+        arguments: ['@mailer', '@templating', '@doctrine.orm.entity_manager', '@translator']
 
     cms.core.repository.user_meta:
         class: CMS\Bundle\CoreBundle\Entity\Repository\UserMetaRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments: ['CoreBundle:UserMeta']
 
     cms.core.repository.user:
-            class: CMS\Bundle\CoreBundle\Entity\Repository\UserRepository
-            factory_service: doctrine.orm.default_entity_manager
-            factory_method: getRepository
-            arguments: ['CoreBundle:User']
+        class: CMS\Bundle\CoreBundle\Entity\Repository\UserRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments: ['CoreBundle:User']
 
     cms.core.repository.option:
         class: CMS\Bundle\CoreBundle\Entity\Repository\OptionRepository
-        factory_service: doctrine.orm.default_entity_manager
-        factory_method: getRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments: ['CoreBundle:Option']
+
+    cms.core.repository.widget:
+        class: CMS\Bundle\CoreBundle\Entity\Repository\WidgetRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments: ['CoreBundle:Widget']
+
+    cms.core.factory.widget:
+            class: CMS\Bundle\CoreBundle\Classes\WidgetFactory
+            arguments: ['@templating', '@doctrine.orm.entity_manager']
 
     cms.core.option_manager:
         class: CMS\Bundle\CoreBundle\Manager\OptionManager
-        arguments: [@doctrine.orm.entity_manager, @cms.core.repository.option]
+        arguments: ['@doctrine.orm.entity_manager', '@cms.core.repository.option']
 
     cms.core.meta_manager:
         class: CMS\Bundle\CoreBundle\Manager\UserMetaManager
-        arguments: [@doctrine.orm.entity_manager, @cms.core.repository.user_meta, @cms.core.repository.user]
+        arguments: ['@doctrine.orm.entity_manager', '@cms.core.repository.user_meta', '@cms.core.repository.user']
 
     cms.core.theme_manager:
         class: CMS\Bundle\CoreBundle\Manager\ThemeManager
 
     cms.core.class.general_option:
         class: CMS\Bundle\CoreBundle\Classes\GeneralOptions
-        arguments: [@cms.core.repository.option, @cms.media.repository.media]
+        arguments: ['@cms.core.repository.option', '@cms.media.repository.media']
 
     cms.core.form.type.dropzone:
         class: CMS\Bundle\CoreBundle\Form\Type\DropzoneType
@@ -76,19 +81,19 @@ services:
             - { name: form.type, alias: entity_hidden }
 
     cms.core.twig.file.extension:
-        class: %cms_core.file.twig.extension.class%
+        class: '%cms_core.file.twig.extension.class%'
         arguments: ['@kernel']
         tags:
             - { name: twig.extension }
 
     cms.core.twig.booleanicon.extension:
-        class: %cms_core.boolean.twig.extension.class%
+        class: '%cms_core.boolean.twig.extension.class%'
         public: true
         tags:
             - { name: twig.extension }
 
     cms.core.twig.meta_user.extension:
-        class: %cms_core.meta_user.twig.extension.class%
+        class: '%cms_core.meta_user.twig.extension.class%'
         arguments:
           container: "@service_container"
           service: "@security.context"
@@ -96,7 +101,7 @@ services:
          - { name: twig.extension }
 
     cms.core.twig.option.extension:
-            class: %cms_core.option.twig.extension.class%
+            class: '%cms_core.option.twig.extension.class%'
             arguments: ['@cms.core.repository.option']
             tags:
                 - { name: twig.extension }
@@ -121,19 +126,26 @@ services:
     cms.core.instagram.twig_extension:
             class: CMS\Bundle\CoreBundle\Twig\Extension\InstagramExtension
             public: false
-            arguments: [@service_container]
+            arguments: ["@service_container"]
             tags:
                 - { name: twig.extension }
 
     cms.core.social.twig_extension:
-                class: CMS\Bundle\CoreBundle\Twig\Extension\SocialExtension
-                public: false
-                arguments: [@service_container]
-                tags:
-                    - { name: twig.extension }
+        class: CMS\Bundle\CoreBundle\Twig\Extension\SocialExtension
+        public: false
+        arguments: ["@service_container"]
+        tags:
+            - { name: twig.extension }
 
     cms.core.gmdate.twig_extension:
-                    class: CMS\Bundle\CoreBundle\Twig\Extension\GMDateExtension
-                    public: true
-                    tags:
-                        - { name: twig.extension }
+        class: CMS\Bundle\CoreBundle\Twig\Extension\GMDateExtension
+        public: true
+        tags:
+            - { name: twig.extension }
+
+    cms.core.widget.twig_extension:
+        class: CMS\Bundle\CoreBundle\Twig\Extension\WidgetExtension
+        public: true
+        arguments: ["@cms.core.repository.widget", "@service_container"]
+        tags:
+            - { name: twig.extension }
