@@ -1,0 +1,13 @@
+<div class="row">
+    {% for medium in media %}
+        {% set alt = "alt_" ~ defaultLanguage.id %}
+        {% set title = "title_" ~ defaultLanguage.id %}
+        <div class="col-md-2 thumb">
+            <a href="javascript:" onclick="selectMedia(this);" class="thumbnail text-center"
+               data-url="{{ asset(medium.webPathList) }}" data-id="{{ medium.id }}" data-alt="{{ medium.metas[alt] }}">
+                <img src="{{ asset(medium.webPathList) }}" alt="{{ medium.metas[alt] }}"
+                     title="{{ medium.metas[title] }}" class="img-responsive">
+            </a>
+        </div>
+    {% endfor %}
+</div>

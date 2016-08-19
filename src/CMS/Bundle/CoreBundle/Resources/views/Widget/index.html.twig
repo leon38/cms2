@@ -61,14 +61,13 @@
                     <tr>
                         <td>{{ widget.title }}</td>
                         <td>{{ widget.name }}</td>
-                        <td>
-                            <a href="{{ path('admin_widget_edit', { 'id': widget.id }) }}" class="btn btn-icon-toggle"
-                               data-toggle="tooltip" data-placement="top" data-original-title="Editer"><i
-                                        class="fa fa-pencil"></i></a>
-                            <a data-toggle="modal" href='#modal-delete' class="btn btn-icon-toggle" role="button"
-                               rel="tooltip" data-placement="top" data-original-title="Supprimer"
-                               data-id="{{ widget.id }}"><i
-                                        class="fa fa-trash-o"></i></a>
+                        <td class="text-right">
+                            <a href="{{ path('admin_widget_edit', { 'id': widget.id }) }}" class="btn btn-simple btn-info btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Editer">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a data-toggle="modal" role="button" href='#modal-delete' class="btn btn-simple btn-danger btn-xs" rel="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ widget.id }}">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

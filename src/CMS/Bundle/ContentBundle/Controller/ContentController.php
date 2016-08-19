@@ -290,7 +290,7 @@ class ContentController extends Controller
             throw $this->createNotFoundException('Unable to find Content entity.');
         }
         
-        $fieldvalues = $em->getRepository('ContentBundle:FieldValue')->findFielvalueByContent($entity);
+        $fieldvalues = $em->getRepository('ContentBundle:FieldValue')->findBy(array('content' => $entity));
         $fields = $em->getRepository('ContentBundle:Field')->findByTaxonomyIndexed($entity->getTaxonomy());
         $metas = ExtraMetas::loadEditMetas($entity, $this);
         $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas);

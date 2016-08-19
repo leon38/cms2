@@ -81,6 +81,7 @@ cms:
 
     core:
         share: Partagez
+        view_site: Voir le site
 
 firstname: Prénom
 lastname: Nom

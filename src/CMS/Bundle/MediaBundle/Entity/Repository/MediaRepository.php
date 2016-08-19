@@ -10,14 +10,33 @@ namespace CMS\Bundle\MediaBundle\Entity\Repository;
  */
 class MediaRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function getNbMedia()
+    {
+        return $this->_em
+            ->createQueryBuilder('m')
+            ->select('COUNT(m)')
+            ->from('MediaBundle:Media', 'm')
+            ->getQuery()
+            ->getArrayResult();
+    }
+    
+    public function findMediaIn($ids)
+    {
 
-  public function getNbMedia()
-  {
-    return $this->_em
-      ->createQueryBuilder('m')
-      ->select('COUNT(m)')
-      ->from('MediaBundle:Media', 'm')
-      ->getQuery()
-      ->getArrayResult();
-  }
+        if (!is_array($ids))
+            $ids = explode(',', $ids);
+        else {
+            $ids = explode(',', $ids['gallery']);
+        }
+        
+        return $this->_em
+            ->createQueryBuilder()
+            ->select('m')
+            ->from('MediaBundle:Media', 'm')
+            ->where('m.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -3,7 +3,7 @@ parameters:
 services:
     cms.content.content_manager:
         class: CMS\Bundle\ContentBundle\Manager\ContentManager
-        arguments: [ @doctrine.orm.entity_manager ]
+        arguments: [ "@doctrine.orm.entity_manager" ]
 
     cms.content.form.type.map:
         class: CMS\Bundle\ContentBundle\Form\Type\MapType
@@ -20,10 +20,19 @@ services:
         tags:
             - { name: form.type, alias: spotify }
 
-    cms.content.form.type.deeze:
-            class: CMS\Bundle\ContentBundle\Form\Type\DeezerType
-            tags:
-                - { name: form.type, alias: deezer }
+    cms.content.form.type.deezer:
+        class: CMS\Bundle\ContentBundle\Form\Type\DeezerType
+        tags:
+            - { name: form.type, alias: deezer }
+
+    cms.content.form.type.gallery:
+        class: CMS\Bundle\ContentBundle\Form\Type\GalleryType
+        tags:
+            - { name: form.type, alias: gallery }
+
+    cms.content.form.data_tranformer.gallery:
+        class: CMS\Bundle\ContentBundle\Form\DataTransformer\MediaToIdTransformer
+        arguments: ["@doctrine.orm.entity_manager"]
 
     cms.content.fields:
         class: CMS\Bundle\ContentBundle\Classes\Fields

@@ -109,7 +109,6 @@ class ContentType extends AbstractType
                         $type = $field->getField()->getTypeField();
                         if (isset($params['format'])) {
                             $options['attr'] = array('class' => 'datetimepicker');
-                            $options['row_attr'] = array('class' => 'row col-md-12');
                             $type = 'text';
                         }
                         
@@ -141,7 +140,6 @@ class ContentType extends AbstractType
                         $type = $field->getField()->getTypeField();
                         if (isset($params['format'])) {
                             $options['attr'] = array('class' => 'datetimepicker');
-                            $options['row_attr'] = array('class' => 'row col-md-12');
                             $type = 'text';
                         }
                         if (isset($params['editor']) && $params['editor'] == true) {
@@ -164,11 +162,13 @@ class ContentType extends AbstractType
                         }
                         
                         $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);
+                        
                     }
                     
                     
                 }
             );
+            
         } else { // new content
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
@@ -182,7 +182,6 @@ class ContentType extends AbstractType
                         $type = $field->getField()->getTypeField();
                         if (isset($params['format'])) {
                             $options['attr'] = array('class' => 'datetimepicker');
-                            $options['row_attr'] = array('class' => 'row col-md-12');
                             $type = 'text';
                         }
                         if (isset($params['editor']) && $params['editor'] == true) {
@@ -262,6 +261,8 @@ class ContentType extends AbstractType
                 }
             );
         }
+    
+        
     }
     
     /**

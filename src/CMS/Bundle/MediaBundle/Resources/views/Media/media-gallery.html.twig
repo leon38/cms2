@@ -1,0 +1,9 @@
+{% for medium in media %}
+    {% set alt = "alt_" ~ defaultLanguage.id %}
+    {% set title = "title_" ~ defaultLanguage.id %}
+    <div class="col-md-2 thumb">
+        <a class="thumbnail">
+            <img src="{{ asset(medium.webPathList) }}" alt="{{ medium.metas[alt] }}" title="{{ medium.metas[title] }}" class="img-responsive">
+        </a>
+    </div>
+{% endfor %}

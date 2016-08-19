@@ -1,8 +1,8 @@
 <?php
 /**
  * User: DCA
- * Date: 04/08/2016
- * Time: 17:21
+ * Date: 19/08/2016
+ * Time: 09:01
  * cms2
  */
 
@@ -11,9 +11,8 @@ namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
 
-class WeatherField extends Fields
+class GalleryField extends Fields
 {
-    
     /**
      * @var string Type du champ
      */
@@ -34,22 +33,22 @@ class WeatherField extends Fields
     
     public function getTypeField()
     {
-        return 'weather';
+        return 'gallery';
     }
     
     public function getName()
     {
-        return 'Champ météo';
+        return 'Champ galerie photo';
     }
     
     public function getClassName()
     {
-        return 'WeatherField';
+        return 'GalleryField';
     }
     
     public function display()
     {
-        return $this->templating->render('ContentBundle:Fields:weather.html.twig', array('params' => $this->params));
+        return $this->templating->render('ContentBundle:Fields:gallery.html.twig', array('params' => $this->params));
     }
     
     public function setParams($params)

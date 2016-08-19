@@ -28,14 +28,19 @@ class ContentListener
         foreach($fieldvalues as $fieldvalue) {
             if ($fieldvalue->getField()->getField()->getTypeField() != 'text' && $fieldvalue->getField()->getField()->getTypeField() != 'Date') {
                 $type = $fieldvalue->getField()->getField()->getTypeField();
+                $value = $fieldvalue->getValue();
                 if ($type == 'music') {
                     $params = $fieldvalue->getField()->getField()->getParams();
                     $type = isset($params['api']) ? $params['api'] : 'deezer';
                 }
+                
+                if ($type == 'gallery') {
+                    $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
+                }
+                
                 $template = 'ContentBundle:Fields:'.$type.'.html.twig';
                 if ($this->templating->exists($template)) {
-                    //$value = @unserialize($fieldvalue->getValue());
-                    $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $fieldvalue->getValue(), "title" => $fieldvalue->getField()->getTitle()));
+                    $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $value, "title" => $fieldvalue->getField()->getTitle()));
                 }
             } else {
                 $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $fieldvalue->getValue();

@@ -31,15 +31,6 @@ class FieldValue
      */
     private $value;
 
-
-    /**
-     * @ORM\PostLoad
-     */
-    public function unserializeFieldValue()
-    {
-        $this->value = unserialize($this->value);
-    }
-
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
