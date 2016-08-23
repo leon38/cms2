@@ -4,6 +4,7 @@ namespace CMS\Bundle\ContentBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class ApiController
@@ -99,6 +100,27 @@ class ApiController extends Controller
     private function _getTopTracksDeezer($url)
     {
         $BASE_URL = $url;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $BASE_URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $json = curl_exec($ch);
+        $json = json_decode($json);
+        curl_close($ch);
+        return $this->render('ContentBundle:Fields:result_deezer.html.twig', array("tracks" => $json->data));
+    }
+    
+    /**
+     * @param $id_playlist
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/deezer/playlist/{id_playlist}", name="deezer_tracks_playlist")
+     */
+    public function getTracksPlaylistAction($id_playlist)
+    {
+        $BASE_URL = 'http://api.deezer.com/playlist/'.$id_playlist.'/tracks';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $BASE_URL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);

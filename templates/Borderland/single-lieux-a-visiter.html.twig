@@ -8,7 +8,6 @@
                     {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle(',') }} |
                     par {{ content.author }}
                 </div>
-
                 <div class="clearfix"></div>
                 <h1>{{ content.title }}</h1>
                 {{ social_buttons() }}
@@ -16,23 +15,14 @@
                 <div class="description">
                     {{ content.description|raw }}
                 </div>
-
-                {{ content.get('musique')|raw }}
+                {{ widget('related-posts', content.id) }}
             </div>
             <div class="col col-3">
                 <div class="custom-field">
-                    <h5>Date</h5>
-                    <p>{{ content.get('date-du-concert')|raw }}</p>
+                    {{ content.get('carte')|raw }}
                 </div>
                 <div class="custom-field">
-                    <h5>Tarif</h5>
-                    <p>{{ content.get('tarif') }}</p>
-                </div>
-                <div class="custom-field">
-                    {{ content.get('salle-de-spectacle')|raw }}
-                </div>
-                <div class="custom-field">
-                    {{ content.get('galerie-photo')|raw }}
+                    {{ content.get('meteo')|raw }}
                 </div>
             </div>
             <div class="clearfix"></div>

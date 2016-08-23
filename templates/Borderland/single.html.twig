@@ -2,22 +2,18 @@
     <div class="container">
 
         <div class="section">
-	        <div class="col col-8">
+	        <div class="col col-12">
                 <div class="dancing pull-left">
                     {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle(',') }} | par {{ content.author }}
                 </div>
                 <div class="clearfix"></div>
                 <h1>{{ content.title }}</h1>
-	            {{ content.description|raw }}
                 {{ social_buttons() }}
-
+                <div class="clearfix"></div>
+                <div class="description">
+	                {{ content.description|raw }}
+                </div>
                 {{ widget('related-posts', content.id) }}
-	        </div>
-
-	        <div class="col col-4">
-	            {{ content.get('carte')|raw }}
-                {{ content.get('meteo')|raw }}
-                {{ content.get('spotify')|raw }}
 	        </div>
             <div class="clearfix"></div>
         </div>

@@ -1,8 +1,22 @@
-<h3>{{ title }}</h3>
-<div class="section">
-{% for medium in value %}
-    <div class="col-2">
-        <img src="{{ asset(medium.webPathList) }}" />
+<h5>{{ title }}</h5>
+<div class="section gallery">
+    {% for medium in value %}
+        {% set alt = "alt_" ~ defaultLanguage.id %}
+        {% set title = "title_" ~ defaultLanguage.id %}
+        <div class="col-6">
+            <a href="javascript:" data-target="modal-gallery" data-toggle="modal"
+               data-url="{{ asset(medium.webPath) }}">
+                <img src="{{ asset(medium.webPathList) }}" alt="{{ medium.metas[alt] }}"
+                     title="{{ medium.metas[title] }}" class="img-responsive"/>
+            </a>
+        </div>
+    {% endfor %}
+    <div class="modal fade" id="modal-gallery">
+        <div class="modal-inner">
+            <div class="modal-body">
+                <div class="cssload-loader"><div class="cssload-inner cssload-one"></div><div class="cssload-inner cssload-two"></div><div class="cssload-inner cssload-three"></div></div>
+            </div>
+        </div>
     </div>
-{% endfor %}
-    </div>
+</div>
+<script type="text/javascript" src="{{ asset('bundles/core/js/modal.js') }}"></script>

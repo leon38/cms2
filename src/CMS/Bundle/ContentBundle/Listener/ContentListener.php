@@ -37,10 +37,10 @@ class ContentListener
                 if ($type == 'gallery') {
                     $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
                 }
-                
+                $defaultLanguage = $this->container->get('doctrine')->getRepository('CoreBundle:Language')->find(1);
                 $template = 'ContentBundle:Fields:'.$type.'.html.twig';
                 if ($this->templating->exists($template)) {
-                    $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $value, "title" => $fieldvalue->getField()->getTitle()));
+                    $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $this->templating->render($template, array("value" => $value, "title" => $fieldvalue->getField()->getTitle(), 'defaultLanguage' => $defaultLanguage));
                 }
             } else {
                 $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $fieldvalue->getValue();
