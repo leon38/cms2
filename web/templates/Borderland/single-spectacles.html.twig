@@ -9,6 +9,7 @@
             <div class="clearfix"></div>
             <h1>{{ content.title }}</h1>
             {{ content.description|raw }}
+            {{ content.get('galerie')|raw }}
             {{ content.get('musique')|raw }}
             {{ social_buttons() }}
         </div>

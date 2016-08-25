@@ -10,6 +10,8 @@
                 <h1>{{ content.title }}</h1>
 	            {{ content.description|raw }}
                 {{ social_buttons() }}
+
+                {{ widget('related-posts', content.id) }}
 	        </div>
 
 	        <div class="col col-4">
