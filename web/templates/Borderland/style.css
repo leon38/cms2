@@ -22,8 +22,9 @@ body {
 }
 
 ::selection {
-    color: rgb(255, 255, 255);
-    background: rgb(34, 34, 34);
+    color: #fff;
+    background-color: #78bab8;
+    opacity: 1;
 }
 
 * {
@@ -72,7 +73,7 @@ p, li {
 .container-category {
     width:96%;
     padding: 40px 2% 2%;
-    margin:0 auto;
+    margin:0 auto 40px;
     background-color: #f3f3f3;
 }
 
@@ -673,9 +674,9 @@ article .image-article .image img {
 }
 
 .social a {
-    background-color: #000;
+    background-color: #78bab8;
     border-radius: 50%;
-    border: 1px solid #000;
+    border: 1px solid #78bab8;
     color: #fff;
     display: block;
     width:32px;
@@ -691,7 +692,7 @@ article .image-article .image img {
 
 .social a:hover {
     background-color: transparent;
-    color: #000;
+    color: #78bab8;
 }
 
 .gallery {
@@ -789,4 +790,14 @@ article .image-article .image img {
     cursor: pointer;
     z-index: 1100;
     font-size: 70px;
+}
+
+.instagram-flow {
+    width:100%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.instagram-flow div {
+    width: 14.2857143%;
 }

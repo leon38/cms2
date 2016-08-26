@@ -83,6 +83,9 @@ class ContentController extends Controller
             $em = $this->getDoctrine()->getManager();
             $current_user = $this->get('security.context')->getToken()->getUser();
             $this->content->setAuthor($current_user);
+            if (is_null($this->content->getLanguage())) {
+                $this->content->setLanguage($em->getRepository('CoreBundle:Language')->find(1));
+            }
             $this->get('cms.content.content_manager')->save($this->content);
             
             $this->get('session')->getFlashBag()->add(
@@ -292,8 +295,11 @@ class ContentController extends Controller
         
         $fieldvalues = $em->getRepository('ContentBundle:FieldValue')->findBy(array('content' => $entity));
         $fields = $em->getRepository('ContentBundle:Field')->findByTaxonomyIndexed($entity->getTaxonomy());
-        $metas = ExtraMetas::loadEditMetas($entity, $this);
-        $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas);
+        
+        $metavalues = $em->getRepository('ContentBundle:MetaValue')->findMetavalueByContent($entity);
+        $metas = $em->getRepository('ContentBundle:Meta')->findByIndexed();
+        
+        $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas, $metavalues);
         
         return $this->render(
             'ContentBundle:Content:edit.html.twig',
@@ -311,7 +317,7 @@ class ContentController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Content $entity, $fields, $fieldvalues, $metavalues)
+    private function createEditForm(Content $entity, $fields, $fieldvalues, $metas, $metavalues)
     {
         $form = $this->createForm(
             new ContentType(),
@@ -323,7 +329,7 @@ class ContentController extends Controller
                 'user' => $this->getUser(),
                 'fields' => $fields,
                 'fieldvalues' => $fieldvalues,
-                'metas' => array(),
+                'metas' => $metas,
                 'metavalues' => $metavalues,
                 'content_id' => $entity->getId(),
             )
@@ -357,9 +363,12 @@ class ContentController extends Controller
         }
         
         $fieldvalues = $em->getRepository('ContentBundle:FieldValue')->findFielvalueByContent($entity);
-        $metas = ExtraMetas::loadEditMetas($entity, $this);
         $fields = $em->getRepository('ContentBundle:Field')->findByTaxonomyIndexed($entity->getTaxonomy());
-        $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas);
+    
+        $metavalues = $em->getRepository('ContentBundle:MetaValue')->findMetavalueByContent($entity);
+        $metas = $em->getRepository('ContentBundle:Meta')->findByIndexed();
+        
+        $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas, $metavalues);
         $editForm->handleRequest($request);
         
         if ($editForm->isValid()) {

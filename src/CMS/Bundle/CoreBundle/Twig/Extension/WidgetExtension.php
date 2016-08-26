@@ -25,12 +25,13 @@ class WidgetExtension extends \Twig_Extension
         );
     }
     
-    public function renderWidget($name, $param1)
+    public function renderWidget($name, $param1 = null)
     {
         $widgetEntity = $this->_widgetRepo->findOneBy(array('name' => $name));
         $widget = $widgetEntity->getWidget();
         $widget->setTemplating($this->container->get('templating'));
         $widget->setEntityManager($this->container->get('doctrine')->getManager());
+        $widget->setContainer($this->container);
         return $widget->display(array('content' => $param1, 'title' => $widgetEntity->getTitle()));
     }
     

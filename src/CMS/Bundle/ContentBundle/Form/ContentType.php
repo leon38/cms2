@@ -83,7 +83,8 @@ class ContentType extends AbstractType
                     'image_size' => 'col-md-12',
                 )
             )
-            ->add('fieldValuesTemp', null, array('compound' => true, 'label' => ' '));
+            ->add('fieldValuesTemp', null, array('compound' => true, 'label' => ' '))
+            ->add('metaValuesTemp', null, array('compound' => true, 'label' => ' '));
         
         $fields = $options['fields'];
         $fieldvalues = $options['fieldvalues'];
@@ -217,13 +218,14 @@ class ContentType extends AbstractType
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) use ($metavalues) {
                     $form = $event->getForm();
+                    $metavaluesTemp = $form->get('metaValuesTemp');
                     foreach ($metavalues as $key => $metas_temp) {
                         foreach ($metas_temp as $meta_meta) {
                             if ($key == 'metavalue') {
                                 $meta = $meta_meta->getMeta();
                                 $metavalue = $meta_meta;
-                                $form->add(
-                                    $meta->getName(),
+                                $metavaluesTemp->add(
+                                    $meta->getAlias(),
                                     strtolower($meta->getType()),
                                     array(
                                         'label' => $meta->getName(),
@@ -233,8 +235,8 @@ class ContentType extends AbstractType
                                 );
                             } else {
                                 $meta = $meta_meta;
-                                $form->add(
-                                    $meta->getName(),
+                                $metavaluesTemp->add(
+                                    $meta->getAlias(),
                                     strtolower($meta->getType()),
                                     array('label' => $meta->getName(), 'required' => false)
                                 );
@@ -250,9 +252,10 @@ class ContentType extends AbstractType
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) use ($metas) {
                     $form = $event->getForm();
+                    $metavaluesTemp = $form->get('metaValuesTemp');
                     foreach ($metas as $meta) {
-                        $form->add(
-                            $meta->getName(),
+                        $metavaluesTemp->add(
+                            $meta->getAlias(),
                             strtolower($meta->getType()),
                             array('label' => $meta->getName(), 'required' => false)
                         );

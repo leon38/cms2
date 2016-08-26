@@ -1,7 +1,10 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * CMS\ContentBundle\Entity\Meta
  *
@@ -19,18 +22,28 @@ class Meta
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
     /**
      * @var string type
      *
      * @ORM\Column(name="type",type="string")
      */
     private $type;
+    
     /**
      * @var text name
      *
-     * @ORM\Column(name="name",type="text")
+     * @ORM\Column(name="name",type="string")
      */
     private $name;
+    
+    /**
+     * @var text name
+     * @Gedmo\Slug(fields={"name"}, updatable=false, separator="-")
+     * @ORM\Column(name="alias",type="string")
+     */
+    private $alias;
+    
     /**
      * @var text value
      *
@@ -45,25 +58,17 @@ class Meta
     private $published;
     /**
      * @var \DateTime $created
-     *
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="ContentTaxonomy", inversedBy="metas")
-     * @ORM\JoinTable(name="metas_taxonomy")
-     */
-    private $contentTaxonomy;
-
 	/**
-     * @ORM\OneToMany(targetEntity="MetaValueContent", mappedBy="meta", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="meta", cascade={"remove"})
      */
-    private $metavaluescontent;
-    /**
-     * @ORM\OneToMany(targetEntity="MetaValueCategory", mappedBy="meta", cascade={"remove"})
-     */
-    private $metavaluescategory;
+    private $metavalues;
+
+    
     /**
      * Constructor
      */
@@ -81,11 +86,13 @@ class Meta
     {
         return $this->id;
     }
+
     /**
      * Set type
      *
      * @param string $type
-     * @return CMMeta
+     *
+     * @return Meta
      */
     public function setType($type)
     {
@@ -93,6 +100,7 @@ class Meta
 
         return $this;
     }
+
     /**
      * Get type
      *
@@ -102,143 +110,13 @@ class Meta
     {
         return $this->type;
     }
-    /**
-     * Set value
-     *
-     * @param string $value
-     * @return CMMeta
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
 
-        return $this;
-    }
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-    /**
-     * Set published
-     *
-     * @param boolean $published
-     * @return CMMeta
-     */
-    public function setPublished($published)
-    {
-        $this->published = $published;
-
-        return $this;
-    }
-    /**
-     * Get published
-     *
-     * @return boolean
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
-    /**
-     * Set created
-     * @ORM\PrePersist()
-     * @param \DateTime $created
-     * @return CMMeta
-     */
-    public function setCreated()
-    {
-        $this->created = new \DateTime();
-
-        return $this;
-    }
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-    /**
-     * Add metavaluescontent
-     *
-     * @param MetaValueContent $metavaluescontent
-     * @return CMMeta
-     */
-    public function addMetavaluescontent(MetaValueContent $metavaluescontent)
-    {
-        $this->metavaluescontent[] = $metavaluescontent;
-
-        return $this;
-    }
-    /**
-     * Remove metavaluescontent
-     *
-     * @param MetaValueContent $metavaluescontent
-     */
-    public function removeMetavaluescontent(MetaValueContent $metavaluescontent)
-    {
-        $this->metavaluescontent->removeElement($metavaluescontent);
-    }
-    /**
-     * Get metavaluescontent
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMetavaluescontent()
-    {
-        return $this->metavaluescontent;
-    }
-    /**
-     * Add metavaluescategory
-     *
-     * @param MetaValueCategory $metavaluescategory
-     * @return CMMeta
-     */
-    public function addMetavaluescategory(MetaValueCategory $metavaluescategory)
-    {
-        $this->metavaluescategory[] = $metavaluescategory;
-
-        return $this;
-    }
-    /**
-     * Remove metavaluescategory
-     *
-     * @param MetaValueCategory $metavaluescategory
-     */
-    public function removeMetavaluescategory(MetaValueCategory $metavaluescategory)
-    {
-        $this->metavaluescategory->removeElement($metavaluescategory);
-    }
-    /**
-     * Get metavaluescategory
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMetavaluescategory()
-    {
-        return $this->metavaluescategory;
-    }
-    public function displayMetaInform($value='') {
-        $html  = '<div class="control-group">';
-        $html .= '<label class="control-label">'.$this->type.'</label>';
-        $html .= '<div class="controls">';
-        $html .= '<input type="text" name="'.$this->name.'" value="'.$value.'" />';
-        $html .= '</div>';
-        $html .= '</div>';
-        return $html;
-    }
     /**
      * Set name
      *
      * @param string $name
-     * @return CMMeta
+     *
+     * @return Meta
      */
     public function setName($name)
     {
@@ -246,6 +124,7 @@ class Meta
 
         return $this;
     }
+
     /**
      * Get name
      *
@@ -257,36 +136,132 @@ class Meta
     }
 
     /**
-     * Add contentTaxonomy
+     * Set value
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy
+     * @param string $value
      *
      * @return Meta
      */
-    public function addContentTaxonomy(\CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy)
+    public function setValue($value)
     {
-        $this->contentTaxonomy[] = $contentTaxonomy;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Remove contentTaxonomy
+     * Get value
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy
+     * @return string
      */
-    public function removeContentTaxonomy(\CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy)
+    public function getValue()
     {
-        $this->contentTaxonomy->removeElement($contentTaxonomy);
+        return $this->value;
     }
 
     /**
-     * Get contentTaxonomy
+     * Set published
+     *
+     * @param boolean $published
+     *
+     * @return Meta
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Meta
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Add metavalue
+     *
+     * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue
+     *
+     * @return Meta
+     */
+    public function addMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
+    {
+        $this->metavalues[] = $metavalue;
+
+        return $this;
+    }
+
+    /**
+     * Remove metavalue
+     *
+     * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue
+     */
+    public function removeMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
+    {
+        $this->metavalues->removeElement($metavalue);
+    }
+
+    /**
+     * Get metavalues
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getContentTaxonomy()
+    public function getMetavalues()
     {
-        return $this->contentTaxonomy;
+        return $this->metavalues;
+    }
+
+    /**
+     * Set alias
+     *
+     * @param string $alias
+     *
+     * @return Meta
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+
+        return $this;
+    }
+
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 }

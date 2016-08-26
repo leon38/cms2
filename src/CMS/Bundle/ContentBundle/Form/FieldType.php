@@ -3,6 +3,7 @@
 namespace CMS\Bundle\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -50,7 +51,7 @@ class FieldType extends AbstractType
                                 break;
                         }
                     }
-                    $form->add('submit', 'submit', array('attr' => array('class' => 'btn btn-primary pull-right')));
+                    $form->add('submit', SubmitType::class, array('attr' => array('class' => 'btn btn-info btn-fill pull-right')));
                 }
             );
         }

@@ -1,29 +1,3 @@
 parameters:
-    cms_dashboard.menu_widget.config:
-        repoMenu: cms_dashboard.menu_repository.repo
-        repoMenuTaxonomy: cms_dashboard.menu_tax_repository.repo
 
 services:
-
-    cms_dashboard.menu_repository.repo:
-        class: Doctrine\ORM\EntityRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
-        arguments:
-            - 'MenuBundle:Menu'
-
-    cms_dashboard.menu_tax_repository.repo:
-        class: SDoctrine\ORM\EntityRepository
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
-        arguments:
-            - 'SCMSMenuBundle:MenuTaxonomy'
-
-    cms_dashboard.widget:
-        class: CMS\Bundle\DashboardBundle\Classes\Widget
-        arguments: ["@form.factory", "@doctrine.orm.entity_manager"]
-
-    menuwidget.manager:
-        class: CMS\Bundle\DashboardBundle\Manager\MenuWidgetManager
-        arguments:
-            [args: repoMenu: "@cms_dashboard.menu_repository.repo" repoMenuTaxonomy: "@cms_dashboard.menu_tax_repository.repo", "@doctrine.orm.entity_manager"]

@@ -43,12 +43,6 @@ class ContentTaxonomy
     private $fields;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Meta", mappedBy="contentTaxonomy")
-     * @ORM\JoinTable(name="metas_taxonomy")
-     */
-    private $metas;
-
-    /**
      * Constructor
      */
     public function __construct()

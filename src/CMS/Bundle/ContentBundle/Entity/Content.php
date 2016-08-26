@@ -109,7 +109,7 @@ class Content
     private $fieldvalues;
     
     /**
-     * @ORM\OneToMany(targetEntity="MetaValueContent", mappedBy="content", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content", cascade={"remove", "persist"})
      */
     private $metavalues;
     
@@ -611,12 +611,12 @@ class Content
     /**
      * Add metavalues
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\MetaValueContent $metavalues
+     * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalues
      * @return Content
      */
-    public function addMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValueContent $metavalues)
+    public function addMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
     {
-        $this->metavalues[] = $metavalues;
+        $this->metavalues[] = $metavalue;
         
         return $this;
     }
@@ -624,11 +624,11 @@ class Content
     /**
      * Remove metavalues
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\MetaValueContent $metavalues
+     * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalues
      */
-    public function removeMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValueContent $metavalues)
+    public function removeMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
     {
-        $this->metavalues->removeElement($metavalues);
+        $this->metavalues->removeElement($metavalue);
     }
     
     public function setMetavalues(\Doctrine\Common\Collections\ArrayCollection $metavalues)
@@ -678,6 +678,17 @@ class Content
         foreach ($this->getMetavalues() as $metavalue) {
             if ($metavalue->getMeta()->getName() == $name) {
                 return $metavalue;
+            }
+        }
+    }
+    
+    public function __set($name, $value)
+    {
+        if (is_array($this->getMetavalues())) {
+            foreach ($this->getMetavalues() as $metavalue) {
+                if ($metavalue->getMeta()->getName() == $name) {
+                    $metavalue->setValue($value);
+                }
             }
         }
     }
