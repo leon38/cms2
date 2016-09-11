@@ -116,7 +116,7 @@ class Category
   private $published;
   
   /**
-   * @ORM\OneToMany(targetEntity="MetaValueCategory", mappedBy="category", cascade={"remove", "persist"})
+   * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="category", cascade={"remove", "persist"})
    */
   private $metavalues;
   
@@ -521,12 +521,12 @@ class Category
   /**
    * Add metavalues
    *
-   * @param \CMS\Bundle\ContentBundle\Entity\MetaValueCategory $metavalues
+   * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalues
    * @return Category
    */
-  public function addMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValueCategory $metavalues)
+  public function addMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
   {
-    $this->metavalues[] = $metavalues;
+    $this->metavalues[] = $metavalue;
     
     return $this;
   }
@@ -536,9 +536,9 @@ class Category
    *
    * @param \CMS\Bundle\ContentBundle\Entity\MetaValueCategory $metavalues
    */
-  public function removeMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValueCategory $metavalues)
+  public function removeMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
   {
-    $this->metavalues->removeElement($metavalues);
+    $this->metavalues->removeElement($metavalue);
   }
   
   /**

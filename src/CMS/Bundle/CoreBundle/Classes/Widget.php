@@ -10,6 +10,8 @@ namespace CMS\Bundle\CoreBundle\Classes;
 
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\Dump\Container;
 use Symfony\Component\Templating\EngineInterface;
 
 class Widget
@@ -21,11 +23,14 @@ class Widget
     
     private $_params;
     
-    public function __construct(EngineInterface $templating, EntityManager $em)
+    private $_container;
+    
+    public function __construct(EngineInterface $templating, EntityManager $em, ContainerInterface $container)
     {
         $this->_templating = $templating;
         $this->_em = $em;
         $this->_params = array();
+        $this->_container = $container;
     }
     
     public function getTemplating()
@@ -68,6 +73,16 @@ class Widget
         return $this->_params;
     }
     
+    public function getContainer()
+    {
+        return $this->_container;
+    }
+    
+    public function setContainer($container)
+    {
+        $this->_container = $container;
+    }
+    
     
     public function getParamsValue($params, $name, $type="default", $option=null)
     {
@@ -79,7 +94,7 @@ class Widget
                     return '';
                 }
                 break;
-            case 'select':
+            case 'choice':
                 if (is_array($params) && array_key_exists($name, $params)) {
                     if($option == $params[$name])
                         return ' selected="selected" ';

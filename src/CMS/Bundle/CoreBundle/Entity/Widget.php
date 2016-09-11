@@ -8,7 +8,10 @@
 
 namespace CMS\Bundle\CoreBundle\Entity;
 
+use Doctrine\Common\NotifyPropertyChanged;
+use Doctrine\Common\PropertyChangedListener;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ChangeTrackingPolicy;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
@@ -17,8 +20,9 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\Entity(repositoryClass="CMS\Bundle\CoreBundle\Entity\Repository\WidgetRepository")
  * @ORM\Table(name="widget")
  * @ORM\HasLifecycleCallbacks
+ * @ChangeTrackingPolicy("NOTIFY")
  */
-class Widget
+class Widget implements NotifyPropertyChanged
 {
     /**
      * @ORM\Id()
@@ -50,6 +54,22 @@ class Widget
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\Sidebar", inversedBy="widgets")
      */
     private $sidebar;
+    
+    private $_listeners = array();
+    
+    public function addPropertyChangedListener(PropertyChangedListener $listener)
+    {
+        $this->_listeners[] = $listener;
+    }
+    
+    protected function _onPropertyChanged($propName, $oldValue, $newValue)
+    {
+        if ($this->_listeners) {
+            foreach ($this->_listeners as $listener) {
+                $listener->propertyChanged($this, $propName, $oldValue, $newValue);
+            }
+        }
+    }
     
 
     /**
@@ -120,6 +140,7 @@ class Widget
     public function setWidget($widget)
     {
         $this->widget = $widget;
+        $this->_onPropertyChanged('widget', $this->widget, $widget);
 
         return $this;
     }

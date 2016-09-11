@@ -1,3 +1,7 @@
+content_meta:
+    resource: "@ContentBundle/Controller/MetaController.php"
+    type:     annotation
+
 core_widget:
     resource: "@CoreBundle/Controller/WidgetController.php"
     type:     annotation

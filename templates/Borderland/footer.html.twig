@@ -5,24 +5,21 @@
         {{ render_menu('header') }}
     </div>
 </nav>
-
-<footer>
-    <div class="footer-inner">
-        <div class="col col-3 logo">
-            <span class="bordered">TRAVELCLOUD</span>
-        </div>
-        <div class="col col-6">
-            <img src="{{ asset('/templates/' ~ theme ~ '/assets/logo-instagram.png') }}" alt="Logo Instagram" width="32px" class="pull-left" />
-            <h4 class="col col-11">Instagram</h4>
-            <div class="clearfix"></div>
-            {{ instagram_images() }}
-        </div>
-        <div class="col col-3">
-            {{ render_menu('footer') }}
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</footer>
+{{ widget('instagram') }}
+{#<footer>#}
+    {#<div class="footer-inner">#}
+        {#<div class="col col-3 logo">#}
+            {#<span class="bordered">TRAVELCLOUD</span>#}
+        {#</div>#}
+        {#<div class="col col-6">#}
+            {##}
+        {#</div>#}
+        {#<div class="col col-3">#}
+            {#{{ render_menu('footer') }}#}
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+    {#</div>#}
+{#</footer>#}
 
 <script>
     // Look for .hamburger

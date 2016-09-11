@@ -1,0 +1,15 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body -%}
+    <div class="col-md-8 col-md-offset-2 col-xs-12">
+        <div class="card">
+            <div class="header">Menu</div>
+            <div class="content">
+                {{ form_start(edit_form) }}
+                {{ form_rest(edit_form) }}
+                {{ form_end(edit_form) }}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

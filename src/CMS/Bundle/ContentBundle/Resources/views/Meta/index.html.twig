@@ -1,0 +1,64 @@
+{% extends "::admin/base_admin.html.twig" %}
+
+{% block body %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-callout alert-danger" role="alert">
+            {{ flashMessage|trans }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-callout alert-success" role="alert">
+            {{ flashMessage|trans }}
+        </div>
+    {% endfor %}
+    <div id="main-card" class="card">
+        <div class="header">
+            <h4 class="title pull-left">{{ 'cms.content.meta' |trans }}</h4>
+            <div class="fixed-table-toolbar">
+                <div class="columns columns-right pull-right">
+                    <a href="{{ path('admin_meta_new') }}" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+
+            <table id="data_table" class="table table-striped table-hover" role="grid" aria-describedby="data_table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Published</th>
+                    <th>Created</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for metum in metas %}
+                    <tr>
+                        <td>{{ metum.id }}</td>
+                        <td>{{ metum.type }}</td>
+                        <td>{{ metum.name }}</td>
+                        <td>{{ metum.value }}</td>
+                        <td>{% if metum.published %}Yes{% else %}No{% endif %}</td>
+                        <td>{% if metum.created %}{{ metum.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td class="text-right">
+                            <a href="{{ path('admin_meta_edit', { 'id': metum.id }) }}"
+                               class="btn btn-simple btn-info btn-xs" data-toggle="tooltip" data-placement="top"
+                               data-original-title="Editer">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a data-toggle="modal" role="button" href='#modal-delete'
+                               class="btn btn-simple btn-danger btn-xs" rel="tooltip" data-placement="top"
+                               data-original-title="Supprimer" data-id="{{ metum.id }}">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -63,7 +63,9 @@ class WidgetController extends Controller
             $widgetClassObj->setParams($params);
             $widgetClassObj->setEntityManager(null);
             $widgetClassObj->setTemplating(null);
+            $widgetClassObj->setContainer(null);
             $widget->setWidget($widgetClassObj);
+           
             $em->persist($widget);
             $em->flush();
             
@@ -87,17 +89,25 @@ class WidgetController extends Controller
      */
     public function editAction(Request $request, Widget $widget)
     {
-        $widgetClass = $widget->getWidget();
+        $widgetClass = $widget->getWidget()->getName();
+        $widgetClassObj = $widget->getWidget();
         $editForm = $this->createForm('CMS\Bundle\CoreBundle\Form\WidgetType', $widget, array(
-            'action' => $this->generateUrl('admin_widget_edit', array('widget' => $widget)),
+            'action' => $this->generateUrl('admin_widget_edit', array('id' => $widget->getId())),
             'method' => 'POST',
             'attr'   => array('class' => 'form'),
-            'widgetclass' => $widgetClass
+            'widgetclass' => $widgetClassObj
         ));
         $editForm->handleRequest($request);
         
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $params = $editForm['params']->getData();
+            
+            $widgetClassObj->setParams($params);
+            $widgetClassObj->setEntityManager(null);
+            $widgetClassObj->setTemplating(null);
+            $widgetClassObj->setContainer(null);
+            $widget->setWidget($widgetClassObj);
             $em->persist($widget);
             $em->flush();
             
@@ -166,7 +176,7 @@ class WidgetController extends Controller
         $html .= '<option value="">--</option>';
         foreach ($widgetsListType as $key => $widgettype) {
             $widgetclass = $widgetsDirectory.$widgettype;
-            $widget = new $widgetclass($this->get('templating'), $this->getDoctrine()->getManager());
+            $widget = new $widgetclass($this->get('templating'), $this->getDoctrine()->getManager(), $this->get('service_container'));
             $html .= '<option value="'.$widgettype.'">'.$widget->getName().'</option>';
         }
         $html .= '</select>';

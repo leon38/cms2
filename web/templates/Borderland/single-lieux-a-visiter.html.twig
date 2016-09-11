@@ -1,0 +1,33 @@
+{% include "@cms/Borderland/header.html.twig" %}
+<div class="container-category">
+    <div class="container">
+
+        <div class="container-inner">
+            <div class="col col-9">
+                <div class="dancing pull-left">
+                    {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle(',') }} |
+                    par {{ content.author }}
+                </div>
+                <div class="clearfix"></div>
+                <h1>{{ content.title }}</h1>
+                {{ social_buttons() }}
+                <div class="clearfix"></div>
+                <div class="description">
+                    {{ content.description|raw }}
+                </div>
+                {{ widget('related-posts', content.id) }}
+            </div>
+            <div class="col col-3">
+                <div class="custom-field">
+                    {{ content.get('carte')|raw }}
+                </div>
+                <div class="custom-field">
+                    {{ content.get('meteo')|raw }}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+{% include "@cms/Borderland/footer.html.twig" %}

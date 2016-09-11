@@ -3,6 +3,7 @@
 namespace CMS\Bundle\ContentBundle\Manager;
 
 use CMS\ Bundle\ContentBundle\Entity\Content;
+use CMS\Bundle\ContentBundle\Entity\MetaValue;
 use Doctrine\ORM\EntityManager;
 use CMS\Bundle\ContentBundle\Entity\FieldValue;
 
@@ -52,11 +53,20 @@ class ContentManager
   
     
     if (!empty($content->getMetaValuesTemp())) {
-      foreach ($content->getMetaValuesTemp() as $metavalue) {
-        $metavalue->setContent($content);
-        $content->addMetavalue($metavalue);
-        $this->em->persist($metavalue);
-        $this->em->flush();
+      foreach ($content->getMetaValuesTemp() as $metaname => $metavalue) {
+          $meta = $this->em->getRepository('ContentBundle:Meta')->findOneBy(array('name' => $metaname));
+          $metavalue = $this->em->getRepository('ContentBundle:MetaValue')->findOneBy(array('content' => $content, 'meta' => $meta));
+          if ($metavalue !== null) {
+              $metavalue->setValue($value);
+          } else {
+              $metavalue = new MetaValue();
+              $metavalue->setContent($content);
+              $metavalue->setMeta($meta);
+              $metavalue->setValue($value);
+              $content->addMetaValue($metavalue);
+          }
+          $this->em->persist($metavalue);
+          $this->em->flush();
       }
     }
     $this->em->persist($content);

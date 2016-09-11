@@ -48,8 +48,8 @@
 # Backup entities generated with doctrine:generate:entities command
 */Entity/*~
 
-cms2.sublime-project
-/.idea/
+cms2.sublime-workspace
+.idea/
 bin/
 src/CMS/Bundle/CoreBundle/Classes/Widgets/
 web/05/

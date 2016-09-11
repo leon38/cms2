@@ -41,7 +41,7 @@ services:
 
     cms.core.factory.widget:
             class: CMS\Bundle\CoreBundle\Classes\WidgetFactory
-            arguments: ['@templating', '@doctrine.orm.entity_manager']
+            arguments: ['@templating', '@doctrine.orm.entity_manager', "@service_container"]
 
     cms.core.option_manager:
         class: CMS\Bundle\CoreBundle\Manager\OptionManager

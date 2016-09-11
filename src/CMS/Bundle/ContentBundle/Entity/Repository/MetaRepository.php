@@ -10,4 +10,14 @@ namespace CMS\Bundle\ContentBundle\Entity\Repository;
  */
 class MetaRepository extends \Doctrine\ORM\EntityRepository
 {
+    
+    public function findByIndexed()
+    {
+        return $this->_em
+            ->createQueryBuilder('f')
+            ->select('m')
+            ->from('ContentBundle:Meta', 'm', 'm.name')
+            ->getQuery()
+            ->getResult();
+    }
 }

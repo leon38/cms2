@@ -120,6 +120,10 @@ class FrontController extends Controller
                     'categories' => $categories,
                 )
             );
+    
+            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getAlias().'.html.twig')) {
+                return $this->render('@cms/'.$this->_theme.'/category-'.$category->getAlias().'.html.twig', $parameters);
+            }
             
             return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
         }
@@ -132,6 +136,7 @@ class FrontController extends Controller
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig')) {
             return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig', $parameters);
         }
+        
         return $this->render('@cms/'.$this->_theme.'/single.html.twig', $parameters);
     }
     

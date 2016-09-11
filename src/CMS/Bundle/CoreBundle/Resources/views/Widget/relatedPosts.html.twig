@@ -1,9 +1,13 @@
-<h3>{{ title }}</h3>
-<div class="section">
-{% for content in contents %}
-    <div class="col col-3">
-        <img src="{{ content.thumbnail.webPath }}" alt="" class="img-responsive">
-        {{ content.title }}
+{% if contents is not empty %}
+<div class="widget related-posts">
+    <h5>{{ title }}</h5>
+    <div class="section">
+        {% for content in contents %}
+            <div class="col col-4">
+                <img src="{{ content.thumbnail.webPath }}" alt="" class="img-responsive">
+                <p><a href="{{ path('front_single', {'alias': content.url}) }}">{{ content.title }}</a></p>
+            </div>
+        {% endfor %}
     </div>
-{% endfor %}
 </div>
+{% endif %}
