@@ -77,6 +77,10 @@ a:hover {
     color: #2C2C2C;
 }
 
+img.img-responsive {
+    width: 100%;
+}
+
 h2 {
     font-size: 26px;
 }
@@ -503,6 +507,19 @@ header#header #share a:hover {
     transform: translate(0,5px);
 }
 
+/*********************
+ * Post
+ *********************/
+#content {
+    width: 800px;
+    float: left;
+}
+
+
+
+/*********************
+ * Footer
+ *********************/
 .instagram-flow div {
     width: 16.66666667%;
     float: left;
@@ -516,9 +533,6 @@ header#header #share a:hover {
     opacity: .8;
 }
 
-/*********************
- * Footer
- *********************/
 footer {
     width:100%;
     background-color: #fff;
