@@ -1,6 +1,8 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Entity;
 
+use CMS\Bundle\MediaBundle\Entity\Media;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -32,7 +34,7 @@ class Content
     private $title;
     
     /**
-     * @var text $description
+     * @var string $description
      * @JMS\Expose
      * @JMS\Type("string")
      * @ORM\Column(name="description", type="text", nullable=true)
@@ -122,6 +124,8 @@ class Content
     private $author;
     
     /**
+     * @var Media
+     *
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="thumbnail", referencedColumnName="id")
      */
@@ -131,6 +135,13 @@ class Content
      * @Assert\File(maxSize="6000000")
      */
     private $file;
+    
+    /**
+     * @var Boolean $featured
+     *
+     * @ORM\Column(name="featured", type="boolean")
+     */
+    private $featured = false;
     
     private $temp;
     
@@ -146,14 +157,21 @@ class Content
     private $hasThumbnail;
     
     /**
+     * @var String $chapo
+     *
+     * @ORM\Column(name="chapo", type="text")
+     */
+    private $chapo;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         // $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         // $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->fieldvalues = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->metavalues = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fieldvalues = new ArrayCollection();
+        $this->metavalues = new ArrayCollection();
         
     }
     
@@ -169,6 +187,9 @@ class Content
         }
     }
     
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->title;
@@ -179,6 +200,9 @@ class Content
         return null === $this->thumbnail ? null : $this->getUploadRootDir().$this->thumbnail;
     }
     
+    /**
+     * @return mixed
+     */
     public function getWebPath()
     {
         return null === $this->thumbnail ? null : $this->thumbnail->getWebPath();
@@ -195,19 +219,6 @@ class Content
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
         return 'uploads/thumbs/';
-    }
-    
-    /**
-     * @ORM\PrePersist()
-     * @ORM\PreUpdate()
-     */
-    public function preUpload()
-    {
-        if (null !== $this->getFile()) {
-            // do whatever you want to generate a unique name
-            $filename = sha1(uniqid(mt_rand(), true));
-            $this->path = date('Y').'/'.date('m').'/'.$filename.'.'.$this->getFile()->guessExtension();
-        }
     }
     
     /**
@@ -403,6 +414,8 @@ class Content
                 return 'cms.content.status.published';
             case 2:
                 return 'cms.content.status.pending';
+            default:
+                return 'cms.content.status.published';
         }
     }
     
@@ -491,9 +504,9 @@ class Content
     /**
      * Remove categories
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\Category $categories
+     * @param Category $category
      */
-    public function removeCategory(\CMS\Bundle\ContentBundle\Entity\Category $category)
+    public function removeCategory(Category $category)
     {
         $this->categories->removeElement($category);
     }
@@ -524,11 +537,11 @@ class Content
     /**
      * Remove translations
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\Content $translations
+     * @param Content $translation
      */
-    public function removeTranslation(\CMS\Bundle\ContentBundle\Entity\Content $translations)
+    public function removeTranslation(Content $translation)
     {
-        $this->translations->removeElement($translations);
+        $this->translations->removeElement($translation);
     }
     
     /**
@@ -567,28 +580,28 @@ class Content
     /**
      * Add fieldvalues
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues
+     * @param FieldValue $fieldvalues
      * @return Content
      */
-    public function addFieldvalue(\CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues)
+    public function addFieldvalue(FieldValue $fieldvalue)
     {
-        if ($fieldvalues->getField() !== null) {
-            $this->fieldvalues[$fieldvalues->getField()->getId()] = $fieldvalues;
+        if ($fieldvalue->getField() !== null) {
+            $this->fieldvalues[$fieldvalue->getField()->getId()] = $fieldvalue;
         } else {
-            $this->fieldvalues[] = $fieldvalues;
+            $this->fieldvalues[] = $fieldvalue;
         }
         
         return $this;
     }
     
     /**
-     * Remove fieldvalues
+     * Remove fieldvalue
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues
+     * @param FieldValue $fieldvalue
      */
-    public function removeFieldvalue(\CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues)
+    public function removeFieldvalue(FieldValue $fieldvalue)
     {
-        $this->fieldvalues->removeElement($fieldvalues);
+        $this->fieldvalues->removeElement($fieldvalue);
     }
     
     /**
@@ -601,7 +614,7 @@ class Content
         return $this->fieldvalues;
     }
     
-    public function setFieldvalues(\Doctrine\Common\Collections\ArrayCollection $fieldvalues)
+    public function setFieldvalues(ArrayCollection $fieldvalues)
     {
         $this->fieldvalues = $fieldvalues;
         
@@ -611,10 +624,10 @@ class Content
     /**
      * Add metavalues
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalues
+     * @param MetaValue $metavalues
      * @return Content
      */
-    public function addMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
+    public function addMetavalue(MetaValue $metavalue)
     {
         $this->metavalues[] = $metavalue;
         
@@ -622,16 +635,16 @@ class Content
     }
     
     /**
-     * Remove metavalues
+     * Remove metavalue
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\MetaValue $metavalues
+     * @param MetaValue $metavalue
      */
-    public function removeMetavalue(\CMS\Bundle\ContentBundle\Entity\MetaValue $metavalue)
+    public function removeMetavalue(MetaValue $metavalue)
     {
         $this->metavalues->removeElement($metavalue);
     }
     
-    public function setMetavalues(\Doctrine\Common\Collections\ArrayCollection $metavalues)
+    public function setMetavalues(ArrayCollection $metavalues)
     {
         $this->metavalues = $metavalues;
         
@@ -641,13 +654,17 @@ class Content
     /**
      * Get metavalues
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getMetavalues()
     {
         return $this->metavalues;
     }
     
+    /**
+     * @param $name
+     * @return mixed|null
+     */
     public function __get($name)
     {
         if (is_array($this->getFieldvalues())) {
@@ -665,6 +682,8 @@ class Content
                 }
             }
         }
+        
+        return null;
     }
     
     public function get($name)
@@ -697,6 +716,11 @@ class Content
     public function getMetaValuesTemp()
     {
         return $this->metaValuesTemp;
+    }
+    
+    public function setMetaValuesTemp($metaValuesTemp)
+    {
+        $this->metaValuesTemp = $metaValuesTemp;
     }
     
     
@@ -804,13 +828,64 @@ class Content
      * @param string $separator
      * @return string
      */
-    public function getCategoriesArticle($separator = ' / ')
+    public function getCategoriesArticle($separator = ' / ', $link = false)
     {
         $cat_temp = array();
+        $i = 0;
         foreach ($this->categories as $category) {
-            $cat_temp[] = $category->getTitle();
+            $cat_temp[$i] = ($link) ? '<a href="/'.$category->getUrl().'">' : '';
+            $cat_temp[$i] .= $category->getTitle();
+            $cat_temp[$i] .= ($link) ? '</a>' : '';
         }
         
         return implode($separator, $cat_temp);
+    }
+
+    /**
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return Content
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
+
+        return $this;
+    }
+
+    /**
+     * Get featured
+     *
+     * @return boolean
+     */
+    public function getFeatured()
+    {
+        return $this->featured;
+    }
+
+    /**
+     * Set chapo
+     *
+     * @param string $chapo
+     *
+     * @return Content
+     */
+    public function setChapo($chapo)
+    {
+        $this->chapo = $chapo;
+
+        return $this;
+    }
+
+    /**
+     * Get chapo
+     *
+     * @return string
+     */
+    public function getChapo()
+    {
+        return $this->chapo;
     }
 }

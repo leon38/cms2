@@ -19,7 +19,7 @@ use CMS\Bundle\MediaBundle\Form\MediaSettingsType;
  * Class SettingsMediaController
  * @package CMS\Bundle\MediaBundle\Controller
  *
- * @Route("/admin/media/settings")
+ * @Route("/settings")
  */
 class MediaSettingsController extends Controller
 {

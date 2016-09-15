@@ -44,8 +44,8 @@ class MediaToIdTransformer implements DataTransformerInterface
     /**
      * Transforms a string (number) to an object (issue).
      *
-     * @param  string $issueNumber
-     * @return Issue|null
+     * @param  string $mediaNumbers
+     * @return mixed|null
      * @throws TransformationFailedException if object (issue) is not found.
      */
     public function reverseTransform($mediaNumbers)

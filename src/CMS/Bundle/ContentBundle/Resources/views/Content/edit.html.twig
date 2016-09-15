@@ -22,6 +22,7 @@
                     <li>Date: {{ entity.created|date('d/m/Y H:i:s') }}</li>
                     <li><a href="{{  path('front_single', {'alias': entity.url}) }}" target="_blank">{{ 'cms.content.preview'|trans }}</a></li>
                     <li>{{ form_row(edit_form.published) }}</li>
+                    <li>{{ form_row(edit_form.featured) }}</li>
                 </ul>
             </div>
             <div class="footer"></div>

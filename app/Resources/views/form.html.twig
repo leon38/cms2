@@ -138,7 +138,12 @@
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwy2LBbH0VPoPB3lpb8qqqJhADEZZCYs4&callback=initMap">
         </script>
-
+        <script>
+            $(document).ready(function() {
+                initMap();
+                geocodeLatLng(geocoder, map, '{{ form.latitude.vars.id }}', '{{ form.longitude.vars.id }}');
+            });
+        </script>
     {% endblock javascripts %}
 {% endblock map_widget %}
 

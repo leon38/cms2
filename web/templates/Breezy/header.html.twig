@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    {% if content is defined %}
+        {{ metas(content) }}
+    {% elseif category is defined %}
+        {{ metas(category) }}
+    {% endif %}
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Lato" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/swiper.min.css') }}">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+</head>
+<body>
+<div class="wrapper">
+<header id="header">
+    <div class="container clearfix">
+        <nav>{{ render_menu('header') }}</nav>
+        <div id="share">
+            {{ social_buttons() }}
+        </div>
+    </div>
+</header>

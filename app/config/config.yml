@@ -131,7 +131,7 @@ liip_imagine:
         thumb_list:
             quality: 90
             filters:
-                thumbnail: {size: [311, 192], mode: outbound }
+                thumbnail: {size: [440, 384], mode: outbound }
 
 services:
     twig.extension.intl:

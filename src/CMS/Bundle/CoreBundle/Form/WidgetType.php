@@ -42,7 +42,7 @@ class WidgetType extends AbstractType
                                 break;
                         }
                     }
-                    $form->add('submit', 'submit', array('attr' => array('class' => 'btn btn-primary pull-right')));
+                    $form->add('submit', 'submit', array('attr' => array('class' => 'btn btn-info btn-fill pull-right')));
                 }
             );
         }

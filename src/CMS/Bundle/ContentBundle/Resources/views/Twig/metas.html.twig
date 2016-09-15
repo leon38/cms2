@@ -1,0 +1,3 @@
+{% for metavalue in metavalues %}
+    {{ metavalue.meta.value|format(metavalue.value)|raw }}
+{% endfor %}

@@ -50,29 +50,35 @@ class ContentManager
         $this->em->flush();
       }
     }
-  
-    
-    if (!empty($content->getMetaValuesTemp())) {
-      foreach ($content->getMetaValuesTemp() as $metaname => $metavalue) {
-          $meta = $this->em->getRepository('ContentBundle:Meta')->findOneBy(array('name' => $metaname));
-          $metavalue = $this->em->getRepository('ContentBundle:MetaValue')->findOneBy(array('content' => $content, 'meta' => $meta));
-          if ($metavalue !== null) {
-              $metavalue->setValue($value);
-          } else {
-              $metavalue = new MetaValue();
-              $metavalue->setContent($content);
-              $metavalue->setMeta($meta);
-              $metavalue->setValue($value);
-              $content->addMetaValue($metavalue);
-          }
-          $this->em->persist($metavalue);
-          $this->em->flush();
-      }
-    }
+      
     $this->em->persist($content);
     $this->em->flush();
     
     return true;
+  }
+  
+  public function saveMeta($content)
+  {
+      if (!empty($content->getMetaValuesTemp())) {
+          foreach ($content->getMetaValuesTemp() as $metaname => $metavalue) {
+              $meta = $this->em->getRepository('ContentBundle:Meta')->findOneBy(array('alias' => $metaname));
+              $metavalueObj = $this->em->getRepository('ContentBundle:MetaValue')->findOneBy(array('content' => $content, 'meta' => $meta));
+              if ($metavalueObj !== null) {
+                  $metavalueObj->setValue($metavalue);
+              } else {
+                  $metavalueObj = new MetaValue();
+                  $metavalueObj->setContent($content);
+                  $metavalueObj->setMeta($meta);
+                  $metavalueObj->setValue($metavalue);
+                  $content->addMetaValue($metavalueObj);
+              }
+
+              $this->em->persist($metavalueObj);
+              $this->em->flush();
+          }
+      }
+      $this->em->persist($content);
+      $this->em->flush();
   }
   
   public function update(Content $content)

@@ -40,7 +40,7 @@ class MetaValue
     /**
      * @var string value
      *
-     * @ORM\Column(name="value",type="text")
+     * @ORM\Column(name="value",type="text", nullable=true)
      */
     private $value;
 

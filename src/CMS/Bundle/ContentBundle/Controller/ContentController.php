@@ -92,7 +92,9 @@ class ContentController extends Controller
                 'success',
                 'cms.content.content_created.success'
             );
-            
+            if ($form->get('submit_stay')->isClicked()) {
+                return $this->redirect($this->generateUrl('admin_content_edit', array('id' => $this->content->getId())));
+            }
             return $this->redirect($this->generateUrl('admin_content'));
         }
         
@@ -108,7 +110,7 @@ class ContentController extends Controller
     /**
      * Ajoute une traduction au contenu
      * @param  Content $content Contenu à traduire
-     * @return array
+     * @return mixed
      *
      * @Route("/translate/{content}/{language}", name="admin_translation_create")
      * @Method("POST")
@@ -173,7 +175,7 @@ class ContentController extends Controller
                 'user' => $this->getUser(),
             )
         );
-        
+        $form->add('submit_stay', 'submit', array('label' => 'Create and stay', 'attr' => array('class' => 'btn btn-info btn-fill')));
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
         
         return $form;
@@ -340,6 +342,12 @@ class ContentController extends Controller
             'submit',
             array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill pull-right'))
         );
+    
+        $form->add(
+            'submit_stay',
+            'submit',
+            array('label' => 'Update and stay', 'attr' => array('class' => 'btn btn-info pull-right'))
+        );
         
         return $form;
     }
@@ -368,6 +376,8 @@ class ContentController extends Controller
         $metavalues = $em->getRepository('ContentBundle:MetaValue')->findMetavalueByContent($entity);
         $metas = $em->getRepository('ContentBundle:Meta')->findByIndexed();
         
+        
+        
         $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas, $metavalues);
         $editForm->handleRequest($request);
         
@@ -376,11 +386,16 @@ class ContentController extends Controller
             $entity->setAuthor($current_user);
             
             $this->get('cms.content.content_manager')->save($entity);
+            $this->get('cms.content.content_manager')->saveMeta($entity);
             
             $this->get('session')->getFlashBag()->add(
                 'success',
                 'cms.content.content_updated.success'
             );
+    
+            if ($editForm->get('submit_stay')->isClicked()) {
+                return $this->redirect($this->generateUrl('admin_content_edit', array('id' => $entity->getId())));
+            }
             
             return $this->redirect($this->generateUrl('admin_content'));
         }

@@ -62,3 +62,10 @@ services:
 
     cms.content.api.manager:
         class: CMS\Bundle\ContentBundle\Manager\ApiManager
+
+    cms.core.metas.twig_extension:
+            class: CMS\Bundle\ContentBundle\Twig\Extension\MetaExtension
+            public: false
+            arguments: ["@service_container"]
+            tags:
+                - { name: twig.extension }

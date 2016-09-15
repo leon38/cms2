@@ -41,7 +41,7 @@ function codeAddress(id_address, id_latitude, id_longitude) {
 
 function geocodeLatLng(geocoder, map, id_latitude, id_longitude) {
     var latitude = document.getElementById(id_latitude).value;
-    var longitude = document.getElementById(id_latitude).value;
+    var longitude = document.getElementById(id_longitude).value;
     var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
     geocoder.geocode({'location': latlng}, function(results, status) {
         if (status === google.maps.GeocoderStatus.OK) {

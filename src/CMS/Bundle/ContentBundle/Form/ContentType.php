@@ -2,7 +2,11 @@
 
 namespace CMS\Bundle\ContentBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -23,7 +27,7 @@ class ContentType extends AbstractType
             ->add('title', null, array('label' => 'cms.content.title'))
             ->add(
                 'url',
-                'text',
+                TextType::class,
                 array(
                     'label' => 'cms.content.alias',
                     'attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_content_title'),
@@ -35,8 +39,13 @@ class ContentType extends AbstractType
                 array('label' => 'cms.content.description', 'attr' => array('class' => 'summernote'))
             )
             ->add(
+                'chapo',
+                TextareaType::class,
+                array('label' => 'cms.content.chapo')
+            )
+            ->add(
                 'published',
-                'choice',
+                ChoiceType::class,
                 array(
                     'label' => 'cms.content.status.status',
                     'choices' => array(
@@ -60,7 +69,7 @@ class ContentType extends AbstractType
             )
             ->add(
                 'categories',
-                'entity',
+                EntityType::class,
                 array(
                     'label' => 'cms.content.categories',
                     'class' => 'ContentBundle:Category',
@@ -83,6 +92,7 @@ class ContentType extends AbstractType
                     'image_size' => 'col-md-12',
                 )
             )
+            ->add('featured')
             ->add('fieldValuesTemp', null, array('compound' => true, 'label' => ' '))
             ->add('metaValuesTemp', null, array('compound' => true, 'label' => ' '));
         
@@ -212,55 +222,40 @@ class ContentType extends AbstractType
         
         $metas = $options['metas'];
         $metavalues = $options['metavalues'];
-        // edit content
+        
         if (!empty($metavalues)) {
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($metavalues) {
+                function (FormEvent $event) use ($metavalues, $metas) {
                     $form = $event->getForm();
                     $metavaluesTemp = $form->get('metaValuesTemp');
-                    foreach ($metavalues as $key => $metas_temp) {
-                        foreach ($metas_temp as $meta_meta) {
-                            if ($key == 'metavalue') {
-                                $meta = $meta_meta->getMeta();
-                                $metavalue = $meta_meta;
-                                $metavaluesTemp->add(
-                                    $meta->getAlias(),
-                                    strtolower($meta->getType()),
-                                    array(
-                                        'label' => $meta->getName(),
-                                        'data' => $metavalue->getValue(),
-                                        'required' => false,
-                                    )
-                                );
-                            } else {
-                                $meta = $meta_meta;
-                                $metavaluesTemp->add(
-                                    $meta->getAlias(),
-                                    strtolower($meta->getType()),
-                                    array('label' => $meta->getName(), 'required' => false)
-                                );
-                            }
-                        }
-                        
+                    $names = array();
+                    foreach ($metavalues as $metavalue) {
+                        $meta = $metavalue->getMeta();
+                        $names[] = $meta->getName();
+                        $type = $meta->getType();
+                        $metavaluesTemp->add($meta->getAlias(), strtolower($type), array('label' => $meta->getName(), 'data' => $metavalue->getValue(),));
+                    }
+                    $diff = array_diff(array_keys($metas), $names);
+                    foreach ($diff as $name) {
+                        $meta = $metas[$name];
+                        $type = $meta->getType();
+                        $metavaluesTemp->add($meta->getAlias(), strtolower($type), array('label' => $meta->getName(), 'data' => $metavalue->getValue(),));
+                    
                     }
                     
                 }
             );
-        } else { //new content
+        } else { // new content
             $builder->addEventListener(
                 FormEvents::PRE_SET_DATA,
                 function (FormEvent $event) use ($metas) {
                     $form = $event->getForm();
                     $metavaluesTemp = $form->get('metaValuesTemp');
                     foreach ($metas as $meta) {
-                        $metavaluesTemp->add(
-                            $meta->getAlias(),
-                            strtolower($meta->getType()),
-                            array('label' => $meta->getName(), 'required' => false)
-                        );
+                        $type = $meta->getType();
+                        $metavaluesTemp->add($meta->getAlias(), strtolower($type), array('label' => $meta->getName()));
                     }
-                    
                 }
             );
         }
