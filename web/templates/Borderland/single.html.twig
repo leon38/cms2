@@ -9,11 +9,22 @@
                 <div class="clearfix"></div>
                 <h1>{{ content.title }}</h1>
                 {{ social_buttons() }}
+<<<<<<< HEAD
+
+                {{ widget('related-posts', content.id) }}
+	        </div>
+
+	        <div class="col col-4">
+	            {{ content.get('carte')|raw }}
+                {{ content.get('meteo')|raw }}
+                {{ content.get('spotify')|raw }}
+=======
                 <div class="clearfix"></div>
                 <div class="description">
 	                {{ content.description|raw }}
                 </div>
                 {{ widget('related-posts', content.id) }}
+>>>>>>> 544cd3e5d42c2db22c53640ccc59958eb7cfdf5c
 	        </div>
             <div class="clearfix"></div>
         </div>

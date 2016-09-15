@@ -9729,3 +9729,8 @@ star {
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
 }
+
+.modal-gallery .modal-body {
+    height: 300px;
+    overflow: scroll;
+}
