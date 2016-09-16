@@ -1,0 +1,28 @@
+{% include "@cms/Borderland/header.html.twig" %}
+<div class="container">
+
+    <div class="section">
+        <div class="col col-8">
+            <div class="dancing pull-left">
+                {{ content.created|date(date_format) }} | dans {{ content.getCategoriesArticle(',') }} | par {{ content.author }}
+            </div>
+            <div class="clearfix"></div>
+            <h1>{{ content.title }}</h1>
+            {{ content.description|raw }}
+            {{ content.get('musique')|raw }}
+            {{ content.get('galerie')|raw }}
+            {{ social_buttons() }}
+        </div>
+        <div class="col col-4">
+            <h3>Infos</h3>
+            <ul class="list-unstyled">
+                <li>Date : {{ content.get('date-du-concert')|raw }}</li>
+                <li>Tarif : {{ content.get('tarif') }}</li>
+            </ul>
+            {{ content.get('salle-de-spectacle')|raw }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+{% include "@cms/Borderland/footer.html.twig" %}

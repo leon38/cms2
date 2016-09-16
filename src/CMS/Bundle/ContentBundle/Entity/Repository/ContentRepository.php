@@ -91,4 +91,18 @@ class ContentRepository extends EntityRepository
             ->getResult();
     }
     
+    
+    public function search($query)
+    {
+        return $this->_em
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('ContentBundle:Content', 'c')
+            ->where('c.title LIKE :query')
+            ->orWhere('c.description LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    }
+    
 }

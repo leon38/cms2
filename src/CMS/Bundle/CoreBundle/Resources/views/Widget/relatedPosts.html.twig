@@ -1,13 +1,18 @@
 {% if contents is not empty %}
-<div class="widget related-posts">
-    <h5>{{ title }}</h5>
-    <div class="section">
-        {% for content in contents %}
-            <div class="col col-4">
-                <img src="{{ content.thumbnail.webPath }}" alt="" class="img-responsive">
-                <p><a href="{{ path('front_single', {'alias': content.url}) }}">{{ content.title }}</a></p>
-            </div>
-        {% endfor %}
+<div class="widget related-posts clearfix">
+    <div class="box-title-area">
+        <h4 class="title">{{ title }}</h4>
     </div>
+    {% for content in contents %}
+        <div class="item">
+            <div class="related-post-image">
+                <a href="{{ path('front_single', {'alias': content.url}) }}">
+                    <img src="{{ content.thumbnail.webPath|imagine_filter('thumb_related') }}" alt="" class="img-responsive">
+                </a>
+            </div>
+            <h3><a href="{{ path('front_single', {'alias': content.url}) }}">{{ content.title }}</a></h3>
+            <span class="date">{{ content.created|localizeddate('medium', 'none') }}</span>
+        </div>
+    {% endfor %}
 </div>
 {% endif %}

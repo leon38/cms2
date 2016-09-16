@@ -59,6 +59,29 @@ class FrontController extends Controller
     }
     
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/recherche", name="front_search")
+     */
+    public function searchAction(Request $request)
+    {
+        $this->init();
+        $contents = $this->getDoctrine()->getRepository('ContentBundle:Content')->search($request->get('q'));
+        $parameters = array_merge(
+            $this->_parameters,
+            array(
+                'title' => $this->_title,
+                'theme' => $this->_theme,
+                'contents' => $contents
+            )
+        );
+        if ($this->get('templating')->exists('@cms/'.$this->_theme.'/search.html.twig')) {
+            return $this->render('@cms/'.$this->_theme.'/search.html.twig', $parameters);
+        }
+    }
+    
+    /**
      * @param $categoryName
      * @return \Symfony\Component\HttpFoundation\Response
      *
