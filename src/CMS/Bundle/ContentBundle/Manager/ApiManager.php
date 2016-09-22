@@ -11,7 +11,7 @@ namespace CMS\Bundle\ContentBundle\Manager;
 
 class ApiManager
 {
-    public function getWeather($city)
+    public function getWeatherYahoo($city)
     {
         $BASE_URL = "http://query.yahooapis.com/v1/public/yql";
         $yql_query = 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'.$city.'")';
@@ -21,6 +21,44 @@ class ApiManager
         curl_setopt($session, CURLOPT_RETURNTRANSFER,true);
         $json = curl_exec($session);
         return $json;
+    }
+    
+    public function getCoordinates($city)
+    {
+        $BASE_URL = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=".$city;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $BASE_URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $json = curl_exec($ch);
+        $json = json_decode($json);
+        curl_close($ch);
+        if($json->status ='OK'){
+            return $json->results[0]->geometry->location;
+        }else{
+            return false;
+        }
+    }
+    
+    public function getWeatherDarkSky($city)
+    {
+        $coords = $this->getCoordinates($city);
+        if ($coords !== false) {
+            $BASE_URL = "https://api.darksky.net/forecast/460bd50d0aa12b3276c3c8813d239743/".$coords->lat.",".$coords->lng;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $BASE_URL);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $json = curl_exec($ch);
+            curl_close($ch);
+            
+            return $json;
+        }
+        return false;
     }
     
     public function getArtistSpotify($query)

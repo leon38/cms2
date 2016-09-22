@@ -1,4 +1,3 @@
-<h5>{{ title }}</h5>
 <div class="section gallery">
     {% for medium in value %}
         {% set alt = "alt_" ~ defaultLanguage.id %}
@@ -11,12 +10,16 @@
             </a>
         </div>
     {% endfor %}
-    <div class="modal fade" id="modal-gallery">
-        <div class="modal-inner">
-            <div class="modal-body">
-                <div class="cssload-loader"><div class="cssload-inner cssload-one"></div><div class="cssload-inner cssload-two"></div><div class="cssload-inner cssload-three"></div></div>
-            </div>
-        </div>
+    <div id="modal-gallery" class="modal">
+
+        <!-- The Close Button -->
+        <span class="close">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content">
+
+        <!-- Modal Caption (Image Text) -->
+        <div id="caption"></div>
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('bundles/core/js/modal.js') }}"></script>

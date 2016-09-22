@@ -51,4 +51,20 @@ $(window).load(function(){
         });
     }
 
-})
+});
+
+$(document).ready(function() {
+    $('.modal').find('.close').on('click', function() {
+        $(this).parent('.modal').css({display: 'none'});
+    });
+
+    $('*[data-toggle="modal"]').on('click', function(e) {
+        e.preventDefault();
+        console.log('lalallala');
+        var target = $(this).data('target');
+        $('#'+target).find('.modal-content').attr('src', $(this).data('url'));
+        $('#'+target).css({display: 'block'});
+
+    });
+});
+

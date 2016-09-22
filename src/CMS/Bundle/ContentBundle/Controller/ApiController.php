@@ -27,7 +27,7 @@ class ApiController extends Controller
      */
     public function getWeatherAction($city)
     {
-        $json = $this->get('cms.content.api.manager')->getWeather($city);
+        $json = $this->get('cms.content.api.manager')->getWeatherDarkSky($city);
         return new JsonResponse(json_decode($json));
     }
     
