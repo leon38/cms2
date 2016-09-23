@@ -854,15 +854,20 @@ footer .logo {
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
 
 /* Modal Content (Image) */
-.modal-content {
+.modal-inner {
     margin: auto;
     display: block;
     width: 80%;
     max-width: 1000px;
+    position: relative;
+}
+
+.modal-content {
+    width: 100%;
 }
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
@@ -911,6 +916,25 @@ footer .logo {
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+}
+
+.arrow {
+    position: absolute;
+    top: 49%;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    z-index: 8040;
+    font-size: 20px;
+    color: #fff;
+}
+
+.arrow.back {
+    left: -32px;
+}
+
+.arrow.next {
+    right: -32px;
 }
 
 /* 100% Image Width on Smaller Screens */

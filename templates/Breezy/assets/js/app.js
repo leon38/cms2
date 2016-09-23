@@ -53,6 +53,10 @@ $(window).load(function(){
 
 });
 
+var gallery = "";
+var nb_slide = 0;
+var modal = "";
+
 $(document).ready(function() {
     $('.modal').find('.close').on('click', function() {
         $(this).parent('.modal').css({display: 'none'});
@@ -60,11 +64,41 @@ $(document).ready(function() {
 
     $('*[data-toggle="modal"]').on('click', function(e) {
         e.preventDefault();
-        console.log('lalallala');
         var target = $(this).data('target');
-        $('#'+target).find('.modal-content').attr('src', $(this).data('url'));
-        $('#'+target).css({display: 'block'});
-
+        gallery = $(this).attr('rel');
+        modal = $('#'+target);
+        if (gallery != '') {
+            nb_slide = $('a[rel='+gallery+']').length;
+            if (modal.find('.arrows').length == 0) {
+                modal.find('.modal-inner').append('<div class="arrows"><a href="javascript:prev()" class="arrow back"><i class="fa fa-chevron-circle-left"></i></a><a href="javascript:next()" class="arrow next"><i class="fa fa-chevron-circle-right"></i></a></div>');
+            }
+        }
+        modal.find('.modal-content').attr('src', $(this).data('url'));
+        modal.css({display: 'block'});
     });
 });
+
+function next() {
+    var src = $('.modal > .modal-inner > img').attr('src');
+    var current_elem = $('a[data-url="'+src+'"]');
+    var index_link = $('a[rel="'+gallery+'"]').index(current_elem);
+    var next_index = 0;
+    if (index_link < (nb_slide-1)) {
+        next_index = index_link+1;
+    }
+    var next_sibling = $('a[rel="'+gallery+'"]').eq(next_index);
+    modal.find('.modal-content').attr('src', next_sibling.data('url'));
+}
+
+function prev() {
+    var src = $('.modal > .modal-inner > img').attr('src');
+    var current_elem = $('a[data-url="'+src+'"]');
+    var index_link = $('a[rel="'+gallery+'"]').index(current_elem);
+    var prev_index = index_link -1;
+    if (index_link == 0) {
+        prev_index = nb_slide-1;
+    }
+    var prev_sibling = $('a[rel="'+gallery+'"]').eq(prev_index);
+    modal.find('.modal-content').attr('src', prev_sibling.data('url'));
+}
 
