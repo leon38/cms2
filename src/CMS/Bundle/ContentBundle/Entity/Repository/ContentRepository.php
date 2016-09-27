@@ -64,6 +64,17 @@ class ContentRepository extends EntityRepository
             ->getResult();
     }
     
+    public function getCountByMonth()
+    {
+        return $this->_em
+            ->createQueryBuilder('c')
+            ->select('COUNT(c) as total, YEAR(c.created) as year_created, MONTH(c.created) as month_created')
+            ->from('ContentBundle:Content', 'c')
+            ->groupBy('year_created, month_created')
+            ->getQuery()
+            ->getResult();
+    }
+    
     
     public function getRelatedPosts($id_post, $limit)
     {

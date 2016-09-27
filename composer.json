@@ -29,7 +29,9 @@
         "friendsofsymfony/rest-bundle": "^1.7",
         "liip/imagine-bundle": "^1.5",
         "php-instagram-api/php-instagram-api": "dev-master",
-        "twig/extensions": "^1.3"
+        "twig/extensions": "^1.3",
+        "mediafigaro/google-analytics-api-symfony": "^1.1",
+        "beberlei/DoctrineExtensions": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

@@ -484,15 +484,31 @@ class ContentController extends Controller
     }
     
     /**
-     * @Route("/stats", name="admin_content_stats")
+     * @Route("/stats_type", name="admin_content_stats_type")
      */
-    public function getStatsAction()
+    public function getStatsTypeAction()
     {
         $contents = $this->getDoctrine()->getRepository('ContentBundle:Content')->getCountByTaxonomy();
         $labels = array();
         $data   = array();
         foreach($contents as $content) {
             $labels[] = $content['title'];
+            $data[] = $content['total'];
+        }
+        return new JsonResponse(array('labels' => $labels, 'data' => $data));
+    }
+    
+    
+    /**
+     * @Route("/stats_content", name="admin_content_stats_content")
+     */
+    public function getStatsContentAction()
+    {
+        $contents = $this->getDoctrine()->getRepository('ContentBundle:Content')->getCountByMonth();
+        $labels = array();
+        $data   = array();
+        foreach($contents as $content) {
+            $labels[] = $content['month_created'].'/'.$content['year_created'];
             $data[] = $content['total'];
         }
         return new JsonResponse(array('labels' => $labels, 'data' => $data));

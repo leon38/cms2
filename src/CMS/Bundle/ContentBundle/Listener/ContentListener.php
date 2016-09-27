@@ -3,8 +3,8 @@ namespace CMS\Bundle\ContentBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use CMS\Bundle\ContentBundle\Entity\Content;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
 
 class ContentListener
@@ -36,6 +36,11 @@ class ContentListener
                 
                 if ($type == 'gallery') {
                     $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
+                }
+                
+                if ($type == 'file' || $type == 'kml') {
+                    $value = new File($value);
+                    $fieldvalue->setValue($value);
                 }
                 $defaultLanguage = $this->container->get('doctrine')->getRepository('CoreBundle:Language')->find(1);
                 $template = 'ContentBundle:Fields:'.$type.'.html.twig';

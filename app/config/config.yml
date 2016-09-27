@@ -86,6 +86,10 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
         entity_listener_resolver: cms.content.doctrine.entity_listener_resolver
+        dql:
+            datetime_functions:
+                month: DoctrineExtensions\Query\Mysql\Month
+                year: DoctrineExtensions\Query\Mysql\Year
 
 # Swiftmailer Configuration
 swiftmailer:

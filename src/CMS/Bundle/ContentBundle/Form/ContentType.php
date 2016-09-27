@@ -138,6 +138,8 @@ class ContentType extends AbstractType
                         
                         if ($type == 'music') {
                             $type = isset($options['api']) ? $options['api'] : 'deezer';
+                        } else if ($type == 'kml') {
+                            $type = 'file';
                         }
                         
                         $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);
@@ -170,6 +172,8 @@ class ContentType extends AbstractType
     
                         if ($type == 'music') {
                             $type = isset($options['api']) ? $options['api'] : 'deezer';
+                        } else if ($type == 'kml') {
+                            $type = 'file';
                         }
                         
                         $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);
@@ -210,6 +214,8 @@ class ContentType extends AbstractType
     
                         if ($type == 'music') {
                             $type = isset($options['api']) ? $options['api']['value'] : 'deezer';
+                        } else if ($type == 'kml') {
+                            $type = 'file';
                         }
                         
                         $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);

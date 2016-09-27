@@ -14,8 +14,11 @@ class FileField extends Fields
 	private $html;
 
 	private $type;
-
-	private $params;
+    
+    /**
+     * @var array paramètres du champs
+     */
+    private $params;
 
 	public function __construct()
 	{
@@ -92,5 +95,10 @@ class FileField extends Fields
     public function getOptions()
     {
     	return array();
+    }
+    
+    public function getParams()
+    {
+        return $this->params;
     }
 }
