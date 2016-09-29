@@ -36,6 +36,7 @@ class Search extends Widget
     {
         $params = $this->getParams();
         $options['display_title'] = array('type' => 'choice', 'name' => 'display_title', 'choices' => array(0 => 'Non', 1 => 'Oui'), 'value' => $this->getParamsValue($params, 'display_title', 'choice'));
+        $options['position'] = array('type' => 'choice', 'name' => 'position', 'choices' => array('header' => 'Header', 'sidebar' => 'Sidebar'), 'value' => $this->getParamsValue($params, 'position', 'choice'));
         return $options;
     }
 }

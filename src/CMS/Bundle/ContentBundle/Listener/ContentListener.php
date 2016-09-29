@@ -38,7 +38,7 @@ class ContentListener
                     $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
                 }
                 
-                if ($type == 'file' || $type == 'kml') {
+                if ($type == 'file' || $type == 'kml' && $value != '') {
                     $value = new File($value);
                     $fieldvalue->setValue($value);
                 }

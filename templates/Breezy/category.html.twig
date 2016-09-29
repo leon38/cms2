@@ -1,1 +1,38 @@
 {% include "@cms/Breezy/header.html.twig" %}
+<div id="main-container">
+    <div class="container">
+        <div id="content">
+            <div class="post-list grid">
+                <div class="grid-layout">
+                    {% for content in contents %}
+                        <article class="post-item article-item">
+                            <div id="post" class="post item">
+                                <div class="post-featured-item">
+                                    <a href="{{ path('front_single', {'alias': content.url}) }}">
+                                        <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_list') }}" alt="{{ content.thumbnail.metas['alt_1'] }}"
+                                             title="{{ content.thumbnail.metas['title_1'] }}">
+                                    </a>
+                                </div>
+                                <div class="item-content">
+                                    <div class="post-entry">
+                                        <h2><a href="{{ path('front_single', {'alias': content.url}) }}">{{ content.title }}</a></h2>
+                                        <div class="date-author"><span class="date">{{ content.created|date(date_format) }}</span></div>
+                                        <p>{{ content.chapo }}</p>
+                                        <div class="masonry-item-footer clearfix">
+                                            <div class="sub-meta-container"><span class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span></div>
+                                            <div class="comment-like-container">
+                                                {{ social_buttons(tiny_url) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "@cms/Breezy/footer.html.twig" %}

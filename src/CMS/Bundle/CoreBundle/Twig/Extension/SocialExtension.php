@@ -22,10 +22,12 @@ class SocialExtension extends \Twig_Extension
         );
     }
     
-    public function renderSocialButtons()
+    public function renderSocialButtons($url = '')
     {
         $request = $this->_container->get('request');
-        $url = $request->getSchemeAndHttpHost().$request->getRequestUri();
+        if ($url == '') {
+            $url = $request->getSchemeAndHttpHost().$request->getRequestUri();
+        }
         
         
         return $this->_container->get('templating')->render(

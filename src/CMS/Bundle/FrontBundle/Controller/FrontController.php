@@ -49,7 +49,8 @@ class FrontController extends Controller
                 'theme' => $this->_theme,
                 'contents' => $contents,
                 'categories' => $categories,
-                'featured' => $featured
+                'featured' => $featured,
+                'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("home", array(), true))
             )
         );
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
@@ -85,7 +86,7 @@ class FrontController extends Controller
      * @param $categoryName
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/category/{categoryName}")
+     * @Route("/category/{categoryName}", name="front_category")
      */
     public function categoryAction($categoryName)
     {
@@ -95,7 +96,12 @@ class FrontController extends Controller
         if ($category !== null) {
             $parameters = array_merge(
                 $this->_parameters,
-                array('title' => $category->getTitle(), 'theme' => $this->_theme, 'contents' => $category->getContents())
+                array(
+                    'title' => $category->getTitle(),
+                    'theme' => $this->_theme,
+                    'contents' => $category->getContents(),
+                    'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("categoryName" => $categoryName), true))
+                )
             );
             
             return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
@@ -126,6 +132,7 @@ class FrontController extends Controller
                             'title' => $taxonomy->getTitle(),
                             'theme' => $this->_theme,
                             'contents' => $taxonomy->getContents(),
+                            'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("alias" => $alias), true))
                         )
                     );
                     if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig')) {
@@ -147,11 +154,12 @@ class FrontController extends Controller
                     'theme' => $this->_theme,
                     'contents' => $contents,
                     'categories' => $categories,
+                    'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("alias" => $alias), true))
                 )
             );
     
-            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getAlias().'.html.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/category-'.$category->getAlias().'.html.twig', $parameters);
+            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getUrl().'.html.twig')) {
+                return $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.html.twig', $parameters);
             }
             
             return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);

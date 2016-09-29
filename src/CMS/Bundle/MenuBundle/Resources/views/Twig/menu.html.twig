@@ -1,25 +1,30 @@
-<ul class="{{ class }}" id="{{ id }}">
-    {% set oldlvl = 1 %}
-    {% set multilvl = false %}
-    {% for entry in entries %}
-        {% if entry.lvl >= 1 %}
-            {% if entry.lvl < oldlvl %}
-                </ul></li>
-                {% set oldlvl = entry.lvl %}
-                {% set multilvl = false %}
-            {% elseif entry.lvl > oldlvl %}
-                <ul class="menu-items-children">
-                {% set oldlvl = entry.lvl %}
-                {% set multilvl = true %}
-            {% endif %}
-            <li class="menu-item lvl-{{ entry.lvl }}{% if entry.hasChildren() %} menu-parent{% endif %}">
+<nav class="main-navigation {{ class }}">
+    <ul class="nav-menu" id="{{ id }}">
+        {% set oldlvl = 1 %}
+        {% set multilvl = false %}
+        {% for entry in entries %}
+            {% if entry.lvl >= 1 %}
+                {% if entry.lvl < oldlvl %}
+                        </ul>
+                    </li>
+                    {% set oldlvl = entry.lvl %}
+                    {% set multilvl = false %}
+                {% elseif entry.lvl > oldlvl %}
+                    <ul class="menu-items-children">
+                    {% set oldlvl = entry.lvl %}
+                    {% set multilvl = true %}
+                {% endif %}
+                <li class="menu-item lvl-{{ entry.lvl }}{% if entry.hasChildren() %} menu-parent{% endif %}">
                 {% if entry.url is not null %}
                     <a href="{{ path('front_single', {'alias': entry.url.url}) }}"{% if entry.url.external %}
                         target="_blank" rel="noopener"{% endif %}>{{ entry.title }}</a>
                 {% else %}
                     <a href="{{ path('home') }}">{{ entry.title }}</a>
                 {% endif %}
-        {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</nav>
+<div class="menu-mobile">
 
-    {% endfor %}
-</ul>
+</div>

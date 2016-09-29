@@ -1,8 +1,23 @@
-<div class="widget widget_search">
-    {% if display_title %}
-        <h4 class="widget-title">{{ title }}</h4>
-    {% endif %}
-    <form role="search" method="get" id="searchform" action="{{ path('front_search') }}">
-        <input type="text" placeholder="Rechercher..." name="q" id="q">
-    </form>
-</div>
+{% if position == 'sidebar' %}
+    <div class="widget widget_search">
+        {% if display_title %}
+            <h4 class="widget-title">{{ title }}</h4>
+        {% endif %}
+        <form role="search" method="get" id="searchform" action="{{ path('front_search') }}">
+            <input type="text" placeholder="Rechercher..." name="q" id="q">
+        </form>
+    </div>
+{% else %}
+    <div class="top-search-area">
+        <a href="#"><i class="fa fa-search"></i></a>
+    </div>
+    <div class="search-form-area">
+        <form role="search" method="get" class="search-form" action="{{ path('front_search') }}">
+            <div>
+                <input type="text" placeholder="Rechercher..." name="s" class="search">
+                <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+        <a class="close-btn" href="javascript:;"><i class="fa fa-times"></i></a>
+    </div>
+{% endif %}

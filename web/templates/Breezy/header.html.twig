@@ -12,6 +12,7 @@
     {% endif %}
     <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Lato" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/slicknav.css') }}">
     <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/style.css') }}">
     <link rel="stylesheet" href="{{ asset('/templates/' ~ theme ~ '/assets/swiper.min.css') }}">
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -25,7 +26,8 @@
     <div class="wrapper">
         <header id="header">
             <div class="container clearfix">
-                <nav>{{ render_menu('header') }}</nav>
+                {{ render_menu('header') }}
+                {{ widget('search-header') }}
                 <div id="share">
                     {{ widget('follow-me') }}
                 </div>
