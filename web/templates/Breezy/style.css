@@ -823,6 +823,28 @@ body.search-open .search-form-area {
     position: relative;
 }
 
+.comment-like-container .social a {
+    border-radius: 50%;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    color: #aaa;
+    text-align: center;
+    font-size: 14px;
+}
+
+.comment-like-container .social a.facebook:hover {
+    color: #3b5999;
+}
+
+.comment-like-container .social a.twitter:hover {
+    color: #55acee;
+}
+
+.comment-like-container .social a.pinterest:hover {
+    color: #bd081c;
+}
+
 /*********************
  * Sidebar
  *********************/
@@ -910,15 +932,7 @@ body.search-open .search-form-area {
     text-align: center;
 }
 
-.comment-like-container .social a {
-    border-radius: 50%;
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    color: #aaa;
-    text-align: center;
-    line-height: 20px;
-}
+
 
 /*********************
  * Widgets
