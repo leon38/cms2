@@ -3,7 +3,7 @@
 <div class="section-body">
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12">
             <div class="card">
                 <div class="header"></div>
                 <div class="content">
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-lg-4 col-md-12">
             <div class="card">
                 <div class="header"></div>
                 <div class="content">
@@ -21,6 +21,20 @@
                         <canvas id="line"></canvas>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="header"></div>
+                <div class="content">
+                    {{ widget('randos') }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="header"><h1>Derniers articles</h1></div>
+                <div class="content">{{ widget('last-posts') }}</div>
             </div>
         </div>
     </div>

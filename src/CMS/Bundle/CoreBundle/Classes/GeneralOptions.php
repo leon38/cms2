@@ -21,7 +21,7 @@ class GeneralOptions
         $this->mediaRepo = $mediaRepo;
 		$tmp_options = $opRepo->getGeneralOptions();
         foreach($tmp_options as $option) {
-            if($option->getType() == 'image') {
+            if($option->getType() == 'image' && $option->getOptionValue() != null) {
                 $option->setOptionValue($this->mediaRepo->find($option->getOptionValue()));
             }
             $this->options[] = $option;

@@ -262,6 +262,10 @@ header#header nav > ul li a:hover {
     color: #6d6d6d;
 }
 
+header#header nav > ul li a i {
+    padding-right: 5px;
+}
+
 .slicknav_menu {
     text-align: left;
     display:none;

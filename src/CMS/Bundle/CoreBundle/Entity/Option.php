@@ -23,7 +23,7 @@ class Option
     private $option_name;
     
     /**
-     * @ORM\Column(name="option_value", type="text")
+     * @ORM\Column(name="option_value", type="text", nullable=true)
      */
     private $option_value;
     

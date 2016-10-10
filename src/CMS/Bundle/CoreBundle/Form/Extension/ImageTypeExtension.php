@@ -63,7 +63,8 @@ class ImageTypeExtension extends AbstractTypeExtension
           $tmp_options = $parentData->getOptions();
 
           foreach($tmp_options as $option) {
-            if ($option->getType() == 'image' && $option->getOptionValue()->getId() == $options['data']->getId()) {
+              dump($option);
+            if ($option->getType() == 'image' && is_object($option->getOptionValue()) && is_object($options['data']) && $option->getOptionValue()->getId() == $options['data']->getId()) {
               $imageUrl = $option->getOptionValue()->getWebPath();
               break;
             }

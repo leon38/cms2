@@ -1,0 +1,21 @@
+<ul class="nav">
+    {% for route, entry in entries %}
+        <li{% if route == app.request.attributes.get('_route') or (entry.children is defined and app.request.attributes.get('_route') in entry.children|keys) %} class="active"{% endif %}>
+            <a {% if entry.children is not defined %}href="{{ path(route) }}"{% else %}href="#{{ entry.name|replace('.', '-') }}" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="{{ entry.name|replace('.', '-') }}" data-target="#{{ entry.name|replace('.', '-') }}"{% endif %}>
+                <i class="{{ entry.icon }}"></i>
+                <p>{{ entry.name|trans }}{% if entry.children is defined %} <b class="caret"></b>{% endif %}</p>
+            </a>
+            {% if entry.children is defined %}
+                <div class="collapse{% if app.request.attributes.get('_route') in entry.children|keys %} in{% endif %}" id="{{ entry.name|replace('.', '-') }}">
+                    <ul class="nav">
+                        {% for route_child, child in entry.children %}
+                            <li{% if route_child == app.request.attributes.get('_route') %} class="active"{% endif %}>
+                                <a href="{{ path(route_child) }}">{{ child.name|trans }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,39 @@
+admin_dashboard_index:
+    name: cms.core.dashboard
+    icon: pe-7s-graph
+admin_content:
+    name: cms.content.content
+    icon: pe-7s-news-paper
+    children:
+        admin_content:
+            name: cms.content.content
+        admin_category:
+            name: cms.content.category
+        admin_content-taxonomy:
+            name: cms.content.content_taxonomy
+        admin_field:
+            name: cms.content.field
+admin_media_index:
+    name: cms.media.media
+    icon: pe-7s-photo
+admin_menutaxonomy:
+    name: cms.core.appearance
+    icon: pe-7s-display2
+    children:
+        admin_menutaxonomy:
+            name: cms.core.menus
+        admin_themes:
+            name: cms.core.themes
+        admin_widget_index:
+            name: cms.core.widget
+admin_options_general:
+    name: cms.core.administration
+    icon: pe-7s-tools
+    children:
+        admin_options_general:
+            name: cms.core.settings
+        admin_users:
+            name: cms.core.users
+        admin_backup_index:
+            name: cms.core.backup
+

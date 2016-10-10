@@ -13,6 +13,43 @@ use Doctrine\ORM\EntityRepository;
 class ContentRepository extends EntityRepository
 {
     
+    public function findByQuery($conditions = array(), $orders = array(), $nb_element = 0, $offset = 0)
+    {
+        $query = $this->_em
+            ->createQueryBuilder('c')
+            ->select('c')
+            ->from('ContentBundle:Content', 'c');
+        if (!empty($conditions)) {
+            $i = 0;
+            foreach($conditions as $col => $value) {
+                if ($i == 0) {
+                    $query = $query->where('c.'.$col.' = :'.$col)
+                        ->setParameter($col, $value);
+                } else {
+                    $query = $query->andWhere('c.'.$col.' = :'.$col)
+                        ->setParameter($col, $value);
+                }
+                $i++;
+            }
+        }
+        if(!empty($order)) {
+            $i = 0;
+            foreach($orders as $col => $sens) {
+                if ($i == 0) {
+                    $query = $query->orderBy('c.'.$col, $sens);
+                } else {
+                    $query = $query->addOrderBy('c.'.$col, $sens);
+                }
+                $i++;
+            }
+        }
+        if ($offset != 0)
+            $query = $query->setFirstResult($offset);
+        if ($nb_element != 0)
+            $query = $query->setMaxResults($nb_element);
+        return $query;
+    }
+    
     public function getAllContentsPublished()
     {
         return $this->_em
@@ -71,6 +108,23 @@ class ContentRepository extends EntityRepository
             ->select('COUNT(c) as total, YEAR(c.created) as year_created, MONTH(c.created) as month_created')
             ->from('ContentBundle:Content', 'c')
             ->groupBy('year_created, month_created')
+            ->getQuery()
+            ->getResult();
+    }
+    
+    
+    public function getValuesByMonth($taxonomy, $title_field)
+    {
+        return $this->_em
+            ->createQueryBuilder('c')
+            ->select('fv.value as total, YEAR(c.created) as year_created, MONTH(c.created) as month_created')
+            ->from('ContentBundle:Content', 'c')
+            ->leftJoin('c.taxonomy', 't', 't.id = '.$taxonomy->getId())
+            ->leftJoin('c.fieldvalues', 'fv')
+            ->leftJoin('fv.field', 'f')
+            ->where('f.title = :title_field')
+            ->setParameter('title_field', $title_field)
+            ->orderBy('c.created', 'ASC')
             ->getQuery()
             ->getResult();
     }

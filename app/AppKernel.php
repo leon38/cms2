@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new CMS\Bundle\CoreBundle\CoreBundle(),
             new CMS\Bundle\ContactBundle\ContactBundle(),
             new CMS\Bundle\ContentBundle\ContentBundle(),

@@ -30,7 +30,7 @@ class GeneralOptionsController extends Controller
     			$options = $general_options->getOptions();
     			foreach($options as $option) {
                     if ($option->getType() == 'image') {
-                        $option->setOptionValue($option->getOptionValue()->getId());
+                        $option->setOptionValue($option->getOptionValue());
                     }
                     $em->persist($option);
     			}

@@ -82,6 +82,9 @@ cms:
     core:
         share: Partagez
         view_site: Voir le site
+        dashboard: Dashboard
+        appearance: Apparence
+        administration: Préférences
 
 firstname: Prénom
 lastname: Nom

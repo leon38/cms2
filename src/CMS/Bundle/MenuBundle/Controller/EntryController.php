@@ -211,6 +211,7 @@ class EntryController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('MenuBundle:Entry')->find($id);
+        $menu_taxonomy = $entity->getMenuTaxonomy();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Entry entity.');
@@ -220,7 +221,7 @@ class EntryController extends Controller
         $em->flush();
 
 
-        return $this->redirect($this->generateUrl('admin_entry'));
+        return $this->redirect($this->generateUrl('admin_entry', array('slug' => $menu_taxonomy->getSlug())));
     }
 
  

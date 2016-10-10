@@ -1,0 +1,18 @@
+<div id="last-posts">
+    {% for content in contents %}
+        <div class="row">
+            <div class="col-md-2 col-xs-12">
+                {% if content.thumbnail != '' %}
+                    <img src="{{ content.thumbnail.webPath() }}" alt="{{ content.thumbnail.metas['alt_1'] }}" class="img-responsive"
+                         title="{{ content.thumbnail.metas['title_1'] }}" />
+                {% endif %}
+            </div>
+            <div class="col-md-10 col-xs-12">
+                <h3>{{ content.title }}</h3>
+                <p>{{ content.chapo }}</p>
+
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+</div>

@@ -2,6 +2,8 @@
 
 namespace CMS\Bundle\MenuBundle\Form;
 
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,6 +22,7 @@ class EntryType extends AbstractType
         $builder
             ->add('title', null, array('label' => 'cms.entry.title'))
             ->add('status', null, array('attr' => array('data-toggle' => 'checkbox')))
+            ->add('icon_class', TextType::class, array('label' => 'Icone', 'required' => false))
             ->add('external_url', null, array('label' => 'cms.entry.external'))
             ->add('content', null, array('label' => 'cms.entry.content'))
             ->add('category', null, array('label' => 'cms.entry.category'))

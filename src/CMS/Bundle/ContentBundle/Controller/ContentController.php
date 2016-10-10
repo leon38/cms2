@@ -32,15 +32,24 @@ class ContentController extends Controller
     /**
      * Lists all Content entities.
      *
-     * @Route("/", name="admin_content")
-     * @Method("GET")
+     * @Route("/{nb_elem}/{page}", name="admin_content", requirements={"nb_elem": "\d+", "page": "\d+"}, defaults={"page": 1, "nb_elem": 10})
+     * @Method({"GET", "POST"})
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($page, $nb_elem)
     {
         $em = $this->getDoctrine()->getManager();
         
-        $entities = $em->getRepository('ContentBundle:Content')->findBy(array(), array('id' => 'DESC'));
+        $offset = ($page - 1) * $nb_elem;
+        
+        $query = $em->getRepository('ContentBundle:Content')->findByQuery(array(), array('id' => 'DESC'), $nb_elem, $offset);
+    
+        $paginator  = $this->get('knp_paginator');
+        $entities = $paginator->paginate(
+            $query,
+            $page/*page number*/,
+            $nb_elem/*limit per page*/
+        );
         
         $languages = $em->getRepository('CoreBundle:Language')->findAll();
         $taxonomies = $em->getRepository('ContentBundle:ContentTaxonomy')->findAll();

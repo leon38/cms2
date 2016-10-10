@@ -28,7 +28,8 @@ class FrontController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/", name="home")
+     * @Route("/", name="home_index")
+     * @Route("/index.{_format}", name="home", defaults={"_format": "html"})
      */
     public function indexAction()
     {
@@ -63,7 +64,7 @@ class FrontController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/recherche", name="front_search")
+     * @Route("/recherche.{_format}", name="front_search", defaults={"_format": "html"})
      */
     public function searchAction(Request $request)
     {
@@ -86,7 +87,7 @@ class FrontController extends Controller
      * @param $categoryName
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/category/{categoryName}", name="front_category")
+     * @Route("/category/{categoryName}.{_format}", name="front_category", defaults={"_format": "html"})
      */
     public function categoryAction($categoryName)
     {
@@ -114,7 +115,7 @@ class FrontController extends Controller
      * @param  String $alias Alias d'une catégorie ou d'un post
      * @return Response Renvoie la vue avec le bon template selon l'alias
      *
-     * @Route("/{alias}", name="front_single")
+     * @Route("/{alias}.{_format}", name="front_single", defaults={"_format": "html"},)
      */
     public function singleAction($alias, Request $request)
     {

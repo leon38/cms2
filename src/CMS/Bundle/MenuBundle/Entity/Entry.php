@@ -101,6 +101,13 @@ class Entry
      * @ORM\Column(name="external_url", type="string", length=255, nullable=true)
      */
     protected $external_url;
+    
+    /**
+     * @var String icon
+     * @ORM\Column(name="icon", type="string", length=50, nullable=true)
+     */
+    protected $icon_class;
+    
 
     protected $ordre;
 
@@ -492,5 +499,29 @@ class Entry
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set iconClass
+     *
+     * @param string $iconClass
+     *
+     * @return Entry
+     */
+    public function setIconClass($iconClass)
+    {
+        $this->icon_class = $iconClass;
+
+        return $this;
+    }
+
+    /**
+     * Get iconClass
+     *
+     * @return string
+     */
+    public function getIconClass()
+    {
+        return $this->icon_class;
     }
 }
