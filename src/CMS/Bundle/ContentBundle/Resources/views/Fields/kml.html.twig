@@ -1,18 +1,89 @@
+<h4 class="widget-title">Itinéraire</h4>
 <div id="map"></div>
+<h4 class="widget-title">Profil</h4>
+<canvas id="profil"></canvas>
+
 <script>
     var map;
     function initMap() {
         geocoder = new google.maps.Geocoder();
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 7,
-            center: {lat: 45.20774, lng: 5.96416}
+            zoom: 13
         });
+        var curLatLong = "";
+        var prevLatLong = new google.maps.LatLng({{ value.data.0.latitude }}, {{ value.data.0.longitude }});
+        var bounds = new google.maps.LatLngBounds();
+        {% for point in value.data %}
+            {% if loop.index > 0 and point.latitude is defined and point.longitude is defined and point.speed_percent is defined %}
+                var strokeColor = rgbify({{ value.data.max_speed }}, {{ value.data.min_speed }}, {{ point.speed_percent }}, true );
+                var p = new google.maps.LatLng({{ point.latitude }}, {{ point.longitude }});
+                curLatLong = p;
+                var poly = new google.maps.Polyline({
+                    // use your own style here
+                    path: [prevLatLong, curLatLong],
+                    strokeColor: strokeColor,
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                });
+                prevLatLong = curLatLong;
+                bounds.extend(p);
+                poly.setMap(map);
+            {% endif %}
+        {% endfor %}
 
-        var ctaLayer = new google.maps.KmlLayer({
-            url: 'https://drive.google.com/uc?export=download&id=0B3Hwae40RtupMEdvdWNoOHc4ZUU'
-        });
-        console.log(ctaLayer);
-        ctaLayer.setMap(map);
+        // fit bounds to track
+        map.fitBounds(bounds);
     }
+
+    function rgbify(maxval, minval, val, moreisgood) {
+        var intnsty = (val - minval) / (maxval - minval);
+        var r, g;
+        if (moreisgood) {
+            if (intnsty > 0.5) {
+                g = 255;
+                r = Math.round(2 * (1 - intnsty) * 255);
+            } else {
+                r = 255;
+                g = Math.round(2 * intnsty * 255);
+            }
+
+        } else { //lessisgood
+            if (intnsty > 0.5) {
+                r = 255;
+                g = Math.round(2 * (1 - intnsty) * 255);
+            } else {
+                g = 255;
+                r = Math.round(2 * intnsty * 255);
+            }
+        }
+        return "rgb(" + r.toString() + ", " + g.toString() + ", 0)";
+    }
+
+
+    var data = {
+        labels: ['{{ value.labels|join("','")|raw }}'],
+        datasets: [
+            {
+                label: "Altitude (en m)",
+                fill: true,
+                backgroundColor: "rgba(187, 219, 147, 0.5)",
+                borderWidth: 2,
+                borderColor: "rgba(187, 219, 147, 1)",
+                pointBorderWidth: 0,
+                pointBorderColor: "rgba(187, 219, 147, 0)",
+                pointBackgroundColor: "rgba(187, 219, 147, 0)",
+                data: [{% for altitude in value.altitudes %}{{ altitude }}{% if not loop.last %},{% endif %}{% endfor %}]
+            }
+        ]
+    };
+    $(document).ready(function() {
+        new Chart($('#profil'), {
+            type: 'line',
+            data: data,
+            animation:{
+                animateScale:true
+            }
+        });
+    })
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwy2LBbH0VPoPB3lpb8qqqJhADEZZCYs4&callback=initMap"></script>

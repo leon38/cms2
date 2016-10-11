@@ -1,6 +1,7 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Listener;
 
+use CMS\Bundle\ContentBundle\Classes\TCXParser;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use CMS\Bundle\ContentBundle\Entity\Content;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,10 +38,14 @@ class ContentListener
                 if ($type == 'gallery') {
                     $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
                 }
-                
                 if ($type == 'file' || $type == 'kml' && $value != '') {
+                    $parse = new TCXParser($value);
                     $value = new File($value);
                     $fieldvalue->setValue($value);
+                    $value = array();
+                    $value['labels'] = $parse->getTimes(5);
+                    $value['data'] = $parse->getCoordinates();
+                    $value['altitudes'] = $parse->getAltitudes(5);
                 }
                 $defaultLanguage = $this->container->get('doctrine')->getRepository('CoreBundle:Language')->find(1);
                 $template = 'ContentBundle:Fields:'.$type.'.html.twig';
