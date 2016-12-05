@@ -2,9 +2,11 @@
 
 namespace CMS\Bundle\MenuBundle\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class MenuTaxonomyType extends AbstractType
 {
@@ -16,16 +18,16 @@ class MenuTaxonomyType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('slug', 'text', array('label' => 'cms.menu.alias', 'attr' => array('class' => 'url', 'data-target' => 'cms_bundle_menubundle_menutaxonomy_title')))
-            ->add('position', 'choice', array('choices' => $options['positions'], 'expanded' => false, 'multiple' => false))
+            ->add('slug', TextType::class, array('label' => 'cms.menu.alias', 'attr' => array('class' => 'url', 'data-target' => 'cms_bundle_menubundle_menutaxonomy_title')))
+            ->add('position', ChoiceType::class, array('choices' => $options['positions'], 'expanded' => false, 'multiple' => false))
             ->add('language')
         ;
     }
     
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'CMS\Bundle\MenuBundle\Entity\MenuTaxonomy',

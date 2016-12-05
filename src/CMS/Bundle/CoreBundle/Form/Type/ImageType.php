@@ -4,10 +4,9 @@ namespace CMS\Bundle\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use CMS\Bundle\CoreBundle\Form\DataTransformer\EntityToIdTransformer;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
@@ -30,7 +29,7 @@ class ImageType extends AbstractType
     }
     
     
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setRequired(array('class'))
@@ -42,7 +41,7 @@ class ImageType extends AbstractType
     
     public function getParent()
     {
-        return 'hidden';
+        return FormType::class;
     }
     public function getName()
     {

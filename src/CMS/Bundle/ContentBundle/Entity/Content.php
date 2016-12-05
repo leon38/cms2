@@ -143,12 +143,12 @@ class Content
      */
     private $featured = false;
     
-    private $temp;
-    
-    
-    private $fieldValuesTemp;
-    public $fieldValuesHtml;
-    private $metaValuesTemp;
+    /**
+     * @var float $temps_lecture Temps de lecture de l'article
+     *
+     * @ORM\Column(name="temps_lecture", type="float")
+     */
+    private $temps_lecture;
     
     /**
      * @JMS\Expose
@@ -162,6 +162,15 @@ class Content
      * @ORM\Column(name="chapo", type="text")
      */
     private $chapo;
+    
+    private $temp;
+    
+    
+    private $fieldValuesTemp;
+    public $fieldValuesHtml;
+    private $metaValuesTemp;
+    
+    
     
     /**
      * Constructor
@@ -686,10 +695,23 @@ class Content
         return null;
     }
     
+    /**
+     * @param string $name
+     * @return String
+     */
+    public function getFieldValue($name)
+    {
+
+        foreach ($this->getFieldvalues() as $fieldvalue) {
+            if ($fieldvalue->getField()->getName() == $name) {
+                return $fieldvalue->getValue();
+            }
+        }
+        return null;
+    }
+    
     public function get($name)
     {
-        
-        
         if (isset($this->fieldValuesHtml[$name])) {
             return $this->fieldValuesHtml[$name];
         }
@@ -800,6 +822,8 @@ class Content
     /**
      * @JMS\VirtualProperty
      * @JMS\SerializedName("fields")
+     *
+     * @return ArrayCollection|FieldValue[]
      */
     public function getFieldsValues()
     {
@@ -887,5 +911,29 @@ class Content
     public function getChapo()
     {
         return $this->chapo;
+    }
+
+    /**
+     * Set tempsLecture
+     *
+     * @param float $tempsLecture
+     *
+     * @return Content
+     */
+    public function setTempsLecture($tempsLecture)
+    {
+        $this->temps_lecture = $tempsLecture;
+
+        return $this;
+    }
+
+    /**
+     * Get tempsLecture
+     *
+     * @return float
+     */
+    public function getTempsLecture()
+    {
+        return $this->temps_lecture;
     }
 }

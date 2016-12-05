@@ -2,6 +2,7 @@
 namespace CMS\Bundle\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DropzoneType extends AbstractType
@@ -14,7 +15,7 @@ class DropzoneType extends AbstractType
 
 	public function getParent()
 	{
-		return 'form';
+		return FormType::class;
 	}
 
 	public function getName()

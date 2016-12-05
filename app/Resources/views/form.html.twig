@@ -27,7 +27,16 @@
 
 {% block form_row_attributes %}
     {% spaceless %}
-        {% for attrname, attrvalue in row_attr %}{{ attrname }}="{{ attrvalue }}" {% endfor %}
+        {% if row_attr is empty %}
+            class="form-group"
+        {% endif %}
+        {% for attrname, attrvalue in row_attr %}
+            {% if attrname == 'class' %}
+                {{ attrname }}="form-group {{ attrvalue }}"
+            {% else %}
+                {{ attrname }}="{{ attrvalue }}"
+            {% endif %}
+        {% endfor %}
     {% endspaceless %}
 {% endblock form_row_attributes %}
 
@@ -225,11 +234,6 @@
 
 {% block deezer_widget %}
     {% spaceless %}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-11">{{ form_row(form.artist) }}</div>
-                    <div class="col-md-1">
                         <div class="form-group"><label class="form-label">&nbsp;</label><a
                                     href="javascript:search()" class="btn btn-fill form-control">OK</a></div>
                     </div>
@@ -242,6 +246,10 @@
     {% endspaceless %}
     <script src="{{ asset('/bundles/content/js/deezer.js') }}"></script>
 {% endblock deezer_widget %}
+
+{% block difficulty_widget %}
+    {{ form_row(form.note) }}
+{% endblock %}
 
 {% use "form_div_layout.html.twig" %}
 

@@ -7,12 +7,12 @@ use CMS\Bundle\ContentBundle\Entity\MetaValueCategory;
 
 class ExtraMetas
 {
-    public static function loadMetas($controller)
+    public static function loadMetas($repository)
     {
         $html = null;
 
 
-        $metas = $controller->getDoctrine()->getRepository('ContentBundle:Meta')->findBy(array('published' => 1));
+        $metas = $repository->findBy(array('published' => 1));
         return $metas;
         // foreach($metas as $meta) {
         //     if($meta->getPublished() && strpos($meta->getValue(), "%s") !== false)

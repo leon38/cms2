@@ -5,6 +5,10 @@
             <div class="post-featured-item">
                 <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}" alt="{{ content.thumbnail.metas['alt_1'] }}"
                      title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive" />
+                <div class="blurred">
+                    <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}" alt="{{ content.thumbnail.metas['alt_1'] }}"
+                                          title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive" />
+                </div>
             </div>
             <div class="post-entry full">
                 <div class="post-header">
@@ -14,7 +18,7 @@
                 <div class="post-entry-text">
                     {{ content.description|raw }}
                     {{ content.get('musique')|raw }}
-                    {{ content.get('fichier-kml')|raw }}
+
                     <div class="date-author">
                         Ecrit par <span class="author">{{ content.author }}</span> le <span class="date">{{ content.created|localizeddate('full', 'none') }}</span>
                     </div>
@@ -25,6 +29,7 @@
     </div>
     <aside id="sidebar">
         {{ widget('search') }}
+        {{ content.get('fichier-kml')|raw }}
     </aside>
 </div>
 {% include "@cms/Breezy/footer.html.twig" %}

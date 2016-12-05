@@ -1,6 +1,7 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Listener;
 
+use CMS\Bundle\ContentBundle\Classes\EXIFParser;
 use CMS\Bundle\ContentBundle\Classes\TCXParser;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use CMS\Bundle\ContentBundle\Entity\Content;
@@ -21,7 +22,6 @@ class ContentListener
     }
 
 
-
     public function postLoad(Content $content, LifecycleEventArgs $args)
     {
         $fieldvalues = $content->getFieldValues();
@@ -38,7 +38,8 @@ class ContentListener
                 if ($type == 'gallery') {
                     $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
                 }
-                if ($type == 'file' || $type == 'kml' && $value != '') {
+                
+                if (($type == 'file' || $type == 'kml') && ($value != '' && preg_match("/(.*).tcx/", $value))) {
                     $parse = new TCXParser($value);
                     $value = new File($value);
                     $fieldvalue->setValue($value);

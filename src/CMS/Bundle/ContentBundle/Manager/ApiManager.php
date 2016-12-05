@@ -136,4 +136,26 @@ class ApiManager
         curl_close($ch);
         return $json->data;
     }
+    
+    public function getWithingsRequestToken()
+    {
+        $oauth_consumer_key = '6b47d7e402c1f402395b550b2de3bfc3bfff8569bb302bfdc81f4decee10';
+        $oauth_consumer_secret = '14c61610618c990bbf91edb10c54209314df81d9fbf0c3e2713e7480c860';
+        $callback_url = 'http://www.cms2.local/admin/user/dashboard';
+        $query = 'oauth_callback='.$callback_url.'&oauth_consumer_key='.$oauth_consumer_key.'&oauth_consumer_secret='.$oauth_consumer_secret.'&oauth_nonce=ac500d5bf8664d3720813652af256bbe&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1479985014&oauth_version=1.0';
+    
+        header(
+                'Location:https://oauth.withings.com/account/request_token?oauth_callback=http%3A%2F%2Fwww.cms2.local%2Fadmin%2Fuser%2Fdashboard&oauth_consumer_key=6b47d7e402c1f402395b550b2de3bfc3bfff8569bb302bfdc81f4decee10&oauth_nonce=ac500d5bf8664d3720813652af256bbe&oauth_signature=4gUaC6RPHJwMWlC4%2BTGCguGs6Vw%3D&oauth_signature_method=HMAC-SHA1&oauth_version=1.0&oauth_timestamp=1479992249'
+        );
+        
+        exit;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $BASE_URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:x.x.x) Gecko/20041107 Firefox/x.x");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $json = curl_exec($ch);
+        dump($json); die;
+    }
 }

@@ -12,13 +12,12 @@ use Instagram\Auth;
 use Instagram\Instagram;
 
 use CMS\Bundle\CoreBundle\Classes\Widget;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class InstagramFlow extends Widget
 {
-    public function getName()
-    {
-        return 'InstagramFlow';
-    }
     
     /**
      * @param array $param
@@ -58,7 +57,6 @@ class InstagramFlow extends Widget
         }
         
         $params['medias'] = $medias->getData();
-        
         return $this->getTemplating()->render(
             'CoreBundle:Widget:instagram.html.twig',
             $params
@@ -68,11 +66,11 @@ class InstagramFlow extends Widget
     public function getOptions()
     {
         $params = $this->getParams();
-        $options['display_title'] = array('type' => 'choice', 'name' => 'display_title', 'choices' => array(0 => 'Non', 1 => 'Oui'), 'value' => $this->getParamsValue($params, 'display_title', 'choice'));
-        $options['limit'] = array('type' => 'text', 'name' => 'limit', 'value' => $this->getParamsValue($params, 'limit'));
-        $options['client_id'] = array('type' => 'text' ,'name' => 'client_id', 'value' => $this->getParamsValue($params, 'client_id'));
-        $options['client_secret'] = array('type' => 'text' ,'name' => 'client_secret', 'value' => $this->getParamsValue($params, 'client_secret'));
-        $options['redirect_uri'] = array('type' => 'url' ,'name' => 'redirect_uri', 'value' => $this->getParamsValue($params, 'redirect_uri'));
+        $options['display_title'] = array('type' => ChoiceType::class, 'name' => 'display_title', 'choices' => array(0 => 'Non', 1 => 'Oui'), 'value' => $this->getParamsValue($params, 'display_title', 'choice'));
+        $options['limit'] = array('type' => TextType::class, 'name' => 'limit', 'value' => $this->getParamsValue($params, 'limit'));
+        $options['client_id'] = array('type' => TextType::class ,'name' => 'client_id', 'value' => $this->getParamsValue($params, 'client_id'));
+        $options['client_secret'] = array('type' => TextType::class ,'name' => 'client_secret', 'value' => $this->getParamsValue($params, 'client_secret'));
+        $options['redirect_uri'] = array('type' => UrlType::class ,'name' => 'redirect_uri', 'value' => $this->getParamsValue($params, 'redirect_uri'));
         return $options;
     }
 }

@@ -9,7 +9,7 @@ services:
     cms_core.form.extension.help:
         class: '%cms_core.form.extension.help.class%'
         tags:
-            - { name: form.type_extension, alias: form }
+            - { name: form.type_extension, alias: form, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
     cms.core.repository.language:
         class: CMS\Bundle\CoreBundle\Entity\Repository\LanguageRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
@@ -61,17 +61,17 @@ services:
     cms.core.form.type.dropzone:
         class: CMS\Bundle\CoreBundle\Form\Type\DropzoneType
         tags:
-            - { name: form.type, alias: dropzone }
+            - { name: form.type, alias: dropzone  }
 
     cms.core.form.type.dropzone_extension:
         class: CMS\Bundle\CoreBundle\Form\Extension\DropzoneTypeExtension
         tags:
-            - { name: form.type_extension, alias: dropzone }
+            - { name: form.type_extension, alias: dropzone, extended_type: CMS\Bundle\CoreBundle\Form\Type\DropzoneType }
 
     cms.core.form.type.form_row_extension:
         class: CMS\Bundle\CoreBundle\Form\Extension\FormRowTypeExtension
         tags:
-            - { name: form.type_extension, alias: form }
+            - { name: form.type_extension, alias: form, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
 
 
     cms.core.form.type.entity_hidden:
@@ -96,7 +96,7 @@ services:
         class: '%cms_core.meta_user.twig.extension.class%'
         arguments:
           container: "@service_container"
-          service: "@security.context"
+          service: "@security.authorization_checker"
         tags:
          - { name: twig.extension }
 
@@ -115,7 +115,7 @@ services:
     cms.core.form.type.image_extension:
             class: CMS\Bundle\CoreBundle\Form\Extension\ImageTypeExtension
             tags:
-                - { name: form.type_extension, alias: image }
+                - { name: form.type_extension, alias: image, extended_type: CMS\Bundle\CoreBundle\Form\Type\ImageType }
 
     cms.core.form.type.general_options:
             class: CMS\Bundle\CoreBundle\Form\GeneralOptionsType
@@ -133,7 +133,9 @@ services:
     cms.core.social.twig_extension:
         class: CMS\Bundle\CoreBundle\Twig\Extension\SocialExtension
         public: false
-        arguments: ["@service_container"]
+        arguments: ["@request_stack"]
+        calls:
+            - [ setTemplating, [ '@twig' ] ]
         tags:
             - { name: twig.extension }
 

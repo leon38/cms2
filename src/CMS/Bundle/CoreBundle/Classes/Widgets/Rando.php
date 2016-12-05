@@ -12,10 +12,6 @@ use CMS\Bundle\CoreBundle\Classes\Widget;
 
 class Rando extends Widget
 {
-    public function getName()
-    {
-        return 'Rando';
-    }
     
     /**
      * @param array $param
@@ -43,7 +39,7 @@ class Rando extends Widget
             }
             $i++;
         }
-
+        $this->addScript('/bundles/core/js/randos.js');
         return $this->getTemplating()->render(
             'CoreBundle:Widget:rando.html.twig',
             array('labels' => $labels, 'data_distance' => $data_distance, 'data_denivele' => $data_denivele)

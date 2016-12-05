@@ -16,6 +16,7 @@ namespace CMS\Bundle\ContentBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use CMS\Bundle\ContentBundle\Entity\Field;
@@ -122,13 +123,13 @@ class FieldController extends Controller
         $dirbase = '\CMS\Bundle\ContentBundle\Entity\Fields\\';
         return $dirbase;
     }
+    
     /**
      * Insère un nouveau champ
      *
+     * @param $fieldtype
      * @param Request $request Objet Request
-     *
-     * @return array
-     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/fields/new/{fieldtype}", name="admin_field_new", defaults={"fieldtype": ""})
      * @Template()
      */
@@ -136,6 +137,7 @@ class FieldController extends Controller
     {
         $field = new Field();
         $fieldsOptions = null;
+        $fieldclass = null;
 
         if ($fieldtype == "") {
             $fieldtype = $request->query->get('fieldtype');
@@ -147,9 +149,10 @@ class FieldController extends Controller
             $fieldclass = new $fieldclass;
             $field->setField($fieldclass);
         }
+        
         $form = $this->createCreateForm($field, $fieldclass, $fieldtype);
         if ($request->isMethod('POST')) {
-            $form->bind($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $fieldtype = $request->get('fieldtype');
@@ -172,7 +175,12 @@ class FieldController extends Controller
         return $this->render('ContentBundle:Field:new.html.twig',
             array('form' => $form->createView(), 'fieldsOptions' => $fieldsOptions, 'field' => $field, 'fieldtype' => $fieldtype));
     }
+    
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/fields/edit/{id}", name="admin_field_edit")
      * @Template()
      */
@@ -191,7 +199,7 @@ class FieldController extends Controller
 
         if ($request->isMethod('POST')) {
             $old_field = $field;
-            $form->bind($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $options = $request->request->get('options');
@@ -258,7 +266,7 @@ class FieldController extends Controller
      * @Route("/fields/copy/{id}", name="fields_copy")
      * @Template("CMSContentBundle:ContentManager:list.html.twig")
      */
-    public function copyItemAction(Request $request, $id)
+    public function copyItemAction($id)
     {
         $field = $this->getDoctrine()->getRepository('ContentBundle:Field')->find($id);
         $copy = $this->getCopyItem($field);
@@ -272,7 +280,7 @@ class FieldController extends Controller
      * @Route("/fields/published/{id}", name="fields_published")
      * @Template("CMSContentBundle:ContentManager:list.html.twig")
      */
-    public function publishedItemAction(Request $request, $id)
+    public function publishedItemAction($id)
     {
         $field = $this->getDoctrine()->getRepository('ContentBundle:Field')->find($id);
         if($field->getPublished())
@@ -289,7 +297,7 @@ class FieldController extends Controller
      * @Route("/field/delete/{id}", name="admin_field_delete")
      * @Template("CMSContentBundle:ContentManager:list.html.twig")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $field = $this->getDoctrine()->getRepository('ContentBundle:Field')->find($id);
            $em = $this->getDoctrine()->getManager();
@@ -308,7 +316,7 @@ class FieldController extends Controller
      */
     private function createCreateForm(Field $entity, $fieldclass, $fieldtype)
     {
-        $form = $this->createForm(new FieldType(), $entity, array(
+        $form = $this->createForm(FieldType::class, $entity, array(
             'action' => $this->generateUrl('admin_field_new', array('fieldtype' => $fieldtype)),
             'method' => 'POST',
             'attr'   => array('class' => 'form'),
@@ -316,27 +324,29 @@ class FieldController extends Controller
             'fieldtype'  => $fieldtype
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
-
+    
     /**
-    * Creates a form to edit a Content entity.
-    *
-    * @param Content $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Content entity.
+     *
+     * @param \CMS\Bundle\ContentBundle\Entity\Field $entity Champ
+     *
+     * @param $fieldtype
+     * @param $fieldclass
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Field $entity, $fieldtype, $fieldclass)
     {
-        $form = $this->createForm(new FieldType(), $entity, array(
+        $form = $this->createForm(FieldType::class, $entity, array(
             'action' => $this->generateUrl('admin_field_edit', array('id' => $entity->getId())),
             'fieldtype' => $fieldtype,
             'fieldclass' => $fieldclass
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        $form->add('submit', SubmitType::class, array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }

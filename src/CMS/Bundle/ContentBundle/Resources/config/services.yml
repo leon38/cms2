@@ -37,17 +37,17 @@ services:
     cms.content.fields:
         class: CMS\Bundle\ContentBundle\Classes\Fields
         calls:
-            - [ setTemplating, [ @twig ] ]
+            - [ setTemplating, [ '@twig' ] ]
 
     cms.content.map_field:
             class: CMS\Bundle\ContentBundle\Entity\Fields\MapField
             calls:
-                - [ setTemplating, [ @twig ] ]
+                - [ setTemplating, [ '@twig' ] ]
 
     cms.content.weather_field:
                 class: CMS\Bundle\ContentBundle\Entity\Fields\WeatherField
                 calls:
-                    - [ setTemplating, [ @twig ] ]
+                    - [ setTemplating, [ '@twig' ] ]
 
     cms.content.doctrine.entity_listener_resolver:
         class: CMS\Bundle\ContentBundle\Doctrine\EntityListenerResolver
@@ -69,3 +69,8 @@ services:
             arguments: ["@service_container"]
             tags:
                 - { name: twig.extension }
+
+    cms.content.content_subscriber:
+        class: CMS\Bundle\ContentBundle\Event\ContentSubscriber
+        tags:
+            - { name: kernel.event_subscriber }

@@ -3,40 +3,6 @@
 </div>
 
 <script type="text/javascript">
-var data = {
-    labels: ["{{ labels|join("\",\"")|raw }}"],
-    datasets: [
-        {
-            label: "Dénivelé (en m)",
-            fill: false,
-            backgroundColor: "#bbdb93",
-            borderWidth: 1,
-            borderColor: "#bbdb93",
-            data: [{{ data_denivele|join(",") }}]
-        }
-    ]
-};
-$(document).ready(function() {
-    new Chart($('#randos'), {
-        type: 'line',
-        data: data,
-        animation:{
-            animateScale:true
-        },
-        options: {
-            scales: {
-                xAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }],
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-})
+var labels_randos = ["{{ labels|join("\",\"")|raw }}"];
+var data_deniveles = [{{ data_denivele|join(",") }}];
 </script>

@@ -3,6 +3,7 @@
 namespace CMS\Bundle\MenuBundle\Controller;
 
 use CMS\Bundle\MenuBundle\Entity\MenuTaxonomy;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -86,7 +87,7 @@ class EntryController extends Controller
      */
     private function createCreateForm(Entry $entity)
     {
-        $form = $this->createForm(new EntryType(), $entity, array(
+        $form = $this->createForm(EntryType::class, $entity, array(
             'action' => $this->generateUrl('admin_entry_create', array('slug' => $entity->getMenuTaxonomy()->getSlug())),
             'method' => 'POST',
             'entry'  => $entity
@@ -153,13 +154,13 @@ class EntryController extends Controller
     */
     private function createEditForm(Entry $entity)
     {
-        $form = $this->createForm(new EntryType(), $entity, array(
+        $form = $this->createForm(EntryType::class, $entity, array(
             'action' => $this->generateUrl('admin_entry_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'entry' => $entity,
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
+        $form->add('submit', SubmitType::class, array('label' => 'Update', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
 
         return $form;
     }

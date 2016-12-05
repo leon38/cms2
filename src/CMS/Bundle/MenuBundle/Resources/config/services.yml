@@ -1,14 +1,13 @@
 services:
     cms.repository.menu_taxonomy_repository:
       class: Doctrine\ORM\EntityRepository
-      factory_service: doctrine.orm.default_entity_manager
-      factory_method: getRepository
+      factory: ['@doctrine.orm.default_entity_manager', getRepository]
       arguments:
           - CMS\Bundle\MenuBundle\Entity\MenuTaxonomy
 
     cms.render_menu.twig_extension:
         class: CMS\Bundle\MenuBundle\Twig\RenderMenuExtension
         public: false
-        arguments: [@cms.repository.menu_taxonomy_repository, @service_container]
+        arguments: ['@cms.repository.menu_taxonomy_repository', '@service_container']
         tags:
             - { name: twig.extension }

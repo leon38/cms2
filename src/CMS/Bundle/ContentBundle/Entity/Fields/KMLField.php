@@ -9,29 +9,15 @@
 namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 
-class KMLField
+use CMS\Bundle\ContentBundle\Classes\Fields;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+
+class KMLField extends Fields
 {
-    /**
-     * @var string Type du champ
-     */
-    private $type;
-    
-    /**
-     * @var array paramètres du champs
-     */
-    private $params;
-    
-    
-    public function __construct()
-    {
-        
-        $this->type = $this->getTypeField();
-        $this->params = array();
-    }
     
     public function getTypeField()
     {
-        return 'kml';
+        return FileType::class;
     }
     
     public function getName()
@@ -42,21 +28,5 @@ class KMLField
     public function getClassName()
     {
         return 'KMLField';
-    }
-    
-    public function setParams($params)
-    {
-        $this->params = $params;
-        return $this;
-    }
-    
-    public function getOptions()
-    {
-        return array();
-    }
-    
-    public function getParams()
-    {
-        return $this->params;
     }
 }

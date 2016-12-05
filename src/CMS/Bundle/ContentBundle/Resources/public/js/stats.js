@@ -1,6 +1,12 @@
 /**
  * Created by DCA on 10/08/2016.
  */
+var blue = "#11A0F8";
+var purple = "#7460EE";
+var red = "#F9334B";
+var yellow = "#FFB508";
+var green = "#7ACE4C";
+var grey = "#A0B2B9";
 var ctx;
 $(document).ready(function() {
     $.ajax({
@@ -13,18 +19,18 @@ $(document).ready(function() {
                     {
                         data: result.data,
                         backgroundColor: [
-                            "#0b272d",
-                            "#5a9696",
-                            "#e0e8e5",
-                            "#d6e4ba",
-                            "#bbdb93"
+                            blue,
+                            purple,
+                            red,
+                            yellow,
+                            green
                         ],
                         hoverBackgroundColor: [
-                            "#0b272d",
-                            "#5a9696",
-                            "#e0e8e5",
-                            "#d6e4ba",
-                            "#bbdb93"
+                            blue,
+                            purple,
+                            red,
+                            yellow,
+                            green
                         ]
                     }]
             };
@@ -49,8 +55,8 @@ $(document).ready(function() {
                     {
                         label: "Nombre d'article par mois",
                         fill: false,
-                        borderColor: "#5a9696",
-                        backgroundColor: "#5a9696",
+                        borderColor: blue,
+                        backgroundColor: blue,
                         borderWidth: 1,
                         data: result.data
                     }],

@@ -1,24 +1,20 @@
 <?php
 namespace CMS\Bundle\CoreBundle\Form;
 
+use CMS\Bundle\CoreBundle\Form\Type\DropzoneType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Symfony\Component\Security\Core\SecurityContext;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 
 class ProfileType extends AbstractType
 {
-
-
-  public function __construct(SecurityContext $securityContext)
-  {
-    $this->securityContext = $securityContext;
-  }
-
+    
 
   /**
    * {@inheritdoc}
@@ -27,18 +23,12 @@ class ProfileType extends AbstractType
   {
 
     $builder
-      ->add('user_login', 'text', array(
+      ->add('user_login', TextType::class, array(
         'attr' => array('readonly' => 'readonly'),
         'label' => 'cms.user.user_login',
         'row_attr' => array('class' => 'col-md-3')
       ));
-    $user = $this->securityContext->getToken()->getUser();
-    if (!$user) {
-      throw new \LogicException(
-        'Le profil ne peut pas être utilisé sans utilisateur connecté!'
-      );
-    }
-
+    $user = $options['user'];
     $builder->addEventListener(
       FormEvents::PRE_SET_DATA,
       function (FormEvent $event) use ($user) {
@@ -51,11 +41,12 @@ class ProfileType extends AbstractType
             case '':
             case 'text':
               $class = 'col-md-3';
-              $type = 'text';
+              $type = TextType::class;
               break;
+                      
             default:
               $class = 'col-md-6';
-              $type = $meta->getType();
+              $type = TextareaType::class;
               break;
           }
           $form->add('metas_' . $meta->getMetaKey(), $type, array('label' => $meta->getMetaKey(), 'data' => $meta->getMetaValue(), 'required' => false, 'row_attr' => array('class' => $class), 'attr' => array('data-target' => $meta->getMetaKey())));
@@ -63,14 +54,14 @@ class ProfileType extends AbstractType
       });
 
     $builder
-      ->add('user_nicename', 'text', array(
+      ->add('user_nicename', TextType::class, array(
         'label' => 'cms.user.user_nicename',
         'row_attr' => array('class' => 'col-md-3'),
         'attr' => array('data-target' => 'nicename'),
       ))
-      ->add('user_email', 'email', array('label' => 'cms.user.email', 'row_attr' => array('class' => 'col-md-3')))
-      ->add('user_url', 'url', array('label' => 'cms.user.user_url', 'required' => false, 'row_attr' => array('class' => 'col-md-3')))
-      ->add('avatar', 'dropzone', array('attr' => array('class' => 'dropzone', 'data-url' => '/admin/upload-avatar/' . $options['user_id'], 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'row_attr' => array('class' => 'col-md-3')));
+      ->add('user_email', EmailType::class, array('label' => 'cms.user.email', 'row_attr' => array('class' => 'col-md-3')))
+      ->add('user_url', UrlType::class, array('label' => 'cms.user.user_url', 'required' => false, 'row_attr' => array('class' => 'col-md-3')))
+      ->add('avatar', DropzoneType::class, array('attr' => array('class' => 'dropzone', 'data-url' => '/admin/upload-avatar/' . $options['user_id'], 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'row_attr' => array('class' => 'col-md-3')));
 
   }
 

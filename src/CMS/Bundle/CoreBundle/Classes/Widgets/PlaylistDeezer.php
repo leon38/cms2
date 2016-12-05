@@ -12,10 +12,6 @@ use CMS\Bundle\CoreBundle\Classes\Widget;
 
 class PlaylistDeezer extends Widget
 {
-    public function getName()
-    {
-        return 'PlaylistDeezer';
-    }
     
     /**
      * @param array $param

@@ -2,7 +2,14 @@
 
 namespace CMS\Bundle\CoreBundle\Form;
 
+use CMS\Bundle\CoreBundle\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,7 +38,7 @@ class GeneralOptionsType extends AbstractType
                     switch ($type) {
                         case 'choice':
                             $choices = array('d F Y' => date('d F Y', time()), 'Y-m-d' => date('Y-m-d', time()), 'm/d/Y' => date('m/d/Y', time()), 'd/m/Y' => date('d/m/Y', time()));
-                            $form->add($option->getOptionName(), $type, array(
+                            $form->add($option->getOptionName(), ChoiceType::class, array(
                                 'label' => ucfirst(str_replace('_', ' ', $option->getOptionName())),
                                 'data' => $option->getOptionValue(),
                                 'required' => false,
@@ -41,7 +48,7 @@ class GeneralOptionsType extends AbstractType
                             ));
                             break;
                         case 'image':
-                            $form->add($option->getOptionName(), $type, array(
+                            $form->add($option->getOptionName(), ImageType::class, array(
                                 'class' => 'CMS\Bundle\MediaBundle\Entity\Media',
                                 'image_path' => 'path',
                                 'image_size' => 'col-md-3',
@@ -50,11 +57,32 @@ class GeneralOptionsType extends AbstractType
                             ));
                             break;
                         case 'editor':
-                            $form->add($option->getOptionName(), 'textarea', array(
+                            $form->add($option->getOptionName(), TextareaType::class, array(
                                 'label' => ucfirst(str_replace('_', ' ', $option->getOptionName())),
                                 'data' => $option->getOptionValue(),
                                 'required' => false,
                                 'attr' => array('class' => 'summernote')
+                            ));
+                            break;
+                        case 'text':
+                            $form->add($option->getOptionName(), TextType::class, array(
+                                'label' => ucfirst(str_replace('_', ' ', $option->getOptionName())),
+                                'data' => $option->getOptionValue(),
+                                'required' => false
+                            ));
+                            break;
+                        case 'email':
+                            $form->add($option->getOptionName(), EmailType::class, array(
+                                'label' => ucfirst(str_replace('_', ' ', $option->getOptionName())),
+                                'data' => $option->getOptionValue(),
+                                'required' => false
+                            ));
+                            break;
+                        case 'timezone':
+                            $form->add($option->getOptionName(), TimezoneType::class, array(
+                                'label' => ucfirst(str_replace('_', ' ', $option->getOptionName())),
+                                'data' => $option->getOptionValue(),
+                                'required' => false
                             ));
                             break;
                         default:

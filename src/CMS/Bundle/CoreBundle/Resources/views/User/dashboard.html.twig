@@ -1,0 +1,76 @@
+{% extends '::admin/base_admin.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-plain">
+                <h4 class="title">Activités</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Santé</h4>
+                    <p class="category">Poids (en kg)</p>
+                </div>
+                <div class="content">
+                    <div id="stats-content">
+                        <canvas id="line_poids"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Activité</h4>
+                    <p class="category">Nombre de pas</p>
+                </div>
+                <div class="content">
+                    <div id="stats-content">
+                        <canvas id="line_activity"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Randonnées</h4>
+                    <p class="category">Dénivelé (en m)</p>
+                </div>
+                <div class="content">
+                    {{ widget('randos') }}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="header">
+                    <h4 class="title">Randonnées</h4>
+                    <p class="category">Dénivelé (en m)</p>
+                </div>
+                <div class="content">
+                    {{ widget('itineraires') }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        var labels_poids = JSON.parse('{{ labels_poids|raw }}');
+        var data_poids = JSON.parse('{{ poids|raw }}');
+        var labels_activity = JSON.parse('{{ labels_activity|raw }}');
+        var data_steps = JSON.parse('{{ steps|raw }}');
+        var data_calories = JSON.parse('{{ calories|raw }}');
+
+        // SVG : M20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0 fill => red
+        // M10,0a30,30 0 1,0 60,0a30,30 0 1,0 -60,0 fill => none, stroke => red
+    </script>
+    <script type="text/javascript" src="{{ asset('bundles/core/js/wstats.js') }}"></script>
+{% endblock %}
+

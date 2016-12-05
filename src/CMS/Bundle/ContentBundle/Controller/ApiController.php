@@ -14,10 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiController extends Controller
 {
-    public function indexAction($name)
-    {
-        return $this->render('', array('name' => $name));
-    }
     
     /**
      * @param $city
@@ -32,6 +28,11 @@ class ApiController extends Controller
     }
     
     /**
+     * Récupère l'artiste spotify
+     *
+     * @param $query
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     *
      * @Route("/spotify/artist/{query}", name="spotify_search_artist")
      */
     public function getArtistSpotify($query)
@@ -41,9 +42,11 @@ class ApiController extends Controller
     }
     
     /**
-     * @param $id_artist Identifiant de l'artiste
+     * Récupère les meilleurs chansons de l'artiste
      *
+     * @param Int $id_artist Identifiant de l'artiste
      * @return JsonResponse
+     *
      * @Route("/spotify/top-tracks/{id_artist}", name="spotify_top_tracks")
      */
     public function getTopTracksSpotify($id_artist)
@@ -54,6 +57,11 @@ class ApiController extends Controller
     
     
     /**
+     * Récupère l'artiste grâce à l'api deezer
+     *
+     * @param $query
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/deezer/artist/{query}", name="deezer_search_artist")
      */
     public function getArtistDeezer($query)
@@ -62,6 +70,12 @@ class ApiController extends Controller
         return $this->_getTopTracksDeezer($tracklist);
     }
     
+    /**
+     * Récupère les meilleurs pistes d'un artiste
+     *
+     * @param $url
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     private function _getTopTracksDeezer($url)
     {
         $tracks = $this->get('cms.content.api.manager')->getTopTracksDeezer($url);
@@ -69,9 +83,10 @@ class ApiController extends Controller
     }
     
     /**
+     * Récupère les pistes d'une playlist Deezer
+     *
      * @param $id_playlist
      * @return Response
-     *
      */
     public function getTracksPlaylist($id_playlist)
     {

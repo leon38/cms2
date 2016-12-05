@@ -12,10 +12,6 @@ use CMS\Bundle\CoreBundle\Classes\Widget;
 
 class SocialFollow extends Widget
 {
-    public function getName()
-    {
-        return 'SocialFollow';
-    }
     
     /**
      * @param array $param

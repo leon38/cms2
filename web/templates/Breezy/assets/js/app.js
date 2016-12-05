@@ -30,6 +30,14 @@ $(window).on("scroll",function(){
             $(".goto-top").removeClass("on");
         }
     }
+
+    var hauteur = $('.post-featured-item').height();
+    hauteur = 70*hauteur/100;
+    var scrollTopBlur = scrollTop - 295;
+    var rapport = 1 / hauteur;
+    var opacity = scrollTopBlur * rapport;
+    console.log(opacity);
+    $('.blurred').css({opacity: opacity});
 });
 
 

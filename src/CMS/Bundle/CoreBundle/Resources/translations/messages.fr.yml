@@ -85,6 +85,12 @@ cms:
         dashboard: Dashboard
         appearance: Apparence
         administration: Préférences
+        menus: Menus
+        themes: Thèmes
+        widget: Widgets
+        settings: Réglages
+        users: Utilisateurs
+        backup: Sauvegarde
 
 firstname: Prénom
 lastname: Nom

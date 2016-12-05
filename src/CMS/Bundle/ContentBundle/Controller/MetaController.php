@@ -32,9 +32,12 @@ class MetaController extends Controller
             'metas' => $metas,
         ));
     }
-
+    
     /**
      * Creates a new Meta entity.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/new", name="admin_meta_new")
      * @Method({"GET", "POST"})
@@ -42,7 +45,7 @@ class MetaController extends Controller
     public function newAction(Request $request)
     {
         $metum = new Meta();
-        $form = $this->createForm('CMS\Bundle\ContentBundle\Form\MetaType', $metum);
+        $form = $this->createForm(MetaType::class, $metum);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,16 +61,20 @@ class MetaController extends Controller
             'form' => $form->createView(),
         ));
     }
-
+    
     /**
      * Displays a form to edit an existing Meta entity.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \CMS\Bundle\ContentBundle\Entity\Meta $metum
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/{id}/edit", name="admin_meta_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Meta $metum)
     {
-        $editForm = $this->createForm('CMS\Bundle\ContentBundle\Form\MetaType', $metum);
+        $editForm = $this->createForm(MetaType::class, $metum);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -83,13 +90,16 @@ class MetaController extends Controller
             'edit_form' => $editForm->createView(),
         ));
     }
-
+    
     /**
      * Deletes a Meta entity.
      *
+     * @param \CMS\Bundle\ContentBundle\Entity\Meta $metum
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @Route("/delete/{id}", name="admin_meta_delete")
      */
-    public function deleteAction(Request $request, Meta $metum)
+    public function deleteAction(Meta $metum)
     {
         $em = $this->getDoctrine()->getManager();
         $em->remove($metum);

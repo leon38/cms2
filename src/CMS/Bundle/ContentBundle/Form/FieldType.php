@@ -3,6 +3,8 @@
 namespace CMS\Bundle\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,14 +25,14 @@ class FieldType extends AbstractType
         $builder
             ->add('title')
             ->add('name', null, array('attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_field_title')))
-            ->add('published', 'choice', array(
-                'choices'=> array('1'=>'Oui', '0'=>'Non'),
+            ->add('published', ChoiceType::class, array(
+                'choices'=> array('Oui' => 1, 'Non' => 0),
                 'expanded' => false,
                 'multiple' => false,
                 'label'=>'Published'
             ))
             ->add('contentTaxonomy')
-            ->add('fieldtype', 'hidden', array('data' => $fieldtype))
+            ->add('fieldtype', HiddenType::class, array('data' => $fieldtype))
             ->add('params', null, array('compound' => true))
         ;
 
@@ -43,7 +45,7 @@ class FieldType extends AbstractType
                     $params = $form->get('params');
                     foreach($fieldclass->getOptions() as $label => $infos) {
                         switch($infos['type']) {
-                            case 'choice':
+                            case ChoiceType::class:
                                 $params->add($infos['name'], $infos['type'], array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
                                 break;
                             default:

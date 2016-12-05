@@ -9,6 +9,8 @@
 namespace CMS\Bundle\MediaBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -22,9 +24,9 @@ class MediaSizeType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-      ->add('name', 'text')
-      ->add('width', 'number')
-      ->add('height', 'number')
+      ->add('name', TextType::class)
+      ->add('width', NumberType::class)
+      ->add('height', NumberType::class)
     ;
   }
 

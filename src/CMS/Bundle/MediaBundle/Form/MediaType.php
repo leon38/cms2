@@ -1,6 +1,7 @@
 <?php
 namespace CMS\Bundle\MediaBundle\Form;
 
+use CMS\Bundle\CoreBundle\Form\Type\DropzoneType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +15,7 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('path', 'dropzone', array('attr' => array('class' => 'dropzone col-md-12', 'data-url' => '/admin/media/upload-media', 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'class_thumb' => 'row'))
+            ->add('path', DropzoneType::class, array('attr' => array('class' => 'dropzone col-md-12', 'data-url' => '/admin/media/upload-media', 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'class_thumb' => 'row'))
         ;
     }
 

@@ -2,17 +2,24 @@
 
 namespace CMS\Bundle\CoreBundle\Twig\Extension;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class SocialExtension extends \Twig_Extension
 {
     
-    private $_container;
+    private $_requestStack;
+    private $_templating;
     
-    public function __construct(ContainerInterface $container)
+    public function __construct(RequestStack $requestStack)
     {
-        $this->_container = $container;
+        $this->_requestStack = $requestStack;
         
+    }
+    
+    public function setTemplating(\Twig_Environment $templating)
+    {
+        $this->_templating = $templating;
     }
     
     public function getFunctions()
@@ -24,13 +31,13 @@ class SocialExtension extends \Twig_Extension
     
     public function renderSocialButtons($url = '')
     {
-        $request = $this->_container->get('request');
+        $request = $this->_requestStack->getCurrentRequest();
         if ($url == '') {
             $url = $request->getSchemeAndHttpHost().$request->getRequestUri();
         }
         
         
-        return $this->_container->get('templating')->render(
+        return $this->_templating->render(
             'CoreBundle:Twig:social.html.twig',
             array('url' => urlencode($url))
         );

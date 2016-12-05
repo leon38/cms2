@@ -3,6 +3,7 @@ namespace CMS\Bundle\CoreBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 use CMS\Bundle\CoreBundle\Form\GeneralOptionsType;
@@ -54,7 +55,7 @@ class GeneralOptionsController extends Controller
             'method' => 'POST',
         ));
 
-        $form ->add('submit', 'submit', array('label' => 'save', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
+        $form ->add('submit', SubmitType::class, array('label' => 'save', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
 
         return $form;
     }

@@ -3,6 +3,8 @@
 namespace CMS\Bundle\CoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\SubmitButton;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -35,14 +37,14 @@ class WidgetType extends AbstractType
                     foreach($widgetclass->getOptions() as $label => $infos) {
                         switch($infos['type']) {
                             case 'choice':
-                                $params->add($infos['name'], $infos['type'], array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
+                                $params->add($infos['name'], ChoiceType::class, array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
                                 break;
                             default:
                                 $params->add($infos['name'], $infos['type'], array('label' => $label, 'data' => $infos['value']));
                                 break;
                         }
                     }
-                    $form->add('submit', 'submit', array('attr' => array('class' => 'btn btn-info btn-fill pull-right')));
+                    $form->add('submit', SubmitType::class, array('label' => 'Valider','attr' => array('class' => 'btn btn-info btn-fill pull-right')));
                 }
             );
         }

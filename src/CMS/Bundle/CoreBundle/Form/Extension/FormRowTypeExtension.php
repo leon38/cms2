@@ -2,9 +2,10 @@
 namespace CMS\Bundle\CoreBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class FormTypeExtension
@@ -19,15 +20,25 @@ class FormRowTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return 'form';
+        return FormType::class;
+    }
+    
+    /**
+     * Ajoute l'option image_path
+     *
+     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefined(array('row_attr'));
     }
 
     /**
      * Add the extra row_attr option
      *
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'row_attr' => array('class' => 'form-group')
@@ -46,6 +57,10 @@ class FormRowTypeExtension extends AbstractTypeExtension
     	if (isset($options['row_attr']['class']) && !preg_match('/form-group/', $options['row_attr']['class'])) {
     		$options['row_attr']['class'] = 'form-group '.$options['row_attr']['class'];
     	}
-        $view->vars['row_attr'] = $options['row_attr'];
+    	if (isset($options['row_attr'])) {
+            $view->vars['row_attr'] = $options['row_attr'];
+        } else {
+            $view->vars['row_attr'] = array();
+        }
     }
 }

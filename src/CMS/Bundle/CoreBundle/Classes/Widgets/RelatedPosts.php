@@ -13,10 +13,6 @@ use CMS\Bundle\CoreBundle\Classes\Widget;
 
 class RelatedPosts extends Widget
 {
-    public function getName()
-    {
-        return 'RelatedPosts';
-    }
     
     /**
      * @param array $param

@@ -9,6 +9,7 @@
 namespace CMS\Bundle\ContentBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,7 @@ class WeatherType extends AbstractType
     
     public function getParent()
     {
-        return 'form';
+        return FormType::class;
     }
     
     public function getName()

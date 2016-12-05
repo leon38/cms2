@@ -40,15 +40,16 @@ class TCXParser
     
     public function getPoints()
     {
-        
-        foreach ($this->data->Activities[0] as $simpleXMLActivity) {
-
-            // Track points.
-            foreach ($simpleXMLActivity->Lap as $lap) {
-                foreach ($lap->Track as $track) {
-                    foreach ($track->Trackpoint as $trackPoint) {
-                        $point = new TCXObject($trackPoint);
-                        $this->points[] = $point;
+        if (isset($this->data->Activities)) {
+            foreach ($this->data->Activities[0] as $simpleXMLActivity) {
+    
+                // Track points.
+                foreach ($simpleXMLActivity->Lap as $lap) {
+                    foreach ($lap->Track as $track) {
+                        foreach ($track->Trackpoint as $trackPoint) {
+                            $point = new TCXObject($trackPoint);
+                            $this->points[] = $point;
+                        }
                     }
                 }
             }
@@ -90,7 +91,7 @@ class TCXParser
         return $times;
     }
     
-    public function getCoordinates()
+    public function getCoordinates($precision = 100)
     {
         if (empty($this->points)) {
             $this->points = $this->getPoints();
@@ -99,18 +100,21 @@ class TCXParser
         $i = 0;
         $j = -1;
         $speeds = $this->getMaxMinSpeed();
+        $prec = 100 / $precision;
         foreach ($this->points as $point) {
-            $coords[$i]['latitude'] = $point->getLatitude();
-            $coords[$i]['longitude'] = $point->getLongitude();
-            if ($i > 0) {
-                $distance = $point->getDistance() - $this->points[$j]->getDistance();
-                $temps = date_diff($point->getTime(), $this->points[$j]->getTime());
-                $speed = $distance / (int)$temps->format('%s');
-                $coords[$i]['speed'] = $speed;
-                $coords[$i]['speed_percent'] = ($speed == 0) ? $speeds['min_speed'] : (($speed / $speeds['max_speed']) * 100);
-            } else {
-                $coords[$i]['speed'] =  $speeds['min_speed'];
-                $coords[$i]['speed_percent'] =  $speeds['min_speed'];
+            if ($i == 0 || $i % $prec == 0) {
+                $coords[$i]['latitude'] = $point->getLatitude();
+                $coords[$i]['longitude'] = $point->getLongitude();
+                if ($i > 0) {
+                    $distance = $point->getDistance() - $this->points[$j]->getDistance();
+                    $temps = date_diff($point->getTime(), $this->points[$j]->getTime());
+                    $speed = ((int)$temps->format('%s') != 0) ? $distance / (int)$temps->format('%s') : 0;
+                    $coords[$i]['speed'] = $speed;
+                    $coords[$i]['speed_percent'] = ($speed == 0) ? $speeds['min_speed'] : (($speed / $speeds['max_speed']) * 100);
+                } else {
+                    $coords[$i]['speed'] = $speeds['min_speed'];
+                    $coords[$i]['speed_percent'] = $speeds['min_speed'];
+                }
             }
             $i++;
             $j++;
@@ -135,7 +139,7 @@ class TCXParser
             if ($i > 0) {
                 $distance = $point->getDistance() - $this->points[$j]->getDistance();
                 $temps = date_diff($point->getTime(), $this->points[$j]->getTime());
-                $speed = $distance / (int)$temps->format('%s');
+                $speed = ((int)$temps->format('%s') != 0) ? $distance / (int)$temps->format('%s') : 0;
                 if ($speed > $max_speed) {
                     $max_speed = $speed;
                 }

@@ -59,49 +59,6 @@
                 </div>
             </div>
             {{ widget('menu-admin') }}
-            {#<ul class="nav">#}
-                {#<li class="active">#}
-                    {#<a href="{{ path('admin_dashboard_index') }}">#}
-                        {#<i class="pe-7s-graph"></i>#}
-                        {#<p>Dashboard</p>#}
-                    {#</a>#}
-                {#</li>#}
-                {#<li>#}
-                    {#<a href="#content" data-toggle="collapse" aria-expanded="false" class="collapse">#}
-                        {#<i class="pe-7s-news-paper"></i>#}
-                        {#<p>{{ 'cms.content.content'|trans }} <b class="caret"></b></p>#}
-                    {#</a>#}
-                    {#<div class="collapse" id="content">#}
-                        {#<ul class="nav">#}
-                            {#<li><a href="{{ path('admin_content') }}">{{ 'cms.content.content'|trans }}</a></li>#}
-                            {#<li><a href="{{ path('admin_category') }}">{{ 'cms.content.category'|trans }}</a></li>#}
-                            {#<li><a href="{{ path('admin_content-taxonomy') }}">{{ 'cms.content.content_taxonomy'|trans }}</a></li>#}
-                            {#<li><a href="{{ path('admin_field') }}">{{ 'cms.content.field'|trans }}</a></li>#}
-                        {#</ul>#}
-                    {#</div>#}
-                {#</li>#}
-                {#<li>#}
-                    {#<a href="{{ path('admin_media_index') }}">#}
-                        {#<i class="pe-7s-photo"></i>#}
-                        {#<p>{{ 'cms.media.media'|trans }}</p>#}
-                    {#</a>#}
-                {#</li>#}
-                {#<li>#}
-                    {#<a href="#administration" data-toggle="collapse" aria-expanded="false" class="collapsed">#}
-                        {#<i class="pe-7s-tools"></i>#}
-                        {#<p>Administration <b class="caret"></b></p>#}
-                    {#</a>#}
-                    {#<div class="collapse" id="administration">#}
-                        {#<ul class="nav">#}
-                            {#<li><a href="{{  path('admin_options_general') }}">Préférences</a></li>#}
-                            {#<li><a href="{{ path('admin_menutaxonomy') }}">Menus</a></li>#}
-                            {#<li><a href="{{ path('admin_users') }}">Utilisateurs</a></li>#}
-                            {#<li><a href="{{ path('admin_themes') }}">Thèmes</a></li>#}
-                            {#<li><a href="{{ path('admin_widget_index') }}">Widgets</a></li>#}
-                        {#</ul>#}
-                    {#</div>#}
-                {#</li>#}
-            {#</ul>#}
     	</div>
         <div class="sidebar-background"></div>
     </div>
@@ -230,7 +187,7 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
 
-    {% javascripts filter="?jsqueeze" output='js/scms.js'
+    {% javascripts output='js/scms.js'
         '@CoreBundle/Resources/public/js/10_moment.min.js'
         '@CoreBundle/Resources/public/js/dropzone.js'
         '@CoreBundle/Resources/public/js/jquery-ui.min.js'
@@ -253,6 +210,9 @@
 		<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+    {% for script in app.session.get('scripts') %}
+        <script type="text/javascript" src="{{ script }}"></script>
+    {% endfor %}
 	<script type="text/javascript">
     	$(document).ready(function(){
 

@@ -40,7 +40,7 @@ class BackupController extends Controller
         }
         
         $backup = new Backup();
-        $form = $this->createForm(new BackupType(), $backup, array('tables' => $tables));
+        $form = $this->createForm(BackupType::class, $backup, array('tables' => $tables));
         
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);

@@ -3,6 +3,7 @@
 namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 /**
  * CMS\Bundle\ContentBundle\Entity\Fields\TextField
@@ -11,24 +12,9 @@ use CMS\Bundle\ContentBundle\Classes\Fields;
 class FileField extends Fields
 {
 
-	private $html;
-
-	private $type;
-    
-    /**
-     * @var array paramètres du champs
-     */
-    private $params;
-
-	public function __construct()
-	{
-		$this->type = $this->getTypeField();
-        $this->params = array();
-	}
-
 	public function getTypeField()
     {
-        return 'file';
+        return FileType::class;
     }
 
     public function getName()

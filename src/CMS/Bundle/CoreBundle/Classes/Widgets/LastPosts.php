@@ -12,10 +12,6 @@ use CMS\Bundle\CoreBundle\Classes\Widget;
 
 class LastPosts extends Widget
 {
-    public function getName()
-    {
-        return 'LastPosts';
-    }
     
     /**
      * @param array $param

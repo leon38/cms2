@@ -1,11 +1,12 @@
 <?php
 namespace CMS\Bundle\CoreBundle\Form\Extension;
 
+use CMS\Bundle\CoreBundle\Form\Type\DropzoneType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class DropzoneTypeExtension extends AbstractTypeExtension
 {
@@ -16,19 +17,19 @@ class DropzoneTypeExtension extends AbstractTypeExtension
      */
     public function getExtendedType()
     {
-        return 'dropzone';
+        return DropzoneType::class;
     }
 
     /**
      * Ajoute l'option image_path
      *
-     * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setOptional(array('image_path'));
-        $resolver->setOptional(array('image_size'));
-        $resolver->setOptional(array('class_thumb'));
+        $resolver->setDefined(array('image_path'));
+        $resolver->setDefined(array('image_size'));
+        $resolver->setDefined(array('class_thumb'));
     }
 
     /**

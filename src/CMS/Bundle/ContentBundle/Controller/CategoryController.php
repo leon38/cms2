@@ -43,6 +43,9 @@ class CategoryController extends Controller
     /**
      * Creates a new Category entity.
      *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
      * @Route("/", name="admin_category_create")
      * @Method("POST")
      * @Template("ContentBundle:Category:new.html.twig")
@@ -88,7 +91,7 @@ class CategoryController extends Controller
     private function createCreateForm(Category $entity)
     {
         $form = $this->createForm(
-            new CategoryType(),
+            CategoryType::class,
             $entity,
             array(
                 'action' => $this->generateUrl('admin_category_create'),
@@ -165,7 +168,7 @@ class CategoryController extends Controller
     private function createEditForm(Category $entity)
     {
         $form = $this->createForm(
-            new CategoryType(),
+            CategoryType::class,
             $entity,
             array(
                 'action' => $this->generateUrl('admin_category_update', array('id' => $entity->getId())),
@@ -185,6 +188,10 @@ class CategoryController extends Controller
     
     /**
      * Edits an existing Category entity.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
      * @Route("/{id}", name="admin_category_update")
      * @Method("PUT")
@@ -229,9 +236,12 @@ class CategoryController extends Controller
     /**
      * Deletes a Category entity.
      *
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
      * @Route("/delete/{id}", name="admin_category_delete")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         
         $em = $this->getDoctrine()->getManager();

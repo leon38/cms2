@@ -1,3 +1,6 @@
+label {
+    font-weight: normal !important;
+}
 /*      light colors         */
 @keyframes spin {
     from {
@@ -299,7 +302,6 @@ Copyright (c) 2015 Daniel Eden
 
 .sweet-alert button.styled.sweet-confirm[disabled] {
     border: 4px solid transparent;
-    border-color: transparent;
     width: 40px;
     height: 40px;
     padding: 0;
@@ -1114,18 +1116,15 @@ svg {
 }
 
 .fixed-table-container thead th .both {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC");
-    background-position: right 2px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC") right 2px;
 }
 
 .fixed-table-container thead th .asc {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG2YAABzjgAA+swAAIT6AAB5gQAA/RMAADBtAAASKQ0eJk4AAACASURBVHja7NKhDcJQFIbRV1MSEqaoYwYMYyARR6HZowzAHqguUolHYEgxD9MmTYPpA1JEb/KZK476Q4wxfKvwc6x/WKJE3v+nYkc8cfgIwxpXRNQokjBkOLdQ1wlZCrbFbYDdsRmFYYVqAHVdsBiD7dHg8aYGu2l2NmMz9s/YawDpU8qkYQTHqgAAAABJRU5ErkJggg==");
-    background-position: right 5px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG2YAABzjgAA+swAAIT6AAB5gQAA/RMAADBtAAASKQ0eJk4AAACASURBVHja7NKhDcJQFIbRV1MSEqaoYwYMYyARR6HZowzAHqguUolHYEgxD9MmTYPpA1JEb/KZK476Q4wxfKvwc6x/WKJE3v+nYkc8cfgIwxpXRNQokjBkOLdQ1wlZCrbFbYDdsRmFYYVqAHVdsBiD7dHg8aYGu2l2NmMz9s/YawDpU8qkYQTHqgAAAABJRU5ErkJggg==") right 5px;
 }
 
 .fixed-table-container thead th .desc {
-    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG2YAABzjgAA+swAAIT6AAB5gQAA/RMAADBtAAASKQ0eJk4AAACFSURBVHja7NKhDcJQFIbRWwMJCVPgmKGGMZCIo9DsAQOwRxWLIPEIDCnmYR4JaSp4DYKQis/8NznqRkopvlWM2Ij9BYY1Wtx7arEpwaZokHo6Yf4xFhGBGrcOdMUqIqIUq3DoYEdUxVgGFzhn6ILl61aMZXCLB3bv+1Bsgj1mg7CfeNrnAMXSyqQtsCNeAAAAAElFTkSuQmCC");
-    background-position: right 0px;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAG2YAABzjgAA+swAAIT6AAB5gQAA/RMAADBtAAASKQ0eJk4AAACFSURBVHja7NKhDcJQFIbRWwMJCVPgmKGGMZCIo9DsAQOwRxWLIPEIDCnmYR4JaSp4DYKQis/8NznqRkopvlWM2Ij9BYY1Wtx7arEpwaZokHo6Yf4xFhGBGrcOdMUqIqIUq3DoYEdUxVgGFzhn6ILl61aMZXCLB3bv+1Bsgj1mg7CfeNrnAMXSyqQtsCNeAAAAAElFTkSuQmCC") right 0;
 }
 
 .fixed-table-container th.detail {
@@ -2503,61 +2502,61 @@ be a descendant of the grid when it is being dragged.
 }
 
 .ct-label.ct-horizontal.ct-start {
-    -webkit-box-align: flex-end;
+    -webkit-box-align: end;
     -webkit-align-items: flex-end;
-    -ms-flex-align: flex-end;
+    -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-box-pack: flex-start;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-    -ms-flex-pack: flex-start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     text-align: left;
     text-anchor: start;
 }
 
 .ct-label.ct-horizontal.ct-end {
-    -webkit-box-align: flex-start;
+    -webkit-box-align: start;
     -webkit-align-items: flex-start;
-    -ms-flex-align: flex-start;
+    -ms-flex-align: start;
     align-items: flex-start;
-    -webkit-box-pack: flex-start;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-    -ms-flex-pack: flex-start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     text-align: left;
     text-anchor: start;
 }
 
 .ct-label.ct-vertical.ct-start {
-    -webkit-box-align: flex-end;
+    -webkit-box-align: end;
     -webkit-align-items: flex-end;
-    -ms-flex-align: flex-end;
+    -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-box-pack: flex-end;
+    -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
-    -ms-flex-pack: flex-end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
     text-align: right;
     text-anchor: end;
 }
 
 .ct-label.ct-vertical.ct-end {
-    -webkit-box-align: flex-end;
+    -webkit-box-align: end;
     -webkit-align-items: flex-end;
-    -ms-flex-align: flex-end;
+    -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-box-pack: flex-start;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-    -ms-flex-pack: flex-start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     text-align: left;
     text-anchor: start;
 }
 
 .ct-chart-bar .ct-label.ct-horizontal.ct-start {
-    -webkit-box-align: flex-end;
+    -webkit-box-align: end;
     -webkit-align-items: flex-end;
-    -ms-flex-align: flex-end;
+    -ms-flex-align: end;
     align-items: flex-end;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
@@ -2568,9 +2567,9 @@ be a descendant of the grid when it is being dragged.
 }
 
 .ct-chart-bar .ct-label.ct-horizontal.ct-end {
-    -webkit-box-align: flex-start;
+    -webkit-box-align: start;
     -webkit-align-items: flex-start;
-    -ms-flex-align: flex-start;
+    -ms-flex-align: start;
     align-items: flex-start;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
@@ -2581,26 +2580,26 @@ be a descendant of the grid when it is being dragged.
 }
 
 .ct-chart-bar.ct-horizontal-bars .ct-label.ct-horizontal.ct-start {
-    -webkit-box-align: flex-end;
+    -webkit-box-align: end;
     -webkit-align-items: flex-end;
-    -ms-flex-align: flex-end;
+    -ms-flex-align: end;
     align-items: flex-end;
-    -webkit-box-pack: flex-start;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-    -ms-flex-pack: flex-start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     text-align: left;
     text-anchor: start;
 }
 
 .ct-chart-bar.ct-horizontal-bars .ct-label.ct-horizontal.ct-end {
-    -webkit-box-align: flex-start;
+    -webkit-box-align: start;
     -webkit-align-items: flex-start;
-    -ms-flex-align: flex-start;
+    -ms-flex-align: start;
     align-items: flex-start;
-    -webkit-box-pack: flex-start;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-    -ms-flex-pack: flex-start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     text-align: left;
     text-anchor: start;
@@ -2611,9 +2610,9 @@ be a descendant of the grid when it is being dragged.
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: flex-end;
+    -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
-    -ms-flex-pack: flex-end;
+    -ms-flex-pack: end;
     justify-content: flex-end;
     text-align: right;
     text-anchor: end;
@@ -2624,9 +2623,9 @@ be a descendant of the grid when it is being dragged.
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-    -webkit-box-pack: flex-start;
+    -webkit-box-pack: start;
     -webkit-justify-content: flex-start;
-    -ms-flex-pack: flex-start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
     text-align: left;
     text-anchor: end;
@@ -4068,9 +4067,8 @@ legend {
     display: block;
     top: 0;
     left: 0;
+    background: url('/bundles/core/images/full-screen-image-3.jpg') center center;
     background-size: cover;
-    background-position: center center;
-    background-image: url('/bundles/core/images/full-screen-image-3.jpg');
 }
 
 .sidebar .nav li > a {
@@ -4139,7 +4137,7 @@ legend {
 .sidebar .logo .logo-text,
 .bootstrap-navbar .logo .logo-text {
     text-transform: uppercase;
-    padding: 6px 0px;
+    padding: 6px 0;
     display: block;
     font-size: 18px;
     color: #FFFFFF;
@@ -5225,7 +5223,7 @@ form label.radio, form label.checkbox {
     margin-top: 10px;
 }
 
-star {
+.star {
     color: #FB404B;
     padding-left: 3px;
 }
@@ -5335,7 +5333,7 @@ star {
     height: 20px;
     display: block;
     width: 20px;
-    padding: 0px 0px;
+    padding: 0px 0;
     margin: 0px 5px;
     text-align: center;
 }
@@ -5424,7 +5422,7 @@ star {
 
 .table-bigboy .td-actions {
     width: 60px;
-    min-width: auto;
+    min-width: 100%;
 }
 
 .table-bigboy .td-actions .btn {
@@ -6149,7 +6147,7 @@ star {
 
 .navbar .navbar-brand {
     font-weight: 400;
-    margin: 5px 0px;
+    margin: 5px 0;
     padding: 15px 15px;
     font-size: 20px;
 }
@@ -6194,7 +6192,7 @@ star {
     color: #FFFFFF;
     font-weight: bold;
     line-height: 18px;
-    top: 0px;
+    top: 0;
     left: 7px;
 }
 
@@ -6208,7 +6206,7 @@ star {
 }
 
 .navbar.fixed {
-    width: calc(100% - $sidebar-width);
+    width: calc(100% - 260px);
     right: 0;
     left: auto;
     border-radius: 0;
@@ -6431,7 +6429,7 @@ star {
     filter: alpha(opacity=100);
 }
 
-[class*="navbar-ct"] .navbar-form .form-control:-webkit-input-placeholder {
+[class*="navbar-ct"] .navbar-form .form-control::-webkit-input-placeholder {
     color: #FFFFFF;
     opacity: 1;
     filter: alpha(opacity=100);
@@ -6444,9 +6442,7 @@ star {
 }
 
 .navbar-form .input-group-addon {
-    border-radius: 0;
     border: 0;
-    padding: 0;
     background-color: transparent;
     color: #E3E3E3;
     font-size: 16px;
@@ -6578,8 +6574,8 @@ star {
 }
 
 .footer:not(.footer-big) nav > ul a {
-    padding: 10px 0px;
-    margin: 15px 10px 15px 0px;
+    padding: 10px 0;
+    margin: 15px 10px 15px 0;
 }
 
 .footer-black,
@@ -7199,7 +7195,7 @@ star {
 }
 
 .dropdown-with-icons > li > a {
-    padding-left: 0px;
+    padding-left: 0;
     line-height: 28px;
 }
 
@@ -7340,7 +7336,7 @@ star {
 }
 
 .card .header {
-    padding: 15px 15px 0px;
+    padding: 15px 15px 0;
     color: #333333;
     font-weight: 300;
     font-size: 22px;
@@ -7359,7 +7355,7 @@ star {
     font-size: 14px;
     font-weight: 400;
     color: #888888;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .card .category.error,
@@ -7615,7 +7611,7 @@ star {
 
 .collapse-hover {
     display: block;
-    height: 0px;
+    height: 0;
     visibility: visible;
     overflow: hidden;
 }
@@ -7947,7 +7943,7 @@ star {
     line-height: 30px;
     width: 30px;
     text-align: center;
-    padding: 0px;
+    padding: 0;
     border-radius: 50%;
 }
 
@@ -7971,9 +7967,10 @@ star {
 .bootstrap-datetimepicker-widget table td.today > div:before {
     content: '';
     display: inline-block;
-    border: 0 0 7px 7px solid transparent;
-    border-bottom-color: #23CCEF;
-    border-top-color: rgba(0, 0, 0, 0.2);
+    border-top: 0 solid rgba(0, 0, 0, 0.2);
+    border-right: 0 solid transparent;
+    border-bottom: 7px solid #23CCEF;
+    border-left:7px solid transparent;
     position: absolute;
     bottom: 4px;
     right: 4px;
@@ -8333,7 +8330,7 @@ star {
         opacity: 1;
         filter: alpha(opacity=100);
         visibility: visible;
-        margin-top: 0px;
+        margin-top: 0;
     }
 
     .dropdown-menu.bootstrap-datetimepicker-widget.open {
@@ -8439,7 +8436,7 @@ star {
 
     .main-panel > .content,
     .wrapper-full-page > .content {
-        padding: 15px 0px;
+        padding: 15px 0;
     }
 
     .main-panel .card,
@@ -8698,7 +8695,7 @@ star {
 
     @keyframes topbar-x {
         0% {
-            top: 0px;
+            top: 0;
             transform: rotate(0deg);
         }
         45% {
@@ -8714,7 +8711,7 @@ star {
     }
     @-webkit-keyframes topbar-x {
         0% {
-            top: 0px;
+            top: 0;
             -webkit-transform: rotate(0deg);
         }
         45% {
@@ -8730,7 +8727,7 @@ star {
     }
     @-moz-keyframes topbar-x {
         0% {
-            top: 0px;
+            top: 0;
             -moz-transform: rotate(0deg);
         }
         45% {
@@ -8756,8 +8753,8 @@ star {
             transform: rotate(5deg);
         }
         100% {
-            top: 0px;
-            transform: rotate(0);
+            top: 0;
+            transform: rotate(0deg);
         }
     }
     @-webkit-keyframes topbar-back {
@@ -8772,8 +8769,8 @@ star {
             -webkit-transform: rotate(5deg);
         }
         100% {
-            top: 0px;
-            -webkit-transform: rotate(0);
+            top: 0;
+            -webkit-transform: rotate(0deg);
         }
     }
     @-moz-keyframes topbar-back {
@@ -8788,13 +8785,13 @@ star {
             -moz-transform: rotate(5deg);
         }
         100% {
-            top: 0px;
-            -moz-transform: rotate(0);
+            top: 0;
+            -moz-transform: rotate(0deg);
         }
     }
     @keyframes bottombar-x {
         0% {
-            bottom: 0px;
+            bottom: 0;
             transform: rotate(0deg);
         }
         45% {
@@ -8810,7 +8807,7 @@ star {
     }
     @-webkit-keyframes bottombar-x {
         0% {
-            bottom: 0px;
+            bottom: 0;
             -webkit-transform: rotate(0deg);
         }
         45% {
@@ -8826,7 +8823,7 @@ star {
     }
     @-moz-keyframes bottombar-x {
         0% {
-            bottom: 0px;
+            bottom: 0;
             -moz-transform: rotate(0deg);
         }
         45% {
@@ -8852,8 +8849,8 @@ star {
             transform: rotate(-5deg);
         }
         100% {
-            bottom: 0px;
-            transform: rotate(0);
+            bottom: 0;
+            transform: rotate(0deg);
         }
     }
     @-webkit-keyframes bottombar-back {
@@ -8868,8 +8865,8 @@ star {
             -webkit-transform: rotate(-5deg);
         }
         100% {
-            bottom: 0px;
-            -webkit-transform: rotate(0);
+            bottom: 0;
+            -webkit-transform: rotate(0deg);
         }
     }
     @-moz-keyframes bottombar-back {
@@ -8884,8 +8881,8 @@ star {
             -moz-transform: rotate(-5deg);
         }
         100% {
-            bottom: 0px;
-            -moz-transform: rotate(0);
+            bottom: 0;
+            -moz-transform: rotate(0deg);
         }
     }
     .navbar-header .navbar-toggle {
@@ -8899,7 +8896,7 @@ star {
     }
 
     .navbar-toggle .icon-bar:nth-child(2) {
-        top: 0px;
+        top: 0;
         -webkit-animation: topbar-back 500ms linear 0s;
         -moz-animation: topbar-back 500ms linear 0s;
         animation: topbar-back 500ms 0s;
@@ -8913,7 +8910,7 @@ star {
     }
 
     .navbar-toggle .icon-bar:nth-child(4) {
-        bottom: 0px;
+        bottom: 0;
         -webkit-animation: bottombar-back 500ms linear 0s;
         -moz-animation: bottombar-back 500ms linear 0s;
         animation: bottombar-back 500ms 0s;
@@ -9724,4 +9721,9 @@ star {
 .modal-gallery .modal-body {
     height: 300px;
     overflow: scroll;
+}
+
+#map_itineraires {
+    width: 100%;
+    height: 300px;
 }

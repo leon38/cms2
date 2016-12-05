@@ -25,12 +25,13 @@ class MediaToIdTransformer implements DataTransformerInterface
     /**
      * Transforms a string of id in array of media
      *
-     * @param  array|null $media
+     * @param mixed $ids
      * @return string
+     * @internal Media $media
      */
     public function transform($ids)
     {
-        if ($ids == "") {
+        if ($ids == "" || $ids == null) {
             return '';
         }
         $media = $this->manager

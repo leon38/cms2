@@ -1,8 +1,12 @@
-<h4 class="widget-title">Itinéraire</h4>
-<div id="map"></div>
-<h4 class="widget-title">Profil</h4>
-<canvas id="profil"></canvas>
-
+<div class="widget widget-itineraire">
+    <h4 class="widget-title">Itinéraire</h4>
+    <div id="map"></div>
+</div>
+<div class="widget widget-profil">
+    <h4 class="widget-title">Profil</h4>
+    <canvas id="profil"></canvas>
+</div>
+{% if value.data is defined and value.data %}
 <script>
     var map;
     function initMap() {
@@ -23,7 +27,7 @@
                     path: [prevLatLong, curLatLong],
                     strokeColor: strokeColor,
                     strokeOpacity: 1.0,
-                    strokeWeight: 2
+                    strokeWeight: 4
                 });
                 prevLatLong = curLatLong;
                 bounds.extend(p);
@@ -37,26 +41,26 @@
 
     function rgbify(maxval, minval, val, moreisgood) {
         var intnsty = (val - minval) / (maxval - minval);
-        var r, g;
+        var r, b;
         if (moreisgood) {
             if (intnsty > 0.5) {
-                g = 255;
+                b = 255;
                 r = Math.round(2 * (1 - intnsty) * 255);
             } else {
                 r = 255;
-                g = Math.round(2 * intnsty * 255);
+                b = Math.round(2 * intnsty * 255);
             }
 
         } else { //lessisgood
             if (intnsty > 0.5) {
                 r = 255;
-                g = Math.round(2 * (1 - intnsty) * 255);
+                b = Math.round(2 * (1 - intnsty) * 255);
             } else {
-                g = 255;
+                b = 255;
                 r = Math.round(2 * intnsty * 255);
             }
         }
-        return "rgb(" + r.toString() + ", " + g.toString() + ", 0)";
+        return "rgb(" + r.toString() + ", 0, " + b.toString() + ")";
     }
 
 
@@ -66,12 +70,12 @@
             {
                 label: "Altitude (en m)",
                 fill: true,
-                backgroundColor: "rgba(187, 219, 147, 0.5)",
+                backgroundColor: "rgba(237, 54, 77, 0.5)",
                 borderWidth: 2,
-                borderColor: "rgba(187, 219, 147, 1)",
+                borderColor: "rgba(237, 54, 77, 1)",
                 pointBorderWidth: 0,
-                pointBorderColor: "rgba(187, 219, 147, 0)",
-                pointBackgroundColor: "rgba(187, 219, 147, 0)",
+                pointBorderColor: "rgba(237, 54, 77, 0)",
+                pointBackgroundColor: "rgba(237, 54, 77, 0)",
                 data: [{% for altitude in value.altitudes %}{{ altitude }}{% if not loop.last %},{% endif %}{% endfor %}]
             }
         ]
@@ -86,4 +90,5 @@
         });
     })
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwy2LBbH0VPoPB3lpb8qqqJhADEZZCYs4&callback=initMap"></script>
+
+{% endif %}

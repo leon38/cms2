@@ -18,7 +18,7 @@ class ContentTaxonomyType extends AbstractType
         $builder
             ->add('title')
             ->add('alias', null, array('attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_contenttaxonomy_title')))
-            ->add('fields')
+            ->add('fields', null, array('attr' => array('class' => 'big')))
         ;
     }
 

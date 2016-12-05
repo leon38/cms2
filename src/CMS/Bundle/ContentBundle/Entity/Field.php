@@ -1,6 +1,8 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Entity;
 
+use CMS\Bundle\ContentBundle\Classes\Fields;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -28,7 +30,7 @@ class Field
     private $type;
 
     /**
-     * @var object field
+     * @var Fields field
      *
      * @ORM\Column(name="field_object",type="object")
      */
@@ -42,6 +44,8 @@ class Field
     private $title;
 
     /**
+     * @var string $name
+     *
      * @ORM\Column(name="name", type="string", length=255)
      */
      private $name;
@@ -55,18 +59,23 @@ class Field
 
     /**
      * @var \DateTime $created
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
 
     /**
+     * @var ArrayCollection|ContentTaxonomy[] $contentTaxonomy
+     *
      * @ORM\ManyToMany(targetEntity="ContentTaxonomy", inversedBy="fields")
      * @ORM\JoinTable(name="fields_taxonomy")
      */
     private $contentTaxonomy;
 
     /**
+     * @var ArrayCollection|FieldValue[] $fieldvalues
+     *
      * @ORM\OneToMany(targetEntity="FieldValue", mappedBy="field", cascade={"remove", "persist"})
      */
     private $fieldvalues;
@@ -76,7 +85,7 @@ class Field
      */
     public function __construct()
     {
-        $this->contentTaxonomy = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contentTaxonomy = new ArrayCollection();
     }
 
     /**
@@ -128,7 +137,7 @@ class Field
     /**
      * Get field
      *
-     * @return \stdClass
+     * @return Fields
      */
     public function getField()
     {
@@ -230,10 +239,10 @@ class Field
     /**
      * Add contentTaxonomy
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy
+     * @param ContentTaxonomy $contentTaxonomy
      * @return Field
      */
-    public function addContentTaxonomy(\CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy)
+    public function addContentTaxonomy(ContentTaxonomy $contentTaxonomy)
     {
         $this->contentTaxonomy[] = $contentTaxonomy;
 
@@ -243,9 +252,9 @@ class Field
     /**
      * Remove contentTaxonomy
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy
+     * @param ContentTaxonomy $contentTaxonomy
      */
-    public function removeContentTaxonomy(\CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $contentTaxonomy)
+    public function removeContentTaxonomy(ContentTaxonomy $contentTaxonomy)
     {
         $this->contentTaxonomy->removeElement($contentTaxonomy);
     }
@@ -253,7 +262,7 @@ class Field
     /**
      * Get contentTaxonomy
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection|ContentTaxonomy[]
      */
     public function getContentTaxonomy()
     {
@@ -263,10 +272,10 @@ class Field
     /**
      * Add fieldvalues
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues
+     * @param FieldValue $fieldvalues
      * @return Field
      */
-    public function addFieldvalue(\CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues)
+    public function addFieldvalue(FieldValue $fieldvalues)
     {
         $this->fieldvalues[] = $fieldvalues;
 
@@ -276,9 +285,9 @@ class Field
     /**
      * Remove fieldvalues
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues
+     * @param FieldValue $fieldvalues
      */
-    public function removeFieldvalue(\CMS\Bundle\ContentBundle\Entity\FieldValue $fieldvalues)
+    public function removeFieldvalue(FieldValue $fieldvalues)
     {
         $this->fieldvalues->removeElement($fieldvalues);
     }

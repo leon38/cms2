@@ -33,7 +33,7 @@ class MediaSettingsController extends Controller
     $option_manager = $this->get('cms.media.media_option_manager');
     $options = $option_manager->getAllOptionsForm();
 
-    $form = $this->createForm(new MediaSettingsType(), $options);
+    $form = $this->createForm(MediaSettingsType::class, $options);
     if ($request->isMethod('POST')) {
       $form->handleRequest($request);
       if ($form->isValid()) {

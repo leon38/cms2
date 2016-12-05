@@ -8,7 +8,6 @@
 
 namespace CMS\Bundle\CoreBundle\Classes;
 
-use CMS\Bundle\CoreBundle\CoreBundle;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Templating\EngineInterface;

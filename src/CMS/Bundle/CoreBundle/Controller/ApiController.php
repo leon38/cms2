@@ -30,7 +30,7 @@ class ApiController extends Controller
         $auth = new Auth([
             'client_id'     => '914b8b3b0dc44194acde211b6ab03c14',
             'client_secret' => 'a2ceb0d905d44fc98c889b17f34eebd2',
-            'redirect_uri'  => 'http://localhost:8000/instagram'
+            'redirect_uri'  => 'http://www.cms2.local/instagram'
         ]);
     
         if(!isset($_SESSION['instagram_token'])){

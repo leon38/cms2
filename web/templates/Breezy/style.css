@@ -156,6 +156,20 @@ h2 {
     color: #AAAAAA;
 }
 
+.blurred {
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+    position: absolute;
+    left:0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
+
 /***************
  * Fixed Header
  ***************/
@@ -698,6 +712,7 @@ body.search-open .search-form-area {
 .post-entry p {
     margin-bottom: 20px;
     margin-top: 1em;
+    font-size: 14px;
 }
 
 .goto-top.on {

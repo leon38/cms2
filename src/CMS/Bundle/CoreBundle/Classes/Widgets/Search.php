@@ -12,10 +12,6 @@ use CMS\Bundle\CoreBundle\Classes\Widget;
 
 class Search extends Widget
 {
-    public function getName()
-    {
-        return 'Search';
-    }
     
     /**
      * @param array $param

@@ -37,7 +37,7 @@
                     <td>{{ entity.title }}</td>
                     <td>{{ entity.alias }}</td>
                     <td>
-                        <a class="btn btn-simple btn-xs btn-infos" href="{{ path('admin_content-taxonomy_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-simple btn-info btn-xs" href="{{ path('admin_content-taxonomy_edit', { 'id': entity.id }) }}"><i class="fa fa-pencil"></i></a>
                          <a data-toggle="modal" href='#modal-delete' class="btn btn-simple btn-xs btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ entity.id }}">
                             <i class="fa fa-trash-o"></i>
                         </a>

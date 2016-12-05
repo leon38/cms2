@@ -10,31 +10,14 @@ namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
+use CMS\Bundle\ContentBundle\Form\Type\WeatherType;
 
 class WeatherField extends Fields
 {
     
-    /**
-     * @var string Type du champ
-     */
-    private $type;
-    
-    /**
-     * @var array paramètres du champs
-     */
-    private $params;
-    
-    
-    public function __construct()
-    {
-        
-        $this->type = $this->getTypeField();
-        $this->params = array();
-    }
-    
     public function getTypeField()
     {
-        return 'weather';
+        return WeatherType::class;
     }
     
     public function getName()
@@ -51,21 +34,4 @@ class WeatherField extends Fields
     {
         return $this->templating->render('ContentBundle:Fields:weather.html.twig', array('params' => $this->params));
     }
-    
-    public function setParams($params)
-    {
-        $this->params = $params;
-        return $this;
-    }
-    
-    public function getOptions()
-    {
-        return array();
-    }
-    
-    public function getParams()
-    {
-        return $this->params;
-    }
-    
 }

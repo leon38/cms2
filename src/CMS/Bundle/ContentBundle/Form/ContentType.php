@@ -2,6 +2,11 @@
 
 namespace CMS\Bundle\ContentBundle\Form;
 
+use CMS\Bundle\ContentBundle\Form\EventListener\AddEditFieldsSubscriber;
+use CMS\Bundle\ContentBundle\Form\EventListener\AddEditMetasSubscriber;
+use CMS\Bundle\ContentBundle\Form\EventListener\AddNewFieldsSubscriber;
+use CMS\Bundle\CoreBundle\Form\Type\EntityHiddenType;
+use CMS\Bundle\CoreBundle\Form\Type\ImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,33 +30,23 @@ class ContentType extends AbstractType
     {
         $builder
             ->add('title', null, array('label' => 'cms.content.title'))
-            ->add(
-                'url',
-                TextType::class,
-                array(
+            ->add('url', TextType::class, array(
                     'label' => 'cms.content.alias',
                     'attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_content_title'),
                 )
             )
-            ->add(
-                'description',
-                null,
-                array('label' => 'cms.content.description', 'attr' => array('class' => 'summernote'))
+            ->add('description', null, array(
+                    'label' => 'cms.content.description',
+                    'attr' => array('class' => 'summernote')
+                )
             )
-            ->add(
-                'chapo',
-                TextareaType::class,
-                array('label' => 'cms.content.chapo')
-            )
-            ->add(
-                'published',
-                ChoiceType::class,
-                array(
+            ->add('chapo', TextareaType::class, array('label' => 'cms.content.chapo'))
+            ->add('published', ChoiceType::class, array(
                     'label' => 'cms.content.status.status',
                     'choices' => array(
-                        0 => 'cms.content.status.draft',
-                        1 => 'cms.content.status.published',
-                        2 => 'cms.content.status.pending',
+                        'cms.content.status.draft' => 0,
+                        'cms.content.status.published' => 1,
+                        'cms.content.status.pending' => 2,
                     ),
                     'expanded' => false,
                     'multiple' => false,
@@ -59,18 +54,12 @@ class ContentType extends AbstractType
                 )
             )
             ->add('language', null, array('label' => 'cms.content.languages'))
-            ->add(
-                'taxonomy',
-                'entity_hidden',
-                array(
+            ->add('taxonomy', EntityHiddenType::class, array(
                     'class' => 'CMS\Bundle\ContentBundle\Entity\ContentTaxonomy',
                     'attr' => array('readonly' => 'readonly'),
                 )
             )
-            ->add(
-                'categories',
-                EntityType::class,
-                array(
+            ->add('categories', EntityType::class, array(
                     'label' => 'cms.content.categories',
                     'class' => 'ContentBundle:Category',
                     'query_builder' => function (EntityRepository $er) {
@@ -83,13 +72,11 @@ class ContentType extends AbstractType
                 )
             )
             //->add('author', 'entity_hidden', array('class' => 'CMS\Bundle\CoreBundle\Entity\User'))
-            ->add(
-                'thumbnail',
-                'image',
-                array(
+            ->add('thumbnail', ImageType::class, array(
                     'class' => 'CMS\Bundle\MediaBundle\Entity\Media',
                     'image_path' => 'webPath',
                     'image_size' => 'col-md-12',
+                    'compound' => false
                 )
             )
             ->add('featured')
@@ -101,128 +88,9 @@ class ContentType extends AbstractType
         
         // edit
         if (!empty($fieldvalues)) {
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($fieldvalues, $fields) {
-                    $form = $event->getForm();
-                    $fieldvaluesTemp = $form->get('fieldValuesTemp');
-                    $names = array();
-                    foreach ($fieldvalues as $fieldvalue) {
-                        $field = $fieldvalue->getField();
-                        $names[] = $field->getName();
-                        $params = $field->getField()->getParams();
-                        $required = (isset($params['required'])) ? $params['required'] : false;
-                        $options = array(
-                            'label' => $field->getTitle(),
-                            'data' => $fieldvalue->getValue(),
-                            'required' => $required,
-                        );
-                        $type = $field->getField()->getTypeField();
-                        if (isset($params['format'])) {
-                            $options['attr'] = array('class' => 'datetimepicker');
-                            $type = 'text';
-                        }
-                        
-                        if (isset($params['editor']) && $params['editor'] == true) {
-                            $options['attr'] = array('class' => 'summernote');
-                        }
-                        
-                        if (isset($params['options']) && $params['options'] != '') {
-                            $tmp_choices = explode('%%', $params['options']);
-                            $choices = array();
-                            foreach ($tmp_choices as $choice) {
-                                $choices[] = explode('::', $choice);
-                            }
-                            $options['choices'] = $choices;
-                        }
-                        
-                        if ($type == 'music') {
-                            $type = isset($options['api']) ? $options['api'] : 'deezer';
-                        } else if ($type == 'kml') {
-                            $type = 'file';
-                        }
-                        
-                        $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);
-                    }
-                    $diff = array_diff(array_keys($fields), $names);
-                    foreach ($diff as $name) {
-                        $field = $fields[$name];
-                        $params = $field->getField()->getParams();
-                        $required = (isset($params['required'])) ? $params['required'] : false;
-                        $options = array('label' => $field->getTitle(), 'required' => $required);
-                        $type = $field->getField()->getTypeField();
-                        if (isset($params['format'])) {
-                            $options['attr'] = array('class' => 'datetimepicker');
-                            $type = 'text';
-                        }
-                        if (isset($params['editor']) && $params['editor'] == true) {
-                            $options['attr'] = array('class' => 'summernote');
-                        }
-                        
-                        if (isset($params['options']) && $params['options'] != '') {
-                            $tmp_choices = explode('%%', $params['options']);
-                            $choices = array();
-                            foreach ($tmp_choices as $choice) {
-                                list($value, $label) = explode('::', $choice);
-                                $choices[$value] = $label;
-                            }
-                            $options['choices'] = $choices;
-                            $options['expanded'] = true;
-                        }
-    
-                        if ($type == 'music') {
-                            $type = isset($options['api']) ? $options['api'] : 'deezer';
-                        } else if ($type == 'kml') {
-                            $type = 'file';
-                        }
-                        
-                        $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);
-                        
-                    }
-                    
-                    
-                }
-            );
-            
+            $builder->addEventSubscriber(new AddEditFieldsSubscriber($fieldvalues, $fields));
         } else { // new content
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($fields) {
-                    $form = $event->getForm();
-                    $fieldvaluesTemp = $form->get('fieldValuesTemp');
-                    foreach ($fields as $field) {
-                        $params = $field->getField()->getParams();
-                        $required = (isset($params['required'])) ? $params['required'] : false;
-                        $options = array('label' => $field->getTitle(), 'required' => $required);
-                        $type = $field->getField()->getTypeField();
-                        if (isset($params['format'])) {
-                            $options['attr'] = array('class' => 'datetimepicker');
-                            $type = 'text';
-                        }
-                        if (isset($params['editor']) && $params['editor'] == true) {
-                            $options['attr'] = array('class' => 'summernote');
-                        }
-                        
-                        if (isset($params['options']) && $params['options'] != '') {
-                            $tmp_choices = explode('%%', $params['options']);
-                            $choices = array();
-                            foreach ($tmp_choices as $choice) {
-                                $choices[] = explode('::', $choice);
-                            }
-                            $options['choices'] = $choices;
-                        }
-    
-                        if ($type == 'music') {
-                            $type = isset($options['api']) ? $options['api']['value'] : 'deezer';
-                        } else if ($type == 'kml') {
-                            $type = 'file';
-                        }
-                        
-                        $fieldvaluesTemp->add($field->getName(), strtolower($type), $options);
-                    }
-                    
-                }
-            );
+            $builder->addEventSubscriber(new AddNewFieldsSubscriber($fields));
         }
         
         
@@ -230,47 +98,16 @@ class ContentType extends AbstractType
         $metavalues = $options['metavalues'];
         
         if (!empty($metavalues)) {
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($metavalues, $metas) {
-                    $form = $event->getForm();
-                    $metavaluesTemp = $form->get('metaValuesTemp');
-                    $names = array();
-                    foreach ($metavalues as $metavalue) {
-                        $meta = $metavalue->getMeta();
-                        $names[] = $meta->getName();
-                        $type = $meta->getType();
-                        $metavaluesTemp->add($meta->getAlias(), strtolower($type), array('label' => $meta->getName(), 'data' => $metavalue->getValue(),));
-                    }
-                    $diff = array_diff(array_keys($metas), $names);
-                    foreach ($diff as $name) {
-                        $meta = $metas[$name];
-                        $type = $meta->getType();
-                        $metavaluesTemp->add($meta->getAlias(), strtolower($type), array('label' => $meta->getName(), 'data' => $metavalue->getValue(),));
-                    
-                    }
-                    
-                }
-            );
+            $builder->addEventSubscriber(new AddEditMetasSubscriber($metavalues, $metas));
         } else { // new content
-            $builder->addEventListener(
-                FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use ($metas) {
-                    $form = $event->getForm();
-                    $metavaluesTemp = $form->get('metaValuesTemp');
-                    foreach ($metas as $meta) {
-                        $type = $meta->getType();
-                        $metavaluesTemp->add($meta->getAlias(), strtolower($type), array('label' => $meta->getName()));
-                    }
-                }
-            );
+            $builder->addEventSubscriber(new AddEditMetasSubscriber(array(), $metas));
         }
     
         
     }
     
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

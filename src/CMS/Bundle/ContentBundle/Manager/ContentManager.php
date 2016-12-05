@@ -39,6 +39,7 @@ class ContentManager
                 $fieldvalue = $this->em->getRepository('ContentBundle:FieldValue')->findOneBy(
                     array('content' => $content, 'field' => $field)
                 );
+                
                 if ($field->getType() == 'KMLField') {
                     if ($value != null) {
                         $filename  = $value->getClientOriginalName();

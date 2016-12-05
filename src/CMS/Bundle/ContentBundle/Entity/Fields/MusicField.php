@@ -10,21 +10,10 @@ namespace CMS\Bundle\ContentBundle\Entity\Fields;
 
 
 use CMS\Bundle\ContentBundle\Classes\Fields;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MusicField extends Fields
 {
-    // Requête : select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="Grenoble, France")
-    
-    /**
-     * @var string Type du champ
-     */
-    private $type;
-    
-    /**
-     * @var array paramètres du champs
-     */
-    private $params;
-    
     
     public function __construct()
     {
@@ -35,7 +24,7 @@ class MusicField extends Fields
     
     public function getTypeField()
     {
-        return 'music';
+        return TextType::class;
     }
     
     public function getName()
@@ -53,21 +42,10 @@ class MusicField extends Fields
         return $this->templating->render('ContentBundle:Fields:music.html.twig', array('params' => $this->params));
     }
     
-    public function setParams($params)
-    {
-        $this->params = $params;
-        return $this;
-    }
-    
     // faire une classe avec les display des differents types: checkbox, select, input etc.
     public function getOptions()
     {
-        $options['api'] = array('type' => 'choice', 'name' => 'api', 'value' => $this->getParamsValue($this->params, 'api'), 'choices' => array('deezer' => 'Deezer', 'spotify' => 'spotify'));
-        return $options;
-    }
-    
-    public function getParams()
-    {
-        return $this->params;
+        $this->options['api'] = array('type' => 'choice', 'name' => 'api', 'value' => $this->getParamsValue($this->params, 'api'), 'choices' => array('deezer' => 'Deezer', 'spotify' => 'spotify'));
+        return $this->options;
     }
 }

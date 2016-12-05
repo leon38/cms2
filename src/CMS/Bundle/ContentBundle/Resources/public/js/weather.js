@@ -2,7 +2,7 @@
  * Created by DCA on 04/08/2016.
  */
 function getWeather() {
-    var ville = document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_meteo_ville").value;
+    var ville = document.getElementById("content_fieldValuesTemp_meteo_ville").value;
     console.log(ville);
     $.ajax({
         url: Routing.generate("weather_ajax", {'city': ville}),

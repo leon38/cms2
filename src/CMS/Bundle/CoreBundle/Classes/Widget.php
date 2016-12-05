@@ -55,7 +55,7 @@ class Widget
     
     public function getName()
     {
-        return '';
+        return get_class($this);
     }
     
     public function setName($name)
@@ -105,6 +105,20 @@ class Widget
                 }
                 break;
         }
+    }
+    
+    public function getOptions()
+    {
+        return array();
+    }
+    
+    public function addScript($path)
+    {
+        $session = $this->getContainer()->get('session');
+        $scripts = $session->get('scripts');
+        $scripts[] = $path;
+        $scripts = array_unique($scripts, SORT_STRING);
+        $session->set('scripts', $scripts);
     }
     
 }

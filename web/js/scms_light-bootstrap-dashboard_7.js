@@ -30,7 +30,7 @@ $(document).ready(function(){
     $sidebar = $('.sidebar');
 
     // check if there is an image set for the sidebar's background
-    lbd.checkSidebarImage();
+    //lbd.checkSidebarImage();
 
     // Init navigation toggle for small screens
     if(window_width <= 991){

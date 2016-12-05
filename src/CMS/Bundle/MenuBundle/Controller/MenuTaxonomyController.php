@@ -165,7 +165,7 @@ class MenuTaxonomyController extends Controller
         $positions = unserialize($this->get('cms.core.option_manager')->get('positions', 'N;'));
         $positions = array_combine($positions, $positions);
         $form = $this->createForm(
-            new MenuTaxonomyType(),
+            MenuTaxonomyType::class,
             $entity,
             array(
                 'action' => $this->generateUrl('admin_menutaxonomy_update', array('id' => $entity->getId())),

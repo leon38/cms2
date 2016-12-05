@@ -8,11 +8,12 @@
 
 namespace CMS\Bundle\CoreBundle\Form\Extension;
 
+use CMS\Bundle\CoreBundle\Form\Type\ImageType;
 use Symfony\Component\Form\AbstractTypeExtension;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageTypeExtension extends AbstractTypeExtension
 {
@@ -23,19 +24,20 @@ class ImageTypeExtension extends AbstractTypeExtension
    */
   public function getExtendedType()
   {
-    return 'image';
+    return ImageType::class;
   }
 
   /**
    * Ajoute l'option image_path
    *
-   * @param \Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver
+   * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
    */
-  public function setDefaultOptions(OptionsResolverInterface $resolver)
+  public function configureOptions(OptionsResolver $resolver)
   {
-    $resolver->setOptional(array('image_path'));
-    $resolver->setOptional(array('image_size'));
-    $resolver->setOptional(array('class_thumb'));
+    $resolver->setDefined(array('image_path'));
+    $resolver->setDefined(array('class'));
+    $resolver->setDefined(array('image_size'));
+    $resolver->setDefined(array('class_thumb'));
   }
 
   /**
@@ -63,7 +65,6 @@ class ImageTypeExtension extends AbstractTypeExtension
           $tmp_options = $parentData->getOptions();
 
           foreach($tmp_options as $option) {
-              dump($option);
             if ($option->getType() == 'image' && is_object($option->getOptionValue()) && is_object($options['data']) && $option->getOptionValue()->getId() == $options['data']->getId()) {
               $imageUrl = $option->getOptionValue()->getWebPath();
               break;

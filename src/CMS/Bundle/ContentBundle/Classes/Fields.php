@@ -1,14 +1,39 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Classes;
 
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Templating\EngineInterface;
 
 class Fields
 {
-  
+    /**
+     * @var EngineInterface $templating
+     */
     protected $templating;
-  
-  
+    
+    /**
+     * @var array $params
+     */
+    protected $params;
+    
+    /**
+     * @var array $options
+     */
+    protected $options;
+    
+    /**
+     * @var string $type
+     */
+    protected $type;
+    
+    public function __construct()
+    {
+        $this->type = TextType::class;
+        $this->params = array();
+    }
+    
+    
+    
     public function getParamsValue($params, $name, $type="default", $option=null)
     {
         switch ($type) {
@@ -40,6 +65,11 @@ class Fields
     public function setParams($params)
     {
         $this->params = $params;
+    }
+    
+    public function getOptions()
+    {
+        return $this->options;
     }
     
     public function setTemplating(EngineInterface $templating) {
