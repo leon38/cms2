@@ -156,3 +156,9 @@ liip_imagine:
             quality: 90
             filters:
                 thumbnail: {size: [800, 550], mode: outbound }
+
+content:
+    consumer_key: PqlXpURv8lReo0sLCBHHxLToR
+    consumer_secret: YQ1QBokY7afzfUNc1ENCHMRuiNTUgWXpPMsAFDbBMzESxETqUg
+    access_token: 17425459-dDEqdU9dB4FHv7PMN6wohgO1ZuTwVGgBt4QOra494
+    access_token_secret: YKnzZvQn9rNJet0x1J8sUbMo6JqUcUCwjPL710EcHtS0N

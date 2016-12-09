@@ -23,7 +23,14 @@ class Configuration implements ConfigurationInterface
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
-
+        $rootNode
+            ->children()
+                ->scalarNode('consumer_key')->cannotBeEmpty()->end()
+                ->scalarNode('consumer_secret')->cannotBeEmpty()->end()
+                ->scalarNode('access_token')->cannotBeEmpty()->end()
+                ->scalarNode('access_token_secret')->cannotBeEmpty()->end()
+            ->end();
+        
         return $treeBuilder;
     }
 }

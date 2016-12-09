@@ -13,6 +13,8 @@ admin_content:
             name: cms.content.content_taxonomy
         admin_field:
             name: cms.content.field
+        admin_meta_index:
+            name: cms.content.meta
 admin_media_index:
     name: cms.media.media
     icon: pe-7s-photo

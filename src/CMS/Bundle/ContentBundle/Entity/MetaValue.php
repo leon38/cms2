@@ -21,22 +21,23 @@ class MetaValue
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="metavalues", cascade={"persist", "remove"})
      */
     private $content;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="metavalues", cascade={"persist", "remove"})
      */
     private $category;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Meta", inversedBy="metavalues")
+     * @ORM\OrderBy(value={"meta_order"= "ASC"})
      */
     private $meta;
-    
+
     /**
      * @var string value
      *

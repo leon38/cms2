@@ -8,7 +8,7 @@
 
 namespace CMS\Bundle\ContentBundle\Event;
 
-use CMS\Bundle\ContentBundle\Entity\FieldValue;
+use CMS\Bundle\ContentBundle\Classes\TwitterAPIExchange;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,14 +17,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ContentSubscriber implements EventSubscriberInterface
 {
-    
+
     public static function getSubscribedEvents()
     {
         return array(
             ContentSavedEvent::NAME => 'onContentSaved',
         );
     }
-    
+
     /**
      * @param \CMS\Bundle\ContentBundle\Event\ContentSavedEvent $event
      *
@@ -35,8 +35,20 @@ class ContentSubscriber implements EventSubscriberInterface
         $content = $event->getContent();
         $desc = $content->getDescription();
         $nb_words = str_word_count($desc);
-        
+
         $temps = ceil($nb_words / 250); // 250 mots en 1 minute
         $content->setTempsLecture($temps);
+
+        $chapo = $content->getFieldValue('chapo');
+        if (strlen($chapo) <= 140) {
+            $apiTwitter = new TwitterAPIExchange($event->getSettings());
+            $url = "https://api.twitter.com/1.1/statuses/update.json";
+            $requestMethod = "POST";
+
+            $apiTwitter->buildOauth($url, $requestMethod)
+                ->setPostfields(array('status' => $chapo))
+                ->performRequest();
+        }
+
     }
 }

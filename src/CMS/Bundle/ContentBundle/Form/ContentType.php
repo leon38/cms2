@@ -40,7 +40,7 @@ class ContentType extends AbstractType
                     'attr' => array('class' => 'summernote')
                 )
             )
-            ->add('chapo', TextareaType::class, array('label' => 'cms.content.chapo'))
+            ->add('chapo', TextareaType::class, array('label' => 'cms.content.chapo', 'attr' => array('class' => 'count_chars'), 'help' => ''))
             ->add('published', ChoiceType::class, array(
                     'label' => 'cms.content.status.status',
                     'choices' => array(

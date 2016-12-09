@@ -21,11 +21,20 @@ class ContentSavedEvent extends Event
 {
     const NAME = 'content.saved';
     
+    /**
+     * @var \CMS\Bundle\ContentBundle\Entity\Content
+     */
     protected $content;
     
-    public function __construct(Content $content)
+    /**
+     * @var array settings for twitter api exchange
+     */
+    protected $settings;
+    
+    public function __construct(Content $content, $settings)
     {
         $this->content = $content;
+        $this->settings = $settings;
     }
     
     public function getContent()
@@ -33,5 +42,8 @@ class ContentSavedEvent extends Event
         return $this->content;
     }
     
-    
+    public function getSettings()
+    {
+        return $this->settings;
+    }
 }

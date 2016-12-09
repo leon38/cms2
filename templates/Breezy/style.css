@@ -1046,6 +1046,11 @@ body.search-open .search-form-area {
 /*********************
  * Footer
  *********************/
+.instagram-flow {
+    height: 317px;
+    overflow: hidden;
+}
+
 .instagram-flow div {
     width: 16.66666667%;
     float: left;

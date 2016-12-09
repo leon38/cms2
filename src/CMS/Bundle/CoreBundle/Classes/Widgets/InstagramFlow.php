@@ -51,7 +51,6 @@ class InstagramFlow extends Widget
             } else {
                 $medias = $instagram->getCurrentUser()->getMedia(['count' => 100]);
             }
-            
         } catch(Exception $e) {
             die($e->getMessage());
         }

@@ -67,6 +67,12 @@ class Meta
      * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="meta", cascade={"remove"})
      */
     private $metavalues;
+    
+    /**
+     * @var int order
+     * @ORM\Column(name="meta_order", type="integer")
+     */
+    private $order;
 
     
     /**
@@ -263,5 +269,21 @@ class Meta
     public function getAlias()
     {
         return $this->alias;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+    
+    /**
+     * @param int $order
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
     }
 }

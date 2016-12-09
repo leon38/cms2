@@ -29,6 +29,16 @@
         </div>
         <div class="card">
             <div class="header">
+                <h4 class="title">Meta <a data-toggle="collapse" href="#collapseMetas" class="pull-right"><i
+                                class="fa fa-angle-down"></i></a></h4>
+            </div>
+            <div id="collapseMetas" class="content collapse in" aria-expanded="true">
+                {{ form_row(edit_form.metaValuesTemp) }}
+            </div>
+            <div class="footer"></div>
+        </div>
+        <div class="card">
+            <div class="header">
                 <h4 class="title">{{ 'cms.content.languages'|trans }} <a data-toggle="collapse" href="#collapseLanguage"
                                                                          class="pull-right"><i
                                 class="fa fa-angle-down"></i></a></h4>
@@ -72,3 +82,6 @@
     </div>
     {{ form_end(edit_form) }}
 {% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="{{ asset('/bundles/content/js/content.js') }}"></script>
+{% endblock javascript %}

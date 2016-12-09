@@ -26,6 +26,7 @@ cms.content.content_taxonomy: 'Type de contenu'
 cms.content.field: Champ
 cms.content.author: Auteur
 cms.content.image: Image
+cms.content.meta: Metadata
 CHOOSE_FIELD_TYPE: 'Choisissez le type de champ'
 Close: Fermer
 New: Nouveau

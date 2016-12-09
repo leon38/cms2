@@ -11,20 +11,12 @@ class ExtraMetas
     {
         $html = null;
 
-
-        $metas = $repository->findBy(array('published' => 1));
+        $metas = $repository->findBy(array('published' => 1), array('order' => 'ASC'));
         return $metas;
-        // foreach($metas as $meta) {
-        //     if($meta->getPublished() && strpos($meta->getValue(), "%s") !== false)
-        //         $html .= $meta->displayMetaInForm();
-        // }
-
-        // return $html;
     }
 
     public static function loadEditMetas($content, $controller)
     {
-        $html = '';
         $metas = $controller->getDoctrine()->getRepository('ContentBundle:Meta')->findBy(array('published' => 1));
         $metas_res = array();
         foreach ($metas as $meta) {
@@ -41,11 +33,6 @@ class ExtraMetas
             if (!$display_elem) {
                 $metas_res['meta'][$meta->getId()] = $meta;
             }
-            // if (!$display_elem) {
-            //     if ($meta->getPublished()) {
-            //         $html .= $meta->displayMetaInform();
-            //     }
-            // }
         }
         return $metas_res;
     }

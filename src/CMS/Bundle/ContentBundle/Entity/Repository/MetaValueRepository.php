@@ -12,17 +12,18 @@ use CMS\Bundle\ContentBundle\Entity\Content;
  */
 class MetaValueRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+
     public function findMetavalueByContent(Content $content)
     {
         return $this->_em
-            ->createQueryBuilder('mv')
+            ->createQueryBuilder()
             ->select('mv, m, c')
             ->from('ContentBundle:MetaValue', 'mv')
             ->join('mv.content', 'c')
             ->join('mv.meta', 'm')
             ->where('mv.content = :content')
             ->setParameter('content', $content)
+            ->orderBy('m.order', 'ASC')
             ->getQuery()
             ->getResult();
     }

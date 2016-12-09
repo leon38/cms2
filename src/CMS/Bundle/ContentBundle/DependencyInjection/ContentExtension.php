@@ -24,5 +24,10 @@ class ContentExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('content.consumer_key', $config['consumer_key']);
+        $container->setParameter('content.consumer_secret', $config['consumer_secret']);
+        $container->setParameter('content.access_token', $config['access_token']);
+        $container->setParameter('content.access_token_secret', $config['access_token_secret']);
     }
 }

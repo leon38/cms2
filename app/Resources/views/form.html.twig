@@ -260,6 +260,9 @@
 {% block textarea_widget -%}
     {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control')|trim}) %}
     {{- parent() -}}
+    {% if help is defined %}
+        <div class="help">{{ help }}</div>
+    {% endif %}
 {%- endblock textarea_widget %}
 
 {% block button_widget -%}

@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\ContentBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -26,7 +27,7 @@ class MetaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $metas = $em->getRepository('ContentBundle:Meta')->findAll();
+        $metas = $em->getRepository('ContentBundle:Meta')->findBy(array(), array('order' => 'ASC'));
 
         return $this->render('ContentBundle:Meta:index.html.twig', array(
             'metas' => $metas,
@@ -50,6 +51,9 @@ class MetaController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $last = $this->getDoctrine()->getRepository('ContentBundle:Meta')->findOneBy(array(), array('order' => 'DESC'));
+            $last_order = $last->getOrder() + 1;
+            $metum->setOrder($last_order);
             $em->persist($metum);
             $em->flush();
 
@@ -105,6 +109,41 @@ class MetaController extends Controller
         $em->remove($metum);
         $em->flush();
 
+        return $this->redirectToRoute('admin_meta_index');
+    }
+    
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/order/update", name="admin_meta_order")
+     * @Method("POST")
+     */
+    public function updateOrder(Request $request)
+    {
+        $ids = $request->request->get('order');
+        $ids = explode(",", $ids);
+        $order = 1;
+        $em = $this->getDoctrine()->getManager();
+        foreach($ids as $id) {
+            $meta = $this->getDoctrine()->getRepository('ContentBundle:Meta')->find($id);
+            dump($meta);
+            if ($meta == null) {
+                $this->get('session')->getFlashBag()->add(
+                    'error',
+                    'cms.content.meta.order.error'
+                );
+                return $this->redirectToRoute('admin_meta_index');
+            }
+            $meta->setOrder($order);
+            $em->persist($meta);
+            $order++;
+        }
+        $em->flush();
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'cms.content.meta.order.success'
+        );
         return $this->redirectToRoute('admin_meta_index');
     }
 }

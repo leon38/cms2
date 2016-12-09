@@ -132,6 +132,8 @@ class CategoryController extends Controller
     
     /**
      * Displays a form to edit an existing Category entity.
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/{id}/edit", name="admin_category_edit")
      * @Method("GET")
