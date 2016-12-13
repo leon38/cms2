@@ -25,14 +25,14 @@ class Content
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @JMS\Expose
      * @JMS\Type("string")
      * @ORM\Column(name="title", type="string", length=255)
      */
     private $title;
-    
+
     /**
      * @var string $description
      * @JMS\Expose
@@ -40,19 +40,19 @@ class Content
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     private $description;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\Language")
      * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
      */
     private $language;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="ContentTaxonomy", inversedBy="contents", cascade={"persist"})
      * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
      */
     private $taxonomy;
-    
+
     /**
      * @JMS\Expose
      * @JMS\Type("ArrayCollection")
@@ -60,7 +60,7 @@ class Content
      * @ORM\JoinTable(name="categories_contents")
      */
     private $categories;
-    
+
     /**
      * @var \DateTime $created
      * @JMS\Expose
@@ -69,7 +69,7 @@ class Content
      * @ORM\Column(name="created", type="datetime")
      */
     private $created;
-    
+
     /**
      * @var \DateTime $modified
      *
@@ -77,14 +77,14 @@ class Content
      * @ORM\Column(name="modified", type="datetime")
      */
     private $modified;
-    
+
     /**
      * @var boolean $published
      *
      * @ORM\Column(name="published", type="boolean")
      */
     private $published;
-    
+
     /**
      * @var string url
      * @JMS\Expose
@@ -92,29 +92,29 @@ class Content
      * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
     private $url;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="Content", mappedBy="referenceContent")
      * @JMS\Expose()
      */
     private $translations;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="translations")
      * @ORM\JoinColumn(name="reference_id", referencedColumnName="id")
      */
     private $referenceContent;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="FieldValue", mappedBy="content", cascade={"remove", "persist"}, indexBy="id", fetch="EAGER")
      */
     private $fieldvalues;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content", cascade={"remove", "persist"})
      */
     private $metavalues;
-    
+
     /**
      * @JMS\Expose
      * @JMS\Type("CMS\Bundle\CoreBundle\Entity\User")
@@ -122,7 +122,7 @@ class Content
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
     private $author;
-    
+
     /**
      * @var Media
      *
@@ -130,48 +130,48 @@ class Content
      * @ORM\JoinColumn(name="thumbnail", referencedColumnName="id")
      */
     private $thumbnail;
-    
+
     /**
      * @Assert\File(maxSize="6000000")
      */
     private $file;
-    
+
     /**
      * @var Boolean $featured
      *
      * @ORM\Column(name="featured", type="boolean")
      */
     private $featured = false;
-    
+
     /**
      * @var float $temps_lecture Temps de lecture de l'article
      *
      * @ORM\Column(name="temps_lecture", type="float")
      */
     private $temps_lecture;
-    
+
     /**
      * @JMS\Expose
      * @JMS\Type("boolean")
      */
     private $hasThumbnail;
-    
+
     /**
      * @var String $chapo
      *
      * @ORM\Column(name="chapo", type="text")
      */
     private $chapo;
-    
+
     private $temp;
-    
-    
+
+
     private $fieldValuesTemp;
     public $fieldValuesHtml;
     private $metaValuesTemp;
-    
-    
-    
+
+
+
     /**
      * Constructor
      */
@@ -181,21 +181,21 @@ class Content
         // $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fieldvalues = new ArrayCollection();
         $this->metavalues = new ArrayCollection();
-        
+
     }
-    
+
     /**
      * @ORM\PostLoad()
      */
     public function postLoad()
     {
         $nb_fields = count($this->fieldvalues);
-        
+
         for ($i=0; $i < $nb_fields; $i++) {
            $this->fieldvalues[$i]->setValue(@unserialize($this->fieldvalues[$i]->getValue()));
         }
     }
-    
+
     /**
      * @return string
      */
@@ -203,12 +203,12 @@ class Content
     {
         return $this->title;
     }
-    
+
     public function getAbsolutePath()
     {
         return null === $this->thumbnail ? null : $this->getUploadRootDir().$this->thumbnail;
     }
-    
+
     /**
      * @return mixed
      */
@@ -216,20 +216,20 @@ class Content
     {
         return null === $this->thumbnail ? null : $this->thumbnail->getWebPath();
     }
-    
+
     protected function getUploadRootDir()
     {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
-    
+
     protected function getUploadDir()
     {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
         return 'uploads/thumbs/';
     }
-    
+
     /**
      * @ORM\PostPersist()
      * @ORM\PostUpdate()
@@ -239,12 +239,12 @@ class Content
         if (null === $this->getFile()) {
             return;
         }
-        
+
         // if there is an error when moving the file, an exception will
         // be automatically thrown by move(). This will properly prevent
         // the entity from being persisted to the database on error
         $this->getFile()->move($this->getUploadRootDir().date('Y').'/'.date('m'), $this->path);
-        
+
         // check if we have an old image
         if (isset($this->temp)) {
             // delete the old image
@@ -254,7 +254,7 @@ class Content
         }
         $this->file = null;
     }
-    
+
     /**
      * @ORM\PostRemove()
      */
@@ -265,7 +265,7 @@ class Content
             unlink($file);
         }*/
     }
-    
+
     /**
      * Sets file.
      *
@@ -283,7 +283,7 @@ class Content
             $this->path = 'initial';
         }
     }
-    
+
     /**
      * Get file.
      *
@@ -293,7 +293,7 @@ class Content
     {
         return $this->file;
     }
-    
+
     /**
      * Get id
      *
@@ -303,7 +303,7 @@ class Content
     {
         return $this->id;
     }
-    
+
     /**
      * Set title
      *
@@ -313,10 +313,10 @@ class Content
     public function setTitle($title)
     {
         $this->title = $title;
-        
+
         return $this;
     }
-    
+
     /**
      * Get title
      *
@@ -326,7 +326,7 @@ class Content
     {
         return $this->title;
     }
-    
+
     /**
      * Set description
      *
@@ -336,10 +336,10 @@ class Content
     public function setDescription($description)
     {
         $this->description = $description;
-        
+
         return $this;
     }
-    
+
     /**
      * Get description
      *
@@ -349,7 +349,7 @@ class Content
     {
         return $this->description;
     }
-    
+
     /**
      * Set created
      *
@@ -359,10 +359,10 @@ class Content
     public function setCreated($created)
     {
         $this->created = $created;
-        
+
         return $this;
     }
-    
+
     /**
      * Get created
      *
@@ -372,7 +372,7 @@ class Content
     {
         return $this->created;
     }
-    
+
     /**
      * Set modified
      *
@@ -382,10 +382,10 @@ class Content
     public function setModified($modified)
     {
         $this->modified = $modified;
-        
+
         return $this;
     }
-    
+
     /**
      * Get modified
      *
@@ -395,7 +395,7 @@ class Content
     {
         return $this->modified;
     }
-    
+
     /**
      * Set published
      *
@@ -405,10 +405,10 @@ class Content
     public function setPublished($published)
     {
         $this->published = $published;
-        
+
         return $this;
     }
-    
+
     /**
      * Get published
      *
@@ -427,7 +427,7 @@ class Content
                 return 'cms.content.status.published';
         }
     }
-    
+
     /**
      * Set url
      *
@@ -437,10 +437,10 @@ class Content
     public function setUrl($url)
     {
         $this->url = $url;
-        
+
         return $this;
     }
-    
+
     /**
      * Get url
      *
@@ -450,7 +450,7 @@ class Content
     {
         return $this->url;
     }
-    
+
     /**
      * Set language
      *
@@ -460,10 +460,10 @@ class Content
     public function setLanguage(\CMS\Bundle\CoreBundle\Entity\Language $language = null)
     {
         $this->language = $language;
-        
+
         return $this;
     }
-    
+
     /**
      * Get language
      *
@@ -473,7 +473,7 @@ class Content
     {
         return $this->language;
     }
-    
+
     /**
      * Set taxonomy
      *
@@ -483,10 +483,10 @@ class Content
     public function setTaxonomy(\CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $taxonomy = null)
     {
         $this->taxonomy = $taxonomy;
-        
+
         return $this;
     }
-    
+
     /**
      * Get taxonomy
      *
@@ -496,7 +496,7 @@ class Content
     {
         return $this->taxonomy;
     }
-    
+
     /**
      * Add categories
      *
@@ -506,10 +506,10 @@ class Content
     public function addCategory(\CMS\Bundle\ContentBundle\Entity\Category $category)
     {
         $this->categories[] = $category;
-        
+
         return $this;
     }
-    
+
     /**
      * Remove categories
      *
@@ -519,7 +519,7 @@ class Content
     {
         $this->categories->removeElement($category);
     }
-    
+
     /**
      * Get categories
      *
@@ -529,7 +529,7 @@ class Content
     {
         return $this->categories;
     }
-    
+
     /**
      * Add translations
      *
@@ -539,10 +539,10 @@ class Content
     public function addTranslation(\CMS\Bundle\ContentBundle\Entity\Content $translations)
     {
         $this->translations[] = $translations;
-        
+
         return $this;
     }
-    
+
     /**
      * Remove translations
      *
@@ -552,7 +552,7 @@ class Content
     {
         $this->translations->removeElement($translation);
     }
-    
+
     /**
      * Get translations
      *
@@ -562,7 +562,7 @@ class Content
     {
         return $this->translations;
     }
-    
+
     /**
      * Set referenceContent
      *
@@ -572,10 +572,10 @@ class Content
     public function setReferenceContent(\CMS\Bundle\ContentBundle\Entity\Content $referenceContent = null)
     {
         $this->referenceContent = $referenceContent;
-        
+
         return $this;
     }
-    
+
     /**
      * Get referenceContent
      *
@@ -585,7 +585,7 @@ class Content
     {
         return $this->referenceContent;
     }
-    
+
     /**
      * Add fieldvalues
      *
@@ -599,10 +599,10 @@ class Content
         } else {
             $this->fieldvalues[] = $fieldvalue;
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Remove fieldvalue
      *
@@ -612,7 +612,7 @@ class Content
     {
         $this->fieldvalues->removeElement($fieldvalue);
     }
-    
+
     /**
      * Get fieldvalues
      *
@@ -622,14 +622,14 @@ class Content
     {
         return $this->fieldvalues;
     }
-    
+
     public function setFieldvalues(ArrayCollection $fieldvalues)
     {
         $this->fieldvalues = $fieldvalues;
-        
+
         return $this;
     }
-    
+
     /**
      * Add metavalues
      *
@@ -639,10 +639,10 @@ class Content
     public function addMetavalue(MetaValue $metavalue)
     {
         $this->metavalues[] = $metavalue;
-        
+
         return $this;
     }
-    
+
     /**
      * Remove metavalue
      *
@@ -652,14 +652,14 @@ class Content
     {
         $this->metavalues->removeElement($metavalue);
     }
-    
+
     public function setMetavalues(ArrayCollection $metavalues)
     {
         $this->metavalues = $metavalues;
-        
+
         return $this;
     }
-    
+
     /**
      * Get metavalues
      *
@@ -669,7 +669,7 @@ class Content
     {
         return $this->metavalues;
     }
-    
+
     /**
      * @param $name
      * @return mixed|null
@@ -683,7 +683,7 @@ class Content
                 }
             }
         }
-        
+
         if (is_array($this->getMetavalues())) {
             foreach ($this->getMetavalues() as $metavalue) {
                 if ($metavalue->getMeta()->getName() == $name) {
@@ -691,10 +691,10 @@ class Content
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * @param string $name
      * @return String
@@ -709,20 +709,21 @@ class Content
         }
         return null;
     }
-    
+
     public function get($name)
     {
         if (isset($this->fieldValuesHtml[$name])) {
             return $this->fieldValuesHtml[$name];
         }
-        
+
         foreach ($this->getMetavalues() as $metavalue) {
             if ($metavalue->getMeta()->getName() == $name) {
                 return $metavalue;
             }
         }
+        return false;
     }
-    
+
     public function __set($name, $value)
     {
         if (is_array($this->getMetavalues())) {
@@ -733,29 +734,29 @@ class Content
             }
         }
     }
-    
-    
+
+
     public function getMetaValuesTemp()
     {
         return $this->metaValuesTemp;
     }
-    
+
     public function setMetaValuesTemp($metaValuesTemp)
     {
         $this->metaValuesTemp = $metaValuesTemp;
     }
-    
-    
+
+
     public function getFieldValuesTemp()
     {
         return $this->fieldValuesTemp;
     }
-    
+
     public function setFieldValuesTemp($fieldValuesTemp)
     {
         $this->fieldValuesTemp = $fieldValuesTemp;
     }
-    
+
     /**
      * Set author
      *
@@ -766,10 +767,10 @@ class Content
     public function setAuthor(\CMS\Bundle\CoreBundle\Entity\User $author = null)
     {
         $this->author = $author;
-        
+
         return $this;
     }
-    
+
     /**
      * Get author
      *
@@ -779,7 +780,7 @@ class Content
     {
         return $this->author;
     }
-    
+
     /**
      * Set thumbnail
      *
@@ -790,10 +791,10 @@ class Content
     public function setThumbnail($thumbnail)
     {
         $this->thumbnail = $thumbnail;
-        
+
         return $this;
     }
-    
+
     /**
      * Get thumbnail
      *
@@ -803,22 +804,22 @@ class Content
     {
         return $this->thumbnail;
     }
-    
+
     public function getPermalink()
     {
         return "/".$this->url;
     }
-    
+
     /**
      * @ORM\PostLoad()
      */
     public function getHasThumbnail()
     {
         $this->hasThumbnail = ($this->thumbnail != '');
-        
+
         return $this->hasThumbnail;
     }
-    
+
     /**
      * @JMS\VirtualProperty
      * @JMS\SerializedName("fields")
@@ -831,20 +832,20 @@ class Content
         foreach ($this->fieldvalues as $fieldvalue) {
             $res[$fieldvalue->getField()->getName()] = $fieldvalue->getValue();
         }
-        
+
         return $res;
     }
-    
+
     public function getCategoriesClass()
     {
         $cat_temp = array();
         foreach ($this->categories as $category) {
             $cat_temp[] = $category->getUrl();
         }
-        
+
         return implode(' ', $cat_temp);
     }
-    
+
     /**
      * Renvoie le titre des catégories du contenu
      * séparés par le sépérateur passé en paramètre
@@ -861,7 +862,7 @@ class Content
             $cat_temp[$i] .= $category->getTitle();
             $cat_temp[$i] .= ($link) ? '</a>' : '';
         }
-        
+
         return implode($separator, $cat_temp);
     }
 

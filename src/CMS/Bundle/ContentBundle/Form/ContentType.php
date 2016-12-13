@@ -32,7 +32,7 @@ class ContentType extends AbstractType
             ->add('title', null, array('label' => 'cms.content.title'))
             ->add('url', TextType::class, array(
                     'label' => 'cms.content.alias',
-                    'attr' => array('class' => 'url', 'data-target' => 'tc_bundle_contentbundle_content_title'),
+                    'attr' => array('class' => 'url', 'data-target' => 'content_title'),
                 )
             )
             ->add('description', null, array(
@@ -82,30 +82,30 @@ class ContentType extends AbstractType
             ->add('featured')
             ->add('fieldValuesTemp', null, array('compound' => true, 'label' => ' '))
             ->add('metaValuesTemp', null, array('compound' => true, 'label' => ' '));
-        
+
         $fields = $options['fields'];
         $fieldvalues = $options['fieldvalues'];
-        
+
         // edit
         if (!empty($fieldvalues)) {
             $builder->addEventSubscriber(new AddEditFieldsSubscriber($fieldvalues, $fields));
         } else { // new content
             $builder->addEventSubscriber(new AddNewFieldsSubscriber($fields));
         }
-        
-        
+
+
         $metas = $options['metas'];
         $metavalues = $options['metavalues'];
-        
+
         if (!empty($metavalues)) {
             $builder->addEventSubscriber(new AddEditMetasSubscriber($metavalues, $metas));
         } else { // new content
             $builder->addEventSubscriber(new AddEditMetasSubscriber(array(), $metas));
         }
-    
-        
+
+
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
@@ -123,7 +123,7 @@ class ContentType extends AbstractType
             )
         );
     }
-    
+
     /**
      * @return string
      */

@@ -20,30 +20,47 @@ use Symfony\Component\EventDispatcher\Event;
 class ContentSavedEvent extends Event
 {
     const NAME = 'content.saved';
-    
+
     /**
      * @var \CMS\Bundle\ContentBundle\Entity\Content
      */
     protected $content;
-    
+
     /**
      * @var array settings for twitter api exchange
      */
     protected $settings;
-    
+
+    /**
+     * @var mixed status of the event
+     */
+    protected $status;
+
     public function __construct(Content $content, $settings)
     {
         $this->content = $content;
         $this->settings = $settings;
     }
-    
+
     public function getContent()
     {
         return $this->content;
     }
-    
+
     public function getSettings()
     {
         return $this->settings;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

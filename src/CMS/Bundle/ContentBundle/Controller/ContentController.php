@@ -115,6 +115,8 @@ class ContentController extends Controller
             $subscriber = new ContentSubscriber();
             $dispatcher->addSubscriber($subscriber);
             $dispatcher->dispatch(ContentSavedEvent::NAME, $event);
+
+
             $this->get('cms.content.content_manager')->save($content);
             $this->get('cms.content.content_manager')->saveMeta($content);
 
@@ -418,37 +420,42 @@ class ContentController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('ContentBundle:Content')->find($id);
+        $content = $em->getRepository('ContentBundle:Content')->find($id);
 
-        if (!$entity) {
+        if (!$content) {
             throw $this->createNotFoundException('Unable to find Content entity.');
         }
 
-        $fieldvalues = $em->getRepository('ContentBundle:FieldValue')->findFielvalueByContent($entity);
-        $fields = $em->getRepository('ContentBundle:Field')->findByTaxonomyIndexed($entity->getTaxonomy());
+        $fieldvalues = $em->getRepository('ContentBundle:FieldValue')->findFielvalueByContent($content);
+        $fields = $em->getRepository('ContentBundle:Field')->findByTaxonomyIndexed($content->getTaxonomy());
 
-        $metavalues = $em->getRepository('ContentBundle:MetaValue')->findMetavalueByContent($entity);
+        $metavalues = $em->getRepository('ContentBundle:MetaValue')->findMetavalueByContent($content);
         $metas = $em->getRepository('ContentBundle:Meta')->findByIndexed();
 
-        $editForm = $this->createEditForm($entity, $fields, $fieldvalues, $metas, $metavalues);
+        $editForm = $this->createEditForm($content, $fields, $fieldvalues, $metas, $metavalues);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $current_user = $this->get('security.token_storage')->getToken()->getUser();
-            $entity->setAuthor($current_user);
+            $content->setAuthor($current_user);
 
             $dispatcher = new EventDispatcher();
             $settings = array(
                 'oauth_access_token' => $this->getParameter('content.access_token'),
                 'oauth_access_token_secret' => $this->getParameter('content.access_token_secret'),
                 'consumer_key' => $this->getParameter('content.consumer_key'),
-                'consumer_secret' => $this->getParameter('content.consumer_secret'))
+                'consumer_secret' => $this->getParameter('content.consumer_secret'),
+                'base_url' => $request->getSchemeAndHttpHost())
             ;
-            $event = new ContentSavedEvent($entity, $settings);
+            $event = new ContentSavedEvent($content, $settings);
+            $subscriber = new ContentSubscriber();
+            $dispatcher->addSubscriber($subscriber);
             $dispatcher->dispatch(ContentSavedEvent::NAME, $event);
 
-            $this->get('cms.content.content_manager')->save($entity);
-            $this->get('cms.content.content_manager')->saveMeta($entity);
+            $this->get('cms.content.content_manager')->save($content);
+            $this->get('cms.content.content_manager')->saveMeta($content);
+
+
 
             $this->get('session')->getFlashBag()->add(
                 'success',
@@ -456,7 +463,7 @@ class ContentController extends Controller
             );
 
             if ($editForm->get('submit_stay')->isClicked()) {
-                return $this->redirect($this->generateUrl('admin_content_edit', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('admin_content_edit', array('id' => $content->getId())));
             }
 
             return $this->redirect($this->generateUrl('admin_content'));
@@ -465,7 +472,7 @@ class ContentController extends Controller
         return $this->render(
             'ContentBundle:Content:edit.html.twig',
             array(
-                'entity' => $entity,
+                'entity' => $content,
                 'edit_form' => $editForm->createView(),
             )
         );

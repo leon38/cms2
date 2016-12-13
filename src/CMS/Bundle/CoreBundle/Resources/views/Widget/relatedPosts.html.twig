@@ -6,9 +6,11 @@
     {% for content in contents %}
         <div class="item">
             <div class="related-post-image">
-                <a href="{{ path('front_single', {'alias': content.url}) }}">
-                    <img src="{{ content.thumbnail.webPath|imagine_filter('thumb_related') }}" alt="" class="img-responsive">
-                </a>
+                {% if content.thumbnail is not null %}
+                    <a href="{{ path('front_single', {'alias': content.url}) }}">
+                        <img src="{{ content.thumbnail.webPath|imagine_filter('thumb_related') }}" alt="" class="img-responsive">
+                    </a>
+                {% endif %}
             </div>
             <h3><a href="{{ path('front_single', {'alias': content.url}) }}">{{ content.title }}</a></h3>
             <span class="date">{{ content.created|localizeddate('medium', 'none') }}</span>

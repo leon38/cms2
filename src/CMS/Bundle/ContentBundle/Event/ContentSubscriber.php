@@ -8,7 +8,7 @@
 
 namespace CMS\Bundle\ContentBundle\Event;
 
-use CMS\Bundle\ContentBundle\Classes\TwitterAPIExchange;
+use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -26,9 +26,8 @@ class ContentSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \CMS\Bundle\ContentBundle\Event\ContentSavedEvent $event
-     *
      * Met à jour le temps de lecture
+     * @param \CMS\Bundle\ContentBundle\Event\ContentSavedEvent $event
      */
     public function onContentSaved(ContentSavedEvent $event)
     {
@@ -39,16 +38,39 @@ class ContentSubscriber implements EventSubscriberInterface
         $temps = ceil($nb_words / 250); // 250 mots en 1 minute
         $content->setTempsLecture($temps);
 
-        $chapo = $content->getFieldValue('chapo');
-        if (strlen($chapo) <= 140) {
-            $apiTwitter = new TwitterAPIExchange($event->getSettings());
-            $url = "https://api.twitter.com/1.1/statuses/update.json";
-            $requestMethod = "POST";
+        $settings = $event->getSettings();
 
-            $apiTwitter->buildOauth($url, $requestMethod)
-                ->setPostfields(array('status' => $chapo))
-                ->performRequest();
+        // Remplissage des métas automatiquement
+        $metavaluesTemp = $content->getMetaValuesTemp();
+        foreach($metavaluesTemp as $key => $value) {
+            switch ($key) {
+                case 'meta-description':
+                    if ($value == null) {
+                        $metavaluesTemp[$key] = $content->getChapo();
+                    }
+                    break;
+                case 'meta-title':
+                    if ($value == null) {
+                        $metavaluesTemp[$key] = $content->getTitle();
+                    }
+                    break;
+                case 'canonical':
+                    $metavaluesTemp[$key] = $settings['base_url'].'/'.$content->getUrl().'.html';
+                    break;
+            }
         }
 
+        $content->setMetaValuesTemp($metavaluesTemp);
+
+        $chapo = $content->getChapo();
+        /*if (strlen($chapo) <= 140 && $content->getPublished()) {
+
+            $connection = new TwitterOAuth($settings['consumer_key'], $settings['consumer_secret'], $settings['oauth_access_token'], $settings['oauth_access_token_secret']);
+
+            $status = $connection->post("statuses/update", ["status" => $chapo]);
+            $event->setStatus($status);
+        } else {
+            $event->setStatus(array("status" => false));
+        }*/
     }
 }
