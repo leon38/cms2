@@ -22,10 +22,10 @@ class ApiManager
         $json = curl_exec($session);
         return $json;
     }
-    
+
     public function getCoordinates($city)
     {
-        $BASE_URL = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=".$city;
+        $BASE_URL = "http://maps.google.com/maps/api/geocode/json?sensor=false&address=".urlencode($city);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $BASE_URL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -41,7 +41,7 @@ class ApiManager
             return false;
         }
     }
-    
+
     public function getWeatherDarkSky($city)
     {
         $coords = $this->getCoordinates($city);
@@ -55,12 +55,11 @@ class ApiManager
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $json = curl_exec($ch);
             curl_close($ch);
-            
             return $json;
         }
         return false;
     }
-    
+
     public function getArtistSpotify($query)
     {
         $BASE_URL = 'https://api.spotify.com/v1/search?q='.urlencode($query).'&type=artist';
@@ -75,7 +74,7 @@ class ApiManager
         curl_close($ch);
         return $json;
     }
-    
+
     public function getTopTracksSpotify($id_artist)
     {
         $BASE_URL = "https://api.spotify.com/v1/artists/".$id_artist."/top-tracks?country=FR";
@@ -90,7 +89,7 @@ class ApiManager
         curl_close($ch);
         return $json->tracks;
     }
-    
+
     public function getArtistDeezer($query)
     {
         $BASE_URL = 'http://api.deezer.com/search?q='.urlencode($query);
@@ -105,8 +104,8 @@ class ApiManager
         curl_close($ch);
         return $json->data[0]->artist->tracklist;
     }
-    
-    
+
+
     public function getTopTracksDeezer($url)
     {
         $BASE_URL = $url;
@@ -121,7 +120,7 @@ class ApiManager
         curl_close($ch);
         return $json->data;
     }
-    
+
     public function getTracksPlaylist($id_playlist)
     {
         $BASE_URL = 'http://api.deezer.com/playlist/'.$id_playlist.'/tracks';
@@ -136,18 +135,18 @@ class ApiManager
         curl_close($ch);
         return $json->data;
     }
-    
+
     public function getWithingsRequestToken()
     {
         $oauth_consumer_key = '6b47d7e402c1f402395b550b2de3bfc3bfff8569bb302bfdc81f4decee10';
         $oauth_consumer_secret = '14c61610618c990bbf91edb10c54209314df81d9fbf0c3e2713e7480c860';
         $callback_url = 'http://www.cms2.local/admin/user/dashboard';
         $query = 'oauth_callback='.$callback_url.'&oauth_consumer_key='.$oauth_consumer_key.'&oauth_consumer_secret='.$oauth_consumer_secret.'&oauth_nonce=ac500d5bf8664d3720813652af256bbe&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1479985014&oauth_version=1.0';
-    
+
         header(
                 'Location:https://oauth.withings.com/account/request_token?oauth_callback=http%3A%2F%2Fwww.cms2.local%2Fadmin%2Fuser%2Fdashboard&oauth_consumer_key=6b47d7e402c1f402395b550b2de3bfc3bfff8569bb302bfdc81f4decee10&oauth_nonce=ac500d5bf8664d3720813652af256bbe&oauth_signature=4gUaC6RPHJwMWlC4%2BTGCguGs6Vw%3D&oauth_signature_method=HMAC-SHA1&oauth_version=1.0&oauth_timestamp=1479992249'
         );
-        
+
         exit;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $BASE_URL);

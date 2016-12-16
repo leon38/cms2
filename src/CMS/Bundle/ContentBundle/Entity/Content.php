@@ -1,6 +1,8 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Entity;
 
+use CMS\Bundle\CoreBundle\Entity\Language;
+use CMS\Bundle\CoreBundle\Entity\User;
 use CMS\Bundle\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -31,7 +33,7 @@ class Content
      * @JMS\Type("string")
      * @ORM\Column(name="title", type="string", length=255)
      */
-    private $title;
+    protected $title;
 
     /**
      * @var string $description
@@ -39,27 +41,28 @@ class Content
      * @JMS\Type("string")
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $description;
+    protected $description;
 
     /**
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\Language")
      * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
      */
-    private $language;
+    protected $language;
 
     /**
      * @ORM\ManyToOne(targetEntity="ContentTaxonomy", inversedBy="contents", cascade={"persist"})
      * @ORM\JoinColumn(name="taxonomy_id", referencedColumnName="id")
      */
-    private $taxonomy;
+    protected $taxonomy;
 
     /**
+     * @var ArrayCollection|Category[]
      * @JMS\Expose
      * @JMS\Type("ArrayCollection")
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinTable(name="categories_contents")
      */
-    private $categories;
+    protected $categories;
 
     /**
      * @var \DateTime $created
@@ -68,7 +71,7 @@ class Content
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
     /**
      * @var \DateTime $modified
@@ -76,14 +79,14 @@ class Content
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="modified", type="datetime")
      */
-    private $modified;
+    protected $modified;
 
     /**
      * @var boolean $published
      *
      * @ORM\Column(name="published", type="boolean")
      */
-    private $published;
+    protected $published;
 
     /**
      * @var string url
@@ -91,29 +94,30 @@ class Content
      * @JMS\Type("string")
      * @ORM\Column(name="url", type="string", length=255, unique=true)
      */
-    private $url;
+    protected $url;
 
     /**
+     * @var ArrayCollection|Content[]
      * @ORM\OneToMany(targetEntity="Content", mappedBy="referenceContent")
      * @JMS\Expose()
      */
-    private $translations;
+    protected $translations;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="translations")
      * @ORM\JoinColumn(name="reference_id", referencedColumnName="id")
      */
-    private $referenceContent;
+    protected $referenceContent;
 
     /**
      * @ORM\OneToMany(targetEntity="FieldValue", mappedBy="content", cascade={"remove", "persist"}, indexBy="id", fetch="EAGER")
      */
-    private $fieldvalues;
+    protected $fieldvalues;
 
     /**
      * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content", cascade={"remove", "persist"})
      */
-    private $metavalues;
+    protected $metavalues;
 
     /**
      * @JMS\Expose
@@ -121,7 +125,7 @@ class Content
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\User", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinColumn(name="author", referencedColumnName="id")
      */
-    private $author;
+    protected $author;
 
     /**
      * @var Media
@@ -129,46 +133,52 @@ class Content
      * @ORM\ManyToOne(targetEntity="CMS\Bundle\MediaBundle\Entity\Media")
      * @ORM\JoinColumn(name="thumbnail", referencedColumnName="id")
      */
-    private $thumbnail;
+    protected $thumbnail;
 
     /**
      * @Assert\File(maxSize="6000000")
      */
-    private $file;
+    protected $file;
 
     /**
      * @var Boolean $featured
      *
      * @ORM\Column(name="featured", type="boolean")
      */
-    private $featured = false;
+    protected $featured = false;
 
     /**
      * @var float $temps_lecture Temps de lecture de l'article
      *
      * @ORM\Column(name="temps_lecture", type="float")
      */
-    private $temps_lecture;
+    protected $temps_lecture;
 
     /**
      * @JMS\Expose
      * @JMS\Type("boolean")
      */
-    private $hasThumbnail;
+    protected $hasThumbnail;
 
     /**
      * @var String $chapo
      *
      * @ORM\Column(name="chapo", type="text")
      */
-    private $chapo;
+    protected $chapo;
 
-    private $temp;
+    /**
+     * @var ArrayCollection|Comment[] $comments
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="content")
+     */
+    protected $comments;
+
+    protected $temp;
 
 
-    private $fieldValuesTemp;
+    protected $fieldValuesTemp;
     public $fieldValuesHtml;
-    private $metaValuesTemp;
+    protected $metaValuesTemp;
 
 
 
@@ -177,8 +187,8 @@ class Content
      */
     public function __construct()
     {
-        // $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-        // $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->translations = new ArrayCollection();
         $this->fieldvalues = new ArrayCollection();
         $this->metavalues = new ArrayCollection();
 
@@ -204,66 +214,12 @@ class Content
         return $this->title;
     }
 
-    public function getAbsolutePath()
-    {
-        return null === $this->thumbnail ? null : $this->getUploadRootDir().$this->thumbnail;
-    }
-
     /**
      * @return mixed
      */
     public function getWebPath()
     {
         return null === $this->thumbnail ? null : $this->thumbnail->getWebPath();
-    }
-
-    protected function getUploadRootDir()
-    {
-        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
-        // le document/image dans la vue.
-        return 'uploads/thumbs/';
-    }
-
-    /**
-     * @ORM\PostPersist()
-     * @ORM\PostUpdate()
-     */
-    public function upload()
-    {
-        if (null === $this->getFile()) {
-            return;
-        }
-
-        // if there is an error when moving the file, an exception will
-        // be automatically thrown by move(). This will properly prevent
-        // the entity from being persisted to the database on error
-        $this->getFile()->move($this->getUploadRootDir().date('Y').'/'.date('m'), $this->path);
-
-        // check if we have an old image
-        if (isset($this->temp)) {
-            // delete the old image
-            unlink($this->getUploadRootDir().'/'.$this->temp);
-            // clear the temp image path
-            $this->temp = null;
-        }
-        $this->file = null;
-    }
-
-    /**
-     * @ORM\PostRemove()
-     */
-    public function removeUpload()
-    {
-        $file = $this->getAbsolutePath();
-        /*if ($file) {
-            unlink($file);
-        }*/
     }
 
     /**
@@ -454,10 +410,10 @@ class Content
     /**
      * Set language
      *
-     * @param \CMS\Bundle\CoreBundle\Entity\Language $language
+     * @param Language $language
      * @return Content
      */
-    public function setLanguage(\CMS\Bundle\CoreBundle\Entity\Language $language = null)
+    public function setLanguage(Language $language = null)
     {
         $this->language = $language;
 
@@ -477,10 +433,10 @@ class Content
     /**
      * Set taxonomy
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $taxonomy
+     * @param ContentTaxonomy $taxonomy
      * @return Content
      */
-    public function setTaxonomy(\CMS\Bundle\ContentBundle\Entity\ContentTaxonomy $taxonomy = null)
+    public function setTaxonomy(ContentTaxonomy $taxonomy = null)
     {
         $this->taxonomy = $taxonomy;
 
@@ -500,10 +456,10 @@ class Content
     /**
      * Add categories
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\Category $categories
+     * @param Category $category
      * @return Content
      */
-    public function addCategory(\CMS\Bundle\ContentBundle\Entity\Category $category)
+    public function addCategory(Category $category)
     {
         $this->categories[] = $category;
 
@@ -536,7 +492,7 @@ class Content
      * @param \CMS\Bundle\ContentBundle\Entity\Content $translations
      * @return Content
      */
-    public function addTranslation(\CMS\Bundle\ContentBundle\Entity\Content $translations)
+    public function addTranslation(Content $translations)
     {
         $this->translations[] = $translations;
 
@@ -569,7 +525,7 @@ class Content
      * @param \CMS\Bundle\ContentBundle\Entity\Content $referenceContent
      * @return Content
      */
-    public function setReferenceContent(\CMS\Bundle\ContentBundle\Entity\Content $referenceContent = null)
+    public function setReferenceContent(Content $referenceContent = null)
     {
         $this->referenceContent = $referenceContent;
 
@@ -589,8 +545,9 @@ class Content
     /**
      * Add fieldvalues
      *
-     * @param FieldValue $fieldvalues
+     * @param FieldValue $fieldvalue
      * @return Content
+     * @internal param FieldValue $fieldvalues
      */
     public function addFieldvalue(FieldValue $fieldvalue)
     {
@@ -633,8 +590,9 @@ class Content
     /**
      * Add metavalues
      *
-     * @param MetaValue $metavalues
+     * @param MetaValue $metavalue
      * @return Content
+     * @internal param MetaValue $metavalues
      */
     public function addMetavalue(MetaValue $metavalue)
     {
@@ -760,11 +718,11 @@ class Content
     /**
      * Set author
      *
-     * @param \CMS\Bundle\CoreBundle\Entity\User $author
+     * @param User $author
      *
      * @return Content
      */
-    public function setAuthor(\CMS\Bundle\CoreBundle\Entity\User $author = null)
+    public function setAuthor(User $author = null)
     {
         $this->author = $author;
 
@@ -774,7 +732,7 @@ class Content
     /**
      * Get author
      *
-     * @return \CMS\Bundle\CoreBundle\Entity\User
+     * @return User
      */
     public function getAuthor()
     {
@@ -836,6 +794,10 @@ class Content
         return $res;
     }
 
+    /**
+     * @internal Category $category
+     * @return string
+     */
     public function getCategoriesClass()
     {
         $cat_temp = array();
@@ -851,6 +813,7 @@ class Content
      * séparés par le sépérateur passé en paramètre
      *
      * @param string $separator
+     * @param bool $link
      * @return string
      */
     public function getCategoriesArticle($separator = ' / ', $link = false)

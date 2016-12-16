@@ -32,7 +32,7 @@ class BooleanField extends Fields
     {
         return 'BooleanField';
     }
-    
+
     /**
      * @return array
      */

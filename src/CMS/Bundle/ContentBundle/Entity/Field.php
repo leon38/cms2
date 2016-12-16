@@ -302,6 +302,10 @@ class Field
         return $this->fieldvalues;
     }
 
+    /**
+     * @param $name
+     * @return String|null
+     */
     public function __get($name)
     {
         if(is_object($this->getField())) {
@@ -311,8 +315,14 @@ class Field
                 }
             }
         }
+        return null;
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return $this|null
+     */
     public function __set($name, $value)
     {
         if(is_array($this->getField()->getOptions())) {
@@ -323,6 +333,7 @@ class Field
                 }
             }
         }
+        return null;
     }
 
     public function __toString()

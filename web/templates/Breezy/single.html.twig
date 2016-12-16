@@ -7,8 +7,12 @@
                 <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
                      alt="{{ content.thumbnail.metas['alt_1'] }}"
                      title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive"/>
+                <div class="blurred">
+                    <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
+                         alt="{{ content.thumbnail.metas['alt_1'] }}"
+                         title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive"/>
+                </div>
                 {% endif %}
-                <div class="blurred"></div>
             </div>
             <div class="post-entry full">
                 <div class="post-header">

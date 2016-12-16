@@ -9,15 +9,15 @@ use CMS\Bundle\ContentBundle\Entity\FieldValue;
 
 class ContentManager
 {
-    
+
     private $em;
-    
+
     public function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
-    
-    
+
+
     /**
      * Sauvegarde les catégories et les valeurs des métas
      * @param  Content $content Contenu à sauvegarder
@@ -25,21 +25,21 @@ class ContentManager
      */
     public function save(Content $content)
     {
-        
+
         $content->setTaxonomy($content->getTaxonomy());
         $content->setReferenceContent($content);
         if (empty($content->getThumbnail())) {
             $content->setThumbnail(null);
         }
-        
-        
+
+
         if (!empty($content->getFieldValuesTemp())) {
             foreach ($content->getFieldValuesTemp() as $fieldname => $value) {
                 $field = $this->em->getRepository('ContentBundle:Field')->findOneBy(array('name' => $fieldname));
                 $fieldvalue = $this->em->getRepository('ContentBundle:FieldValue')->findOneBy(
                     array('content' => $content, 'field' => $field)
                 );
-                
+
                 if ($field->getType() == 'KMLField') {
                     if ($value != null) {
                         $filename  = $value->getClientOriginalName();
@@ -48,7 +48,11 @@ class ContentManager
                     }
                 }
                 if ($fieldvalue !== null) {
-                    $fieldvalue->setValue($value);
+                    if ($field->getType() == 'KMLField' && $value != null) {
+                        $fieldvalue->setValue($value);
+                    } else if ($field->getType() != 'KMLField') {
+                        $fieldvalue->setValue($value);
+                    }
                 } else {
                     $fieldvalue = new FieldValue();
                     $fieldvalue->setContent($content);
@@ -60,13 +64,13 @@ class ContentManager
                 $this->em->flush();
             }
         }
-        
+
         $this->em->persist($content);
         $this->em->flush();
-        
+
         return true;
     }
-    
+
     public function saveMeta($content)
     {
         if (!empty($content->getMetaValuesTemp())) {
@@ -84,7 +88,7 @@ class ContentManager
                     $metavalueObj->setValue($metavalue);
                     $content->addMetaValue($metavalueObj);
                 }
-                
+
                 $this->em->persist($metavalueObj);
                 $this->em->flush();
             }
@@ -92,7 +96,7 @@ class ContentManager
         $this->em->persist($content);
         $this->em->flush();
     }
-    
+
     public function update(Content $content)
     {
         if (empty($content->getThumbnail())) {

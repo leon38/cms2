@@ -18,12 +18,14 @@ class FieldValue
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="fieldvalues", cascade={"persist", "remove"})
      */
     private $content;
+
     /**
+     * @var Field $field
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldvalues")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldvalues", fetch="EAGER")
      */
     private $field;
-    
+
     /**
      * @var string value
      *
@@ -39,19 +41,13 @@ class FieldValue
     {
         $this->value = serialize($this->value);
     }
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->fieldsvalue = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+
+
     /**
      * Set value
      *
      * @param  string       $value
-     * @return CMFieldValue
+     * @return FieldValue
      */
     public function setValue($value)
     {
@@ -70,8 +66,8 @@ class FieldValue
     /**
      * Set content
      *
-     * @param  \CMS\ContentBundle\Entity\CMContent $content
-     * @return CMFieldValue
+     * @param  Content $content
+     * @return FieldValue
      */
     public function setContent(Content $content)
     {
@@ -82,7 +78,7 @@ class FieldValue
     /**
      * Get content
      *
-     * @return \CMS\ContentBundle\Entity\Content
+     * @return Content
      */
     public function getContent()
     {
@@ -91,7 +87,7 @@ class FieldValue
     /**
      * Set field
      *
-     * @param  \CMS\ContentBundle\Entity\Field $field
+     * @param  Field $field
      * @return FieldValue
      */
     public function setField(Field $field)
@@ -102,12 +98,13 @@ class FieldValue
     /**
      * Get field
      *
-     * @return \CMS\ContentBundle\Entity\Field
+     * @return Field
      */
     public function getField()
     {
         return $this->field;
     }
+
     public function __toString() {
         return (string)$this->value;
     }

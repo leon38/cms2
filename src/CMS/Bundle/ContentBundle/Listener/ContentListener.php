@@ -1,11 +1,17 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Listener;
 
-use CMS\Bundle\ContentBundle\Classes\EXIFParser;
 use CMS\Bundle\ContentBundle\Classes\TCXParser;
+use CMS\Bundle\ContentBundle\Entity\Fields\GalleryField;
+use CMS\Bundle\ContentBundle\Entity\Fields\KMLField;
+use CMS\Bundle\ContentBundle\Entity\Fields\MusicField;
+use CMS\Bundle\ContentBundle\Form\Type\GalleryType;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use CMS\Bundle\ContentBundle\Entity\Content;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\File;
 
 
@@ -24,22 +30,24 @@ class ContentListener
 
     public function postLoad(Content $content, LifecycleEventArgs $args)
     {
+        $content = $args->getEntity();
         $fieldvalues = $content->getFieldValues();
 
         foreach($fieldvalues as $fieldvalue) {
-            if ($fieldvalue->getField()->getField()->getTypeField() != 'text' && $fieldvalue->getField()->getField()->getTypeField() != 'Date') {
-                $type = $fieldvalue->getField()->getField()->getTypeField();
+            if ($fieldvalue->getField()->getField()->getTypeField() != TextType::class && $fieldvalue->getField()->getField()->getTypeField() != DateType::class) {
+                $typeField = $fieldvalue->getField()->getField()->getTypeField();
+                $type = $fieldvalue->getField()->getField()->getType();
                 $value = $fieldvalue->getValue();
                 if ($type == 'music') {
                     $params = $fieldvalue->getField()->getField()->getParams();
                     $type = isset($params['api']) ? $params['api'] : 'deezer';
                 }
-                
-                if ($type == 'gallery') {
+
+                if ($typeField == GalleryType::class) {
                     $value = $this->container->get('cms.content.form.data_tranformer.gallery')->transform($value);
                 }
-                
-                if (($type == 'file' || $type == 'kml') && ($value != '' && preg_match("/(.*).tcx/", $value))) {
+
+                if (($typeField == FileType::class || $typeField == KMLField::class) && ($value != '' && preg_match("/(.*).tcx/", $value))) {
                     $parse = new TCXParser($value);
                     $value = new File($value);
                     $fieldvalue->setValue($value);
@@ -58,8 +66,8 @@ class ContentListener
             }
         }
 
-        //dump($content->fieldValuesHtml); die;
 
-        
+
+
     }
 }

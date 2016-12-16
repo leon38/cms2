@@ -10,30 +10,30 @@ class Fields
      * @var EngineInterface $templating
      */
     protected $templating;
-    
+
     /**
      * @var array $params
      */
     protected $params;
-    
+
     /**
      * @var array $options
      */
     protected $options;
-    
+
     /**
      * @var string $type
      */
     protected $type;
-    
+
     public function __construct()
     {
         $this->type = TextType::class;
         $this->params = array();
     }
-    
-    
-    
+
+
+
     public function getParamsValue($params, $name, $type="default", $option=null)
     {
         switch ($type) {
@@ -66,13 +66,32 @@ class Fields
     {
         $this->params = $params;
     }
-    
+
     public function getOptions()
     {
         return $this->options;
     }
-    
+
     public function setTemplating(EngineInterface $templating) {
       $this->templating = $templating;
     }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        $short_name = (new \ReflectionClass($this))->getShortName();
+        return strtolower(str_replace('Field', '', $short_name));
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+
 }

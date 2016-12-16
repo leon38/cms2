@@ -36,7 +36,6 @@ $(window).on("scroll",function(){
     var scrollTopBlur = scrollTop - 295;
     var rapport = 1 / hauteur;
     var opacity = scrollTopBlur * rapport;
-    console.log(opacity);
     $('.blurred').css({opacity: opacity});
 });
 

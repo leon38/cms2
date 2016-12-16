@@ -5,61 +5,71 @@
  in order to have cross-fade transition when change page.
  */
 
-var cache = {};
-function loadPage(url) {
-    if (cache[url]) {
-        return new Promise(function (resolve) {
-            resolve(cache[url]);
+var FadeTransition = Barba.BaseTransition.extend({
+    start: function () {
+        /**
+         * This function is automatically called as soon the Transition starts
+         * this.newContainerLoading is a Promise for the loading of the new container
+         * (Barba.js also comes with an handy Promise polyfill!)
+         */
+
+        // As soon the loading is finished and the old page is faded out, let's fade the new page
+        Promise
+            .all([this.newContainerLoading, this.fadeOut()])
+            .then(this.fadeIn.bind(this));
+    },
+
+    fadeOut: function () {
+        /**
+         * this.oldContainer is the HTMLElement of the old Container
+         */
+        document.body.scrollTop = 0;
+        document.querySelector('.flex-container').className = 'flex-container';
+        return $(this.oldContainer).animate({opacity: 0}).promise();
+    },
+
+    fadeIn: function () {
+        /**
+         * this.newContainer is the HTMLElement of the new Container
+         * At this stage newContainer is on the DOM (inside our #barba-container and with visibility: hidden)
+         * Please note, newContainer is available just after newContainerLoading is resolved!
+         */
+
+        var _this = this;
+        var $el = $(this.newContainer);
+
+        $(this.oldContainer).hide();
+        document.querySelector('.flex-container').className = 'flex-container hide';
+        $el.css({
+            visibility: 'visible',
+            opacity: 0
+        });
+
+        $el.animate({opacity: 1}, 400, function () {
+            /**
+             * Do not forget to call .done() as soon your transition is finished!
+             * .done() will automatically remove from the DOM the old Container
+             */
+
+            _this.done();
         });
     }
-
-    return fetch(url, {
-        method: 'GET'
-    }).then(function (response) {
-        cache[url] = response.text();
-        return cache[url];
-    });
-}
-
-var main = document.querySelector('#main-page');
-
-function changePage() {
-    document.querySelector('.flex-container').className = "flex-container";
-
-    var url = window.location.href;
-
-    loadPage(url).then(function (responseText) {
-        var wrapper = document.createElement('div');
-        wrapper.innerHTML = responseText;
-        console.log(responseText);
-
-        var oldContent = document.querySelector('.cc');
-        var newContent = wrapper.querySelector('.cc');
-
-
-        main.appendChild(newContent);
-        oldContent.parentNode.removeChild(oldContent);
-        document.querySelector('.flex-container').className = "flex-container hide";
-        window.scrollTo(0, 0);
-    });
-}
-
-window.addEventListener('popstate', changePage);
-
-document.addEventListener('click', function (e) {
-
-    var el = e.target;
-
-    while (el && !el.href) {
-        el = el.parentNode;
-    }
-
-    if (el) {
-        e.preventDefault();
-
-        history.pushState(null, null, el.href);
-        changePage();
-
-        return;
-    }
 });
+
+/**
+ * Next step, you have to tell Barba to use the new Transition
+ */
+
+Barba.Pjax.getTransition = function () {
+    /**
+     * Here you can use your own logic!
+     * For example you can use different Transition based on the current page or link...
+     */
+
+    return FadeTransition;
+};
+
+Barba.Pjax.Dom.wrapperId = "main-page";
+Barba.Pjax.Dom.containerClass = "cc";
+Barba.Pjax.start();
+

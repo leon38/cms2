@@ -2,9 +2,11 @@
 
 namespace CMS\Bundle\FrontBundle\Controller;
 
+use CMS\Bundle\ContentBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +18,7 @@ class FrontController extends Controller
     private $_title;
     private $_date_format;
     private $_parameters;
-    
+
     public function init()
     {
         $this->_theme = $this->get('cms.core.option_manager')->get('theme', '');
@@ -24,7 +26,7 @@ class FrontController extends Controller
         $this->_date_format = $this->get('cms.core.option_manager')->get('date_format', '');
         $this->_parameters = array('sitename' => $this->_title, 'date_format' => $this->_date_format);
     }
-    
+
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      *
@@ -39,9 +41,9 @@ class FrontController extends Controller
             array('published' => true),
             array('created' => 'DESC')
         );
-        
+
         $featured = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1, 'featured' => true));
-        
+
         $categories = $em->getRepository('ContentBundle:Category')->getAll(true);
         $parameters = array_merge(
             $this->_parameters,
@@ -59,7 +61,7 @@ class FrontController extends Controller
         }
         return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
     }
-    
+
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -82,7 +84,7 @@ class FrontController extends Controller
             return $this->render('@cms/'.$this->_theme.'/search.html.twig', $parameters);
         }
     }
-    
+
     /**
      * @param $categoryName
      * @return \Symfony\Component\HttpFoundation\Response
@@ -104,12 +106,47 @@ class FrontController extends Controller
                     'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("categoryName" => $categoryName), true))
                 )
             );
-            
+
             return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
         }
         throw new NotFoundHttpException("La catégorie n'existe pas");
     }
-    
+
+    public function createCreateForm($entity)
+    {
+        $comment_form = $this->createForm(
+            CommentType::class,
+            $entity,
+            array(
+                'action' => $this->generateUrl('add_comment'),
+                'method' => 'POST',
+                'attr' => array('class' => 'form'),
+            )
+        );
+
+        $comment_form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        return $comment_form;
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/add/comment", name="add_comment")
+     */
+    public function addCommentAction(Request $request)
+    {
+        $comment = new Comment();
+        $comment_form = $this->createCreateForm($comment);
+        $comment_form->handleRequest($request);
+
+        if ($comment_form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('front_single');
+    }
+
     /**
      * Affiche le post ou les posts de la catégorie
      * @param  String $alias Alias d'une catégorie ou d'un post
@@ -139,13 +176,16 @@ class FrontController extends Controller
                     if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig')) {
                         return $this->render('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig', $parameters);
                     }
-                    
+
                     return $this->render('@cms/'.$this->_theme.'/archive.html.twig', $parameters);
                 }
                 throw new NotFoundHttpException("Page not found");
             }
             $categories = $em->getRepository('ContentBundle:Category')->getAll(true);
             $contents = $em->getRepository('ContentBundle:Content')->getAllContents($category);
+
+
+            $comment_form = $this->createCreateForm(new Comment());
 
             $parameters = array_merge(
                 $this->_parameters,
@@ -155,32 +195,35 @@ class FrontController extends Controller
                     'theme' => $this->_theme,
                     'contents' => $contents,
                     'categories' => $categories,
-                    'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("alias" => $alias), true))
+                    'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("alias" => $alias), true)),
+                    'comment_form' => $comment_form
                 )
             );
-    
+
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getUrl().'.html.twig')) {
                 return $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.html.twig', $parameters);
             }
-            
+
             return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
         }
-        
+
         if ($content !== null) {
             $parameters = array_merge(
                 $this->_parameters,
                 array('title' => $content->getTitle(), 'theme' => $this->_theme, 'content' => $content)
             );
             $taxonomy = $content->getTaxonomy();
-    
+
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig')) {
                 return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig', $parameters);
             }
-            
+
             return $this->render('@cms/'.$this->_theme.'/single.html.twig', $parameters);
         }
-        
+
         throw new NotFoundHttpException("La page n'existe pas");
     }
-    
+
+
+
 }

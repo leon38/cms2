@@ -16,16 +16,16 @@ use Symfony\Component\HttpFoundation\File\File;
  */
 class AddEditFieldsSubscriber implements EventSubscriberInterface
 {
-    
+
     protected $fieldvalues;
     protected $fields;
-    
+
     public function __construct($fieldvalues, $fields)
     {
         $this->fieldvalues = $fieldvalues;
         $this->fields = $fields;
     }
-    
+
     /**
      * Returns an array of event names this subscriber wants to listen to.
      *
@@ -48,7 +48,7 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
     {
         return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
-    
+
     public function preSetData(FormEvent $event)
     {
         $form = $event->getForm();
@@ -86,11 +86,11 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
 
             if ($type == 'music') {
                 $type = isset($options['api']) ? $options['api'] : 'deezer';
-            } else if ($type == FileType::class) {
+            } else if ($type == FileType::class && $fieldvalue->getValue() != '') {
                 $options['data'] = new File($fieldvalue->getValue());
             }
 
-            //                        $options = array_merge($options, $attributes);
+            // $options = array_merge($options, $attributes);
 
             $fieldvaluesTemp->add($field->getName(), $type, $options);
         }

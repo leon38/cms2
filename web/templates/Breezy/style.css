@@ -360,6 +360,10 @@ header#header #share a:hover {
     padding: 9px 10px;
 }
 
+.top-search-area a:hover i {
+    background: #ED364D;
+}
+
 .search-form-area {
     position: fixed;
     left: 0;
@@ -962,6 +966,10 @@ body.search-open .search-form-area {
  *********************/
 .related-posts {
     margin-top: 40px;
+    overflow: hidden;
+}
+
+.related-post-image {
     overflow: hidden;
 }
 

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ApiController extends Controller
 {
-    
+
     /**
      * @param $city
      * @return \Symfony\Component\HttpFoundation\JsonResponse
@@ -26,7 +26,7 @@ class ApiController extends Controller
         $json = $this->get('cms.content.api.manager')->getWeatherDarkSky($city);
         return new JsonResponse(json_decode($json));
     }
-    
+
     /**
      * Récupère l'artiste spotify
      *
@@ -40,7 +40,7 @@ class ApiController extends Controller
         $json = $this->get('cms.content.api.manager')->getArtistSpotify($query);
         return new JsonResponse($json);
     }
-    
+
     /**
      * Récupère les meilleurs chansons de l'artiste
      *
@@ -54,8 +54,8 @@ class ApiController extends Controller
         $tracks = $this->get('cms.content.api.manager')->getTopTracksSpotify($id_artist);
         return $this->render('ContentBundle:Fields:result_spotify.html.twig', array("tracks" => $tracks));
     }
-    
-    
+
+
     /**
      * Récupère l'artiste grâce à l'api deezer
      *
@@ -69,7 +69,7 @@ class ApiController extends Controller
         $tracklist =  $this->get('cms.content.api.manager')->getArtistDeezer($query);
         return $this->_getTopTracksDeezer($tracklist);
     }
-    
+
     /**
      * Récupère les meilleurs pistes d'un artiste
      *
@@ -81,7 +81,7 @@ class ApiController extends Controller
         $tracks = $this->get('cms.content.api.manager')->getTopTracksDeezer($url);
         return $this->render('ContentBundle:Fields:result_deezer.html.twig', array("tracks" => $tracks));
     }
-    
+
     /**
      * Récupère les pistes d'une playlist Deezer
      *

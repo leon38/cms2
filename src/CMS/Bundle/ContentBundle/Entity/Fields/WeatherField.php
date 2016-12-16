@@ -14,24 +14,19 @@ use CMS\Bundle\ContentBundle\Form\Type\WeatherType;
 
 class WeatherField extends Fields
 {
-    
+
     public function getTypeField()
     {
         return WeatherType::class;
     }
-    
+
     public function getName()
     {
         return 'Champ météo';
     }
-    
+
     public function getClassName()
     {
         return 'WeatherField';
-    }
-    
-    public function display()
-    {
-        return $this->templating->render('ContentBundle:Fields:weather.html.twig', array('params' => $this->params));
     }
 }
