@@ -139,6 +139,38 @@ function addLike(comment_id) {
     }
 }
 
+function addLikeContent(content_id) {
+
+    var contents_ids = readCookie('content');
+    if (contents_ids != null) {
+        contents_ids = decodeURI(contents_ids);
+    }
+    var content_ids_array = new Array();
+
+    if (contents_ids !== null) {
+        content_ids_array = contents_ids.split(" ");
+    }
+
+    var content_id_str = content_id.toString();
+
+    if ((content_ids_array.length > 0 && content_ids_array.indexOf(content_id_str) == -1) || contents_ids === null) {
+        var linkCount = $('#link-comment-'+content_id+' > .like');
+        var oldLikes = parseInt(linkCount.html());
+        linkCount.html('<i class="fa fa-spinner fa-pulse"></i>');
+        $.ajax({
+            url: '/add/like/content/'+content_id,
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if (data.status == "SUCCESS") {
+                    linkCount.html(data.likes);
+                    setCookie('comment', contents_ids+content_id+' ', '31');
+                }
+            }
+        });
+    }
+}
+
 function setCookie(c_name, value, exdays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);

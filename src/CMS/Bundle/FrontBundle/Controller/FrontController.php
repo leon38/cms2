@@ -202,7 +202,7 @@ class FrontController extends Controller
 
     /**
      * Add 1 Like to a comment.
-     * @param Comment $comment
+     * @param Content $content
      * @return JsonResponse
      *
      * @Route("/add/like/content/{content}", name="add_like_content")
