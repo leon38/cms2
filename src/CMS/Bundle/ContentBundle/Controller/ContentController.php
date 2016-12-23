@@ -48,10 +48,19 @@ class ContentController extends Controller
 
         $offset = ($page - 1) * $nb_elem;
 
-        $query = $em->getRepository('ContentBundle:Content')->findByQuery(array(), array('id' => 'DESC'), $nb_elem, $offset);
+        $query = $em->getRepository('ContentBundle:Content')->getAllContentsNotTrashedQuery($nb_elem, $offset);
 
         $paginator  = $this->get('knp_paginator');
         $entities = $paginator->paginate(
+            $query,
+            $page/*page number*/,
+            $nb_elem/*limit per page*/
+        );
+
+        $query = $em->getRepository('ContentBundle:Content')->getAllContentsTrashedQuery($nb_elem, $offset);
+
+        $paginator_trash  = $this->get('knp_paginator');
+        $entities_trashed = $paginator_trash->paginate(
             $query,
             $page/*page number*/,
             $nb_elem/*limit per page*/
@@ -66,6 +75,7 @@ class ContentController extends Controller
             'ContentBundle:Content:index.html.twig',
             array(
                 'entities' => $entities,
+                'entities_trashed' => $entities_trashed,
                 'url' => 'admin_content_delete',
                 'languages' => $languages,
                 'taxonomies' => $taxonomies,
@@ -118,7 +128,7 @@ class ContentController extends Controller
 
 
             $this->get('cms.content.content_manager')->save($content);
-            $this->get('cms.content.content_manager')->saveMeta($content);
+            $this->get('cms.content.content_manager')->saveMeta($this, $content, $request);
 
             $this->get('session')->getFlashBag()->add(
                 'success',
@@ -453,7 +463,7 @@ class ContentController extends Controller
             $dispatcher->dispatch(ContentSavedEvent::NAME, $event);
 
             $this->get('cms.content.content_manager')->save($content);
-            $this->get('cms.content.content_manager')->saveMeta($content);
+            $this->get('cms.content.content_manager')->saveMeta($this, $content, $request);
 
 
 
@@ -583,5 +593,52 @@ class ContentController extends Controller
             $data[] = $content['total'];
         }
         return new JsonResponse(array('labels' => $labels, 'data' => $data));
+    }
+
+    /**
+     * Exécute une action sur tous les contenus sélectionnés
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Route("/bulk", name="admin_content_bulk_action")
+     * @Method("POST")
+     */
+    public function bulkAction(Request $request)
+    {
+        $ids = $request->request->get('contents');
+        $action = $request->request->get('action');
+
+        switch($action)
+        {
+            case 'trash':
+                $done = $this->getDoctrine()->getRepository('ContentBundle:Content')->updateStatus($ids, 5);
+                if ($done) {
+                    $this->get('session')->getFlashBag()->add(
+                        'success',
+                        'cms.content.contents_trashed.success'
+                    );
+                } else {
+                    $this->get('session')->getFlashBag()->add(
+                        'error',
+                        'cms.content.contents_trashed.error'
+                    );
+                }
+                break;
+            case 'delete':
+                $done = $this->getDoctrine()->getRepository('ContentBundle:Content')->deleteTotally($ids);
+                if ($done) {
+                    $this->get('session')->getFlashBag()->add(
+                        'success',
+                        'cms.content.contents_deleted.success'
+                    );
+                } else {
+                    $this->get('session')->getFlashBag()->add(
+                        'error',
+                        'cms.content.contents_deleted.error'
+                    );
+                }
+                break;
+        }
+        return $this->redirectToRoute('admin_content');
     }
 }

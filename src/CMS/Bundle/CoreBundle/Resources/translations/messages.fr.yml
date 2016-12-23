@@ -91,6 +91,8 @@ cms:
         settings: Réglages
         users: Utilisateurs
         backup: Sauvegarde
+        creation: Création
+        edition: Edition
 
 firstname: Prénom
 lastname: Nom

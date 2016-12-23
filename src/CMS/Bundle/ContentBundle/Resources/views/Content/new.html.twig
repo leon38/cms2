@@ -1,65 +1,106 @@
 {% extends "::admin/base_admin.html.twig" %}
 
 {% block body %}
-    {{ form_start(form) }}
-    <div class="col-md-3 pull-right">
-        <div class="card">
-            <div class="header">
-                <h4 class="title">Infos <a data-toggle="collapse" href="#collapseInfos" class="pull-right"><i
-                                class="fa fa-angle-down"></i></a></h4>
-
-                <div class="clearfix"></div>
-            </div>
-            <div class="content collapse in" id="collapseInfos" aria-expanded="true">
-                <ul class="list-unstyled">
-                    <li>Author: {{ app.user }}</li>
-                    <li>Date: {{ 'now'|date('d/m/Y H:i:s') }}</li>
-                    <li>{{ form_row(form.published) }}</li>
-                    <li>{{ form_row(form.featured) }}</li>
-                </ul>
-            </div>
-            <div class="footer"></div>
-        </div>
-        <div class="card">
-            <div class="header">
-                <h4 class="title">{{ 'cms.content.languages'|trans }} <a data-toggle="collapse" href="#collapseLanguage"
-                                                                         class="pull-right"><i
-                                class="fa fa-angle-down"></i></a></h4>
-                <div class="clearfix"></div>
-            </div>
-            <div id="collapseLanguage" class="content collapse in" aria-expanded="true">
-                {{ form_row(form.language) }}
-            </div>
-            <div class="footer"></div>
-        </div>
-        <div class="card">
-            <div class="header">
-                <h4 class="title">{{ 'cms.content.categories'|trans }} <a data-toggle="collapse"
-                                                                          href="#collapseCategory" class="pull-right"><i
-                                class="fa fa-angle-down"></i></a></h4>
-                <div class="clearfix"></div>
-            </div>
-            <div id="collapseCategory" class="content collapse in" aria-expanded="true">
-                {{ form_row(form.categories) }}
-            </div>
-            <div class="footer"></div>
-        </div>
-        <div class="card">
-            <div class="header">
-                <h4 class="title">{{ 'cms.content.image'|trans }} <a data-toggle="collapse" href="#collapseImage"
-                                                                     class="pull-right"><i class="fa fa-angle-down"></i></a>
-                </h4>
-                <div class="clearfix"></div>
-            </div>
-            <div id="collapseImage" class="content collapse in"
-                 aria-expanded="true">{{ form_row(form.thumbnail) }}</div>
-            <div class="footer"></div>
-        </div>
+    <div class="section-header">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('admin_content') }}">Contenus</a></li>
+            <li class="active">Création</li>
+        </ol>
     </div>
-    <div class="col-md-9">
-        <div class="card">
-            <div class="content">{{ form_rest(form) }}
-                <div class="clearfix"></div>
+    <div class="nav-container">
+        <ul class="nav nav-icons" role="tablist">
+            <li class="active">
+                <a href="#infos" role="tab" data-toggle="tab">
+                    <i class="fa fa-info-circle"></i><br>
+                    Infos
+                </a>
+            </li>
+            <li>
+                <a href="#seo" role="tab" data-toggle="tab">
+                    <i class="fa fa-address-card-o"></i><br>
+                    SEO
+                </a>
+            </li>
+        </ul>
+    </div>
+    {{ form_start(form) }}
+    <div class="tab-content">
+        <div id="seo" class="tab-pane">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="card">
+                    <div class="content">
+                        {{ form_row(form.metaValuesTemp) }}
+                        {{ form_row(form.submit_seo) }}
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="infos" class="tab-pane active">
+            <div class="col-md-3 pull-right">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Infos <a data-toggle="collapse" href="#collapseInfos" class="pull-right"><i
+                                        class="fa fa-angle-down"></i></a></h4>
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="content collapse in" id="collapseInfos" aria-expanded="true">
+                        <ul class="list-unstyled">
+                            <li>Author: {{ app.user }}</li>
+                            <li>Date: {{ 'now'|date('d/m/Y H:i:s') }}</li>
+                            <li>{{ form_row(form.published) }}</li>
+                            <li>{{ form_row(form.featured) }}</li>
+                        </ul>
+                    </div>
+                    <div class="footer"></div>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">{{ 'cms.content.languages'|trans }} <a data-toggle="collapse"
+                                                                                 href="#collapseLanguage"
+                                                                                 class="pull-right"><i
+                                        class="fa fa-angle-down"></i></a></h4>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="collapseLanguage" class="content collapse in" aria-expanded="true">
+                        {{ form_row(form.language) }}
+                    </div>
+                    <div class="footer"></div>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">{{ 'cms.content.categories'|trans }} <a data-toggle="collapse"
+                                                                                  href="#collapseCategory"
+                                                                                  class="pull-right"><i
+                                        class="fa fa-angle-down"></i></a></h4>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="collapseCategory" class="content collapse in" aria-expanded="true">
+                        {{ form_row(form.categories) }}
+                    </div>
+                    <div class="footer"></div>
+                </div>
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">{{ 'cms.content.image'|trans }} <a data-toggle="collapse"
+                                                                             href="#collapseImage"
+                                                                             class="pull-right"><i
+                                        class="fa fa-angle-down"></i></a>
+                        </h4>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div id="collapseImage" class="content collapse in"
+                         aria-expanded="true">{{ form_row(form.thumbnail) }}</div>
+                    <div class="footer"></div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="content">{{ form_rest(form) }}
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

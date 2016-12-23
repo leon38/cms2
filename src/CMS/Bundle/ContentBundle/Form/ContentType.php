@@ -65,6 +65,7 @@ class ContentType extends AbstractType
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->where('c.level > 0')
+                            ->andWhere('c.published = 1')
                             ->orderBy('c.lft', 'ASC');
                     },
                     'multiple' => true,

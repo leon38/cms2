@@ -26,7 +26,6 @@ framework:
     #serializer:      { enable_annotations: true }
     templating:
         engines: ['twig']
-
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_hosts:   ~
@@ -37,6 +36,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets:
+        base_urls: ['http://www.cms2.local']
         packages:
             templates:
                 base_path: "/templates"

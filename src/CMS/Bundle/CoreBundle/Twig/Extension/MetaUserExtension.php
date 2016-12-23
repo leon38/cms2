@@ -30,6 +30,6 @@ class MetaUserExtension extends \Twig_Extension
 
     public function getName()
     {
-    	return 'booleanicon';
+    	return 'metauser';
     }
 }

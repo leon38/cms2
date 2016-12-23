@@ -59,4 +59,129 @@ class Comment
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="comments")
      */
     protected $content;
+
+    /**
+     * @var int likes
+     * @ORM\Column(name="likes", type="integer")
+     */
+    protected $likes = 0;
+
+
+    public function __construct()
+    {
+        $this->date_added = new \DateTime();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * @param string $pseudo
+     */
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateAdded()
+    {
+        return $this->date_added;
+    }
+
+    /**
+     * @param \DateTime $date_added
+     */
+    public function setDateAdded($date_added)
+    {
+        $this->date_added = $date_added;
+    }
+
+    /**
+     * @return String
+     */
+    public function getMessage()
+    {
+        return $this->message;
+    }
+
+    /**
+     * @param String $message
+     */
+    public function setMessage($message)
+    {
+        $this->message = $message;
+    }
+
+    /**
+     * @return Content
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param Content $content
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param int $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+    }
+
 }

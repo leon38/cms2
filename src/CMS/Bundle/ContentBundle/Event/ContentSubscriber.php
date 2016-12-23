@@ -43,6 +43,7 @@ class ContentSubscriber implements EventSubscriberInterface
         // Remplissage des métas automatiquement
         $metavaluesTemp = $content->getMetaValuesTemp();
         foreach($metavaluesTemp as $key => $value) {
+
             switch ($key) {
                 case 'meta-description':
                     if ($value == null) {

@@ -1,0 +1,67 @@
+{% include "@cms/Breezy/header.amp.html.twig" %}
+<amp-live-list
+        layout="container"
+        data-poll-interval="15000"
+        data-max-items-per-page="3"
+        id="amp-live-list-insert-blog">
+
+    <button id="live-list-update-button"
+            update
+            on="tap:amp-live-list-insert-blog.update"
+            class="button button-primary">You have updates</button>
+    <div items>
+        {% for content in contents %}
+        <div id="post{{ content.id }}"
+             data-sort-time="{{ content.created.getTimestamp() }}">
+            <div class="card blog">
+                {% if content.thumbnail is not null %}
+                    <amp-img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_list') }}"
+                             alt="{{ content.thumbnail.metas['alt_1'] }}"
+                             title="{{ content.thumbnail.metas['title_1'] }}"
+                             layout="responsive"
+                             width="800"
+                             height="550">
+                    </amp-img>
+                {% endif %}
+                <h4 class="title">{{ content.title }}</h4>
+                <p class="date">{{ content.created|date('m/d/Y h:i:s') }}</p>
+                <p class="text">{{ content.chapo }}</p>
+                <p class="social-share">
+                    <amp-social-share type="twitter"
+                                      width="45"
+                                      height="33"
+                                      data-param-url="{{ path('front_single', {'alias':content.url}) }}"></amp-social-share>
+                    <amp-social-share type="facebook"
+                                      width="45"
+                                      height="33"
+                                      data-attribution=254325784911610
+                                      data-param-url="{{ path('front_single', {'alias':content.url}) }}"></amp-social-share>
+                    <amp-social-share type="gplus"
+                                      width="45"
+                                      height="33"
+                                      data-param-url="{{ path('front_single', {'alias':content.url}) }}"></amp-social-share>
+                    <amp-social-share type="email"
+                                      width="45"
+                                      height="33"
+                                      data-param-url="{{ path('front_single', {'alias':content.url}) }}"></amp-social-share>
+                    <amp-social-share type="pinterest"
+                                      width="45"
+                                      height="33"
+                                      data-param-url="{{ path('front_single', {'alias':content.url}) }}"></amp-social-share>
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div pagination>
+        <nav aria-label="amp live list pagination">
+            <ul class="pagination">
+
+                <li>1</li>
+
+            </ul>
+        </nav>
+    </div>
+
+</amp-live-list>

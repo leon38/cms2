@@ -2,11 +2,12 @@
 namespace CMS\Bundle\ContentBundle\Entity;
 
 use CMS\Bundle\CoreBundle\Entity\Language;
+use CMS\Bundle\MediaBundle\Entity\Media;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="CMS\Bundle\ContentBundle\Entity\Repository\CategoryRepository")
@@ -16,420 +17,376 @@ use JMS\Serializer\Annotation as JMS;
  */
 class Category
 {
-  /**
-   * @var integer $id
-   *
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  private $id;
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
-  /**
-   * @var string $title
-   * @JMS\Expose()
-   * @JMS\Type("string")
-   * @ORM\Column(name="title", type="string", length=255)
-   */
-  private $title;
+    /**
+     * @var string $title
+     * @JMS\Expose()
+     * @JMS\Type("string")
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    protected $title;
 
-  /**
-   * @var string $description
-   *
-   * @ORM\Column(name="description", type="text", nullable=true)
-   */
-  private $description;
+    /**
+     * @var string $description
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    protected $description;
 
-  /**
-   * @Gedmo\TreeLeft
-   * @ORM\Column(name="lft", type="integer")
-   */
-  private $lft;
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(name="lft", type="integer")
+     */
+    protected $lft;
 
-  /**
-   * @Gedmo\TreeRight
-   * @ORM\Column(name="rgt", type="integer")
-   */
-  private $rgt;
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(name="rgt", type="integer")
+     */
+    protected $rgt;
 
-  /**
-   * @Gedmo\TreeParent
-   * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
-   * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
-   */
-  private $parent;
+    /**
+     * @Gedmo\TreeParent
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $parent;
 
-  /**
-   * @var int ordre
-   * @ORM\Column(type="integer", nullable=true)
-   */
-  private $ordre;
+    /**
+     * @var int ordre
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $ordre;
 
-  /**
-   * @Gedmo\TreeLevel
-   * @ORM\Column(name="lvl", type="integer")
-   */
-  private $level;
+    /**
+     * @Gedmo\TreeLevel
+     * @ORM\Column(name="lvl", type="integer")
+     */
+    protected $level;
 
-  /**
-   * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
-   * @ORM\OrderBy({"lft" = "ASC"})
-   */
-  private $children;
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OrderBy({"lft" = "ASC"})
+     */
+    protected $children;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\Language")
-   * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
-   */
-  private $language;
+    /**
+     * @ORM\ManyToOne(targetEntity="CMS\Bundle\CoreBundle\Entity\Language")
+     * @ORM\JoinColumn(name="language_id", referencedColumnName="id")
+     */
+    protected $language;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Content", mappedBy="categories")
-   * @ORM\JoinTable(name="categories_contents")
-   * @ORM\OrderBy({"created" = "DESC"})
-   */
-  private $contents;
+    /**
+     * @ORM\ManyToMany(targetEntity="Content", mappedBy="categories")
+     * @ORM\JoinTable(name="categories_contents")
+     * @ORM\OrderBy({"created" = "DESC"})
+     */
+    protected $contents;
 
-  /**
-   * @var string url
-   * @Gedmo\Slug(fields={"title"}, updatable=false, separator="-")
-   * @ORM\Column(name="url", type="string", length=255, unique=true)
-   * @JMS\Expose()
-   * @JMS\Type("string")
-   */
-  private $url;
+    /**
+     * @var string url
+     * @Gedmo\Slug(fields={"title"}, updatable=false, separator="-")
+     * @ORM\Column(name="url", type="string", length=255, unique=true)
+     * @JMS\Expose()
+     * @JMS\Type("string")
+     */
+    protected $url;
 
-  /**
-   * @ORM\OneToMany(targetEntity="Category", mappedBy="referenceCategory")
-   */
-  private $translations;
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="referenceCategory")
+     */
+    protected $translations;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Category", inversedBy="translations")
-   * @ORM\JoinColumn(name="reference_id", referencedColumnName="id")
-   */
-  private $referenceCategory;
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="translations")
+     * @ORM\JoinColumn(name="reference_id", referencedColumnName="id")
+     */
+    protected $referenceCategory;
 
-  /**
-   * @var boolean published
-   *
-   * @ORM\Column(name="published", type="boolean")
-   */
-  private $published;
+    /**
+     * @var boolean published
+     *
+     * @ORM\Column(name="published", type="boolean")
+     */
+    protected $published;
 
-  /**
-   * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="category", cascade={"remove", "persist"})
-   */
-  private $metavalues;
+    /**
+     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="category", cascade={"remove", "persist"})
+     */
+    protected $metavalues;
 
-  /**
-   * @var \DateTime $created
-   * @JMS\Expose
-   * @JMS\Type("DateTime<'d/m/Y'>")
-   * @Gedmo\Timestampable(on="create")
-   * @ORM\Column(name="created", type="datetime")
-   */
-  private $created;
+    /**
+     * @var \DateTime $created
+     * @JMS\Expose
+     * @JMS\Type("DateTime<'d/m/Y'>")
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    protected $created;
 
-  /**
-   * @var \DateTime $modified
-   * @JMS\Expose
-   * @JMS\Type("DateTime<'d/m/Y'>")
-   * @Gedmo\Timestampable(on="update")
-   * @ORM\Column(name="modified", type="datetime")
-   */
-  private $modified;
+    /**
+     * @var \DateTime $modified
+     * @JMS\Expose
+     * @JMS\Type("DateTime<'d/m/Y'>")
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="modified", type="datetime")
+     */
+    protected $modified;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="CMS\Bundle\MediaBundle\Entity\Media")
-   * @ORM\JoinColumn(name="banner", referencedColumnName="id")
-   */
-  private $banner;
+    /**
+     * @ORM\ManyToOne(targetEntity="CMS\Bundle\MediaBundle\Entity\Media")
+     * @ORM\JoinColumn(name="banner", referencedColumnName="id", nullable=true)
+     */
+    protected $banner;
+
+    protected $metaValuesTemp;
 
 
-  /**
-   * Constructor
-   */
-  public function __construct()
-  {
-    $this->children = new ArrayCollection();
-    $this->contents = new ArrayCollection();
-    $this->translations = new ArrayCollection();
-    $this->metavalues = new ArrayCollection();
-  }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+        $this->contents = new ArrayCollection();
+        $this->translations = new ArrayCollection();
+        $this->metavalues = new ArrayCollection();
+    }
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-  /**
-   * Set title
-   *
-   * @param string $title
-   * @return Category
-   */
-  public function setTitle($title)
-  {
-    $this->title = $title;
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
 
-    return $this;
-  }
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
-  /**
-   * Get title
-   *
-   * @return string
-   */
-  public function getTitle()
-  {
-    return $this->title;
-  }
+        return $this;
+    }
 
-  /**
-   * Set description
-   *
-   * @param string $description
-   * @return Category
-   */
-  public function setDescription($description)
-  {
-    $this->description = $description;
+    /**
+     * Get lft
+     *
+     * @return integer
+     */
+    public function getLft()
+    {
+        return $this->lft;
+    }
 
-    return $this;
-  }
+    /**
+     * Set lft
+     *
+     * @param integer $lft
+     * @return Category
+     */
+    public function setLft($lft)
+    {
+        $this->lft = $lft;
 
-  /**
-   * Get description
-   *
-   * @return string
-   */
-  public function getDescription()
-  {
-    return $this->description;
-  }
+        return $this;
+    }
 
-  /**
-   * Set lft
-   *
-   * @param integer $lft
-   * @return Category
-   */
-  public function setLft($lft)
-  {
-    $this->lft = $lft;
+    /**
+     * Get rgt
+     *
+     * @return integer
+     */
+    public function getRgt()
+    {
+        return $this->rgt;
+    }
 
-    return $this;
-  }
+    /**
+     * Set rgt
+     *
+     * @param integer $rgt
+     * @return Category
+     */
+    public function setRgt($rgt)
+    {
+        $this->rgt = $rgt;
 
-  /**
-   * Get lft
-   *
-   * @return integer
-   */
-  public function getLft()
-  {
-    return $this->lft;
-  }
+        return $this;
+    }
 
-  /**
-   * Set rgt
-   *
-   * @param integer $rgt
-   * @return Category
-   */
-  public function setRgt($rgt)
-  {
-    $this->rgt = $rgt;
+    /**
+     * Get ordre
+     *
+     * @return integer
+     */
+    public function getOrdre()
+    {
+        return $this->ordre;
+    }
 
-    return $this;
-  }
+    /**
+     * Set ordre
+     *
+     * @param integer $ordre
+     * @return Category
+     */
+    public function setOrdre($ordre)
+    {
+        $this->ordre = $ordre;
 
-  /**
-   * Get rgt
-   *
-   * @return integer
-   */
-  public function getRgt()
-  {
-    return $this->rgt;
-  }
+        return $this;
+    }
 
-  /**
-   * Set ordre
-   *
-   * @param integer $ordre
-   * @return Category
-   */
-  public function setOrdre($ordre)
-  {
-    $this->ordre = $ordre;
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
-    return $this;
-  }
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Category
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
-  /**
-   * Get ordre
-   *
-   * @return integer
-   */
-  public function getOrdre()
-  {
-    return $this->ordre;
-  }
+        return $this;
+    }
 
-  /**
-   * Set level
-   *
-   * @param integer $level
-   * @return Category
-   */
-  public function setLevel($level)
-  {
-    $this->level = $level;
+    /**
+     * Get published
+     *
+     * @return boolean
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
 
-    return $this;
-  }
+    /**
+     * Set published
+     *
+     * @param boolean $published
+     * @return Category
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
 
-  /**
-   * Get level
-   *
-   * @return integer
-   */
-  public function getLevel()
-  {
-    return $this->level;
-  }
+        return $this;
+    }
 
-  /**
-   * Set url
-   *
-   * @param string $url
-   * @return Category
-   */
-  public function setUrl($url)
-  {
-    $this->url = $url;
+    /**
+     * Get parent
+     *
+     * @return Category
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 
-    return $this;
-  }
+    /**
+     * Set parent
+     *
+     * @param Category $parent
+     * @return Category
+     */
+    public function setParent(Category $parent = null)
+    {
+        $this->parent = $parent;
 
-  /**
-   * Get url
-   *
-   * @return string
-   */
-  public function getUrl()
-  {
-    return $this->url;
-  }
+        return $this;
+    }
 
-  /**
-   * Set published
-   *
-   * @param boolean $published
-   * @return Category
-   */
-  public function setPublished($published)
-  {
-    $this->published = $published;
+    /**
+     * Add children
+     *
+     * @param Category $children
+     * @return Category
+     */
+    public function addChild(Category $children)
+    {
+        $this->children[] = $children;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get published
-   *
-   * @return boolean
-   */
-  public function getPublished()
-  {
-    return $this->published;
-  }
+    /**
+     * Remove children
+     *
+     * @param Category $children
+     */
+    public function removeChild(Category $children)
+    {
+        $this->children->removeElement($children);
+    }
 
-  /**
-   * Set parent
-   *
-   * @param Category $parent
-   * @return Category
-   */
-  public function setParent(Category $parent = null)
-  {
-    $this->parent = $parent;
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
 
-    return $this;
-  }
+    /**
+     * Get language
+     *
+     * @return Language
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
 
-  /**
-   * Get parent
-   *
-   * @return Category
-   */
-  public function getParent()
-  {
-    return $this->parent;
-  }
+    /**
+     * Set language
+     *
+     * @param Language $language
+     * @return Category
+     */
+    public function setLanguage(Language $language = null)
+    {
+        $this->language = $language;
 
-  /**
-   * Add children
-   *
-   * @param Category $children
-   * @return Category
-   */
-  public function addChild(Category $children)
-  {
-    $this->children[] = $children;
-
-    return $this;
-  }
-
-  /**
-   * Remove children
-   *
-   * @param Category $children
-   */
-  public function removeChild(Category $children)
-  {
-    $this->children->removeElement($children);
-  }
-
-  /**
-   * Get children
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getChildren()
-  {
-    return $this->children;
-  }
-
-  /**
-   * Set language
-   *
-   * @param Language $language
-   * @return Category
-   */
-  public function setLanguage(Language $language = null)
-  {
-    $this->language = $language;
-
-    return $this;
-  }
-
-  /**
-   * Get language
-   *
-   * @return Language
-   */
-  public function getLanguage()
-  {
-    return $this->language;
-  }
+        return $this;
+    }
 
     /**
      * Add contents
@@ -438,13 +395,13 @@ class Category
      * @return Category
      * @internal param Content $contents
      */
-  public function addContent(Content $content)
-  {
-    $this->contents[] = $content;
-    $content->addCategory($this);
+    public function addContent(Content $content)
+    {
+        $this->contents[] = $content;
+        $content->addCategory($this);
 
-    return $this;
-  }
+        return $this;
+    }
 
     /**
      * Remove contents
@@ -452,76 +409,76 @@ class Category
      * @param Content $content
      * @internal param Content $contents
      */
-  public function removeContent(Content $content)
-  {
-    $this->contents->removeElement($content);
-  }
+    public function removeContent(Content $content)
+    {
+        $this->contents->removeElement($content);
+    }
 
-  /**
-   * Get contents
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getContents()
-  {
-    return $this->contents;
-  }
+    /**
+     * Get contents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContents()
+    {
+        return $this->contents;
+    }
 
-  /**
-   * Add translations
-   *
-   * @param Category $translation
-   * @return Category
-   */
-  public function addTranslation(Category $translation)
-  {
-    $this->translations[] = $translation;
+    /**
+     * Add translations
+     *
+     * @param Category $translation
+     * @return Category
+     */
+    public function addTranslation(Category $translation)
+    {
+        $this->translations[] = $translation;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Remove translations
-   *
-   * @param Category $translations
-   */
-  public function removeTranslation(Category $translations)
-  {
-    $this->translations->removeElement($translations);
-  }
+    /**
+     * Remove translations
+     *
+     * @param Category $translations
+     */
+    public function removeTranslation(Category $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
 
-  /**
-   * Get translations
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getTranslations()
-  {
-    return $this->translations;
-  }
+    /**
+     * Get translations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
 
-  /**
-   * Set referenceCategory
-   *
-   * @param Category $referenceCategory
-   * @return Category
-   */
-  public function setReferenceCategory(Category $referenceCategory = null)
-  {
-    $this->referenceCategory = $referenceCategory;
+    /**
+     * Get referenceCategory
+     *
+     * @return \CMS\Bundle\ContentBundle\Entity\Category
+     */
+    public function getReferenceCategory()
+    {
+        return $this->referenceCategory;
+    }
 
-    return $this;
-  }
+    /**
+     * Set referenceCategory
+     *
+     * @param Category $referenceCategory
+     * @return Category
+     */
+    public function setReferenceCategory(Category $referenceCategory = null)
+    {
+        $this->referenceCategory = $referenceCategory;
 
-  /**
-   * Get referenceCategory
-   *
-   * @return \CMS\Bundle\ContentBundle\Entity\Category
-   */
-  public function getReferenceCategory()
-  {
-    return $this->referenceCategory;
-  }
+        return $this;
+    }
 
     /**
      * Add metavalues
@@ -530,12 +487,12 @@ class Category
      * @return Category
      * @internal param MetaValue $metavalues
      */
-  public function addMetavalue(MetaValue $metavalue)
-  {
-    $this->metavalues[] = $metavalue;
+    public function addMetavalue(MetaValue $metavalue)
+    {
+        $this->metavalues[] = $metavalue;
 
-    return $this;
-  }
+        return $this;
+    }
 
     /**
      * Remove metavalues
@@ -543,100 +500,162 @@ class Category
      * @param MetaValue $metavalue
      * @internal param MetaValueCategory $metavalues
      */
-  public function removeMetavalue(MetaValue $metavalue)
-  {
-    $this->metavalues->removeElement($metavalue);
-  }
+    public function removeMetavalue(MetaValue $metavalue)
+    {
+        $this->metavalues->removeElement($metavalue);
+    }
 
-  /**
-   * Get metavalues
-   *
-   * @return \Doctrine\Common\Collections\Collection
-   */
-  public function getMetavalues()
-  {
-    return $this->metavalues;
-  }
+    /**
+     * Get metavalues
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMetavalues()
+    {
+        return $this->metavalues;
+    }
 
-  public function __toString()
-  {
-    return ($this->getLevel() > 0) ? str_repeat(html_entity_decode('&nbsp;', ENT_QUOTES, 'UTF-8'), ($this->getLevel() - 1) * 3) . $this->getTitle() : $this->getTitle();
-  }
+    public function __toString()
+    {
+        return ($this->getLevel() > 0) ? str_repeat(html_entity_decode('&nbsp;', ENT_QUOTES, 'UTF-8'), ($this->getLevel() - 1) * 3) . $this->getTitle() : $this->getTitle();
+    }
 
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   *
-   * @return Category
-   */
-  public function setCreated($created)
-  {
-    $this->created = $created;
+    /**
+     * Get level
+     *
+     * @return integer
+     */
+    public function getLevel()
+    {
+        return $this->level;
+    }
 
-    return $this;
-  }
+    /**
+     * Set level
+     *
+     * @param integer $level
+     * @return Category
+     */
+    public function setLevel($level)
+    {
+        $this->level = $level;
 
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated()
-  {
-    return $this->created;
-  }
+        return $this;
+    }
 
-  /**
-   * Set modified
-   *
-   * @param \DateTime $modified
-   *
-   * @return Category
-   */
-  public function setModified($modified)
-  {
-    $this->modified = $modified;
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-    return $this;
-  }
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Category
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
-  /**
-   * Get modified
-   *
-   * @return \DateTime
-   */
-  public function getModified()
-  {
-    return $this->modified;
-  }
+        return $this;
+    }
 
-  /**
-   * Set banner
-   *
-   * @param \CMS\Bundle\MediaBundle\Entity\Media $banner
-   *
-   * @return Category
-   */
-  public function setBanner(\CMS\Bundle\MediaBundle\Entity\Media $banner = null)
-  {
-    $this->banner = $banner;
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-    return $this;
-  }
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return Category
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
-  /**
-   * Get banner
-   *
-   * @return \CMS\Bundle\MediaBundle\Entity\Media
-   */
-  public function getBanner()
-  {
-    return $this->banner;
-  }
+        return $this;
+    }
 
-  public function getWebPath()
-  {
-    return null === $this->banner ? null : $this->banner->getWebPath();
-  }
+    /**
+     * Get modified
+     *
+     * @return \DateTime
+     */
+    public function getModified()
+    {
+        return $this->modified;
+    }
+
+    /**
+     * Set modified
+     *
+     * @param \DateTime $modified
+     *
+     * @return Category
+     */
+    public function setModified($modified)
+    {
+        $this->modified = $modified;
+
+        return $this;
+    }
+
+    /**
+     * Get banner
+     *
+     * @return \CMS\Bundle\MediaBundle\Entity\Media
+     */
+    public function getBanner()
+    {
+        return $this->banner;
+    }
+
+    /**
+     * Set banner
+     *
+     * @param Media $banner
+     *
+     * @return Category
+     */
+    public function setBanner(Media $banner = null)
+    {
+        $this->banner = $banner;
+
+        return $this;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->banner ? null : $this->banner->getWebPath();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetaValuesTemp()
+    {
+        return $this->metaValuesTemp;
+    }
+
+    /**
+     * @param mixed $metaValuesTemp
+     */
+    public function setMetaValuesTemp($metaValuesTemp)
+    {
+        $this->metaValuesTemp = $metaValuesTemp;
+    }
 }

@@ -20,30 +20,30 @@ class MetaValue
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="metavalues", cascade={"persist", "remove"})
      */
-    private $content;
+    protected $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="metavalues", cascade={"persist", "remove"})
      */
-    private $category;
+    protected $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="Meta", inversedBy="metavalues")
      * @ORM\OrderBy(value={"meta_order"= "ASC"})
      */
-    private $meta;
+    protected $meta;
 
     /**
      * @var string value
      *
      * @ORM\Column(name="value",type="text", nullable=true)
      */
-    private $value;
+    protected $value;
 
     /**
      * Get id
@@ -82,11 +82,11 @@ class MetaValue
     /**
      * Set content
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\Content $content
+     * @param Content $content
      *
      * @return MetaValue
      */
-    public function setContent(\CMS\Bundle\ContentBundle\Entity\Content $content = null)
+    public function setContent(Content $content = null)
     {
         $this->content = $content;
         $this->content->addMetavalue($this);
@@ -106,11 +106,11 @@ class MetaValue
     /**
      * Set category
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\Category $category
+     * @param Category $category
      *
      * @return MetaValue
      */
-    public function setCategory(\CMS\Bundle\ContentBundle\Entity\Category $category = null)
+    public function setCategory(Category $category = null)
     {
         $this->category = $category;
 
@@ -120,7 +120,7 @@ class MetaValue
     /**
      * Get category
      *
-     * @return \CMS\Bundle\ContentBundle\Entity\Category
+     * @return Category
      */
     public function getCategory()
     {
@@ -130,11 +130,11 @@ class MetaValue
     /**
      * Set meta
      *
-     * @param \CMS\Bundle\ContentBundle\Entity\Meta $meta
+     * @param Meta $meta
      *
      * @return MetaValue
      */
-    public function setMeta(\CMS\Bundle\ContentBundle\Entity\Meta $meta = null)
+    public function setMeta(Meta $meta = null)
     {
         $this->meta = $meta;
 
@@ -144,7 +144,7 @@ class MetaValue
     /**
      * Get meta
      *
-     * @return \CMS\Bundle\ContentBundle\Entity\Meta
+     * @return Meta
      */
     public function getMeta()
     {

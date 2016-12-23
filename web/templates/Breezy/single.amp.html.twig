@@ -1,0 +1,8 @@
+{% include "@cms/Breezy/header.amp.html.twig" %}
+<h1>{{ content.title }}</h1>
+{% if content.thumbnail is not null %}
+    <amp-img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
+         alt="{{ content.thumbnail.metas['alt_1'] }}"
+             title="{{ content.thumbnail.metas['title_1'] }}" width="800" height="550"></amp-img>
+{% endif %}
+{% include "@cms/Breezy/footer.amp.html.twig" %}

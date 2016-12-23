@@ -13,9 +13,28 @@ class CommentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('pseudo', TextType::class)
-                ->add('email', EmailType::class)
-                ->add('message', TextareaType::class);
+        $builder
+            ->add('pseudo', TextType::class,
+                array(
+                    'label' => 'Votre nom *',
+                    'attr' => array(
+                        'placeholder' => 'Votre nom *'
+                    )
+                ))
+            ->add('email', EmailType::class,
+                array(
+                    'label' => 'Votre email *',
+                    'attr' => array(
+                        'placeholder' => 'adresse@email.com'
+                    )
+                ))
+            ->add('message', TextareaType::class,
+                array(
+                    'label' => 'Dites-nous tout',
+                    'attr' => array(
+                        'placeholder' => 'Donnez votre opinion, idée ou commentaire en cliquant ici'
+                    )
+                ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

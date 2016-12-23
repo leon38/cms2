@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ContentRepository extends EntityRepository
 {
-    
+
     public function findByQuery($conditions = array(), $orders = array(), $nb_element = 0, $offset = 0)
     {
         $query = $this->_em
@@ -49,7 +49,44 @@ class ContentRepository extends EntityRepository
             $query = $query->setMaxResults($nb_element);
         return $query;
     }
-    
+
+    public function getAllContentsNotTrashedQuery($nb_element = 0, $offset = 0)
+    {
+        $query = $this->_em
+            ->createQueryBuilder('c, u, cat')
+            ->select('c, u, cat')
+            ->from('ContentBundle:Content', 'c')
+            ->join('c.author', 'u')
+            ->join('c.categories', 'cat')
+            ->where('c.published != 5')
+            ->orderBy('c.id', 'DESC');
+        if ($offset != 0)
+            $query = $query->setFirstResult($offset);
+        if ($nb_element != 0)
+            $query = $query->setMaxResults($nb_element);
+
+        return $query->getQuery();
+    }
+
+
+    public function getAllContentsTrashedQuery($nb_element = 0, $offset = 0)
+    {
+        $query = $this->_em
+            ->createQueryBuilder('c, u, cat')
+            ->select('c, u, cat')
+            ->from('ContentBundle:Content', 'c')
+            ->join('c.author', 'u')
+            ->join('c.categories', 'cat')
+            ->where('c.published = 5')
+            ->orderBy('c.id', 'DESC');
+        if ($offset != 0)
+            $query = $query->setFirstResult($offset);
+        if ($nb_element != 0)
+            $query = $query->setMaxResults($nb_element);
+
+        return $query->getQuery();
+    }
+
     public function getAllContentsPublished()
     {
         return $this->_em
@@ -61,9 +98,9 @@ class ContentRepository extends EntityRepository
             ->where('c.published = 1')
             ->getQuery()
             ->getResult();
-        
+
     }
-    
+
     public function getAllContents($cat)
     {
         $temp_children = $cat->getChildren();
@@ -71,7 +108,7 @@ class ContentRepository extends EntityRepository
         foreach ($temp_children as $child) {
             $children[] = $child->getId();
         }
-        
+
         return $this->_em
             ->createQueryBuilder('co')
             ->select('co')
@@ -85,9 +122,9 @@ class ContentRepository extends EntityRepository
             ->orderBy('co.created', 'DESC')
             ->getQuery()
             ->getResult();
-        
+
     }
-    
+
     public function getCountByTaxonomy()
     {
         return $this->_em
@@ -100,7 +137,7 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
     public function getCountByMonth()
     {
         return $this->_em
@@ -111,8 +148,8 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-    
-    
+
+
     public function getValuesByMonth($taxonomy, $title_field)
     {
         return $this->_em
@@ -128,8 +165,8 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-    
-    
+
+
     public function getRelatedPosts($id_post, $limit)
     {
         $categories = $this->_em
@@ -141,7 +178,7 @@ class ContentRepository extends EntityRepository
             ->setParameter('id', $id_post)
             ->getQuery()
             ->getScalarResult();
-        
+
         return $this->_em
             ->createQueryBuilder()
             ->select('c')
@@ -155,8 +192,8 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-    
-    
+
+
     public function search($query)
     {
         return $this->_em
@@ -169,5 +206,17 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+
+    public function updateStatus($ids, $status)
+    {
+        return $this->_em
+            ->createQueryBuilder()
+            ->update('ContentBundle:Content', 'c')
+            ->where('c.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->set('c.published', $status)
+            ->getQuery()
+            ->execute();
+    }
+
 }

@@ -427,3 +427,17 @@ function updateMetas(elm) {
     });
     return false;
 }
+
+function toggleCheckbox(source) {
+    var name = source.getAttribute('data-name');
+    var checkboxes = document.getElementsByName(name);
+    checkboxes.forEach(function(checkbox) {
+        checkbox.checked = source.checked;
+        var parent = checkbox.parentElement;
+        if (parent.className == "checkbox checked") {
+            parent.className = "checkbox";
+        } else {
+            parent.className = "checkbox checked";
+        }
+    });
+}
