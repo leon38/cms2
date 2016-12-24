@@ -1,0 +1,822 @@
+-- MySQL dump 10.13  Distrib 5.6.23, for osx10.8 (x86_64)
+--
+-- Host: localhost    Database: dcms
+-- ------------------------------------------------------
+-- Server version	5.6.23
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `categories_contents`
+--
+
+DROP TABLE IF EXISTS `categories_contents`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories_contents` (
+  `content_id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  PRIMARY KEY (`content_id`,`category_id`),
+  KEY `IDX_6204B84E84A0A3ED` (`content_id`),
+  KEY `IDX_6204B84E12469DE2` (`category_id`),
+  CONSTRAINT `FK_6204B84E12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_6204B84E84A0A3ED` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories_contents`
+--
+
+LOCK TABLES `categories_contents` WRITE;
+/*!40000 ALTER TABLE `categories_contents` DISABLE KEYS */;
+INSERT INTO `categories_contents` VALUES (1,2),(9,2),(10,2),(11,5),(12,3),(13,4),(14,4),(14,6),(15,4),(15,6),(16,3),(17,3),(18,3),(19,3),(20,5),(21,3),(22,7),(23,7),(24,4),(25,3),(26,8);
+/*!40000 ALTER TABLE `categories_contents` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `language_id` int(11) DEFAULT NULL,
+  `reference_id` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci,
+  `lft` int(11) NOT NULL,
+  `rgt` int(11) NOT NULL,
+  `ordre` int(11) DEFAULT NULL,
+  `lvl` int(11) NOT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `banner` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_64C19C1F47645AE` (`url`),
+  KEY `IDX_64C19C1727ACA70` (`parent_id`),
+  KEY `IDX_64C19C182F1BAF4` (`language_id`),
+  KEY `IDX_64C19C11645DEA9` (`reference_id`),
+  KEY `IDX_64C19C16F9DB8E7` (`banner`),
+  CONSTRAINT `FK_64C19C11645DEA9` FOREIGN KEY (`reference_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `FK_64C19C16F9DB8E7` FOREIGN KEY (`banner`) REFERENCES `media` (`id`),
+  CONSTRAINT `FK_64C19C1727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `category` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `FK_64C19C182F1BAF4` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,NULL,NULL,NULL,'Root',NULL,1,16,1,0,'root-html',0,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL),(2,1,1,NULL,'Non catégorisé',NULL,2,3,2,1,'non-categorise-html',0,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL),(3,1,1,NULL,'Activités ou lieux à visiter',NULL,4,5,NULL,1,'activites-ou-lieux-a-visiter',1,'0000-00-00 00:00:00','0000-00-00 00:00:00',NULL),(4,1,1,NULL,'Recettes',NULL,6,9,NULL,1,'recettes',1,'2016-07-22 18:41:03','2016-08-01 20:41:20',14),(5,1,1,NULL,'Voyages',NULL,10,11,NULL,1,'voyages',1,'2016-07-23 10:01:44','2016-07-23 10:01:44',NULL),(6,4,1,NULL,'Plats',NULL,7,8,NULL,2,'plats',1,'2016-07-24 11:48:41','2016-07-24 11:48:41',NULL),(7,1,1,NULL,'Spectacles',NULL,12,13,NULL,1,'spectacles',1,'2016-08-09 18:13:31','2016-08-09 18:13:31',21),(8,1,1,NULL,'Randonnées',NULL,14,15,NULL,1,'randonnees',1,'2016-09-24 09:39:33','2016-09-24 09:39:33',NULL);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contact_form`
+--
+
+DROP TABLE IF EXISTS `contact_form`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contact_form` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `alias` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `tag` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `html_form` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `sender` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `subject` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `html_message` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_7A777FB0E16C6B94` (`alias`),
+  UNIQUE KEY `UNIQ_7A777FB0389B783` (`tag`),
+  UNIQUE KEY `UNIQ_7A777FB05F004ACF` (`sender`),
+  UNIQUE KEY `UNIQ_7A777FB0FBCE3E7A` (`subject`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contact_form`
+--
+
+LOCK TABLES `contact_form` WRITE;
+/*!40000 ALTER TABLE `contact_form` DISABLE KEYS */;
+/*!40000 ALTER TABLE `contact_form` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `content`
+--
+
+DROP TABLE IF EXISTS `content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `content` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `language_id` int(11) DEFAULT NULL,
+  `taxonomy_id` int(11) DEFAULT NULL,
+  `reference_id` int(11) DEFAULT NULL,
+  `author` int(11) DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `thumbnail` int(11) DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL,
+  `chapo` longtext COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_FEC530A9F47645AE` (`url`),
+  KEY `IDX_FEC530A982F1BAF4` (`language_id`),
+  KEY `IDX_FEC530A99557E6F6` (`taxonomy_id`),
+  KEY `IDX_FEC530A91645DEA9` (`reference_id`),
+  KEY `IDX_FEC530A9BDAFD8C8` (`author`),
+  KEY `IDX_FEC530A9C35726E6` (`thumbnail`),
+  CONSTRAINT `FK_FEC530A91645DEA9` FOREIGN KEY (`reference_id`) REFERENCES `content` (`id`),
+  CONSTRAINT `FK_FEC530A982F1BAF4` FOREIGN KEY (`language_id`) REFERENCES `language` (`id`),
+  CONSTRAINT `FK_FEC530A99557E6F6` FOREIGN KEY (`taxonomy_id`) REFERENCES `content_taxonomy` (`id`),
+  CONSTRAINT `FK_FEC530A9BDAFD8C8` FOREIGN KEY (`author`) REFERENCES `users` (`id`),
+  CONSTRAINT `FK_FEC530A9C35726E6` FOREIGN KEY (`thumbnail`) REFERENCES `media` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `content`
+--
+
+LOCK TABLES `content` WRITE;
+/*!40000 ALTER TABLE `content` DISABLE KEYS */;
+INSERT INTO `content` VALUES (11,1,3,11,1,'Choupette et Doudou en Bretagne','<p>La retraite de Môman Odile s\'est bien passée. Tout le monde il était bien bénèze. Ils ont voulu mettre Patrick à poil mais de ce qu\'on sait ils ont pas réussi. Le plateau de fruits de mer était délicieux, comme ma Choupette, c\'est vous dire...</p>','2016-07-02 19:16:35','2016-07-23 10:02:06',1,'choupette-et-doudou-en-bretagne',3,0,''),(12,1,4,12,1,'Safari de Peaugres','<p>Safari de Peaugres avec ma Choupette</p>','2016-07-14 12:07:21','2016-09-17 10:52:35',1,'safari-de-peaugres',4,1,'Safari de Peaugres avec ma Choupette'),(13,1,5,13,1,'Moelleux au chocolat coeur fondant','Temps de préparation :10 minutes<br>Temps de cuisson : 10 minutes<p></p>\r\n<p>Ingrédients (pour 6 personnes) :\r\n</p><ul><li>150 g de chocolat noir</li><li><span style=\"line-height: 1.5;\">12 carrés de chocolats noir ou de pralinoise</span></li><li><span style=\"line-height: 1.5;\">80 g de beurre</span></li><li><span style=\"line-height: 1.5;\">90 g de sucre</span></li><li><span style=\"line-height: 1.5;\">2 cuillères à soupe rases de farine</span></li></ul><h4>Préparation de la recette :</h4><br>\r\nPréchauffez le four Th.8 (240°C).<br>Faites fondre le beurre et le chocolat (sauf les 12 carrés) au bain marie. Lissez bien le mélange en fouettant.<br>Fouettez les œufs et le sucre. Ajoutez la farine puis le chocolat fondu en remuant sans arrêt.<br>Beurrez 6 petits moules individuels.<br>Remplissez-les à moitié de pâte et posez au centre deux carrés de chocolat.<br>Répartissez le reste de pâte dans les moules et enfournez.<br>Faites cuire 10 min et servez dés la sortie du four, légèrement poudrés de sucre glace.','2016-07-22 18:43:38','2016-07-22 23:21:18',1,'moelleux-au-chocolat-coeur-fondant',6,0,''),(14,1,5,14,1,'Travers de porc caramélisés','<p><b>Ingrédients / pour 2 personnes</b></p><ul><li>6 travers de porc</li><li>6 cuillères à soupe de ketchup</li><li>1 cuillère à soupe de moutarde forte</li><li>3 cuillères à café de miel</li><li>3 cuillères à café de sauce soja sucrée</li><li>2 cuillères à café de piment de Cayenne</li><li>2 cuillères à café de paprika</li><li>4 gousses d\'ail hachées</li><li>1 cuillères à soupe de sucre roux</li><li>cuillères à café de fécule de pomme de terre</li><li>1 cuillère à café de l\'huile d\'olive</li><li>sel, poivre du moulin</li></ul><p><span style=\"line-height: 1.42857;\"><b>Réalisation</b></span></p><ol><li>Dans un saladier mettre tous les ingrédients de la marinade. Bien mélanger.</li><li>Ajouter les travers de porc. Bien enrober la viande avec la marinade. Laisser reposer au frais minimum 1h30.</li><li>Préchauffer le four à 190°. Déposer la viande dans un plat. Laisser cuire une demi-heure.</li><li>Ensuite cuire les travers de porc en mode grill une vingtaine de minutes. Badigeonner la viande avec la marinade et la retourner à mi-cuisson.</li><li>Cuisinez, savourez…</li></ol><div><br></div>','2016-07-24 11:53:09','2016-07-24 11:53:09',1,'travers-de-porc-caramelises',7,0,''),(15,1,5,15,1,'Taboulé tres frais','<p>Temps de préparation : 30 minutes</p><p>Temps de cuisson : 0 minutes\r\n</p><p><b>\r\nIngrédients (pour 4 personnes) :</b>&nbsp;</p><ul><li>3 tasses de semoule couscous grains fins </li><li>2 citrons </li><li>4 tomates </li><li>1 poivron vert </li><li>1/2 concombre</li><li>2 cuillères à soupe d\'huile d\'olive</li><li>5 à 6 feuilles de basilic frais</li><li>3 à 4 feuilles de menthe fraîche</li><li>sel, poivre</li><li>tranches de citron</li><li>feuilles de menthe</li><li>basilic pour le décor\r\n</li></ul><p><span style=\"line-height: 1.42857;\"><b>Préparation de la recette :\r\n</b></span></p><p><span style=\"line-height: 1.42857;\">\r\nVerser les 3 tasses de semoule (crue) dans un saladier, ajouter le jus des 2 citrons avec un peu de pulpe, les 2 cuillères à soupe d\'huile d\'olive, le basilic et la menthe ciselés, sel et poivre. </span></p><p><span style=\"line-height: 1.42857;\">Mélanger bien et égrainer avec une fourchette pour éviter les grumeaux. \r\nCouper les tomates en petits dés en prenant soin de garder le jus et incorporer les (dés de tomates + jus) au fur et à mesure à la semoule en mélangeant bien. </span></p><p><span style=\"line-height: 1.42857;\">Couper de la même façon le poivron et le 1/2 concombre et les ajouter à la préparation en remuant bien le tout. \r\nVoilà, c\'est tout, il ne reste plus qu\'à placer le saladier au réfrigérateur minimum 1 heure. </span></p><p><span style=\"line-height: 1.42857;\">\r\nA déguster très frais.</span><br></p>','2016-07-25 18:31:59','2016-07-26 19:52:31',1,'taboule-tres-frais',10,0,''),(16,1,4,16,1,'Le Puy du Fou','<div class=\"rc\" data-hveid=\"28\" style=\"position: relative; color: rgb(34, 34, 34); font-family: arial, sans-serif; font-size: small; line-height: 15.6px;\"><div class=\"s\" style=\"max-width: 48em; color: rgb(84, 84, 84); line-height: 18px;\"><span class=\"st\" style=\"line-height: 1.4; word-wrap: break-word;\">Venez vivre une expérience unique au&nbsp;<span style=\"font-weight: bold; color: rgb(106, 106, 106);\">Puy du Fou</span>. Spectacles grandioses et hôtels insolites vous propulsent à travers les siècles pour vivre un séjour&nbsp;...</span></div></div>','2016-08-02 18:29:55','2016-08-02 18:29:55',1,'le-puy-du-fou',15,0,''),(17,1,4,17,1,'Les caves de la grande chartreuse','<p>Redécouvrez la Chartreuse…</p><p><br></p><p>LA VISITE GUIDÉE CLASSIQUE (GRATUITE) COMPREND DEUX PARTIES :</p><p><br></p><p>Au 1er étage, la partie historique, « l’Odyssée de la Chartreuse », se visite librement (500 m² d’exposition, dont un film semi-circulaire et un film sur l’histoire du manuscrit).</p><p>et la visite guidée de la Cave et de la Distillerie (départ dans le hall d’accueil) – Durée entre 45 minutes et une heure.</p><p>- Service d’Accueil</p><p>- Le film 3D Relief</p><p>- La plus longue cave à liqueurs du monde</p><p>- La distillerie des Pères Chartreux</p><p>- La dégustation</p><p>- Dans le hall d’accueil, découvrez notre exposition sur les 250 ans de la Chartreuse Verte.</p><p>- Parking privé avec emplacements réservés aux autocars.</p><p><br></p><p>La visite et la dégustation sont gratuites, la visite des Caves dure environ une heure.</p><p><br></p><p>HORAIRES DES VISITES GUIDÉES DES CAVES : (2 PÉRIODES)</p><p><br></p><p>→ du samedi 26 mars 2016 au 1er novembre 2016 inclus :</p><p>ouvert tous les jours du lundi au dimanche, y compris les jours fériés,</p><p>de 9h30 à 11h00 (dernière visite) et de 14h00 à 18h00 (dernière visite).</p><p>En juillet et août, dernière visite à 11h30 et 18h00.</p><p>*** ATTENTION le lundi 4 juillet et le mardi 5 juillet, dernière visite à 17h00 ! ***</p><p>&nbsp;</p><p><br></p><p>→ le reste de l’année :</p><p>du lundi au vendredi,</p><p>de 9h30 à 11h00 (dernière visite) et de 14h00 à 17h30 (dernière visite)</p><p>Fermé les samedis, dimanches et jours fériés.</p>','2016-08-02 18:39:20','2016-08-02 18:39:20',1,'les-caves-de-la-grande-chartreuse',16,0,''),(18,1,4,18,1,'Paris','<p><span style=\"color: rgb(40, 40, 40); font-family: Arial, &quot;Helvetica Neue&quot;, sans-serif; font-size: 14px; line-height: normal;\">Paris a mille visages et autant de manières de la découvrir. Sites incontournables, lieux insolites, surprenants, rendez-vous phares...&nbsp;</span><br></p>','2016-08-02 18:53:19','2016-08-02 18:53:19',1,'paris',18,0,''),(19,1,4,19,1,'Londres',NULL,'2016-08-02 23:20:26','2016-08-02 23:20:26',1,'londres',19,0,''),(20,1,3,20,1,'Ecosse',NULL,'2016-08-02 23:24:01','2016-08-02 23:24:01',1,'ecosse',1,0,''),(21,1,4,21,1,'Pas dans le vide',NULL,'2016-08-08 21:00:55','2016-08-08 21:00:55',1,'pas-dans-le-vide',20,0,''),(22,1,6,22,1,'Ben Harper & The Innocent Criminals','<p>Concert de Ben Harper au Summum</p>','2016-08-09 18:16:00','2016-09-23 18:40:09',1,'ben-harper-and-the-innocent-criminals',22,0,'Concert de Ben Harper au Summum'),(23,1,6,23,1,'Les Bodin\'s grandeur nature',NULL,'2016-08-09 19:26:58','2016-08-20 16:00:18',1,'les-bodin-s-grandeur-nature',27,0,''),(24,1,5,24,1,'Chouquettes','<p><b>Temps de préparation </b>: 20 minutes</p><p><b>Temps de cuisson</b> : 15 minutes</p><h3>Ingrédients (pour 45 chouquettes) :</h3><p>- 1/4 de litre d\'eau</p><p>- 100 g de beurre doux</p><p>- 150 g de farine</p><p>- 1 cuillère à soupe rase de sucre semoule</p><p>- 1/2 cuillère à café de sel</p><p>- 1/2 cuillère à café de levure chimique</p><p>- 1 sachet de sucre vanillé</p><p>- 3 gros oeufs</p><p>- sucre perlé</p><h4>Préparation de la recette :</h4><p>Mettre l\'eau et le beurre dans une casserole et porter à ébullition.</p><p>Lorsque le mélange bout, retirer la casserole du feu et ajouter d\'un seul coup la farine avec le sel et la levure.</p><p>Mélanger à l\'aide d\'une spatule jusqu\'à ce que la pâte se décolle toute seule des bords de la casserole et ne fasse plus qu\'une masse.</p><p>Laisser refroidir quelques instants.</p><p>Ajouter le sucre, puis le premier oeuf et fouetter énergiquement jusqu\'à absorption complète de celui-ci par la pâte. Recommencer avec les 2 autres oeufs (cette opération peut se faire au batteur électrique).</p><p>Déposer sur une plaque beurrée ou recouverte de papier sulfurisé des cuillerées à café de pâte en les espaçant bien (2 plaques pour cette quantité).</p><p>Ajouter des grains de sucre perlé sur chaque chou en les enfonçant légèrement dans la pâte.</p><p>Mettre à cuire dans le four préchauffé à 210°C (thermostat 7) pendant 15 à 20 minutes (190°C suffisent pour un four à chaleur tournante).</p>','2016-09-11 09:53:17','2016-09-16 19:33:24',1,'chouquettes',30,1,'Les chouquettes c\'est la fête'),(25,1,4,25,1,'Aquamotion Courchevel','<h4>DES ACTIVITÉS POUR CHACUN</h4><p>Aquamotion-Courchevel regroupe des espaces permettant à tous de vivre des moments d’émotion, de sensation et de détente. Chacun à son rythme !</p><p>Les sportifs nagent, se renforcent musculairement, s’entraînent et progressent. Les cools &amp; zens se détendent en s’accordant une parenthèse hors du temps. Les enfants découvrent les joies de l’eau en s’amusant. Les funs se défoulent, se dépassent, s’éclatent sur la vague de surf indoor, le canyon, le pentagliss et libèrent leur énergie sur le mur d’escalade et au beach-volley.&nbsp;</p>','2016-09-11 09:58:11','2016-09-16 19:32:50',1,'aquamotion-courchevel',29,1,'Aquamotion-Courchevel regroupe des espaces permettant à tous de vivre des moments d’émotion, de sensation et de détente. Chacun à son rythme !'),(26,1,7,26,1,'Refuge du Jean Collet','<p style=\"margin-top: 1em; margin-bottom: 1em; padding: 0px; font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 18px;\">Du parking (panneaux) prendre SE (GR 549A) la direction du&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Refuge Jean Collet</strong>&nbsp;(le&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Lac Blanc</strong>&nbsp;n’est pas mentionné) d’abord par une ancienne piste forestière puis un sentier qui suit la courbe de niveau dans la forêt (moins de 150 m de dénivelée au cours de la première heure de marche), au flanc d’un vallon de plus en plus encaissé (plusieurs secteurs réclament de l’attention - sentier en devers, fortes pentes, à-pics vertigineux - notamment par temps humide, quelques passages \"sécurisés\" par des câbles).</p><p style=\"margin-top: 1em; margin-bottom: 1em; padding: 0px; font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 18px;\">Après un long cheminement en forêt, (nb&nbsp;: on trouve sur le parcours d’anciens panneaux bois qui indiquent la direction du&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Lac Blanc</strong>), on atteint un premier plateau où une passerelle (<strong style=\"margin: 0px; padding: 0px;\">Passerelle du Mousset</strong>) permet de franchir le&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Ruisseau du Vorz</strong>, émissaire du<strong style=\"margin: 0px; padding: 0px;\">Lac Blanc</strong>.</p><p style=\"margin-top: 1em; margin-bottom: 1em; padding: 0px; font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 18px;\">Après la passerelle (panneaux), laisser à gauche le sentier qui conduit au&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Refuge Jean Collet</strong>et prendre S, rive droite du ruisseau, une sente assez peu visible au départ (repérer un petit cairn) qui s’élève ensuite dans le&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Ravin des Excellences</strong>&nbsp;(après quelques dizaines de mètres, le sentier est mieux marqué et balisé par des \"ronds\" jaunes) en direction du verrou qui ferme le vallon (cascades du&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Vorz</strong>&nbsp;bien visibles).</p><p style=\"margin-top: 1em; margin-bottom: 1em; padding: 0px; font-family: &quot;Open Sans&quot;, Arial, sans-serif; font-size: 18px;\"><i style=\"margin: 0px; padding: 0px;\"><strong style=\"margin: 0px; padding: 0px;\">Nota</strong>&nbsp;</i>&nbsp;: le sentier emprunté n’a plus droit qu’aux \"pointillés\" sur la carte IGN et n’est pas mentionné sur les panneaux. Il s’agit pourtant de l’ancien tracé du GR (vieilles marques blanches et rouges), à croire que la FFRP* tient absolument à faire faire le crochet (au moins 1 h supplémentaire) par le&nbsp;<strong style=\"margin: 0px; padding: 0px;\">Refuge Jean Collet</strong>.</p><div><br></div>','2016-09-25 11:27:16','2016-09-25 18:42:08',1,'refuge-du-jean-collet',31,0,'Après une longue approche dans la forêt et une rude montée dans le Ravin des Excellences, on est récompensé par la beauté du site du Lac Blanc dans son écrin très minéral, au pied du Glacier de Freydane et des Pics de Belledonne.');
+/*!40000 ALTER TABLE `content` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `content_taxonomy`
+--
+
+DROP TABLE IF EXISTS `content_taxonomy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `content_taxonomy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `alias` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `content_taxonomy`
+--
+
+LOCK TABLES `content_taxonomy` WRITE;
+/*!40000 ALTER TABLE `content_taxonomy` DISABLE KEYS */;
+INSERT INTO `content_taxonomy` VALUES (1,'Post','post'),(3,'Travel','travel'),(4,'Activité à faire','activite-a-faire'),(5,'Recette','recette'),(6,'Spectacles','spectacles'),(7,'Randonnée','randonnee');
+/*!40000 ALTER TABLE `content_taxonomy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `field`
+--
+
+DROP TABLE IF EXISTS `field`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `field` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `field_object` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:object)',
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `field`
+--
+
+LOCK TABLES `field` WRITE;
+/*!40000 ALTER TABLE `field` DISABLE KEYS */;
+INSERT INTO `field` VALUES (3,'TextField','O:48:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\":3:{s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0html\";N;s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0type\";s:4:\"text\";s:56:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0params\";a:3:{s:4:\"size\";s:2:\"30\";s:12:\"defaultvalue\";N;s:8:\"required\";i:1;}}','Destination','destination',1,'2016-05-07 10:28:24'),(5,'DateField','O:48:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\":3:{s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0html\";N;s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0type\";s:4:\"Date\";s:56:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0params\";a:2:{s:6:\"format\";s:5:\"d/m/Y\";s:8:\"required\";i:1;}}','Date d\'arrivée','date-arrivee',1,'2016-05-07 10:56:50'),(6,'BooleanField','O:51:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\BooleanField\":3:{s:57:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\BooleanField\0html\";N;s:57:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\BooleanField\0type\";s:8:\"checkbox\";s:59:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\BooleanField\0params\";a:3:{s:7:\"options\";s:11:\"1::featured\";s:8:\"required\";i:0;s:8:\"multiple\";i:0;}}','Featured','featured',1,'2016-05-07 11:18:25'),(9,'DateField','O:48:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\":3:{s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0html\";N;s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0type\";s:4:\"Date\";s:56:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0params\";a:2:{s:6:\"format\";s:5:\"d/m/Y\";s:8:\"required\";i:1;}}','Date de départ','date-depart',1,'2016-05-07 15:54:45'),(10,'TextAreaField','O:52:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextAreaField\":3:{s:58:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextAreaField\0html\";N;s:58:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextAreaField\0type\";s:8:\"textarea\";s:60:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextAreaField\0params\";a:5:{s:4:\"cols\";N;s:4:\"rows\";N;s:12:\"defaultvalue\";N;s:8:\"required\";i:0;s:6:\"editor\";i:1;}}','Chapô','chapo',1,'2016-05-18 21:26:51'),(11,'MapField','O:47:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MapField\":3:{s:53:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MapField\0type\";s:3:\"map\";s:55:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MapField\0params\";a:0:{}s:13:\"\0*\0templating\";N;}','Carte','carte',1,'2016-07-14 11:46:22'),(13,'DateField','O:48:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\":4:{s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0html\";N;s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0type\";s:4:\"Date\";s:56:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\DateField\0params\";a:2:{s:6:\"format\";s:5:\"d/m/Y\";s:8:\"required\";i:0;}s:13:\"\0*\0templating\";N;}','Date du concert','date-du-concert',1,'2016-08-09 18:45:49'),(14,'TextField','O:48:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\":3:{s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0type\";s:4:\"text\";s:56:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0params\";a:3:{s:4:\"size\";N;s:12:\"defaultvalue\";N;s:8:\"required\";i:0;}s:13:\"\0*\0templating\";N;}','Tarif','tarif',1,'2016-08-09 18:47:01'),(15,'MusicField','O:49:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MusicField\":3:{s:55:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MusicField\0type\";s:5:\"music\";s:57:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MusicField\0params\";a:1:{s:3:\"api\";s:6:\"deezer\";}s:13:\"\0*\0templating\";N;}','Musique','musique',1,'2016-08-20 12:31:49'),(16,'GalleryField','O:51:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\GalleryField\":3:{s:57:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\GalleryField\0type\";s:7:\"gallery\";s:59:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\GalleryField\0params\";a:0:{}s:13:\"\0*\0templating\";N;}','Galerie photo','galerie-photo',1,'2016-08-20 12:44:05'),(17,'MapField','O:47:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MapField\":3:{s:53:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MapField\0type\";s:3:\"map\";s:55:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\MapField\0params\";a:0:{}s:13:\"\0*\0templating\";N;}','Salle de spectacle','salle-de-spectacle',1,'2016-08-20 16:13:58'),(18,'TextField','O:48:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\":3:{s:54:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0type\";s:4:\"text\";s:56:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\TextField\0params\";a:3:{s:4:\"size\";N;s:12:\"defaultvalue\";N;s:8:\"required\";i:0;}s:13:\"\0*\0templating\";N;}','Dénivelé','denivele',1,'2016-09-25 11:22:08'),(19,'WeatherField','O:51:\"CMS\\Bundle\\ContentBundle\\Entity\\Fields\\WeatherField\":3:{s:57:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\WeatherField\0type\";s:7:\"weather\";s:59:\"\0CMS\\Bundle\\ContentBundle\\Entity\\Fields\\WeatherField\0params\";a:0:{}s:13:\"\0*\0templating\";N;}','Météo','meteo',1,'2016-09-25 18:39:04');
+/*!40000 ALTER TABLE `field` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fields_taxonomy`
+--
+
+DROP TABLE IF EXISTS `fields_taxonomy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fields_taxonomy` (
+  `field_id` int(11) NOT NULL,
+  `content_taxonomy_id` int(11) NOT NULL,
+  PRIMARY KEY (`field_id`,`content_taxonomy_id`),
+  KEY `IDX_63B09889443707B0` (`field_id`),
+  KEY `IDX_63B09889C67D4C70` (`content_taxonomy_id`),
+  CONSTRAINT `FK_63B09889443707B0` FOREIGN KEY (`field_id`) REFERENCES `field` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_63B09889C67D4C70` FOREIGN KEY (`content_taxonomy_id`) REFERENCES `content_taxonomy` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fields_taxonomy`
+--
+
+LOCK TABLES `fields_taxonomy` WRITE;
+/*!40000 ALTER TABLE `fields_taxonomy` DISABLE KEYS */;
+INSERT INTO `fields_taxonomy` VALUES (3,3),(5,3),(6,1),(9,3),(10,1),(10,3),(11,3),(11,4),(11,7),(13,6),(14,6),(15,6),(16,6),(17,6),(18,7),(19,3),(19,4),(19,7);
+/*!40000 ALTER TABLE `fields_taxonomy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fieldsvalues`
+--
+
+DROP TABLE IF EXISTS `fieldsvalues`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fieldsvalues` (
+  `content_id` int(11) NOT NULL,
+  `field_id` int(11) NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`content_id`,`field_id`),
+  KEY `IDX_18FE930C84A0A3ED` (`content_id`),
+  KEY `IDX_18FE930C443707B0` (`field_id`),
+  CONSTRAINT `FK_18FE930C443707B0` FOREIGN KEY (`field_id`) REFERENCES `field` (`id`),
+  CONSTRAINT `FK_18FE930C84A0A3ED` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fieldsvalues`
+--
+
+LOCK TABLES `fieldsvalues` WRITE;
+/*!40000 ALTER TABLE `fieldsvalues` DISABLE KEYS */;
+INSERT INTO `fieldsvalues` VALUES (11,3,'s:17:\"San Yagu ar Bineg\";'),(11,5,'s:10:\"07/11/2015\";'),(11,9,'s:10:\"16/11/2015\";'),(11,10,'s:31:\"<p>Retraite de Môman Odile</p>\";'),(11,11,'a:3:{s:7:\"address\";N;s:8:\"latitude\";N;s:9:\"longitude\";N;}'),(12,11,'a:3:{s:7:\"address\";s:18:\"Safari de Peaugres\";s:8:\"latitude\";s:9:\"45.278607\";s:9:\"longitude\";s:8:\"4.728926\";}'),(16,11,'a:3:{s:7:\"address\";s:10:\"Puy du Fou\";s:8:\"latitude\";s:9:\"46.892048\";s:9:\"longitude\";s:18:\"-0.931508000000008\";}'),(17,11,'a:3:{s:7:\"address\";s:32:\"10 Bd Edgar Kofler, 38500 Voiron\";s:8:\"latitude\";s:10:\"45.3617313\";s:9:\"longitude\";s:17:\"5.598536100000047\";}'),(18,11,'a:3:{s:7:\"address\";s:13:\"Paris, France\";s:8:\"latitude\";s:9:\"48.856614\";s:9:\"longitude\";s:18:\"2.3522219000000177\";}'),(19,11,'a:3:{s:7:\"address\";s:11:\"Londres, UK\";s:8:\"latitude\";s:10:\"51.5073509\";s:9:\"longitude\";s:20:\"-0.12775829999998223\";}'),(20,3,'s:9:\"Edimbourg\";'),(20,5,'s:10:\"09/09/2015\";'),(20,9,'s:10:\"16/08/2016\";'),(20,10,'N;'),(20,11,'a:3:{s:7:\"address\";s:9:\"Edimbourg\";s:8:\"latitude\";s:9:\"55.953252\";s:9:\"longitude\";s:18:\"-3.188266999999996\";}'),(21,11,'a:3:{s:7:\"address\";s:16:\"Aiguille du midi\";s:8:\"latitude\";s:10:\"45.8793111\";s:9:\"longitude\";s:17:\"6.887424300000021\";}'),(22,13,'s:16:\"04/10/2016 00:00\";'),(22,14,'s:5:\"39,60\";'),(22,15,'a:1:{s:6:\"artist\";s:10:\"Ben Harper\";}'),(22,16,'a:1:{s:7:\"gallery\";s:11:\"26,25,24,23\";}'),(22,17,'a:3:{s:7:\"address\";s:41:\"Summum, Alpexpo, Alpes Congrès, Grenoble\";s:8:\"latitude\";s:17:\"45.15715280000001\";s:9:\"longitude\";s:17:\"5.732817000000068\";}'),(23,13,'s:16:\"03/02/2017 00:00\";'),(23,14,'s:9:\"48,50 €\";'),(23,15,'a:1:{s:6:\"artist\";s:9:\"Les Bodin\";}'),(23,16,'a:1:{s:7:\"gallery\";N;}'),(25,11,'a:3:{s:7:\"address\";s:51:\"1297 Route des Eaux Vives, 73120 Courchevel, France\";s:8:\"latitude\";s:7:\"45.4203\";s:9:\"longitude\";s:17:\"6.614090000000033\";}'),(26,11,'a:3:{s:7:\"address\";s:64:\"Le Refuge Jean Collet, Le Rocher Mot 38190 Sainte-Agnés, France\";s:8:\"latitude\";s:9:\"45.194334\";s:9:\"longitude\";s:8:\"5.965093\";}'),(26,18,'s:3:\"700\";'),(26,19,'a:1:{s:5:\"ville\";s:12:\"Sainte-Agnes\";}');
+/*!40000 ALTER TABLE `fieldsvalues` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `language`
+--
+
+DROP TABLE IF EXISTS `language`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `language` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code_local` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `code_lang` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `sens_ecriture` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ordre` int(11) NOT NULL,
+  `default_lang` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `language`
+--
+
+LOCK TABLES `language` WRITE;
+/*!40000 ALTER TABLE `language` DISABLE KEYS */;
+INSERT INTO `language` VALUES (1,'Français','fr_fr','fr_fr','ltr',0,1);
+/*!40000 ALTER TABLE `language` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `media`
+--
+
+DROP TABLE IF EXISTS `media`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `media` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `path` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `date_added` datetime NOT NULL,
+  `metas` longtext COLLATE utf8_unicode_ci COMMENT '(DC2Type:array)',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `media`
+--
+
+LOCK TABLES `media` WRITE;
+/*!40000 ALTER TABLE `media` DISABLE KEYS */;
+INSERT INTO `media` VALUES (1,'2016/07/IMG_0180.jpg','2016-07-02 19:01:09','a:2:{s:5:\"alt_1\";s:9:\"Aéroport\";s:7:\"title_1\";s:9:\"Aéroport\";}'),(2,'2016/07/DSC00292.jpg','2016-07-02 19:01:09','a:2:{s:5:\"alt_1\";s:8:\"DSC00292\";s:7:\"title_1\";s:8:\"DSC00292\";}'),(3,'2016/07/DSC00552.JPG','2016-07-02 19:11:24','a:2:{s:5:\"alt_1\";s:8:\"DSC00552\";s:7:\"title_1\";s:8:\"DSC00552\";}'),(4,'2016/07/photo-1431023824486-a9afaaa5838c-small.jpg','2016-07-14 12:05:12','a:2:{s:5:\"alt_1\";s:38:\"photo 1431023824486 a9afaaa5838c small\";s:7:\"title_1\";s:38:\"photo 1431023824486 a9afaaa5838c small\";}'),(5,'2016/07/photo-1464851707681-f9d5fdaccea8.jpeg','2016-07-22 18:39:02','a:2:{s:5:\"alt_1\";s:32:\"photo 1464851707681 f9d5fdaccea8\";s:7:\"title_1\";s:32:\"photo 1464851707681 f9d5fdaccea8\";}'),(6,'2016/07/moelleux-au-coeur-coulant_5417009.jpg','2016-07-22 18:43:31','a:2:{s:5:\"alt_1\";s:33:\"moelleux au coeur coulant_5417009\";s:7:\"title_1\";s:33:\"moelleux au coeur coulant_5417009\";}'),(7,'2016/07/IMG_1546-2.jpg','2016-07-24 11:53:03','a:2:{s:5:\"alt_1\";s:10:\"IMG_1546 2\";s:7:\"title_1\";s:10:\"IMG_1546 2\";}'),(10,'2016/07/taboule.jpg','2016-07-25 18:31:46','a:2:{s:5:\"alt_1\";s:7:\"taboule\";s:7:\"title_1\";s:7:\"taboule\";}'),(14,'2016/08/photo-1469053713174-e64e64779a7a-1.jpeg','2016-08-01 20:37:05','a:2:{s:5:\"alt_1\";s:32:\"photo 1469053713174 e64e64779a7a\";s:7:\"title_1\";s:32:\"photo 1469053713174 e64e64779a7a\";}'),(15,'2016/08/Visuel_Saison2015_Paysage_BD.jpg','2016-08-02 18:29:39','a:2:{s:5:\"alt_1\";s:28:\"Visuel_Saison2015_Paysage_BD\";s:7:\"title_1\";s:28:\"Visuel_Saison2015_Paysage_BD\";}'),(16,'2016/08/Logo-Chartreuse-degradado.jpg','2016-08-02 18:39:00','a:2:{s:5:\"alt_1\";s:15:\"Logo Chartreuse\";s:7:\"title_1\";s:15:\"Logo Chartreuse\";}'),(17,'2016/08/photo-1450214629187-3f08d782081b.jpeg','2016-08-02 18:52:00','a:2:{s:5:\"alt_1\";s:32:\"photo 1450214629187 3f08d782081b\";s:7:\"title_1\";s:32:\"photo 1450214629187 3f08d782081b\";}'),(18,'2016/08/photo-1450214629187-3f08d782081b-1.jpeg','2016-08-02 18:52:56','a:2:{s:5:\"alt_1\";s:5:\"Paris\";s:7:\"title_1\";s:5:\"Paris\";}'),(19,'2016/08/photo-1431818492223-58d36d8002bd.jpeg','2016-08-02 23:20:00','a:2:{s:5:\"alt_1\";s:7:\"Londres\";s:7:\"title_1\";s:7:\"Londres\";}'),(20,'2016/08/Pas-dans-le-vide-Aiguille-du-midi-Chamonix_default_format.jpg','2016-08-08 21:00:42','a:2:{s:5:\"alt_1\";s:57:\"Pas dans le vide Aiguille du midi Chamonix_default_format\";s:7:\"title_1\";s:57:\"Pas dans le vide Aiguille du midi Chamonix_default_format\";}'),(21,'2016/08/IMG_0068.jpg','2016-08-09 18:12:43','a:2:{s:5:\"alt_1\";s:8:\"Festival\";s:7:\"title_1\";s:8:\"Festival\";}'),(22,'2016/08/b8965fb3a5f20f25ddf66a87a64c65df_large.jpeg','2016-08-09 18:15:21','a:2:{s:5:\"alt_1\";s:10:\"Ben Harper\";s:7:\"title_1\";s:10:\"Ben Harper\";}'),(23,'2016/08/7d432d3f473a223da6046c05ef8f17e6_large.jpeg','2016-08-20 12:50:02','a:2:{s:5:\"alt_1\";s:38:\"7d432d3f473a223da6046c05ef8f17e6_large\";s:7:\"title_1\";s:38:\"7d432d3f473a223da6046c05ef8f17e6_large\";}'),(24,'2016/08/192e729372dc5a74fb43ae8fa830b666_large.jpeg','2016-08-20 12:50:08','a:2:{s:5:\"alt_1\";s:38:\"192e729372dc5a74fb43ae8fa830b666_large\";s:7:\"title_1\";s:38:\"192e729372dc5a74fb43ae8fa830b666_large\";}'),(25,'2016/08/Ben-Harper-Le-temps-des-retrouvailles.jpg','2016-08-20 12:50:14','a:2:{s:5:\"alt_1\";s:37:\"Ben Harper Le temps des retrouvailles\";s:7:\"title_1\";s:37:\"Ben Harper Le temps des retrouvailles\";}'),(26,'2016/08/dd6f4d2957de255357b5c1c657b08ba1_large.jpeg','2016-08-20 12:50:20','a:2:{s:5:\"alt_1\";s:38:\"dd6f4d2957de255357b5c1c657b08ba1_large\";s:7:\"title_1\";s:38:\"dd6f4d2957de255357b5c1c657b08ba1_large\";}'),(27,'2016/08/mariage-chez-les-bodin-s-mariage-chez-les-bodin-s-23-04-2008-5-g.jpg','2016-08-20 16:00:01','a:2:{s:5:\"alt_1\";s:64:\"mariage chez les bodin s mariage chez les bodin s 23 04 2008 5 g\";s:7:\"title_1\";s:64:\"mariage chez les bodin s mariage chez les bodin s 23 04 2008 5 g\";}'),(28,'2016/09/IMGP1847bis.jpg','2016-09-11 09:53:02','a:2:{s:5:\"alt_1\";s:11:\"IMGP1847bis\";s:7:\"title_1\";s:11:\"IMGP1847bis\";}'),(29,'2016/09/AuerWeber_AquaticCentreCourchevel_03EntranceDawn_©AldoAmoretti.jpg','2016-09-11 09:57:57','a:2:{s:5:\"alt_1\";s:63:\"AuerWeber_AquaticCentreCourchevel_03EntranceDawn_©AldoAmoretti\";s:7:\"title_1\";s:63:\"AuerWeber_AquaticCentreCourchevel_03EntranceDawn_©AldoAmoretti\";}'),(30,'2016/09/IMG_0663.jpg','2016-09-14 20:37:50','a:2:{s:5:\"alt_1\";s:8:\"IMG_0663\";s:7:\"title_1\";s:8:\"IMG_0663\";}'),(31,'2016/09/IMG_0666.jpg','2016-09-25 11:26:45','a:2:{s:5:\"alt_1\";s:21:\"Refuge du Jean Collet\";s:7:\"title_1\";s:21:\"Refuge du Jean Collet\";}');
+/*!40000 ALTER TABLE `media` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu_entries`
+--
+
+DROP TABLE IF EXISTS `menu_entries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu_entries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) DEFAULT NULL,
+  `menu_taxonomy` int(11) DEFAULT NULL,
+  `content` int(11) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  `taxonomy` int(11) DEFAULT NULL,
+  `title` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `lvl` int(11) NOT NULL,
+  `lft` int(11) NOT NULL,
+  `rgt` int(11) NOT NULL,
+  `root` int(11) NOT NULL,
+  `external_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_A523AE7B727ACA70` (`parent_id`),
+  KEY `IDX_A523AE7BD143FDAB` (`menu_taxonomy`),
+  KEY `IDX_A523AE7BFEC530A9` (`content`),
+  KEY `IDX_A523AE7B64C19C1` (`category`),
+  KEY `IDX_A523AE7BFD12B83D` (`taxonomy`),
+  CONSTRAINT `FK_A523AE7B64C19C1` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
+  CONSTRAINT `FK_A523AE7B727ACA70` FOREIGN KEY (`parent_id`) REFERENCES `menu_entries` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_A523AE7BD143FDAB` FOREIGN KEY (`menu_taxonomy`) REFERENCES `menu_taxonomy` (`id`),
+  CONSTRAINT `FK_A523AE7BFD12B83D` FOREIGN KEY (`taxonomy`) REFERENCES `content_taxonomy` (`id`),
+  CONSTRAINT `FK_A523AE7BFEC530A9` FOREIGN KEY (`content`) REFERENCES `content` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu_entries`
+--
+
+LOCK TABLES `menu_entries` WRITE;
+/*!40000 ALTER TABLE `menu_entries` DISABLE KEYS */;
+INSERT INTO `menu_entries` VALUES (1,NULL,1,NULL,NULL,NULL,'Root Menu principal',0,1,6,1,NULL,0),(2,1,1,NULL,3,NULL,'Endroits à visiter',1,2,3,1,NULL,1),(5,1,1,NULL,4,NULL,'Recettes',1,4,5,1,NULL,1);
+/*!40000 ALTER TABLE `menu_entries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `menu_taxonomy`
+--
+
+DROP TABLE IF EXISTS `menu_taxonomy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `menu_taxonomy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `language` int(11) DEFAULT NULL,
+  `position` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D143FDABD4DB71B5` (`language`),
+  CONSTRAINT `FK_D143FDABD4DB71B5` FOREIGN KEY (`language`) REFERENCES `language` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `menu_taxonomy`
+--
+
+LOCK TABLES `menu_taxonomy` WRITE;
+/*!40000 ALTER TABLE `menu_taxonomy` DISABLE KEYS */;
+INSERT INTO `menu_taxonomy` VALUES (1,'Menu principal','menu-principal-fr',1,1,'header');
+/*!40000 ALTER TABLE `menu_taxonomy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `messages`
+--
+
+DROP TABLE IF EXISTS `messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sender` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `receivers` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  `subject` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `message` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `sent_date` datetime NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `messages`
+--
+
+LOCK TABLES `messages` WRITE;
+/*!40000 ALTER TABLE `messages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `meta`
+--
+
+DROP TABLE IF EXISTS `meta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `meta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL,
+  `alias` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `meta`
+--
+
+LOCK TABLES `meta` WRITE;
+/*!40000 ALTER TABLE `meta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `meta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `metas_taxonomy`
+--
+
+DROP TABLE IF EXISTS `metas_taxonomy`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `metas_taxonomy` (
+  `meta_id` int(11) NOT NULL,
+  `content_taxonomy_id` int(11) NOT NULL,
+  PRIMARY KEY (`meta_id`,`content_taxonomy_id`),
+  KEY `IDX_67F3CBE339FCA6F9` (`meta_id`),
+  KEY `IDX_67F3CBE3C67D4C70` (`content_taxonomy_id`),
+  CONSTRAINT `FK_67F3CBE339FCA6F9` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_67F3CBE3C67D4C70` FOREIGN KEY (`content_taxonomy_id`) REFERENCES `content_taxonomy` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `metas_taxonomy`
+--
+
+LOCK TABLES `metas_taxonomy` WRITE;
+/*!40000 ALTER TABLE `metas_taxonomy` DISABLE KEYS */;
+/*!40000 ALTER TABLE `metas_taxonomy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `metavalues`
+--
+
+DROP TABLE IF EXISTS `metavalues`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `metavalues` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `meta_id` int(11) DEFAULT NULL,
+  `value` longtext COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `IDX_5FD9162384A0A3ED` (`content_id`),
+  KEY `IDX_5FD9162312469DE2` (`category_id`),
+  KEY `IDX_5FD9162339FCA6F9` (`meta_id`),
+  CONSTRAINT `FK_5FD9162312469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `FK_5FD9162339FCA6F9` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`),
+  CONSTRAINT `FK_5FD9162384A0A3ED` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `metavalues`
+--
+
+LOCK TABLES `metavalues` WRITE;
+/*!40000 ALTER TABLE `metavalues` DISABLE KEYS */;
+/*!40000 ALTER TABLE `metavalues` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `metavalues_category`
+--
+
+DROP TABLE IF EXISTS `metavalues_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `metavalues_category` (
+  `category_id` int(11) NOT NULL,
+  `meta_id` int(11) NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`category_id`,`meta_id`),
+  KEY `IDX_EAA726DF12469DE2` (`category_id`),
+  KEY `IDX_EAA726DF39FCA6F9` (`meta_id`),
+  CONSTRAINT `FK_EAA726DF12469DE2` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+  CONSTRAINT `FK_EAA726DF39FCA6F9` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `metavalues_category`
+--
+
+LOCK TABLES `metavalues_category` WRITE;
+/*!40000 ALTER TABLE `metavalues_category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `metavalues_category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `metavalues_content`
+--
+
+DROP TABLE IF EXISTS `metavalues_content`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `metavalues_content` (
+  `content_id` int(11) NOT NULL,
+  `meta_id` int(11) NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`content_id`,`meta_id`),
+  KEY `IDX_7608086884A0A3ED` (`content_id`),
+  KEY `IDX_7608086839FCA6F9` (`meta_id`),
+  CONSTRAINT `FK_7608086839FCA6F9` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`),
+  CONSTRAINT `FK_7608086884A0A3ED` FOREIGN KEY (`content_id`) REFERENCES `content` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `metavalues_content`
+--
+
+LOCK TABLES `metavalues_content` WRITE;
+/*!40000 ALTER TABLE `metavalues_content` DISABLE KEYS */;
+/*!40000 ALTER TABLE `metavalues_content` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `options`
+--
+
+DROP TABLE IF EXISTS `options`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `options` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `option_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `option_value` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `general` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_D035FA87B62DD4E5` (`option_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `options`
+--
+
+LOCK TABLES `options` WRITE;
+/*!40000 ALTER TABLE `options` DISABLE KEYS */;
+INSERT INTO `options` VALUES (1,'slogan','Un site fait avec le CMS de 3c-evolution','text',1),(2,'email_admin','','text',1),(3,'timezone','UTC+0','timezone',1),(4,'date_format','d/m/Y','text',1),(5,'sitename','TravelCloud','text',1),(7,'theme','Breezy','text',0),(8,'square','{\"width\":400,\"height\":400}','image_settings',0),(9,'medium','{\"width\":600,\"height\":370}','image_settings',0),(10,'positions','a:4:{i:0;s:6:\"header\";i:1;s:6:\"center\";i:2;s:7:\"sidebar\";i:3;s:6:\"footer\";}','array',0),(11,'banner','5','image',1),(12,'full','{\"width\":2600,\"height\":1900}','image_settings',0);
+/*!40000 ALTER TABLE `options` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `role_nicename` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles`
+--
+
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'ROLE_SUPER_ADMIN','Super Administrator'),(2,'ROLE_ADMIN','Administrator');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `roles_users`
+--
+
+DROP TABLE IF EXISTS `roles_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `roles_users` (
+  `role_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`role_id`,`user_id`),
+  KEY `IDX_3D80FB2CD60322AC` (`role_id`),
+  KEY `IDX_3D80FB2CA76ED395` (`user_id`),
+  CONSTRAINT `FK_3D80FB2CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_3D80FB2CD60322AC` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `roles_users`
+--
+
+LOCK TABLES `roles_users` WRITE;
+/*!40000 ALTER TABLE `roles_users` DISABLE KEYS */;
+INSERT INTO `roles_users` VALUES (1,1);
+/*!40000 ALTER TABLE `roles_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sidebar`
+--
+
+DROP TABLE IF EXISTS `sidebar`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sidebar` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_86E3C85E5E237E06` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sidebar`
+--
+
+LOCK TABLES `sidebar` WRITE;
+/*!40000 ALTER TABLE `sidebar` DISABLE KEYS */;
+/*!40000 ALTER TABLE `sidebar` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usermeta`
+--
+
+DROP TABLE IF EXISTS `usermeta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usermeta` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user` int(11) DEFAULT NULL,
+  `meta_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `meta_value` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_718F6C448D93D649` (`user`),
+  CONSTRAINT `FK_718F6C448D93D649` FOREIGN KEY (`user`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usermeta`
+--
+
+LOCK TABLES `usermeta` WRITE;
+/*!40000 ALTER TABLE `usermeta` DISABLE KEYS */;
+INSERT INTO `usermeta` VALUES (1,1,'firstname','Damien','text'),(2,1,'lastname','Corona','text'),(3,1,'id_twitter','@leon38','text'),(4,1,'facebook_url','','text'),(5,1,'gplus_url','','text'),(6,1,'about_me','Développeur PHP.\r\nPassionné de nouvelle technologie','textarea');
+/*!40000 ALTER TABLE `usermeta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_login` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
+  `user_pass` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `salt` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_nicename` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `user_url` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_registered` datetime NOT NULL,
+  `user_activation_key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_status` tinyint(1) NOT NULL,
+  `display_name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'admin','nAXqK2iT9Dof1TpJg9uAT9s5blA=','9719c09ad9932a4ba4693205ccabf19d','Damien Corona','leoncorono@gmail.com',NULL,'2016-05-05 10:12:07','a8ec2b8ed7e74bea951f1076d01f37b318aad84f',1,'complete_name','avatar.jpeg');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `widget`
+--
+
+DROP TABLE IF EXISTS `widget`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `widget` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sidebar_id` int(11) DEFAULT NULL,
+  `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `widget_object` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:object)',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_85F91ED05E237E06` (`name`),
+  KEY `IDX_85F91ED03A432888` (`sidebar_id`),
+  CONSTRAINT `FK_85F91ED03A432888` FOREIGN KEY (`sidebar_id`) REFERENCES `sidebar` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `widget`
+--
+
+LOCK TABLES `widget` WRITE;
+/*!40000 ALTER TABLE `widget` DISABLE KEYS */;
+INSERT INTO `widget` VALUES (1,NULL,'Articles liés','related-posts','O:50:\"CMS\\Bundle\\CoreBundle\\Classes\\Widgets\\RelatedPosts\":4:{s:49:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_templating\";N;s:41:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_em\";N;s:45:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_params\";a:1:{s:5:\"limit\";s:1:\"3\";}s:48:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_container\";N;}'),(2,NULL,'Follow me','follow-me','O:50:\"CMS\\Bundle\\CoreBundle\\Classes\\Widgets\\SocialFollow\":4:{s:49:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_templating\";N;s:41:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_em\";N;s:45:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_params\";a:8:{s:13:\"display_title\";i:0;s:8:\"facebook\";s:38:\"https://www.facebook.com/damien.corona\";s:7:\"twitter\";s:26:\"https://twitter.com/leon38\";s:9:\"instagram\";s:44:\"https://www.instagram.com/doudouetchoupette/\";s:9:\"pinterest\";s:32:\"https://fr.pinterest.com/leon38/\";s:5:\"gplus\";N;s:7:\"youtube\";N;s:8:\"linkedin\";N;}s:48:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_container\";N;}'),(3,NULL,'Instagram','instagram','O:51:\"CMS\\Bundle\\CoreBundle\\Classes\\Widgets\\InstagramFlow\":4:{s:49:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_templating\";N;s:41:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_em\";N;s:45:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_params\";a:5:{s:13:\"display_title\";i:0;s:5:\"limit\";s:1:\"6\";s:9:\"client_id\";s:32:\"d4002f53a27a48b48b8bace1e989f7c0\";s:13:\"client_secret\";s:32:\"0c64aa35776a48338fd44d24465b2443\";s:12:\"redirect_uri\";s:22:\"http://localhost:8000/\";}s:48:\"\0CMS\\Bundle\\CoreBundle\\Classes\\Widget\0_container\";N;}');
+/*!40000 ALTER TABLE `widget` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `widgetentity`
+--
+
+DROP TABLE IF EXISTS `widgetentity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `widgetentity` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(120) COLLATE utf8_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8_unicode_ci NOT NULL,
+  `args` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
+  `position` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `updated` datetime NOT NULL,
+  `added` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `widgetentity`
+--
+
+LOCK TABLES `widgetentity` WRITE;
+/*!40000 ALTER TABLE `widgetentity` DISABLE KEYS */;
+/*!40000 ALTER TABLE `widgetentity` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-18 16:50:28
