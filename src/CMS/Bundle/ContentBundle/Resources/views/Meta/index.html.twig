@@ -26,6 +26,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Default value</th>
                     <th>Value</th>
                     <th>Published</th>
                     <th>Created</th>
@@ -37,8 +38,13 @@
                     <tr class="sortable-handle" data-id="{{ metum.id }}">
                         <td>{{ metum.id }}</td>
                         <td>{{ metum.name }}</td>
+                        <td>{{ metum.defaultValue }}</td>
                         <td>{{ metum.value }}</td>
-                        <td>{% if metum.published %}Yes{% else %}No{% endif %}</td>
+                        <td>
+                            <div class="switch">
+                                <input type="checkbox" class="status" {% if metum.published %}checked="checked"{% endif %} data-id="{{ metum.id }}" data-repo="ContentBundle:Meta" data-prop="published" onchange="changeProp(this)">
+                            </div>
+                        </td>
                         <td>{% if metum.created %}{{ metum.created|date('Y-m-d H:i:s') }}{% endif %}</td>
                         <td class="text-right">
                             <a href="{{ path('admin_meta_edit', { 'id': metum.id }) }}"

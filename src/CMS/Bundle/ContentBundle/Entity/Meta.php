@@ -21,60 +21,66 @@ class Meta
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    
+    protected $id;
+
     /**
      * @var string type
      *
      * @ORM\Column(name="type",type="string")
      */
-    private $type;
-    
+    protected $type;
+
     /**
      * @var text name
      *
      * @ORM\Column(name="name",type="string")
      */
-    private $name;
-    
+    protected $name;
+
     /**
      * @var text name
      * @Gedmo\Slug(fields={"name"}, updatable=false, separator="-")
      * @ORM\Column(name="alias",type="string")
      */
-    private $alias;
-    
+    protected $alias;
+
     /**
      * @var text value
      *
      * @ORM\Column(name="value",type="text")
      */
-    private $value;
+    protected $value;
      /**
      * @var boolean published
      *
      * @ORM\Column(name="published",type="boolean")
      */
-    private $published;
+    protected $published;
     /**
      * @var \DateTime $created
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(name="created", type="datetime")
      */
-    private $created;
+    protected $created;
 
 	/**
      * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="meta", cascade={"remove"})
      */
-    private $metavalues;
-    
+    protected $metavalues;
+
+    /**
+     * @var String $default_value
+     * @ORM\Column(name="default_value", type="string", nullable=true)
+     */
+    protected $default_value;
+
     /**
      * @var int order
      * @ORM\Column(name="meta_order", type="integer")
      */
-    private $order;
+    protected $order;
 
-    
+
     /**
      * Constructor
      */
@@ -270,7 +276,7 @@ class Meta
     {
         return $this->alias;
     }
-    
+
     /**
      * @return int
      */
@@ -278,7 +284,7 @@ class Meta
     {
         return $this->order;
     }
-    
+
     /**
      * @param int $order
      */
@@ -286,4 +292,22 @@ class Meta
     {
         $this->order = $order;
     }
+
+    /**
+     * @return String
+     */
+    public function getDefaultValue()
+    {
+        return $this->default_value;
+    }
+
+    /**
+     * @param String $default_value
+     */
+    public function setDefaultValue($default_value)
+    {
+        $this->default_value = $default_value;
+    }
+
+
 }

@@ -10,12 +10,15 @@ class GMDateExtension extends \Twig_Extension
             new \Twig_SimpleFilter('gmdate', array($this, 'GMDateFilter')),
         );
     }
-    
+
     public function GMDateFilter($value, $format = 'i:s')
     {
+        if (is_object($value)) {
+            $value = $value->getTimestamp();
+        }
         return gmdate($format, $value);
     }
-    
+
     /**
      * {@inheritdoc}
      */

@@ -60,11 +60,17 @@
                                             </div>
                                             <p>{{ content.chapo }}</p>
                                             <div class="masonry-item-footer clearfix">
-                                                <div class="sub-meta-container"><span
-                                                            class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
+                                                <div class="pull-right">{{ social_buttons(tiny_url) }}</div>
+                                            </div>
+                                            <div class="masonry-item-footer clearfix">
+                                                <div class="sub-meta-container">
+                                                    <span class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
                                                 </div>
                                                 <div class="comment-like-container">
-                                                    {{ social_buttons(tiny_url) }}
+                                                    <i class="fa fa-comment"></i> {{ content.comments|length }}
+                                                    <a href="javascript:addLikeContent'{{ content.id }}')">
+                                                        <i class="fa fa-heart"></i> {{ content.likes }}
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>

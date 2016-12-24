@@ -1,0 +1,14 @@
+<div class="comment" id="comment-{{ comment.id }}">
+    <div class="comment-avatar pull-left">
+        <img src="https://www.gravatar.com/avatar/{{ comment.email|md5 }}?s=60&d=mm&r=g"/>
+    </div>
+    <div class="comment-info pull-left">
+        <span class="author">{{ comment.pseudo }}</span>
+        <span class="date">Le {{ comment.dateAdded|gmdate('d/m/Y à H:i') }}</span>
+        <p>{{ comment.message }}</p>
+        <div class="pull-right likes">
+            <a href="javascript:addLike({{ comment.id }})" id="link-comment-{{ comment.id }}"><i class="fa fa-heart"></i> <span class="like" id="like-{{ comment.id }}">{{ comment.likes }}</span></a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>

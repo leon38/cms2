@@ -82,9 +82,9 @@ class Content
     protected $modified;
 
     /**
-     * @var boolean $published
+     * @var integer $published
      *
-     * @ORM\Column(name="published", type="boolean")
+     * @ORM\Column(name="published", type="smallint")
      */
     protected $published;
 
@@ -166,6 +166,13 @@ class Content
      * @ORM\Column(name="chapo", type="text")
      */
     protected $chapo;
+
+    /**
+     * @var integer $likes
+     *
+     * @ORM\Column(name="likes_content", type="integer")
+     */
+    protected $likes;
 
     /**
      * @var ArrayCollection|Comment[] $comments
@@ -366,11 +373,11 @@ class Content
     }
 
     /**
-     * Get published
+     * Get published label
      *
-     * @return boolean
+     * @return String
      */
-    public function getPublished()
+    public function getPublishedLabel()
     {
         switch ($this->published) {
             case 0:
@@ -382,6 +389,14 @@ class Content
             default:
                 return 'cms.content.status.published';
         }
+    }
+
+    /**
+     * @return integer
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 
     /**
@@ -899,5 +914,37 @@ class Content
     public function getTempsLecture()
     {
         return $this->temps_lecture;
+    }
+
+    /**
+     * @return Comment[]|ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param Comment[]|ArrayCollection $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * @param int $likes
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
     }
 }

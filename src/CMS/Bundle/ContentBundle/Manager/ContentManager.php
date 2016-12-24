@@ -71,11 +71,31 @@ class ContentManager
         return true;
     }
 
-    public function saveMeta($content)
+    public function saveMeta($controller, $content, $request)
     {
         if (!empty($content->getMetaValuesTemp())) {
             foreach ($content->getMetaValuesTemp() as $metaname => $metavalue) {
                 $meta = $this->em->getRepository('ContentBundle:Meta')->findOneBy(array('alias' => $metaname));
+                if ($metavalue == "") {
+                    $default_value = $meta->getDefaultValue();
+                    switch($default_value) {
+                        case 'Title':
+                            $metavalue = $content->getTitle();
+                            break;
+                        case 'Chapo':
+                            $metavalue = $content->getChapo();
+                            break;
+                        case 'URL':
+                            $metavalue = $controller->generateURL('front_single', array('alias' => $content->getUrl()), true);
+                            break;
+                        case 'Thumbnail':
+                            if ($content->getHasThumbnail()) {
+                                $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+                                $metavalue = $baseurl.$content->getThumbnail()->getWebPath();
+                            }
+                            break;
+                    }
+                }
                 $metavalueObj = $this->em->getRepository('ContentBundle:MetaValue')->findOneBy(
                     array('content' => $content, 'meta' => $meta)
                 );

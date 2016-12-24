@@ -145,6 +145,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    cms.core.md5.twig_extension:
+            class: CMS\Bundle\CoreBundle\Twig\Extension\MD5Extension
+            public: true
+            tags:
+                - { name: twig.extension }
+
     cms.core.widget.twig_extension:
         class: CMS\Bundle\CoreBundle\Twig\Extension\WidgetExtension
         public: true

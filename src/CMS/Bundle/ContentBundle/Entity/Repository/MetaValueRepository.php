@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\ContentBundle\Entity\Repository;
 
+use CMS\Bundle\ContentBundle\Entity\Category;
 use CMS\Bundle\ContentBundle\Entity\Content;
 
 /**
@@ -23,6 +24,21 @@ class MetaValueRepository extends \Doctrine\ORM\EntityRepository
             ->join('mv.meta', 'm')
             ->where('mv.content = :content')
             ->setParameter('content', $content)
+            ->orderBy('m.order', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findMetavalueByCategory(Category $category)
+    {
+        return $this->_em
+            ->createQueryBuilder()
+            ->select('mv, m, c')
+            ->from('ContentBundle:MetaValue', 'mv')
+            ->join('mv.category', 'c')
+            ->join('mv.meta', 'm')
+            ->where('mv.category = :category')
+            ->setParameter('category', $category)
             ->orderBy('m.order', 'ASC')
             ->getQuery()
             ->getResult();

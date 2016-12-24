@@ -2,11 +2,14 @@
 
 namespace CMS\Bundle\FrontBundle\Controller;
 
+use CMS\Bundle\ContentBundle\Entity\Comment;
+use CMS\Bundle\ContentBundle\Entity\Content;
 use CMS\Bundle\ContentBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +36,7 @@ class FrontController extends Controller
      * @Route("/", name="home_index")
      * @Route("/index.{_format}", name="home", defaults={"_format": "html"})
      */
-    public function indexAction()
+    public function indexAction($_format)
     {
         $this->init();
         $em = $this->getDoctrine()->getManager();
@@ -57,9 +60,9 @@ class FrontController extends Controller
             )
         );
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
-            return $this->render('@cms/'.$this->_theme.'/home.html.twig', $parameters);
+            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters);
         }
-        return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
+        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
     }
 
     /**
@@ -112,39 +115,110 @@ class FrontController extends Controller
         throw new NotFoundHttpException("La catégorie n'existe pas");
     }
 
-    public function createCreateForm($entity)
+    /**
+     * Renvoie la page dans le format amp
+     * @param $alias
+     * @return Response
+     *
+     * @Route("/amp/{alias}.{_format}", name="single_amp_content", defaults={"_format": "html"})
+     */
+    public function ampSingleAction($alias)
+    {
+        $this->init();
+        $content = $this->getDoctrine()->getRepository('ContentBundle:Content')->findOneBy(array('url' => $alias));
+        $parameters = array_merge(
+            array(
+                'content' => $content
+            ),$this->_parameters);
+        return $this->render('@cms/'.$this->_theme.'/amp/single.amp.html.twig', $parameters);
+    }
+
+    public function createCreateForm(Comment $entity, Content $content)
     {
         $comment_form = $this->createForm(
             CommentType::class,
             $entity,
             array(
-                'action' => $this->generateUrl('add_comment'),
                 'method' => 'POST',
-                'attr' => array('class' => 'form'),
+                'attr' =>
+                    array(
+                        'class' => 'form',
+                        'data-action' => $this->generateUrl('add_comment', array('content' => $content->getId()))
+                    )
             )
         );
-
-        $comment_form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        $comment_form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));
         return $comment_form;
     }
 
     /**
+     * @param Content $content
      * @param Request $request
-     * @Route("/add/comment", name="add_comment")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/add/comment/{content}", name="add_comment")
      */
-    public function addCommentAction(Request $request)
+    public function addCommentAction(Content $content, Request $request)
     {
+        $this->init();
         $comment = new Comment();
-        $comment_form = $this->createCreateForm($comment);
+        $comment_form = $this->createCreateForm($comment, $content);
         $comment_form->handleRequest($request);
 
         if ($comment_form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $comment->setContent($content);
             $em->persist($comment);
             $em->flush();
+        } else {
+            $this->get('session')->getFlashBag()->add(
+                'error',
+                $comment_form->getErrors(true, true)
+            );
         }
+        return $this->redirectToRoute('front_single', array('alias' => $content->getUrl()));
+    }
 
-        return $this->redirectToRoute('front_single');
+    /**
+     * Add 1 Like to a comment.
+     * @param Comment $comment
+     * @return JsonResponse
+     *
+     * @Route("/add/like/{comment}", name="add_like")
+     */
+    public function addLove(Comment $comment)
+    {
+        if (is_null($comment)) {
+            return new JsonResponse(array('status' => 'ERROR', 'error' => 'cms.content.comment.not_exist'));
+        }
+        $likes = $comment->getLikes();
+        $likes++;
+        $comment->setLikes($likes);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+        return new JsonResponse(array('status' => 'SUCCESS', 'likes' => $likes));
+    }
+
+
+    /**
+     * Add 1 Like to a comment.
+     * @param Content $content
+     * @return JsonResponse
+     *
+     * @Route("/add/like/content/{content}", name="add_like_content")
+     */
+    public function addContentLove(Content $content)
+    {
+        if (is_null($content)) {
+            return new JsonResponse(array('status' => 'ERROR', 'error' => 'cms.content.content.not_exist'));
+        }
+        $likes = $content->getLikes();
+        $likes++;
+        $content->setLikes($likes);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($content);
+        $em->flush();
+        return new JsonResponse(array('status' => 'SUCCESS', 'likes' => $likes));
     }
 
     /**
@@ -154,7 +228,7 @@ class FrontController extends Controller
      *
      * @Route("/{alias}.{_format}", name="front_single", defaults={"_format": "html"},)
      */
-    public function singleAction($alias, Request $request)
+    public function singleAction($alias, $_format)
     {
         $this->init();
         $em = $this->getDoctrine()->getManager();
@@ -173,19 +247,16 @@ class FrontController extends Controller
                             'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("alias" => $alias), true))
                         )
                     );
-                    if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig')) {
-                        return $this->render('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.html.twig', $parameters);
+                    if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.'.$_format.'.twig')) {
+                        return $this->render('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
                     }
 
-                    return $this->render('@cms/'.$this->_theme.'/archive.html.twig', $parameters);
+                    return $this->render('@cms/'.$this->_theme.'/archive.'.$_format.'.twig', $parameters);
                 }
                 throw new NotFoundHttpException("Page not found");
             }
             $categories = $em->getRepository('ContentBundle:Category')->getAll(true);
             $contents = $em->getRepository('ContentBundle:Content')->getAllContents($category);
-
-
-            $comment_form = $this->createCreateForm(new Comment());
 
             $parameters = array_merge(
                 $this->_parameters,
@@ -196,29 +267,34 @@ class FrontController extends Controller
                     'contents' => $contents,
                     'categories' => $categories,
                     'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("front_single", array("alias" => $alias), true)),
-                    'comment_form' => $comment_form
                 )
             );
 
-            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getUrl().'.html.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.html.twig', $parameters);
+            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getUrl().'.'.$_format.'.twig')) {
+                return $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.'.$_format.'.twig', $parameters);
             }
 
-            return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
+            return $this->render('@cms/'.$this->_theme.'/category'.$_format.'.twig', $parameters);
         }
 
         if ($content !== null) {
+            $comment_form = $this->createCreateForm(new Comment(), $content);
             $parameters = array_merge(
                 $this->_parameters,
-                array('title' => $content->getTitle(), 'theme' => $this->_theme, 'content' => $content)
+                array(
+                    'title' => $content->getTitle(),
+                    'theme' => $this->_theme,
+                    'content' => $content,
+                    'comment_form' => $comment_form->createView()
+                )
             );
             $taxonomy = $content->getTaxonomy();
 
-            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.html.twig', $parameters);
+            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig')) {
+                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
             }
 
-            return $this->render('@cms/'.$this->_theme.'/single.html.twig', $parameters);
+            return $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters);
         }
 
         throw new NotFoundHttpException("La page n'existe pas");

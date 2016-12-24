@@ -4,68 +4,102 @@
     <div class="section-header">
         <ol class="breadcrumb">
             <li><a href="{{ path('admin_category') }}">Catégorie</a></li>
-            <li class="active">Edition</li>
+            <li class="active">{{ "cms.core.edition"|trans }}</li>
         </ol>
     </div>
 
-    <div class="section-body contain-lg">
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-callout alert-danger" role="alert">
-                {{ flashMessage|trans }}
-            </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="alert alert-callout alert-success" role="alert">{{ flashMessage|trans }}</div>
-        {% endfor %}
-        {{ form_start(edit_form) }}
-        <div class="col-md-3 pull-right">
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">Infos <a data-toggle="collapse" href="#collapseInfos" class="pull-right"><i
-                                    class="fa fa-angle-down"></i></a></h4>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="content">
-                    <ul class="list-unstyled">
-                        <li>Date: {{ entity.created|date('d/m/Y H:i:s') }}</li>
-                        <li>{{ form_row(edit_form.published) }}</li>
-                        <li><a href="{{ path('front_single', {'alias': entity.url}) }}" target="_blank">{{ 'cms.content.preview'|trans }}</a></li>
-                        <li>{{ form_row(edit_form.parent) }}</li>
-                        <li>{{ form_row(edit_form.ordre) }}</li>
-                    </ul>
-                </div>
-                <div class="footer"></div>
-            </div>
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">{{ 'cms.content.languages'|trans }} <a data-toggle="collapse"
-                                                                             href="#collapseLanguage"
-                                                                             class="pull-right"><i
-                                    class="fa fa-angle-down"></i></a></h4>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="collapseLanguage" class="content collapse in" aria-expanded="true">
-                    {{ form_row(edit_form.language) }}
-                </div>
-                <div class="footer"></div>
-            </div>
-            <div class="card">
-                <div class="header">
-                    <h4 class="title">{{ 'cms.content.image'|trans }} <a data-toggle="collapse" href="#collapseImage"
-                                                                         class="pull-right"><i class="fa fa-angle-down"></i></a>
-                    </h4>
-                    <div class="clearfix"></div>
-                </div>
-                <div id="collapseImage" class="content collapse in"
-                     aria-expanded="true">{{ form_row(edit_form.banner) }}</div>
-                <div class="footer"></div>
-            </div>
+    {% if not edit_form.vars.valid %}
+        <div class="alert alert-callout alert-danger" role="alert">
+            {{ form_errors(edit_form) }}
         </div>
-        <div class="col-md-9">
-            <div class="card">
-                <div class="content">
-                    {{ form_rest(edit_form) }}
-                    <div class="clearfix"></div>
+    {% endif %}
+
+    <div class="section-body contain-lg">
+        <div class="nav-container">
+            <ul class="nav nav-icons" role="tablist">
+                <li class="active">
+                    <a href="#infos" role="tab" data-toggle="tab">
+                        <i class="fa fa-info-circle"></i><br>
+                        Infos
+                    </a>
+                </li>
+                <li>
+                    <a href="#seo" role="tab" data-toggle="tab">
+                        <i class="fa fa-address-card-o"></i><br>
+                        SEO
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {{ form_start(edit_form) }}
+        <div class="tab-content">
+            <div id="seo" class="tab-pane">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="card">
+                        <div class="content">
+                            {{ form_row(edit_form.metaValuesTemp) }}
+                            {{ form_row(edit_form.submit_seo) }}
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="infos" class="tab-pane active">
+
+                <div class="col-md-3 pull-right">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Infos <a data-toggle="collapse" href="#collapseInfos"
+                                                       class="pull-right"><i
+                                            class="fa fa-angle-down"></i></a></h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="content">
+                            <ul class="list-unstyled">
+                                <li>Date: {{ entity.created|date('d/m/Y H:i:s') }}</li>
+                                <li>{{ form_row(edit_form.published) }}</li>
+                                <li><a href="{{ path('front_single', {'alias': entity.url}) }}"
+                                       target="_blank">{{ 'cms.content.preview'|trans }}</a></li>
+                                <li>{{ form_row(edit_form.parent) }}</li>
+                                <li>{{ form_row(edit_form.ordre) }}</li>
+                            </ul>
+                        </div>
+                        <div class="footer"></div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">{{ 'cms.content.languages'|trans }} <a data-toggle="collapse"
+                                                                                     href="#collapseLanguage"
+                                                                                     class="pull-right"><i
+                                            class="fa fa-angle-down"></i></a></h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="collapseLanguage" class="content collapse in" aria-expanded="true">
+                            {{ form_row(edit_form.language) }}
+                        </div>
+                        <div class="footer"></div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">{{ 'cms.content.image'|trans }} <a data-toggle="collapse"
+                                                                                 href="#collapseImage"
+                                                                                 class="pull-right"><i
+                                            class="fa fa-angle-down"></i></a>
+                            </h4>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="collapseImage" class="content collapse in"
+                             aria-expanded="true">{{ form_row(edit_form.banner) }}</div>
+                        <div class="footer"></div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="content">
+                            {{ form_rest(edit_form) }}
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
