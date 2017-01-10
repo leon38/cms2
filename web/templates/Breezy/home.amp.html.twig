@@ -1,4 +1,15 @@
 {% include "@cms/Breezy/header.amp.html.twig" %}
+<amp-carousel width="400"
+              height="300"
+              layout="responsive"
+              type="slides">
+    {% for article in featured %}
+    <amp-img src="{{ article.thumbnail.webPath }}"
+             width="400"
+             height="300"
+             layout="responsive"></amp-img>
+    {% endfor %}
+</amp-carousel>
 <amp-live-list
         layout="container"
         data-poll-interval="15000"

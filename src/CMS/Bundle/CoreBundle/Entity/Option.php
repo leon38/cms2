@@ -16,30 +16,30 @@ class Option
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(name="option_name", type="string", length=64, unique=true)
      */
     private $option_name;
-    
+
     /**
      * @ORM\Column(name="option_value", type="text", nullable=true)
      */
     private $option_value;
-    
+
     /**
      * @ORM\Column(name="type", type="string")
      */
     private $type = "text";
-    
+
     /**
      * @var boolean
      *
      * @ORM\Column(name="general", type="boolean")
      */
     private $general;
-    
-    
+
+
     /**
      * Get id
      *
@@ -49,7 +49,7 @@ class Option
     {
         return $this->id;
     }
-    
+
     /**
      * Set option_name
      *
@@ -59,10 +59,10 @@ class Option
     public function setOptionName($optionName)
     {
         $this->option_name = $optionName;
-        
+
         return $this;
     }
-    
+
     /**
      * Get option_name
      *
@@ -72,7 +72,7 @@ class Option
     {
         return $this->option_name;
     }
-    
+
     /**
      * Set option_value
      *
@@ -82,10 +82,10 @@ class Option
     public function setOptionValue($optionValue)
     {
         $this->option_value = $optionValue;
-        
+
         return $this;
     }
-    
+
     /**
      * Get option_value
      *
@@ -95,13 +95,13 @@ class Option
     {
         return $this->option_value;
     }
-    
+
     public function set($option_name, $option_value)
     {
         $this->option_name = $option_name;
         $this->option_value = $option_value;
     }
-    
+
     /**
      * Set general
      *
@@ -111,10 +111,10 @@ class Option
     public function setGeneral($general)
     {
         $this->general = $general;
-        
+
         return $this;
     }
-    
+
     /**
      * Get general
      *
@@ -124,12 +124,12 @@ class Option
     {
         return $this->general;
     }
-    
+
     public function __toString()
     {
-        return $this->option_value;
+        return ($this->option_value != null) ? $this->option_value : "";
     }
-    
+
     /**
      * Set type
      *
@@ -140,10 +140,10 @@ class Option
     public function setType($type)
     {
         $this->type = $type;
-        
+
         return $this;
     }
-    
+
     /**
      * Get type
      *

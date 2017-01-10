@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class InstagramFlow extends Widget
 {
-    
+
     /**
      * @param array $param
      * @return string
@@ -31,9 +31,9 @@ class InstagramFlow extends Widget
             'client_secret' => $params['client_secret'], //'0c64aa35776a48338fd44d24465b2443',
             'redirect_uri'  => $params['redirect_uri'], //'http://localhost:8000/'
         ]);
-    
+
         $session = $this->getContainer()->get('session');
-    
+
         if($session->get('instagram_token', null) == null){
             if(!isset($_GET['code'])){
                 $auth->authorize();
@@ -42,7 +42,7 @@ class InstagramFlow extends Widget
                 $session->set('instagram_token', $access_token);
             }
         }
-    
+
         try{
             $instagram = new Instagram();
             $instagram->setAccessToken($session->get('instagram_token', null));
@@ -54,14 +54,14 @@ class InstagramFlow extends Widget
         } catch(Exception $e) {
             die($e->getMessage());
         }
-        
+
         $params['medias'] = $medias->getData();
         return $this->getTemplating()->render(
             'CoreBundle:Widget:instagram.html.twig',
             $params
         );
     }
-    
+
     public function getOptions()
     {
         $params = $this->getParams();

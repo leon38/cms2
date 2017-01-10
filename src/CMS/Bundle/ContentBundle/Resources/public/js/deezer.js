@@ -8,30 +8,92 @@ var activeSong;
 var activeSongJ;
 $(document).ready(function() {
     var artist = $('#tc_bundle_contentbundle_content_fieldValuesTemp_musique_artist').val();
-    console.log(artist);
     if (artist != '') {
         search(artist);
     }
 });
 
+var playRunner = null;
+var percentage = 0;
+var id_player = 1;
+function go($time, songLength) {
+    playRunner = setInterval(function() {
+        var $visualizers = $('.player#player-'+id_player+' .visualizer>div');
+        console.log($visualizers);
+        //visualizers
+        $visualizers.each(function() {
+            console.log('lalala');
+            $(this).css('height', Math.random() * 90 + 10 + '%');
+        });
+        //progress bar
+        percentage += 0.15;
+        if (percentage > 100) percentage = 0;
+        var $progressBar = $('.player#player-'+id_player+' .progress-bar');
+        var $progressBarRunner = $progressBar.find('.runner');
+        $progressBarRunner.css('width', percentage + '%');
 
+        $time.text(calculateTime(songLength, percentage));
+    }, 250);
+};
 
-function playPause(id){
-    //Sets the active song since one of the functions could be play.
-    activeSong = document.getElementById(id);
-    activeSongJ = $('#'+id);
-
-    //Checks to see if the song is paused, if it is, play it from where it left off otherwise pause it.
-    if (activeSong.paused){
-        $(activeSongJ.data('target')).addClass('active');
-        $(activeSongJ.data('target')).find('.play-pause').find('.fa').removeClass('fa-pause').addClass('fa-play');
-        activeSong.play();
-    }else{
-        $(activeSongJ.data('target')).removeClass('active');
-        $(activeSongJ.data('target')).find('.play-pause').find('.fa').removeClass('fa-play').addClass('fa-pause');
-        activeSong.pause();
+function playPause(id, songLength) {
+    id_player = id;
+    var $player = $('.player#player-'+id_player);
+    var $time = $('.player#player-'+id_player+' .time');
+    $player.toggleClass('paused').toggleClass('playing');
+    if (playRunner) {
+        clearInterval(playRunner);
+        playRunner = null;
+        $time.text(calculateTime(songLength, 100));
+        document.getElementById('audio-player-'+id_player).pause();
+    } else {
+        percentage = 0;
+        document.getElementById('audio-player-'+id_player).play();
+        go($time, songLength, percentage);
     }
 }
+
+function actionProgressBar(id) {
+    var $progressBar = $('#player-'+id+' .progress-bar');
+    var posY = $progressBar.offset().left;
+    var clickY = e.pageX - posY;
+    var width = $progressBar.width();
+
+    percentage = clickY / width * 100;
+}
+
+function calculateTime(songLength, percentage) {
+    //time
+    var currentLength = songLength / 100 * percentage;
+    var minutes = Math.floor(currentLength / 60);
+    var seconds = Math.floor(currentLength - (minutes * 60));
+    if (seconds <= 9) {
+        return (minutes + ':0' + seconds);
+    } else {
+        return (minutes + ':' + seconds);
+    }
+}
+
+clearInterval(playRunner);
+
+
+
+// function playPause(id){
+//     //Sets the active song since one of the functions could be play.
+//     activeSong = document.getElementById(id);
+//     activeSongJ = $('#'+id);
+//
+//     //Checks to see if the song is paused, if it is, play it from where it left off otherwise pause it.
+//     if (activeSong.paused){
+//         $(activeSongJ.data('target')).addClass('active');
+//         $(activeSongJ.data('target')).find('.play-pause').find('.fa').removeClass('fa-pause').addClass('fa-play');
+//         activeSong.play();
+//     }else{
+//         $(activeSongJ.data('target')).removeClass('active');
+//         $(activeSongJ.data('target')).find('.play-pause').find('.fa').removeClass('fa-play').addClass('fa-pause');
+//         activeSong.pause();
+//     }
+// }
 
 function updateTime(){
     var currentSeconds = (Math.floor(activeSong.currentTime % 60) < 10 ? '0' : '') + Math.floor(activeSong.currentTime % 60);

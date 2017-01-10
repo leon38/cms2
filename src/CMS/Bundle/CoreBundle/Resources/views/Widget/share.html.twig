@@ -1,10 +1,10 @@
 {# "Twitter", "Facebook", "Pinterest", "Google Plus" #}
-<a href="https://twitter.com/share?text={{ content.get('twitter description').value|url_encode }}&via={{ content.get('twitter creator').value|url_encode }}&url={{ url('front_single', {'alias': content.url})|url_encode }}" target="_blank">
+<a href="https://twitter.com/share?text={{ content.get('twitter description').value|url_encode }}&via={{ content.get('twitter creator').value|url_encode }}&url={{ url('front_single', {'alias': content.url})|url_encode }}" target="_blank" rel="noopener">
     <i class="fa fa-twitter"></i>
 </a>
-<a href="https://www.facebook.com/sharer/sharer.php?u={{ url('front_single', {'alias': content.url})|url_encode }}" target="_blank">
+<a href="https://www.facebook.com/sharer/sharer.php?u={{ url('front_single', {'alias': content.url})|url_encode }}" target="_blank" rel="noopener">
     <i class="fa fa-facebook"></i>
 </a>
-<a href="https://pinterest.com/pin/create/button/?url={{ content.thumbnail.getWebPath()|imagine_filter('thumb_post')|url_encode }}&media={{ content.thumbnail.metas['alt_1']|url_encode }}&description={{ content.chapo|url_encode }}" target="_blank">
+<a href="https://pinterest.com/pin/create/button/?url={{ content.thumbnail.getWebPath()|imagine_filter('thumb_post')|url_encode }}&media={{ content.thumbnail.metas['alt_1']|url_encode }}&description={{ content.chapo|url_encode }}" target="_blank" rel="noopener">
     <i class="fa fa-pinterest"></i>
 </a>

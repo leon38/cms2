@@ -1,29 +1,107 @@
-<ul class="list-unstyled">
-    {% for i in 0..4 %}
-        <li class="track">
-            <div class="pull-left">
-                <img src="{{ tracks[loop.index].album.cover_medium }}" width="64"
-                     alt="{{ tracks[loop.index].album.title }}">
-            </div>
-            <div class="infos">
-                <span class="track-name">{{ tracks[loop.index].title }}</span>
-                <span class="pull-right duration">{{ tracks[loop.index].duration|gmdate("i:s") }}</span>
-                <div class="clearfix"></div>
-                <audio id="audio-player-{{ loop.index }}" data-target="#song-{{ loop.index }}" class="player-audio"
-                       src="{{ tracks[loop.index].preview }}" type="audio/mp3" ontimeupdate="updateTime()"></audio>
-                <div id="song-{{ loop.index }}" class="audio">
-                    <a class="play-pause pull-left" onclick="playPause('audio-player-{{ loop.index }}')"><i
-                                class="fa fa-play"></i></a>
-                    <div class="song-slider-back pull-left">
-                        <div class="song-slider" onclick="setSongPosition(this,event)">
-                            <div class="track-progress"></div>
-                        </div>
-                    </div>
-                    <div class="song-time pull-right">0:00 / 0:00</div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-        </li>
-    {% endfor %}
-</ul>
+{% for i in 0..4 %}
+<div class="player paused" id="player-{{ loop.index }}">
+
+    <div class="progress-bar" onclick="javascript:actionProgressBar({{ loop.index }});">
+        <div class="runner"></div>
+    </div>
+    <div class="album-art">
+        <div class="cover" style="background-image: url({{ tracks[loop.index].album.cover_medium }});"></div>
+    </div>
+
+    <div class="description">
+        <div class="title">{{ tracks[loop.index].title }}</div>
+        <div class="sub-title">{{ tracks[loop.index].album.title }}</div>
+    </div>
+
+    <div class="visualizer">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div class="play-button" onclick="playPause('{{ loop.index }}', {{ tracks[loop.index].duration }})">
+        <div class="lp-background"></div>
+        <i class="mdi mdi-play"></i>
+        <i class="mdi mdi-pause"></i>
+    </div>
+
+    <div class="time-indicator">
+        <i class="mdi mdi-clock"></i>
+        <span class="time">{{ tracks[loop.index].duration|gmdate("i:s") }}</span>
+    </div>
+    <audio id="audio-player-{{ loop.index }}" data-target="#song-{{ loop.index }}" class="player-audio" src="{{ tracks[loop.index].preview }}" type="audio/mp3"></audio>
+</div>
+{% endfor %}
+{#<ul class="list-unstyled">#}
+    {#{% for i in 0..4 %}#}
+        {#<li class="track">#}
+            {#<div class="pull-left">#}
+                {#<img src="{{ tracks[loop.index].album.cover_medium }}" width="64"#}
+                     {#alt="">#}
+            {#</div>#}
+            {#<div class="infos">#}
+                {#<span class="track-name">{{ tracks[loop.index].title }}</span>#}
+                {#<span class="pull-right duration">{{ tracks[loop.index].duration|gmdate("i:s") }}</span>#}
+                {#<div class="clearfix"></div>#}
+                {#<audio id="audio-player-{{ loop.index }}" data-target="#song-{{ loop.index }}" class="player-audio"#}
+                       {#src="{{ tracks[loop.index].preview }}" type="audio/mp3" ontimeupdate="updateTime()"></audio>#}
+                {#<div id="song-{{ loop.index }}" class="audio">#}
+                    {#<a class="play-pause pull-left" onclick="playPause('audio-player-{{ loop.index }}')"><i#}
+                                {#class="fa fa-play"></i></a>#}
+                    {#<div class="song-slider-back pull-left">#}
+                        {#<div class="song-slider" onclick="setSongPosition(this,event)">#}
+                            {#<div class="track-progress"></div>#}
+                        {#</div>#}
+                    {#</div>#}
+                    {#<div class="song-time pull-right">0:00 / 0:00</div>#}
+                    {#<div class="clearfix"></div>#}
+                {#</div>#}
+            {#</div>#}
+            {#<div class="clearfix"></div>#}
+        {#</li>#}
+    {#{% endfor %}#}
+{#</ul>#}

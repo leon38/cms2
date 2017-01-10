@@ -61,16 +61,18 @@
 {% endblock %}
 
 {% block javascript %}
-    <script type="text/javascript">
-        var labels_poids = JSON.parse('{{ labels_poids|raw }}');
-        var data_poids = JSON.parse('{{ poids|raw }}');
-        var labels_activity = JSON.parse('{{ labels_activity|raw }}');
-        var data_steps = JSON.parse('{{ steps|raw }}');
+    {% if labels_poids is defined %}
+        <script type="text/javascript">
+            var labels_poids = JSON.parse('{{ labels_poids|raw }}');
+            var data_poids = JSON.parse('{{ poids|raw }}');
+            var labels_activity = JSON.parse('{{ labels_activity|raw }}');
+            var data_steps = JSON.parse('{{ steps|raw }}');
 
 
-        // SVG : M20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0 fill => red
-        // M10,0a30,30 0 1,0 60,0a30,30 0 1,0 -60,0 fill => none, stroke => red
-    </script>
-    <script type="text/javascript" src="{{ asset('bundles/core/js/wstats.js') }}"></script>
+            // SVG : M20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0 fill => red
+            // M10,0a30,30 0 1,0 60,0a30,30 0 1,0 -60,0 fill => none, stroke => red
+        </script>
+        <script type="text/javascript" src="{{ asset('bundles/core/js/wstats.js') }}"></script>
+    {% endif %}
 {% endblock %}
 

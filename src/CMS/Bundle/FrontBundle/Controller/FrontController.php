@@ -31,15 +31,20 @@ class FrontController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
+     * @param string $_format
+     * @return Response
      * @Route("/", name="home_index")
      * @Route("/index.{_format}", name="home", defaults={"_format": "html"})
      */
-    public function indexAction($_format)
+    public function indexAction($_format = "html")
     {
         $this->init();
+
         $em = $this->getDoctrine()->getManager();
+        $metas["title"] = '<title>'.$em->getRepository('CoreBundle:Option')->get('sitename').'</title>';
+        $metas["meta_description"] = '<meta name="description" value="'.$em->getRepository('CoreBundle:Option')->get('meta_description').'" />';
+        $metas["meta_keywords"] = '<meta name="keywords" value="'.$em->getRepository('CoreBundle:Option')->get('meta_keywords').'" />';
+
         $contents = $em->getRepository('ContentBundle:Content')->findBy(
             array('published' => true),
             array('created' => 'DESC')
@@ -52,6 +57,7 @@ class FrontController extends Controller
             $this->_parameters,
             array(
                 'title' => $this->_title,
+                'metas' => $metas,
                 'theme' => $this->_theme,
                 'contents' => $contents,
                 'categories' => $categories,
@@ -224,11 +230,12 @@ class FrontController extends Controller
     /**
      * Affiche le post ou les posts de la catégorie
      * @param  String $alias Alias d'une catégorie ou d'un post
+     * @param string $_format
      * @return Response Renvoie la vue avec le bon template selon l'alias
      *
-     * @Route("/{alias}.{_format}", name="front_single", defaults={"_format": "html"},)
+     * @Route("/{alias}.{_format}", name="front_single", defaults={"_format": "html", "format": "html"})
      */
-    public function singleAction($alias, $_format)
+    public function singleAction($alias, $_format = "html")
     {
         $this->init();
         $em = $this->getDoctrine()->getManager();

@@ -36,7 +36,7 @@ framework:
     fragments:       ~
     http_method_override: true
     assets:
-        base_urls: ['http://www.cms2.local']
+        base_urls: ['https://www.cms2.local']
         packages:
             templates:
                 base_path: "/templates"
@@ -55,8 +55,26 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ CoreBundle ]
+    #bundles:        [ CoreBundle, FrontBundle ]
     ruby: %ruby.bin%
+    assets:
+      breezy:
+        inputs:
+          - 'templates/Breezy/assets/font-awesome.min.css'
+          - 'templates/Breezy/assets/slicknav.css'
+          - 'templates/Breezy/style.css'
+          - 'templates/Breezy/assets/swiper.min.css'
+        filters: ['cssrewrite', 'uglifycss']
+      breezy_js:
+        inputs:
+          - 'templates/Breezy/assets/js/swiper.jquery.min.js'
+          - 'templates/Breezy/assets/js/masonry.pkgd.min.js'
+          - 'templates/Breezy/assets/js/component.js'
+          - 'templates/Breezy/assets/js/app.js'
+          - 'templates/Breezy/assets/js/skycons.js'
+          - 'templates/Breezy/assets/js/barba.min.js'
+          - 'templates/Breezy/assets/js/transition.js'
+        filters: ['uglifyjs2']
     filters:
         cssrewrite: ~
         sass:
@@ -64,6 +82,11 @@ assetic:
         compass:
             bin: %compass.bin%
         jsqueeze: ~
+        uglifycss:
+          bin: ./app/Resources/node_modules/uglifycss/uglifycss
+        uglifyjs2:
+          bin: ./app/Resources/node_modules/uglify-js/bin/uglifyjs
+
 
 # Doctrine Configuration
 doctrine:

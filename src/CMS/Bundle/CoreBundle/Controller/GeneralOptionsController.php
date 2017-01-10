@@ -36,7 +36,7 @@ class GeneralOptionsController extends Controller
                     $em->persist($option);
     			}
     			$em->flush();
-    			
+
                 $this->get('session')->getFlashBag()->add(
                     'success',
                     'cms.option.general_options.success'
@@ -55,7 +55,7 @@ class GeneralOptionsController extends Controller
             'method' => 'POST',
         ));
 
-        $form ->add('submit', SubmitType::class, array('label' => 'save', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
+        $form ->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-fill btn-info pull-right')));
 
         return $form;
     }

@@ -34,9 +34,9 @@ class ContentListener
         $fieldvalues = $content->getFieldValues();
 
         foreach($fieldvalues as $fieldvalue) {
-            if ($fieldvalue->getField()->getField()->getTypeField() != TextType::class && $fieldvalue->getField()->getField()->getTypeField() != DateType::class) {
+            $type = $fieldvalue->getField()->getField()->getType();
+            if (($fieldvalue->getField()->getField()->getTypeField() != TextType::class && $fieldvalue->getField()->getField()->getTypeField() != DateType::class) || $type == 'music') {
                 $typeField = $fieldvalue->getField()->getField()->getTypeField();
-                $type = $fieldvalue->getField()->getField()->getType();
                 $value = $fieldvalue->getValue();
                 if ($type == 'music') {
                     $params = $fieldvalue->getField()->getField()->getParams();

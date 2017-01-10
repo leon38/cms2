@@ -11,14 +11,7 @@
 </footer>
 <a href="#" class="goto-top"><i class="fa fa-angle-up"></i></a>
 </div>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/swiper.jquery.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/masonry.pkgd.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/component.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/app.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/skycons.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/barba.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/templates/' ~ theme ~ '/assets/js/transition.js') }}"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
+
 <div class="flex-container hide">
     <div class="unit">
         <div class="heart">
@@ -35,5 +28,14 @@
         <p>Choupe et Doune</p>
     </div>
 </div>
+
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}" defer></script>
+<script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}" defer></script>
+{% javascripts
+'@breezy_js'
+output="assetic/breezy_js.js" %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.1/Chart.js"></script>
 </body>
 </html>

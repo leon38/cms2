@@ -9,6 +9,192 @@
  * Version: 1.0
  * Tags: responsive-layout, fluid-layout, translation-ready, microformats, masonry, lazy-load
  */
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300);
+@import url(http://cdn.materialdesignicons.com/1.3.41/css/materialdesignicons.min.css);
+
+body *, body *:before, body *:after, html *, html *:before, html *:after {
+    transition: all 0.5s ease;
+}
+.player a {
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+}
+.player a:hover {
+    text-shadow: 1px 1px 5px #000000;
+}
+.player {
+    margin-top: 50px;
+    width: 500px;
+    height: 75px;
+    background: white;
+    border-bottom: 4px #ccc solid;
+    position: relative;
+    color: black;
+    text-align: left;
+    text-shadow: none;
+    font-family: "Roboto", sans-serif;
+}
+.player .album-art {
+    position: absolute;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    box-shadow: 3px 0 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.player .album-art .cover {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
+    background-size: cover;
+}
+.player .description, .player .description {
+    position: relative;
+    width: 60%;
+    height: 50px;
+    top: 20%;
+    left: 20%;
+    overflow: hidden;
+}
+.player .description .title, .player .description .title {
+    color: black;
+    font-size: 24px;
+    font-weight: 100;
+}
+.player .description .sub-title {
+    font-size: 13px;
+    font-weight: 100;
+    color: #999;
+}
+.player .play-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 10%;
+    border-radius: 50%;
+    top: 0px;
+    background: white;
+    /*box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.35);*/
+    border: solid 1px #aaa;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #D32F2F;
+    cursor: pointer;
+}
+.player .play-button .lp-background {
+    transition: all 0.35s ease;
+    background: url(assets/images/v5wy3b.png);
+    background-size: cover;
+    animation: spin 1s infinite linear;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+}
+.player .play-button i {
+    z-index: 100;
+}
+.player .play-button .mdi-pause {
+    z-index: 100;
+    position: absolute;
+    right: 11px;
+    top: 0px;
+    color: white;
+    font-size: 16px;
+}
+.player .play-button:hover {
+    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.5);
+}
+.player .time-indicator {
+    position: absolute;
+    right: 11%;
+    top: 65%;
+    font-size: 13px;
+    font-weight: 100;
+}
+.player .time-indicator i {
+    color: #D32F2F;
+}
+.player .progress-bar {
+    width: 100%;
+    top: 100%;
+    opacity: 0;
+    height: 0;
+    position: absolute;
+    cursor: pointer;
+}
+.player .progress-bar .runner {
+    height: 4px;
+    background: #F44336;
+}
+.player .visualizer {
+    position: absolute;
+    top: 25%;
+    left: 37.5%;
+    width: 0%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.player .visualizer div {
+    width: 2px;
+    background: #F44336;
+    float: left;
+    height: 0%;
+    margin-right: 5px;
+    transition: all 0.1s ease;
+}
+.player.paused {
+    border-bottom: none;
+}
+.player.paused .visualizer {
+    opacity: 0;
+}
+.player.paused .lp-background {
+    opacity: 0;
+}
+.player.paused .play-button .mdi-pause {
+    opacity: 0;
+}
+.player.playing .description {
+    opacity: 0;
+}
+.player.playing .album-art {
+    width: 0px;
+    opacity: 0;
+}
+.player.playing .visualizer {
+    left: 5%;
+    width: 65%;
+}
+.player.playing .progress-bar {
+    height: 4px;
+    margin: 0;
+    opacity: 1;
+}
+.player.playing .description {
+    left: 0%;
+    opacity: 0;
+}
+.player.playing .play-button {
+    background: transparent;
+}
+.player.playing .play-button .mdi-play {
+    opacity: 0;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -683,6 +869,7 @@ body.search-open .search-form-area {
     -moz-transition: .3s;
     -webkit-transition: .3s;
     transition: .3s;
+    width: 100%;
 }
 
 .post:hover .post-featured-item a img{
@@ -1180,23 +1367,58 @@ body.search-open .search-form-area {
 /*********************
  * Footer
  *********************/
-.instagram-flow {
-    height: 317px;
-    overflow: hidden;
-}
-
-.instagram-flow div {
+.instagram-flow li {
     width: 16.66666667%;
     float: left;
 }
 
-.instagram-flow div img {
+.instagram-flow li img {
     width: 100%;
 }
 
-.instagram-flow div:hover img {
+.instagram-flow li:hover img {
     opacity: .8;
 }
+
+.widget ul li:last-child, #footer-widget-area .widget ul li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.instagram-flow li, .instagram-flow li {
+    float: left;
+    width: 33.33333%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border: none;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-bottom: 8px;
+}
+
+
+.instagram-flow li {
+    width: 16.66666666666%;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+
+@media only screen and (max-width: 767px) {
+    .instagram-flow li {
+        width: 25% !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .instagram-flow li:nth-child(8), #alternate-widget-area .instagram-flow li:nth-child(7), .instagram-flow li:nth-child(6), .instagram-flow li:nth-child(5) {
+        display: none;
+    }
+}
+
+
+
 
 footer {
     width:100%;

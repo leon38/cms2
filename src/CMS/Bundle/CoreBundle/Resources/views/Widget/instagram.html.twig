@@ -4,9 +4,15 @@
     <div class="clearfix"></div>
 {% endif %}
 <div class="instagram-flow">
-{% for media in medias %}
-    {% if media.type == 'image' %}
-        <div><img src="{{ media.getStandardResImage().url }}" class="img-responsive" /></div>
-    {% endif %}
-{% endfor %}
+    <ul>
+        {% for media in medias %}
+            {% if media.type == 'image' %}
+                {% set alt = media.getUser().getUserName() %}
+                {% if media.getCaption() != "" %}
+                    {% set alt = media.getCaption() %}
+                {% endif %}
+                <li><img src="{{ media.getStandardResImage().url }}" class="img-responsive" alt="{{ alt }}" /></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
 </div>
