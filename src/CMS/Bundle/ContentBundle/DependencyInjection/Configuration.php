@@ -30,7 +30,7 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('access_token')->cannotBeEmpty()->end()
                 ->scalarNode('access_token_secret')->cannotBeEmpty()->end()
             ->end();
-        
+
         return $treeBuilder;
     }
 }

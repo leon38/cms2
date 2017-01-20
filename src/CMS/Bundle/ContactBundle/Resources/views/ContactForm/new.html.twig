@@ -2,28 +2,186 @@
 
 {% block body %}
     {{ form_start(form) }}
-    <div class="col-md-3 pull-right">
+    <div class="col-md-6 pull-right">
+        <select name="tag" id="tag">
+            <option>Générer un marqueur</option>
+            <option value="text">Champ texte</option>
+            <option value="email">Champ email</option>
+            <option value="textarea">Zone de texte</option>
+            <option value="submit">Bouton valider</option>
+        </select>
+        <div class="marqueurs" id="text">
+            <div class="card">
+                <div class="content">
+                    <div class="form-group col-md-12">
+                        <div class="checkbox">
+                            <input type="checkbox" name="text[required]" id="text_required" value="1">
+                            <label for="text_required">Champ obligatoire ?</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="text_name">Nom</label>
+                        <input type="text" name="text[name]" id="text_name" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="text_id">id</label>
+                        <input type="text" name="text[id]" id="text_id" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="text_class">class</label>
+                        <input type="text" name="text[class]" id="text_class" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="text_size">size</label>
+                        <input type="text" name="text[size]" id="text_size" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="text_maxlength">maxlength</label>
+                        <input type="text" name="text[maxlength]" id="text_maxlength" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="text_placeholder">Placeholder</label>
+                        <input type="text" name="text[placeholder]" id="text_placeholder" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="text_tag">Tag généré</label>
+                        <input type="text" name="text[tag]" id="text_tag" class="form-control" disabled />
+                    </div>
+                    <button type="button" id="generate_tag_text" class="btn btn-info btn-fill pull-right btn">Générer
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="marqueurs" id="email">
+            <div class="card">
+                <div class="content">
+                    <div class="form-group col-md-12">
+                        <div class="checkbox">
+                            <input type="checkbox" name="email[required]" id="email_required" value="1">
+                            <label for="email_required">Champ obligatoire ?</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="email_name">Nom</label>
+                        <input type="text" name="email[name]" id="email_name" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="email_id">id</label>
+                        <input type="text" name="email[id]" id="email_id" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="email_class">class</label>
+                        <input type="text" name="email[class]" id="email_class" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="email_size">size</label>
+                        <input type="text" name="email[size]" id="email_size" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="email_maxlength">maxlength</label>
+                        <input type="text" name="email[maxlength]" id="email_maxlength" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="email_placeholder">Placeholder</label>
+                        <input type="text" name="email[placeholder]" id="email_placeholder" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="email_tag">Tag généré</label>
+                        <input type="text" name="email[tag]" id="email_tag" class="form-control" disabled />
+                    </div>
+                    <button type="button" id="generate_tag_email" class="btn btn-info btn-fill pull-right btn">Générer
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="marqueurs" id="textarea">
+            <div class="card">
+                <div class="content">
+                    <div class="form-group col-md-12">
+                        <div class="checkbox">
+                            <input type="checkbox" name="textarea[required]" id="textarea_required" value="1">
+                            <label for="textarea_required">Champ obligatoire ?</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="textarea_name">Nom</label>
+                        <input type="text" name="textarea[name]" id="textarea_name" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="textarea_id">id</label>
+                        <input type="text" name="textarea[id]" id="textarea_id" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="textarea_class">class</label>
+                        <input type="text" name="textarea[class]" id="textarea_class" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="textarea_placeholder">Placeholder</label>
+                        <input type="text" name="textarea[placeholder]" id="textarea_placeholder" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="textarea_tag">Tag généré</label>
+                        <input type="text" name="textarea[tag]" id="textarea_tag" class="form-control" disabled />
+                    </div>
+                    <button type="button" id="generate_tag_textarea" class="btn btn-info btn-fill pull-right btn">Générer
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="marqueurs" id="submit">
+            <div class="card">
+                <div class="content">
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="submit_id">id</label>
+                        <input type="text" name="submit[id]" id="submit_id" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label" for="submit_class">class</label>
+                        <input type="text" name="submit[class]" id="submit_class" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="submit_value">Value</label>
+                        <input type="text" name="submit[value]" id="submit_value" class="form-control"/>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label class="control-label" for="submit_tag">Tag généré</label>
+                        <input type="text" name="submit[tag]" id="submit_tag" class="form-control" disabled />
+                    </div>
+                    <button type="button" id="generate_tag_submit" class="btn btn-info btn-fill pull-right btn">Générer
+                    </button>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="card">
             <div class="header">
-                <h4 class="title">
-                    Infos <a data-toggle="collapse" href="#collapseInfos" class="pull-right"><i
-                                class="fa fa-angle-down"></i></a>
-                </h4>
+                <h4 class="title">Message</h4>
                 <div class="clearfix"></div>
             </div>
-            <div class="content collapse in" id="collapseInfos" aria-expanded="true">
-                <ul class="list-unstyled">
-                    <li>{{ 'cms.contactform.created' }}: {{ 'now'|date('d/m/Y H:i:s') }}</li>
-                    <li>{{ 'cms.contactform.modified' }}: {{ 'now'|date('d/m/Y H:i:s') }}</li>
+            <div class="content">
 
-                </ul>
+                {{ form_row(form.receiver) }}
+                {{ form_row(form.subject) }}
+                {{ form_row(form.htmlMessage) }}
             </div>
             <div class="footer"></div>
         </div>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-6">
         <div class="card">
-            <div class="content">{{ form_rest(form) }}
+            <div class="header">
+                <h4 class="title">Formulaire</h4>
+                <div class="clearfix"></div>
+            </div>
+            <div class="content">
+                {{ form_rest(form) }}
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -31,3 +189,6 @@
     {{ form_end(form) }}
 
 {% endblock %}
+{% block javascript %}
+    <script type="text/javascript" src="/bundles/contact/js/contactform.js"></script>
+{% endblock javascript %}

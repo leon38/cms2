@@ -61,7 +61,7 @@ class EntryController extends Controller
                 $root = $em->getRepository('MenuBundle:Entry')->findOneBy(array('lft' => 1, 'menu_taxonomy' => $entity->getMenuTaxonomy()));
                 $entity->setParent($root);
             }
-    
+
             if ($entity->getOrdre() != null) {
                 $em->getRepository('Entry')->persistAsNextSiblingOf($entity, $entity->getOrdre());
             }
@@ -93,7 +93,7 @@ class EntryController extends Controller
             'entry'  => $entity
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));
+        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));
 
         return $form;
     }
@@ -225,5 +225,5 @@ class EntryController extends Controller
         return $this->redirect($this->generateUrl('admin_entry', array('slug' => $menu_taxonomy->getSlug())));
     }
 
- 
+
 }

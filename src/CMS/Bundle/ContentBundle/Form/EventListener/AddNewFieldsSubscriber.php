@@ -12,6 +12,7 @@ namespace CMS\Bundle\ContentBundle\Form\EventListener;
 use CMS\Bundle\ContentBundle\Entity\Field;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
@@ -19,9 +20,9 @@ use Symfony\Component\Form\FormEvents;
 
 class AddNewFieldsSubscriber implements EventSubscriberInterface
 {
-    
+
     protected $fields;
-    
+
     /**
      * AddNewFieldsSubscriber constructor.
      * @param ArrayCollection|Field[] $fields
@@ -30,7 +31,7 @@ class AddNewFieldsSubscriber implements EventSubscriberInterface
     {
         $this->fields = $fields;
     }
-    
+
     /**
      * Returns an array of event names this subscriber wants to listen to.
      *
@@ -53,7 +54,7 @@ class AddNewFieldsSubscriber implements EventSubscriberInterface
     {
         return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
-    
+
     /**
      * @param \Symfony\Component\Form\FormEvent $event
      */
@@ -66,14 +67,14 @@ class AddNewFieldsSubscriber implements EventSubscriberInterface
             $required = (isset($params['required'])) ? $params['required'] : false;
             $options = array('label' => $field->getTitle(), 'required' => $required);
             $type = $field->getField()->getTypeField();
-            if (isset($params['format'])) {
+            if ($type == DateType::class) {
                 $options['attr'] = array('class' => 'datetimepicker');
                 $type = TextType::class;
             }
             if (isset($params['editor']) && $params['editor'] == true) {
                 $options['attr'] = array('class' => 'summernote');
             }
-        
+
             if (isset($params['options']) && $params['options'] != '') {
                 $tmp_choices = explode('%%', $params['options']);
                 $choices = array();
@@ -82,13 +83,11 @@ class AddNewFieldsSubscriber implements EventSubscriberInterface
                 }
                 $options['choices'] = $choices;
             }
-        
-            if ($type == 'music') {
-                $type = isset($options['api']) ? $options['api']['value'] : 'deezer';
-            } else if ($type == 'kml') {
-                $type = FileType::class;
+
+            if ($field->getName() == 'musique') {
+                $type = isset($options['api']) ? $options['api'] : DeezerType::class;
             }
-        
+
             $fieldvaluesTemp->add($field->getName(), $type, $options);
         }
     }

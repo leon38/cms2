@@ -301,6 +301,10 @@ class FrontController extends Controller
                 return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
             }
 
+            if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig')) {
+                return $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters);
+            }
+
             return $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters);
         }
 

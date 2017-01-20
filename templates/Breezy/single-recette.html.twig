@@ -1,0 +1,90 @@
+{% include "@cms/Breezy/header.html.twig" %}
+<div class="container">
+    <div id="content">
+        <article id="post-{{ content.id }}" class="article-item post post-{{ content.id }}" itemscope itemtype="http://schema.org/Recipe">
+            <div class="post-featured-item">
+                {% if content.thumbnail is not null %}
+                    <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
+                         alt="{{ content.thumbnail.metas['alt_1'] }}"
+                         title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive" itemprop="image" />
+                    <div class="blurred">
+                        <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
+                             alt="{{ content.thumbnail.metas['alt_1'] }}"
+                             title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive"/>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="post-entry full" >
+                <div class="post-header">
+                    <span class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
+                    <h1 itemprop="name">{{ content.title }}</h1>
+                </div>
+                <div class="post-entry-text">
+                    {{ content.description|raw }}
+                    <div class="col-1-of-3">
+                        <h3>Ingrédients</h3>
+                        <div itemprop="recipeIngredient">
+                            {{ content.get("ingredients")|raw }}
+                        </div>
+                    </div>
+                    <div class="col-2-of-3" itemprop="description">
+                        <h3>Préparation</h3>
+                        <ul>
+                            <li>Nombre de personnes : <span itemprop="recipeYield">{{ content.get('nb-personnes')|raw }} personnes</span></li>
+                            <li>Temps de préparation : <time datetime="PT{{ content.get('temps-preparation')|raw }}M" itemprop="prepTime">{{ content.get('temps-preparation')|raw }} minutes</time></li>
+                            <li>Temps de cuisson : <time datetime="PT{{ content.get('temps-cuisson')|raw }}M" itemprop="cookTime">{{ content.get('temps-cuisson')|raw }} minutes</time></li>
+                        </ul>
+                        {{ content.get("preparation")|raw }}
+                    </div>
+                    <div class="date-author">
+                        <div class="pull-left">
+                            Ecrit par <span class="author" itemprop="author">{{ content.author }}</span> le <span
+                                    class="date">{{ content.created|localizeddate('full', 'none') }}</span>
+                        </div>
+                        <div class="pull-right">
+                            {{ widget('share', content) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {{ widget('related-posts', content.id) }}
+
+        <div class="comments">
+            <div class="post-entry">
+                <div class="post-header">
+                    <h4 class="title">Commentaires</h4>
+                </div>
+                <div class="post-entry-text">
+                    {% for comment in content.comments %}
+                        {% include '@cms/Breezy/comment.html.twig' with {'comment': comment} %}
+                    {% endfor %}
+                    <div class="comment-form">
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="alert alert-callout alert-danger" role="alert">
+                                {{ flashMessage|trans }}
+                            </div>
+                        {% endfor %}
+                        {{ form_start(comment_form) }}
+                        <div class="col-md-6">
+                            {{ form_row(comment_form.pseudo) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(comment_form.email) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_row(comment_form.message) }}
+                            {{ form_rest(comment_form) }}
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <aside id="sidebar">
+        {{ widget('search') }}
+    </aside>
+</div>
+{% include "@cms/Breezy/footer.html.twig" %}

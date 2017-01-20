@@ -1,6 +1,8 @@
 <?php
 namespace CMS\Bundle\CoreBundle\Controller;
 
+use CMS\Bundle\CoreBundle\Entity\User;
+use CMS\Bundle\CoreBundle\Form\LostPasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -46,5 +48,45 @@ class SecurityController extends Controller
 	            'adminCss'		=> $adminCss
 	        ));
 	}
+
+    /**
+     * Affiche la vue cqui permet de demander la clé pour changer de mot de passe.
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/admin/request", name="admin_password_request")
+     */
+	public function lostPasswordAction(Request $request)
+    {
+        $user = new User();
+        $form = $this->createForm(LostPasswordType::class, $user, array(
+            'action' => $this->generateUrl('admin_languages_create'),
+            'method' => 'POST',
+            'attr'   => array('class' => 'form'),
+        ));
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('CoreBundle:User')->findOneBy(array('email' => $user->getEmail()));
+            if ($user !== null) {
+                $user->setPasswordRequestKey($user->generateLostPasswordRequestKey());
+                $em->persist($user);
+                $em->flush();
+                $this->get('session')->getFlashBag()->add(
+                    'success',
+                    'cms.core.lost_password.success'
+                );
+            } else {
+                $this->get('session')->getFlashBag()->add(
+                    'error',
+                    'cms.content.lost_password.error'
+                );
+            }
+        }
+        return $this->render('CoreBundle:Security:lostPassword.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
 
 }

@@ -1,49 +1,55 @@
-cms.content.modal.title_delete: 'Suppression du contenu'
-cms.content.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer ce contenu ?'
-cms.content.status.published: Publié
-cms.content.status.draft: Brouillon
-cms.content.status.pending: 'En attente'
-cms.content.status.status: Statut
-cms.content.title: Titre
-cms.content.description: Description
-cms.content.translations: Traductions
-cms.content.created: 'Date de création'
-cms.content.modified: 'Date de modification'
-cms.content.url: Url
-cms.content.alias: Alias
-cms.content.actions: Actions
-cms.content.categories: Catégories
-cms.content.languages: Langues
-cms.content.date: Date
-cms.content.preview: Visualiser
-cms.content.content_updated.success: 'Votre contenu a été édité avec succès !'
-cms.content.content_created.success: 'Votre contenu a été créé avec succès !'
-cms.category.modal.title_delete: 'Suppression de catégorie'
-cms.category.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
-cms.content.content: Contenu
-cms.content.category: Catégorie
-cms.content.content_taxonomy: 'Type de contenu'
-cms.content.field: Champ
-cms.content.author: Auteur
-cms.content.image: Image
-cms.content.meta: Metadata
-CHOOSE_FIELD_TYPE: 'Choisissez le type de champ'
-Close: Fermer
-New: Nouveau
-cms.field.modal.title_delete: 'Suppression du champ'
-cms.field.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer ce champ ?'
-tc.category.modal.title_delete: 'Suppression de la catégorie'
-tc.category.modal.text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
-cancel: Annuler
-delete: Supprimer
-cms.content.taxonomies: Types de contenu
-cms.content.status: Statut
-cms.field.id: Id
-cms.field.title: Titre du champ
-cms.field.type: Type de champ
-cms.field.field: Champ
-cms.field.name: Nom du champ
-cms.field.status: Statut
-cms.field.created: Créé le
-actions: Actions
-cms.content.choose_field_type: Choisissez un type de champ
+cms:
+  content:
+    modal:
+      title_delete: 'Suppression du contenu'
+      text_delete: 'Êtes-vous sûr de vouloir supprimer ce contenu ?'
+    status:
+      published: Publié
+      draft: Brouillon
+      pending: 'En attente'
+      status: Statut
+    title: Titre
+    description: Description
+    translations: Traductions
+    created: 'Date de création'
+    modified: 'Date de modification'
+    url: Url
+    alias: Alias
+    actions: Actions
+    categories: Catégories
+    languages: Langues
+    date: Date
+    preview: Visualiser
+    content: Contenu
+    category: Catégorie
+    author: Auteur
+    content_taxonomy: 'Type de contenu'
+    field: Champ
+    image: Image
+    meta: Metadata
+    taxonomies: Types de contenu
+    status: Statut
+    choose_field_type: Choisissez un type de champ
+
+    content_updated:
+      success: 'Votre contenu a été édité avec succès !'
+    content_created:
+      success: 'Votre contenu a été créé avec succès !'
+  category:
+    modal:
+      title_delete: 'Suppression de catégorie'
+      text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
+  field:
+    modal:
+      title_delete: 'Suppression du champ'
+      text_delete: 'Êtes-vous sûr de vouloir supprimer ce champ ?'
+    id: Id
+    title: Titre du champ
+    type: Type de champ
+    field: Champ
+    name: Nom du champ
+    status: Statut
+    created: Créé le
+
+No: Non
+Yes: Oui

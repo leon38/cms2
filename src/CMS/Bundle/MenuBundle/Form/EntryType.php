@@ -21,7 +21,7 @@ class EntryType extends AbstractType
         $entry = $options['entry'];
         $builder
             ->add('title', null, array('label' => 'cms.entry.title'))
-            ->add('status', null, array('label' => 'cms.entry.published', 'attr' => array('data-toggle' => 'checkbox')))
+            ->add('status', null, array('label' => 'cms.entry.status', 'attr' => array('data-toggle' => 'checkbox')))
             ->add('icon_class', TextType::class, array('label' => 'Icone', 'required' => false))
             ->add('external_url', null, array('label' => 'cms.entry.external'))
             ->add('content', null, array('label' => 'cms.entry.content'))
@@ -45,7 +45,7 @@ class EntryType extends AbstractType
                 ))
         ;
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

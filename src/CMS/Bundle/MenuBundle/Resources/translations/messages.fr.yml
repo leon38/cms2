@@ -5,6 +5,7 @@ cms.entry.content: Contenu
 cms.entry.category: Catégorie
 cms.entry.taxonomy: Type de contenu
 cms.entry.status: Publié
+cms.entry.parent: Menu parent
 actions: actions
 'yes': oui
 'no': non

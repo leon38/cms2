@@ -29,7 +29,6 @@ class Fields
     public function __construct()
     {
         $this->type = TextType::class;
-        $this->params = array();
     }
 
 

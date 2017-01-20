@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>{{ 'cms.login'|trans }}</title>
-	 <link href="http://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
+	 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,300" rel="stylesheet" type="text/css">
     {% stylesheets
         'bundles/core/css/font-awesome.min.css'
         'bundles/core/css/bootstrap.min.css'
@@ -29,7 +29,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                    <a href="register.html">
-                        Register
+                        {{ 'cms.core.register'|trans }}
                     </a>
                 </li>
             </ul>
@@ -39,7 +39,7 @@
 
 
 <div class="wrapper wrapper-full-page">
-    <div class="full-page login-page" data-color="black" data-image="{{ asset('bundles/core/images/full-back-1.jpeg') }}">
+    <div class="full-page login-page" data-color="black" data-image="{{ asset('bundles/core/images/winter.jpg') }}">
 
     <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
         <div class="content">
@@ -56,23 +56,8 @@
                 <nav class="pull-left">
                     <ul>
                         <li>
-                            <a href="#">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Company
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Portfolio
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                               Blog
+                            <a href="{{ path('home') }}">
+                                {{ 'cms.core.home'|trans }}
                             </a>
                         </li>
                     </ul>

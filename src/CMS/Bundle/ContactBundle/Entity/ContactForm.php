@@ -8,305 +8,322 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * ContactForm
  *
  * @ORM\Table(name="contact_form")
- * @ORM\Entity(repositoryClass="CMS\Bundle\ContactBundle\Repository\ContactFormsRepository")
+ * @ORM\Entity(repositoryClass="CMS\Bundle\ContactBundle\Entity\Repository\ContactFormRepository")
  */
 class ContactForm
 {
-  /**
-   * @var int
-   *
-   * @ORM\Column(name="id", type="integer")
-   * @ORM\Id
-   * @ORM\GeneratedValue(strategy="AUTO")
-   */
-  private $id;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="title", type="string", length=100)
-   */
-  private $title;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=100)
+     */
+    private $title;
 
-  /**
-   * @var string
-   * @Gedmo\Slug(fields={"title", "id"})
-   * @ORM\Column(name="alias", type="string", length=100, unique=true)
-   */
-  private $alias;
+    /**
+     * @var string
+     * @Gedmo\Slug(fields={"title", "id"})
+     * @ORM\Column(name="alias", type="string", length=100, unique=true)
+     */
+    private $alias;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="tag", type="string", length=100, unique=true)
-   */
-  private $tag;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="tag", type="string", length=100, unique=true)
+     */
+    private $tag;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="html_form", type="text")
-   */
-  private $htmlForm;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="html_form", type="text")
+     */
+    private $htmlForm;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="sender", type="string", length=100, unique=true)
-   */
-  private $sender;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="receiver", type="string", length=100, unique=true)
+     */
+    private $receiver;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="subject", type="string", length=100, unique=true)
-   */
-  private $subject;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subject", type="string", length=100, unique=true)
+     */
+    private $subject;
 
-  /**
-   * @var string
-   *
-   * @ORM\Column(name="html_message", type="text")
-   */
-  private $htmlMessage;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="html_message", type="text")
+     */
+    private $htmlMessage;
 
-  /**
-   * @var \DateTime
-   * @Gedmo\Timestampable(on="create")
-   * @ORM\Column(name="created", type="datetime")
-   */
-  private $created;
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created", type="datetime")
+     */
+    private $created;
 
-  /**
-   * @var \DateTime
-   * @Gedmo\Timestampable(on="update")
-   * @ORM\Column(name="modified", type="datetime")
-   */
-  private $modified;
+    /**
+     * @var \DateTime
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(name="modified", type="datetime")
+     */
+    private $modified;
 
-  /**
-   * Get id
-   *
-   * @return integer
-   */
-  public function getId()
-  {
-    return $this->id;
-  }
+    /**
+     * @var array $translations
+     * @ORM\Column(name="translations", type="array")
+     */
+    private $translations;
 
-  /**
-   * Set title
-   *
-   * @param string $title
-   *
-   * @return ContactForm
-   */
-  public function setTitle($title)
-  {
-    $this->title = $title;
 
-    return $this;
-  }
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-  /**
-   * Get title
-   *
-   * @return string
-   */
-  public function getTitle()
-  {
-    return $this->title;
-  }
+    /**
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return ContactForm
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
-  /**
-   * Set alias
-   *
-   * @param string $alias
-   *
-   * @return ContactForm
-   */
-  public function setAlias($alias)
-  {
-    $this->alias = $alias;
+        return $this;
+    }
 
-    return $this;
-  }
+    /**
+     * Get title
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-  /**
-   * Get alias
-   *
-   * @return string
-   */
-  public function getAlias()
-  {
-    return $this->alias;
-  }
+    /**
+     * Set alias
+     *
+     * @param string $alias
+     *
+     * @return ContactForm
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
 
-  /**
-   * Set tag
-   *
-   * @param string $tag
-   *
-   * @return ContactForm
-   */
-  public function setTag($tag)
-  {
-    $this->tag = $tag;
+        return $this;
+    }
 
-    return $this;
-  }
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
 
-  /**
-   * Get tag
-   *
-   * @return string
-   */
-  public function getTag()
-  {
-    return $this->tag;
-  }
+    /**
+     * Set tag
+     *
+     * @param string $tag
+     *
+     * @return ContactForm
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
 
-  /**
-   * Set htmlForm
-   *
-   * @param string $htmlForm
-   *
-   * @return ContactForm
-   */
-  public function setHtmlForm($htmlForm)
-  {
-    $this->htmlForm = $htmlForm;
+        return $this;
+    }
 
-    return $this;
-  }
+    /**
+     * Get tag
+     *
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
 
-  /**
-   * Get htmlForm
-   *
-   * @return string
-   */
-  public function getHtmlForm()
-  {
-    return $this->htmlForm;
-  }
+    /**
+     * Set htmlForm
+     *
+     * @param string $htmlForm
+     *
+     * @return ContactForm
+     */
+    public function setHtmlForm($htmlForm)
+    {
+        $this->htmlForm = $htmlForm;
 
-  /**
-   * Set sender
-   *
-   * @param string $sender
-   *
-   * @return ContactForm
-   */
-  public function setSender($sender)
-  {
-    $this->sender = $sender;
+        return $this;
+    }
 
-    return $this;
-  }
+    /**
+     * Get htmlForm
+     *
+     * @return string
+     */
+    public function getHtmlForm()
+    {
+        return $this->htmlForm;
+    }
 
-  /**
-   * Get sender
-   *
-   * @return string
-   */
-  public function getSender()
-  {
-    return $this->sender;
-  }
 
-  /**
-   * Set subject
-   *
-   * @param string $subject
-   *
-   * @return ContactForm
-   */
-  public function setSubject($subject)
-  {
-    $this->subject = $subject;
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     *
+     * @return ContactForm
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get subject
-   *
-   * @return string
-   */
-  public function getSubject()
-  {
-    return $this->subject;
-  }
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
+    }
 
-  /**
-   * Set htmlMessage
-   *
-   * @param string $htmlMessage
-   *
-   * @return ContactForm
-   */
-  public function setHtmlMessage($htmlMessage)
-  {
-    $this->htmlMessage = $htmlMessage;
+    /**
+     * Set htmlMessage
+     *
+     * @param string $htmlMessage
+     *
+     * @return ContactForm
+     */
+    public function setHtmlMessage($htmlMessage)
+    {
+        $this->htmlMessage = $htmlMessage;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get htmlMessage
-   *
-   * @return string
-   */
-  public function getHtmlMessage()
-  {
-    return $this->htmlMessage;
-  }
+    /**
+     * Get htmlMessage
+     *
+     * @return string
+     */
+    public function getHtmlMessage()
+    {
+        return $this->htmlMessage;
+    }
 
-  /**
-   * Set created
-   *
-   * @param \DateTime $created
-   *
-   * @return ContactForm
-   */
-  public function setCreated($created)
-  {
-    $this->created = $created;
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return ContactForm
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get created
-   *
-   * @return \DateTime
-   */
-  public function getCreated()
-  {
-    return $this->created;
-  }
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
 
-  /**
-   * Set modified
-   *
-   * @param \DateTime $modified
-   *
-   * @return ContactForm
-   */
-  public function setModified($modified)
-  {
-    $this->modified = $modified;
+    /**
+     * Set modified
+     *
+     * @param \DateTime $modified
+     *
+     * @return ContactForm
+     */
+    public function setModified($modified)
+    {
+        $this->modified = $modified;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  /**
-   * Get modified
-   *
-   * @return \DateTime
-   */
-  public function getModified()
-  {
-    return $this->modified;
-  }
+    /**
+     * Get modified
+     *
+     * @return \DateTime
+     */
+    public function getModified()
+    {
+        return $this->modified;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReceiver()
+    {
+        return $this->receiver;
+    }
+
+    /**
+     * @param string $receiver
+     */
+    public function setReceiver($receiver)
+    {
+        $this->receiver = $receiver;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTranslations()
+    {
+        return $this->translations;
+    }
+
+    /**
+     * @param array $translations
+     */
+    public function setTranslations($translations)
+    {
+        $this->translations = $translations;
+    }
+
 }

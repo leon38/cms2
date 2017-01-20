@@ -119,7 +119,8 @@ class ContentController extends Controller
                 'oauth_access_token' => $this->getParameter('content.access_token'),
                 'oauth_access_token_secret' => $this->getParameter('content.access_token_secret'),
                 'consumer_key' => $this->getParameter('content.consumer_key'),
-                'consumer_secret' => $this->getParameter('content.consumer_secret'))
+                'consumer_secret' => $this->getParameter('content.consumer_secret'),
+                'base_url' => $request->getSchemeAndHttpHost())
             ;
             $event = new ContentSavedEvent($content, $settings);
             $subscriber = new ContentSubscriber();
@@ -182,7 +183,8 @@ class ContentController extends Controller
                 'oauth_access_token' => $this->getParameter('content.access_token'),
                 'oauth_access_token_secret' => $this->getParameter('content.access_token_secret'),
                 'consumer_key' => $this->getParameter('content.consumer_key'),
-                'consumer_secret' => $this->getParameter('content.consumer_secret'))
+                'consumer_secret' => $this->getParameter('content.consumer_secret'),
+                'base_url' => $request->getSchemeAndHttpHost())
             ;
             $event = new ContentSavedEvent($content, $settings);
             $subscriber = new ContentSubscriber();
@@ -233,6 +235,7 @@ class ContentController extends Controller
         );
         $form->add('submit_stay', SubmitType::class, array('label' => 'Create and stay', 'attr' => array('class' => 'btn btn-info btn-fill')));
         $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        $form->add('submit_seo', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -404,6 +407,12 @@ class ContentController extends Controller
 
         $form->add(
             'submit',
+            SubmitType::class,
+            array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill pull-right'))
+        );
+
+        $form->add(
+            'submit_seo',
             SubmitType::class,
             array('label' => 'Update', 'attr' => array('class' => 'btn btn-info btn-fill pull-right'))
         );

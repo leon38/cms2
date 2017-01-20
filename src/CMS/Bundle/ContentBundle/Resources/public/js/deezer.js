@@ -112,8 +112,8 @@ function updateTime(){
 
 
 function search(query) {
-    if (document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_musique_artist") !== null &&query != '')
-        query = document.getElementById("tc_bundle_contentbundle_content_fieldValuesTemp_musique_artist").value;
+    if (document.getElementById("content_fieldValuesTemp_musique_artist") !== null &&query != '')
+        query = document.getElementById("content_fieldValuesTemp_musique_artist").value;
 
     if (query != '') {
         $.ajax({

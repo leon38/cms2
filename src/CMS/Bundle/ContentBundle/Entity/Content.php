@@ -172,7 +172,7 @@ class Content
      *
      * @ORM\Column(name="likes_content", type="integer")
      */
-    protected $likes;
+    protected $likes = 0;
 
     /**
      * @var ArrayCollection|Comment[] $comments
@@ -198,7 +198,7 @@ class Content
         $this->translations = new ArrayCollection();
         $this->fieldvalues = new ArrayCollection();
         $this->metavalues = new ArrayCollection();
-
+        $this->likes = 0;
     }
 
     /**

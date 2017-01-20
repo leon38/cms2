@@ -10,7 +10,7 @@ parameters:
     sass.bin: '/usr/local/bin/sass'
     compass.bin: '/usr/local/bin/compass'
     ruby.bin: '/usr/bin/ruby'
-    web_path: %kernel.root_dir%/../web
+    web_path: '%kernel.root_dir%/../web'
 
 
 framework:
@@ -47,7 +47,7 @@ twig:
     strict_variables: "%kernel.debug%"
     form_themes: ['::form.html.twig']
     globals:
-        web_path: %web_path%
+        web_path: '%web_path%'
     paths:
         "%kernel.root_dir%/../templates": cms
 
@@ -56,7 +56,7 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     #bundles:        [ CoreBundle, FrontBundle ]
-    ruby: %ruby.bin%
+    ruby: '%ruby.bin%'
     assets:
       breezy:
         inputs:
@@ -78,9 +78,9 @@ assetic:
     filters:
         cssrewrite: ~
         sass:
-            bin: %sass.bin%
+            bin: '%sass.bin%'
         compass:
-            bin: %compass.bin%
+            bin: '%compass.bin%'
         jsqueeze: ~
         uglifycss:
           bin: ./app/Resources/node_modules/uglifycss/uglifycss

@@ -1,7 +1,9 @@
 <?php
 namespace CMS\Bundle\ContentBundle\Form\EventListener;
 
+use CMS\Bundle\ContentBundle\Form\Type\DeezerType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
@@ -54,6 +56,7 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
         $fieldvaluesTemp = $form->get('fieldValuesTemp');
         $names = array();
+        $i = 0;
         foreach ($this->fieldvalues as $fieldvalue) {
 
             $field = $fieldvalue->getField();
@@ -65,10 +68,12 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
                 'data' => $fieldvalue->getValue(),
                 'required' => $required,
             );
+
             $type = $field->getField()->getTypeField();
-            if (isset($params['format'])) {
+            if ($type == DateType::class) {
                 $options['attr'] = array('class' => 'datetimepicker');
-                $type = TextType::class;
+                $options['widget'] = 'single_text';
+                $options['data'] = \DateTime::createFromFormat("d/m/Y H:i", $options['data']);
             }
 
             if (isset($params['editor']) && $params['editor'] == true) {
@@ -84,16 +89,17 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
                 $options['choices'] = $choices;
             }
 
-            if ($type == 'music') {
-                $type = isset($options['api']) ? $options['api'] : 'deezer';
+            if ($field->getName() == 'musique') {
+                $type = isset($options['api']) ? $options['api'] : DeezerType::class;
             } else if ($type == FileType::class && $fieldvalue->getValue() != '') {
                 $options['data'] = new File($fieldvalue->getValue());
             }
 
             // $options = array_merge($options, $attributes);
-
             $fieldvaluesTemp->add($field->getName(), $type, $options);
+
         }
+        //die;
         $diff = array_diff(array_keys($this->fields), $names);
         foreach ($diff as $name) {
             $field = $this->fields[$name];
@@ -101,9 +107,9 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
             $required = (isset($params['required'])) ? $params['required'] : false;
             $options = array('label' => $field->getTitle(), 'required' => $required);
             $type = $field->getField()->getTypeField();
-            if (isset($params['format'])) {
+            if ($type == DateType::class) {
                 $options['attr'] = array('class' => 'datetimepicker');
-                $type = TextType::class;
+                $options['widget'] = 'single_text';
             }
             if (isset($params['editor']) && $params['editor'] == true) {
                 $options['attr'] = array('class' => 'summernote');

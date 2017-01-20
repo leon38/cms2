@@ -2,10 +2,10 @@
 namespace CMS\Bundle\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -32,60 +32,65 @@ class User implements UserInterface, \Serializable
      */
     private $user_login;
 
-	/**
-	 * @ORM\Column(name="user_pass", type="string", length=64)
-	 */
-	private $user_pass;
+    /**
+     * @ORM\Column(name="user_pass", type="string", length=64)
+     */
+    private $user_pass;
 
     /**
      * @ORM\Column(name="salt", type="string", length=255)
      */
     private $salt;
 
-	/**
+    /**
      * @JMS\Expose
      * @JMS\Type("string")
-	 * @ORM\Column(name="user_nicename", type="string", length=50, nullable=true)
-	 */
-	private $user_nicename;
+     * @ORM\Column(name="user_nicename", type="string", length=50, nullable=true)
+     */
+    private $user_nicename;
 
-	/**
-	 * @ORM\Column(name="user_email", type="string", length=100)
-	 */
-	private $user_email;
+    /**
+     * @ORM\Column(name="user_email", type="string", length=100)
+     */
+    private $user_email;
 
-	/**
-	 * @ORM\Column(name="user_url", type="string", length=100, nullable=true)
-	 */
-	private $user_url;
+    /**
+     * @ORM\Column(name="user_url", type="string", length=100, nullable=true)
+     */
+    private $user_url;
 
-	/**
-	 * @ORM\Column(name="user_registered", type="datetime")
-	 */
-	 private $user_registered;
+    /**
+     * @ORM\Column(name="user_registered", type="datetime")
+     */
+    private $user_registered;
 
-	/**
-	 * @ORM\Column(name="user_activation_key", type="string", length=255)
-	 */
-	private $user_activation_key;
+    /**
+     * @ORM\Column(name="user_activation_key", type="string", length=255)
+     */
+    private $user_activation_key;
 
-	/**
-	 * @ORM\Column(name="user_status", type="boolean")
-	 */
-	private $user_status = 0;
+    /**
+     * @ORM\Column(name="password_request_key", type="string", length=255)
+     */
+    private $password_request_key;
 
-	/**
-	 * @ORM\Column(name="display_name", type="string", length=250, nullable=true)
-	 */
-	private $display_name = "complete_name";
+    /**
+     * @ORM\Column(name="user_status", type="boolean")
+     */
+    private $user_status = 0;
 
-	/**
-	 * @ORM\ManyToMany(targetEntity = "Role", mappedBy = "users", cascade={"persist"})
+    /**
+     * @ORM\Column(name="display_name", type="string", length=250, nullable=true)
+     */
+    private $display_name = "complete_name";
+
+    /**
+     * @ORM\ManyToMany(targetEntity = "Role", mappedBy = "users", cascade={"persist"})
      * @ORM\JoinTable(name="role_user")
-	 *
-	 * @var ArrayCollection $roles;
-	 */
-	private $roles;
+     *
+     * @var ArrayCollection $roles ;
+     */
+    private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity="UserMeta", mappedBy="user", cascade={"persist", "remove"})
@@ -102,7 +107,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\OneToMany(targetEntity="CMS\Bundle\ContentBundle\Entity\Content", mappedBy="author")
      */
-     private $posts;
+    private $posts;
 
     private $plainPassword;
 
@@ -110,25 +115,25 @@ class User implements UserInterface, \Serializable
 
     public function getAbsolutePath()
     {
-        return null === $this->avatar ? null : $this->getUploadRootDir().'/'.$this->avatar;
+        return null === $this->avatar ? null : $this->getUploadRootDir() . '/' . $this->avatar;
     }
 
     public function getWebPath()
     {
-        return null === $this->avatar ? null : $this->getUploadDir().'/'.$this->avatar;
+        return null === $this->avatar ? null : $this->getUploadDir() . '/' . $this->avatar;
     }
 
     protected function getUploadRootDir()
     {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
     protected function getUploadDir()
     {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
-        return 'uploads/avatars/'.$this->id;
+        return 'uploads/avatars/' . $this->id;
     }
 
     /**
@@ -155,7 +160,7 @@ class User implements UserInterface, \Serializable
         // vous devez lancer une exception ici si le fichier ne peut pas
         // être déplacé afin que l'entité ne soit pas persistée dans la
         // base de données comme le fait la méthode move() de UploadedFile
-        $this->file->move($this->getUploadRootDir(), $this->id.'.'.$this->file->guessExtension());
+        $this->file->move($this->getUploadRootDir(), $this->id . '.' . $this->file->guessExtension());
 
         unset($this->file);
     }
@@ -177,6 +182,7 @@ class User implements UserInterface, \Serializable
             unlink($this->filenameForRemove);
         }
     }
+
     /**
      * @ORM\PrePersist()
      */
@@ -186,30 +192,30 @@ class User implements UserInterface, \Serializable
     }
 
 
-	public function getUsername()
-	{
-		return $this->user_login;
-	}
+    public function getUsername()
+    {
+        return $this->user_login;
+    }
 
-	public function getPassword()
-	{
-		return $this->user_pass;
-	}
+    public function getPassword()
+    {
+        return $this->user_pass;
+    }
 
-	public function getRoles()
-	{
-		return $this->roles->toArray();
-	}
+    public function getRoles()
+    {
+        return $this->roles->toArray();
+    }
 
 
-	 /**
+    /**
      * @inheritDoc
      */
     public function eraseCredentials()
     {
     }
 
-   /**
+    /**
      * @see \Serializable::serialize()
      */
     public function serialize()
@@ -226,7 +232,7 @@ class User implements UserInterface, \Serializable
     {
         list (
             $this->id,
-        ) = unserialize($serialized);
+            ) = unserialize($serialized);
     }
 
     public function isAccountNonExpired()
@@ -260,7 +266,7 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->salt  = md5(uniqid(null, true));
+        $this->salt = md5(uniqid(null, true));
         $this->user_activation_key = sha1(uniqid(null, true));
         $this->user_status = 0;
     }
@@ -524,10 +530,10 @@ class User implements UserInterface, \Serializable
 
     public function __toString()
     {
-        switch($this->display_name) {
+        switch ($this->display_name) {
             case 'complete_name':
                 if ($this->__get('firstname') !== null and $this->__get('lastname') !== null)
-                    return $this->__get('firstname')->getMetaValue().' '.$this->__get('lastname')->getMetaValue();
+                    return $this->__get('firstname')->getMetaValue() . ' ' . $this->__get('lastname')->getMetaValue();
                 else if ($this->user_nicename != '')
                     return $this->user_nicename;
                 else
@@ -574,8 +580,9 @@ class User implements UserInterface, \Serializable
         return $this->metas;
     }
 
-    public function getMeta($meta_key) {
-        foreach($this->metas as $meta) {
+    public function getMeta($meta_key)
+    {
+        foreach ($this->metas as $meta) {
             if ($meta->getMetaKey() == $meta_key) {
                 return $meta->getMetaValue();
             }
@@ -585,9 +592,11 @@ class User implements UserInterface, \Serializable
 
     public function __get($meta_key)
     {
-        foreach($this->metas as $meta) {
-            if ($meta->getMetaKey() == $meta_key) {
-                return $meta;
+        if (!empty($this->metas)) {
+            foreach ($this->metas as $meta) {
+                if ($meta->getMetaKey() == $meta_key) {
+                    return $meta;
+                }
             }
         }
         return null;
@@ -595,7 +604,7 @@ class User implements UserInterface, \Serializable
 
     public function __set($meta_key, $meta_value)
     {
-        foreach($this->metas as $meta) {
+        foreach ($this->metas as $meta) {
             preg_match("/metas_(.*)/", $meta_key, $output_array);
             if (!empty($output_array)) {
                 $meta_key = $output_array[1];
@@ -609,7 +618,7 @@ class User implements UserInterface, \Serializable
 
     public function __isset($meta_key)
     {
-        foreach($this->metas as $meta) {
+        foreach ($this->metas as $meta) {
             preg_match("/metas_(.*)/", $meta_key, $output_array);
             if (!empty($output_array)) {
                 return true;
@@ -701,5 +710,26 @@ class User implements UserInterface, \Serializable
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPasswordRequestKey()
+    {
+        return $this->password_request_key;
+    }
+
+    /**
+     * @param mixed $password_request_key
+     */
+    public function setPasswordRequestKey($password_request_key)
+    {
+        $this->password_request_key = $password_request_key;
+    }
+
+    public function generateLostPasswordRequestKey()
+    {
+        return sha1(uniqid(null, true));
     }
 }

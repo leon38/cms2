@@ -1,6 +1,14 @@
 services:
+    cms.contact.repository.contact_form_repository:
+        class: CMS\Bundle\ContactBundle\Entity\Repository\ContactFormRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments: ['ContactBundle:ContactForm']
+
     cms.contact_form.twig_extension:
         class: CMS\Bundle\ContactBundle\Twig\ContactFormExtension
         public: false
+        arguments: ['@cms.contact.repository.contact_form_repository']
+        calls:
+            - [ setTemplating, [ '@twig' ] ]
         tags:
             - { name: twig.extension }

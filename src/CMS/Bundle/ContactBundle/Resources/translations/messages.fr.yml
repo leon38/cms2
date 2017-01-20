@@ -5,3 +5,7 @@ trash: "Corbeille"
 cms:
     contact:
         inbox_empty: Votre boîte aux lettres ne contient aucun message
+    contactform:
+        message:
+            sent_ok: Message si le message a bien été envoyé
+            sent_nok: Message s'il y a eu une erreur lors de l'envoi

@@ -11,6 +11,7 @@ use CMS\Bundle\ContentBundle\Entity\Content;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -35,7 +36,7 @@ class ContentListener
 
         foreach($fieldvalues as $fieldvalue) {
             $type = $fieldvalue->getField()->getField()->getType();
-            if (($fieldvalue->getField()->getField()->getTypeField() != TextType::class && $fieldvalue->getField()->getField()->getTypeField() != DateType::class) || $type == 'music') {
+            if (($fieldvalue->getField()->getField()->getTypeField() != TextType::class && $fieldvalue->getField()->getField()->getTypeField() != TextareaType::class && $fieldvalue->getField()->getField()->getTypeField() != DateType::class) || $type == 'music') {
                 $typeField = $fieldvalue->getField()->getField()->getTypeField();
                 $value = $fieldvalue->getValue();
                 if ($type == 'music') {
@@ -65,9 +66,5 @@ class ContentListener
                 $content->fieldValuesHtml[$fieldvalue->getField()->getName()] = $fieldvalue->getValue();
             }
         }
-
-
-
-
     }
 }

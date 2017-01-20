@@ -36,12 +36,13 @@
                 <tbody>
                 {% for form in forms %}
                     <tr>
+                        <td>{{ form.id }}</td>
                         <td>{{ form.title }}</td>
                         <td>{{ form.alias }}</td>
                         <td>{{ form.tag }}</td>
                         <td>{% if form.created %}{{ form.created|date(date_format) }}{% endif %}</td>
                         <td class="text-right">
-                            <a href="{{ path('admin_content_edit', { 'id': form.id }) }}"
+                            <a href="{{ path('admin_contactform_edit', {'contactForm': form.id}) }}"
                                class="btn btn-simple btn-info btn-xs" data-toggle="tooltip" data-placement="top"
                                data-original-title="Editer">
                                 <i class="fa fa-pencil"></i>

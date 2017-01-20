@@ -6,19 +6,20 @@ cms:
         general_options:
             success: Les réglages ont bien été enregistrés
     user:
-        user_login: 'Identifiant'
-        user_pass:  'Mot de passe'
+        user_login: Identifiant
+        user_pass:  Mot de passe
         user_not_found: "L'utilisateur n'existe pas"
         user_pass_help: "Astuce : Le mot de passe devrait contenir au moins 7 caractères. Pour le rendre plus fort, utilisez des majuscules et des minuscules, des nombres et des symboles tels que ! ? $ % ^ & )."
         user_pass_confirm: Confirmation
         user_email: Votre adresse de messagerie
         email: Email
         user_email_help: Vérifiez bien cette adresse de messagerie avant de continuer.
-        user_pass_forgot: "Mot de passe oublié ?"
-        user_url: "Site web"
-        user_nicename: "Nom à afficher"
-        user_registered: 'Date de création'
-        user_roles: 'Rôles'
+        user_pass_forgot: Mot de passe oublié ?
+        user_url: Site web
+        user_nicename: Nom à afficher
+        user_registered: Date de création
+        user_roles: Rôles
+        user_status: Statut
         back: "← Retour sur %title%"
         remember_me: "Se souvenir de moi ?"
         user_login_email: "Identifiant ou adresse de messagerie"
@@ -93,6 +94,18 @@ cms:
         backup: Sauvegarde
         creation: Création
         edition: Edition
+        lost_password: Mot de passe perdu ?
+        lost_password_request: Mot de passe perdu
+        activate: Activer
+        activated: Activé
+        register: S'inscrire
+        home: Accueil
+    widget:
+      widgets: Widgets
+      taxonomies: Taxonomies
+      title: Titre
+      name: Nom
+
 
 firstname: Prénom
 lastname: Nom
@@ -103,3 +116,8 @@ cancel: Annuler
 delete: Supprimer
 Create: Valider
 Update: Mettre à jour
+yes: oui
+no: non
+Close: Fermer
+New: Nouveau
+CHOOSE_FIELD_TYPE: 'Choisissez le type de champ'

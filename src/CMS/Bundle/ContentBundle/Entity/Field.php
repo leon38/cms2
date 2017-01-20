@@ -340,4 +340,9 @@ class Field
     {
         return $this->title;
     }
+
+    public function getParams()
+    {
+        return $this->field->getParams();
+    }
 }

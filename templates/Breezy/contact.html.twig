@@ -1,0 +1,96 @@
+{% include "@cms/Breezy/header.html.twig" %}
+<div class="container">
+    <div id="content">
+        <article id="post-{{ content.id }}" class="article-item post post-{{ content.id }}">
+            <div class="post-featured-item">
+                {% if content.thumbnail is not null %}
+                    <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
+                         alt="{{ content.thumbnail.metas['alt_1'] }}"
+                         title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive"/>
+                    <div class="blurred">
+                        <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}"
+                             alt="{{ content.thumbnail.metas['alt_1'] }}"
+                             title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive"/>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="post-entry full">
+                <div class="post-header">
+                    <span class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
+                    <h1>{{ content.title }}</h1>
+                </div>
+                <div class="post-entry-text">
+                    {% for flashMessage in app.session.flashbag.get('error') %}
+                        <div class="alert alert-callout alert-danger" role="alert">
+                            {{ flashMessage|trans }}
+                        </div>
+                    {% endfor %}
+                    {% for flashMessage in app.session.flashbag.get('success') %}
+                        <div class="alert alert-callout alert-success" role="alert">
+                            {{ flashMessage|trans }}
+                        </div>
+                    {% endfor %}
+                    {{ content.description|contact_form|raw }}
+                    <div class="date-author">
+                        <div class="pull-left">
+                            Ecrit par <span class="author">{{ content.author }}</span> le <span
+                                    class="date">{{ content.created|localizeddate('full', 'none') }}</span>
+                        </div>
+                        <div class="pull-right">
+                            {{ widget('share', content) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        {{ widget('related-posts', content.id) }}
+
+        <div class="comments">
+            <div class="post-entry">
+                <div class="post-header">
+                    <h4 class="title">Commentaires</h4>
+                </div>
+                <div class="post-entry-text">
+                    {% for comment in content.comments %}
+                        {% include '@cms/Breezy/comment.html.twig' with {'comment': comment} %}
+                    {% endfor %}
+                    <div class="comment-form">
+                        {% for flashMessage in app.session.flashbag.get('error') %}
+                            <div class="alert alert-callout alert-danger" role="alert">
+                                {{ flashMessage|trans }}
+                            </div>
+                        {% endfor %}
+                        {{ form_start(comment_form) }}
+                        <div class="col-md-6">
+                            {{ form_row(comment_form.pseudo) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(comment_form.email) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_row(comment_form.message) }}
+                            {{ form_rest(comment_form) }}
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <aside id="sidebar">
+        {{ widget('search') }}
+
+        <div class="widget widget_map">
+            <h4 class="widget-title">Localisation</h4>
+            {{ content.get('carte')|raw }}
+        </div>
+
+        <div class="widget widget_weather">
+            <h4 class="widget-title">Météo</h4>
+            {{ content.get('meteo')|raw }}
+        </div>
+
+    </aside>
+</div>
+{% include "@cms/Breezy/footer.html.twig" %}

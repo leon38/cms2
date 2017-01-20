@@ -44,13 +44,15 @@ class FieldType extends AbstractType
                     $form = $event->getForm();
                     $params = $form->get('params');
                     foreach($fieldclass->getOptions() as $label => $infos) {
-                        switch($infos['type']) {
-                            case ChoiceType::class:
-                                $params->add($infos['name'], $infos['type'], array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
-                                break;
-                            default:
-                                $params->add($infos['name'], $infos['type'], array('label' => $label, 'data' => $infos['value']));
-                                break;
+                        if (isset($infos['type'])) {
+                            switch($infos['type']) {
+                                case ChoiceType::class:
+                                    $params->add($infos['name'], $infos['type'], array('label' => $label, 'choices' => $infos['choices'], 'data' => $infos['value']));
+                                    break;
+                                default:
+                                    $params->add($infos['name'], $infos['type'], array('label' => $label, 'data' => $infos['value']));
+                                    break;
+                            }
                         }
                     }
                     $form->add('submit', SubmitType::class, array('attr' => array('class' => 'btn btn-info btn-fill pull-right')));

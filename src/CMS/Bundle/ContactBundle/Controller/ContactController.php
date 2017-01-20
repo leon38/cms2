@@ -24,7 +24,7 @@ class ContactController extends Controller
     const INBOX = 1;
     const SENT  = 2;
 
-    private $folders = array('inbox' => 'glyphicon glyphicon-inbox', 'sent' => 'fa fa-paper-plane', 'trash' => 'glyphicon glyphicon-trash');
+    private $folders = array('inbox' => 'fa fa-inbox', 'sent' => 'fa fa-paper-plane', 'trash' => 'fa fa-trash');
 
     /**
      * Affiche tous les messages d'un répertoire
@@ -32,7 +32,6 @@ class ContactController extends Controller
      * @return array         tous les messages du dossier
      *
      * @Route("/messages/{folder}", name="admin_messages", defaults={"folder" = "inbox"})
-     * @Template()
      */
     public function indexAction($folder)
     {
@@ -40,13 +39,13 @@ class ContactController extends Controller
     	$messages = $em->getRepository('ContactBundle:Message')->findBy(array('status' => constant('self::'.strtoupper($folder))), array('sent_date' => 'DESC'));
     	$em = $this->getDoctrine()->getManager();
     	$last_message = $em->getRepository('ContactBundle:Message')->findLastMessage();
-        return array(
+        return $this->render('ContactBundle:Contact:index.html.twig', array(
         	'messages' => $messages,
         	'last_message' => $last_message,
         	'bright_style' => true,
             'folder' => $folder,
             'folders' => $this->folders
-        );
+        ));
     }
 
     /**

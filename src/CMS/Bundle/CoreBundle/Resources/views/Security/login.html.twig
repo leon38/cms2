@@ -17,19 +17,20 @@
             <div class="header text-center">Login</div>
             <div class="content">
                 <div class="form-group">
-                    <label class="form-label" for="username">Username</label>
+                    <label class="form-label" for="username">{{ 'cms.user.user_login'|trans }}</label>
                     <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="password">Password:</label>
+                    <label class="form-label" for="password">{{ 'cms.user.user_pass'|trans }}</label>
                     <input type="password" id="password" name="_password" class="form-control" />
                 </div>
             </div>
             <div class="footer text-center">
-                <button type="submit" class="btn btn-fill btn-info btn-wd">Login</button>
+                <button type="submit" class="btn btn-fill btn-info btn-wd">{{ 'Create'|trans }}</button>
             </div>
         </div>
     </form>
+    <a href="{{ path('admin_password_request') }}">{{ 'cms.core.lost_password'|trans }}</a>
 </div>
 {% endblock body %}

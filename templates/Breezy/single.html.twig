@@ -20,7 +20,7 @@
                     <h1>{{ content.title }}</h1>
                 </div>
                 <div class="post-entry-text">
-                    {{ content.description|raw }}
+                    {{ content.description|contact_form|raw }}
                     <div class="date-author">
                         <div class="pull-left">
                             Ecrit par <span class="author">{{ content.author }}</span> le <span
