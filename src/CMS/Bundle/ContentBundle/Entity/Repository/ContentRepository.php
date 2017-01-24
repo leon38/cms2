@@ -218,5 +218,4 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
-
 }

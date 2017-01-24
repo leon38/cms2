@@ -42,7 +42,7 @@ class ContentController extends Controller
      * @Method({"GET", "POST"})
      * @Template()
      */
-    public function indexAction($page, $nb_elem)
+    public function indexAction($page, $nb_elem, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -71,6 +71,19 @@ class ContentController extends Controller
 
         $option = $em->getRepository('CoreBundle:Option')->findOneBy(array('option_name' => 'date_format'));
 
+//        $referer = $request->server->get('HTTP_REFERER');
+
+        $route_referer = $this->getRefererRoute($request);
+        $notification = false;
+        if ($route_referer == 'admin_content_create') {
+            $lastPost = $this->getDoctrine()->getRepository('ContentBundle:Content')->findOneBy(array(), array('id' => 'desc'));
+            if ($lastPost->getPublished()) {
+                $notification = true;
+            }
+        }
+        $notification = ($route_referer == 'admin_content_create') ? true : false;
+
+
         return $this->render(
             'ContentBundle:Content:index.html.twig',
             array(
@@ -80,8 +93,23 @@ class ContentController extends Controller
                 'languages' => $languages,
                 'taxonomies' => $taxonomies,
                 'date_format' => $option->getOptionValue(),
+                'notification' => $notification,
             )
         );
+    }
+
+    private function getRefererRoute(Request $request)
+    {
+        //look for the referer route
+        $referer = $request->server->get('HTTP_REFERER');
+        $path = substr($referer, strpos($referer, $request->getSchemeAndHttpHost()));
+        $path = str_replace($request->getSchemeAndHttpHost(), '', $path);
+
+        $matcher = $this->get('router')->getMatcher();
+        $parameters = $matcher->match($path);
+        $route = $parameters['_route'];
+
+        return $route;
     }
 
     /**
