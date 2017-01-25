@@ -104,18 +104,18 @@ class Content
     protected $translations;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="translations")
-     * @ORM\JoinColumn(name="reference_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="translations", cascade={"remove"})
+     * @ORM\JoinColumn(name="reference_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $referenceContent;
 
     /**
-     * @ORM\OneToMany(targetEntity="FieldValue", mappedBy="content", cascade={"remove", "persist"}, indexBy="id", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="FieldValue", mappedBy="content", indexBy="id", fetch="EAGER")
      */
     protected $fieldvalues;
 
     /**
-     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content")
      */
     protected $metavalues;
 

@@ -218,4 +218,15 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function deleteTotally(array $ids)
+    {
+        return $this->_em
+            ->createQueryBuilder()
+            ->delete('ContentBundle:Content', 'c')
+            ->where('c.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->execute();
+    }
 }

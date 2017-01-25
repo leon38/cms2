@@ -24,6 +24,7 @@ class MetaValue
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="metavalues", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $content;
 

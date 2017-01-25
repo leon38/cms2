@@ -16,13 +16,15 @@ class FieldValue
     /**
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="fieldvalues", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $content;
 
     /**
      * @var Field $field
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldvalues", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="Field", inversedBy="fieldvalues", fetch="EAGER", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="field_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $field;
 

@@ -22,7 +22,10 @@
             <h4 class="title pull-left">{{ 'cms.content.content' |trans }}</h4>
             <div class="fixed-table-toolbar">
                 <div class="columns columns-right pull-right">
-                    <a data-toggle="modal" href="#modal-taxonomy" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                    {% if notification and lastPost is not null %}
+                      <a href="javascript:initNotify()" class="btn btn-danger" title="cms.content.display_notification"><i class="fa fa-bell-o"></i></a>
+                    {% endif %}
+                    <a data-toggle="modal" href="#modal-taxonomy" class="btn btn-default" title="cms.content.add_new"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -109,6 +112,25 @@
             var path = Routing.generate('{{ url }}', {id: id});
             var modal = $(this);
             modal.find('.modal-footer > a.btn-danger').attr('href', path);
-        })
+        });
+
+        function initNotify(){  // Onload du body
+            if(window.Notification){
+                Notification.requestPermission(function (status) {
+                    if(status == 'granted') {
+                        notify();
+                    }
+                });
+            }
+        }
+
+        function notify(){
+            {% if lastPost is not null %}
+            new Notification('{{ app.request.getSchemeAndHttpHost() }}', {
+                body: '{{ lastPost.title }}',
+                icon: '{{ absolute_url(asset('/templates/' ~ template ~ '/assets/images/logo4.png')) }}'
+            });
+            {% endif %}
+        }
     </script>
 {% endblock javascript %}

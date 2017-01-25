@@ -30,11 +30,16 @@ cms:
     taxonomies: Types de contenu
     status: Statut
     choose_field_type: Choisissez un type de champ
+    display_notification: Affiche une notification aux abonnés
+    add_new: Ajoute un nouveau contenu
 
+    contents_deleted:
+      success: Vos contenus ont bien été supprimés
     content_updated:
       success: 'Votre contenu a été édité avec succès !'
     content_created:
       success: 'Votre contenu a été créé avec succès !'
+
   category:
     modal:
       title_delete: 'Suppression de catégorie'

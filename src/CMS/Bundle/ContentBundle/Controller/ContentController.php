@@ -71,18 +71,17 @@ class ContentController extends Controller
 
         $option = $em->getRepository('CoreBundle:Option')->findOneBy(array('option_name' => 'date_format'));
 
-//        $referer = $request->server->get('HTTP_REFERER');
-
         $route_referer = $this->getRefererRoute($request);
         $notification = false;
-        if ($route_referer == 'admin_content_create') {
+        $lastPost = null;
+        if ($route_referer == 'admin_content_new') {
             $lastPost = $this->getDoctrine()->getRepository('ContentBundle:Content')->findOneBy(array(), array('id' => 'desc'));
             if ($lastPost->getPublished()) {
                 $notification = true;
             }
         }
-        $notification = ($route_referer == 'admin_content_create') ? true : false;
 
+        $template = $this->get('cms.core.option_manager')->get('theme', '');
 
         return $this->render(
             'ContentBundle:Content:index.html.twig',
@@ -94,6 +93,8 @@ class ContentController extends Controller
                 'taxonomies' => $taxonomies,
                 'date_format' => $option->getOptionValue(),
                 'notification' => $notification,
+                'lastPost' => $lastPost,
+                'template' => $template,
             )
         );
     }
