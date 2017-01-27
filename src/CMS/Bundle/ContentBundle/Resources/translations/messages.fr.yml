@@ -1,18 +1,18 @@
 cms:
   content:
     modal:
-      title_delete: 'Suppression du contenu'
-      text_delete: 'Êtes-vous sûr de vouloir supprimer ce contenu ?'
+      title_delete: Suppression du contenu
+      text_delete: Êtes-vous sûr de vouloir supprimer ce contenu ?
     status:
       published: Publié
       draft: Brouillon
-      pending: 'En attente'
+      pending: En attente
       status: Statut
     title: Titre
     description: Description
     translations: Traductions
-    created: 'Date de création'
-    modified: 'Date de modification'
+    created: Date de création
+    modified: Date de modification
     url: Url
     alias: Alias
     actions: Actions
@@ -23,7 +23,7 @@ cms:
     content: Contenu
     category: Catégorie
     author: Auteur
-    content_taxonomy: 'Type de contenu'
+    content_taxonomy: Type de contenu
     field: Champ
     image: Image
     meta: Metadata
@@ -36,18 +36,18 @@ cms:
     contents_deleted:
       success: Vos contenus ont bien été supprimés
     content_updated:
-      success: 'Votre contenu a été édité avec succès !'
+      success: Votre contenu a été édité avec succès !
     content_created:
-      success: 'Votre contenu a été créé avec succès !'
+      success: Votre contenu a été créé avec succès !
 
   category:
     modal:
-      title_delete: 'Suppression de catégorie'
-      text_delete: 'Êtes-vous sûr de vouloir supprimer cette catégorie ?'
+      title_delete: Suppression de catégorie
+      text_delete:'Êtes-vous sûr de vouloir supprimer cette catégorie ?
   field:
     modal:
-      title_delete: 'Suppression du champ'
-      text_delete: 'Êtes-vous sûr de vouloir supprimer ce champ ?'
+      title_delete: Suppression du champ
+      text_delete: Êtes-vous sûr de vouloir supprimer ce champ ?
     id: Id
     title: Titre du champ
     type: Type de champ
