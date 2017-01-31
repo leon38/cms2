@@ -229,4 +229,101 @@ class ContentRepository extends EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function getContentsBy(array $params)
+    {
+        $query = $this->_em
+            ->createQueryBuilder()
+            ->select('c')
+            ->from('ContentBundle:Content', 'c')
+            ->where('c.published = 1');
+        foreach($params as $key => $value) {
+            switch($key) {
+                case 'author':
+                    if (strpos($value, ',') === false) {
+                        $query = $query->leftJoin('c.author', 'u')
+                            ->andWhere('u.id = :author_id')
+                            ->setParameter('author_id', $value);
+                    } else {
+                        $query = $query->leftJoin('c.author', 'u')
+                            ->andWhere('u.id IN (:author_id)')
+                            ->setParameter('author_id', explode(',', $value));
+                    }
+                    break;
+                case 'author_name':
+                    $query = $query->leftJoin('c.author', 'u')
+                        ->andWhere('u.display_name = :author_name')
+                        ->setParameter('author_name', $value);
+                    break;
+                case 'cat':
+                    if (strpos($value, ',') === false) {
+                        $query = $query->leftJoin('c.categories', 'cat')
+                            ->andWhere('cat.id = :cat_id')
+                            ->setParameter('cat_id', $value);
+                    } else {
+                        $query = $query->leftJoin('c.categories', 'cat')
+                            ->andWhere('cat.id IN (:cat_id)')
+                            ->setParameter('cat_id', explode(',', $value));
+                    }
+                    break;
+                case 'category_name':
+                    $query = $query->leftJoin('c.categories', 'cat')
+                        ->andWhere('cat.url = :cat_url')
+                        ->setParameter('cat_url', $value);
+                    break;
+                case 'post_type':
+                    $query = $query->leftJoin('c.taxonomy', 'tax')
+                        ->andWhere('tax.alias = :tax_alias')
+                        ->setParameter('alias', $value);
+                    break;
+                case 'tax_query':
+                    $query = $query->leftJoin('c.taxonomy', 'tax');
+                    foreach($value as $key_tax => $value_tax) {
+                        switch($key_tax) {
+                            case 'taxonomy':
+                                $query = $query->andWhere('tax.alias = :taxquery_alias')
+                                    ->setParameter('taxquery_alias', $value_tax);
+                                break;
+                            case 'field':
+                                $query = $query->leftJoin('tax.fields', 'field')
+                                    ->andWhere('field.name = :field_name')
+                                    ->setParameter('field_name', $value_tax);
+                                break;
+                            case 'terms':
+                                $query = $query->leftJoin('c.fieldvalues', 'fieldvalues')
+                                    ->andWhere('fieldvalues.value = :field_value')
+                                    ->setParameter('field_value', $value_tax);
+                                break;
+                        }
+                    }
+                    break;
+                case 'p':
+                    $query = $query->andWhere('c.id = :id_post')
+                        ->setParameter('id_post', $value);
+                    break;
+                case 'posts_per_page':
+                    $query = $query->setMaxResults($value);
+                    break;
+                case 'offset':
+                    $query = $query->setFirstResult($value);
+                    break;
+                case 'orderby':
+                    $order = 'ASC';
+                    if (isset($params['order'])) {
+                        $order = $params['order'];
+                    }
+                    $query = $query->orderBy('c.'.$value, $order);
+                case 'title':
+                    $query = $query->andWhere('c.title = :title')
+                        ->setParameter('title', $value);
+                    break;
+                case 's':
+                    $query = $query->andWhere('c.title LIKE %:search%')
+                        ->orWhere('c.description LIKE %:search%')
+                        ->setParameter('search', $value);
+                    break;
+            }
+        }
+        return $query->getQuery()->getResult();
+    }
 }

@@ -74,3 +74,15 @@ services:
         class: CMS\Bundle\ContentBundle\Event\ContentSubscriber
         tags:
             - { name: kernel.event_subscriber }
+
+    cms.content.repository.content:
+            class: CMS\Bundle\ContentBundle\Entity\Repository\ContentRepository
+            factory: ['@doctrine.orm.default_entity_manager', getRepository]
+            arguments: ['ContentBundle:Content']
+
+    cms.content.query.twig_extension:
+        class: CMS\Bundle\ContentBundle\Twig\Extension\QueryExtension
+        public: false
+        arguments: ["@cms.content.repository.content"]
+        tags:
+            - { name: twig.extension }

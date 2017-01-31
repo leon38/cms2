@@ -38,6 +38,7 @@
             <div id="content">
                 <div class="post-list grid">
                     <div class="grid-layout">
+                        {% set contents = Query({category_name: 'non-categorise-html'}) %}
                         {% for content in contents %}
                             <article class="post-item article-item">
                                 <div id="post" class="post item">
