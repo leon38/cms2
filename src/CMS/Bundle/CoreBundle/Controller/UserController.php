@@ -24,9 +24,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class UserController extends Controller
 {
-    
+
     private $avatar;
-    
+
     /**
      * @Route("/user/profile", name="admin_user_profile")
      */
@@ -40,13 +40,13 @@ class UserController extends Controller
         $metaManager->addMeta('facebook_url');
         $metaManager->addMeta('gplus_url');
         $metaManager->addMeta('about_me', null, 'textarea');
-        
+
         $form = $this->createProfileForm($user);
-        
+
         return $this->render('CoreBundle:User:profile.html.twig', array('form' => $form->createView()));
     }
-    
-    
+
+
     /**
      * Crée le formulaire du profil de l'utilisateur courant
      *
@@ -63,13 +63,13 @@ class UserController extends Controller
                 'method' => 'PUT',
                 'user' => $user,
             ));
-            
+
             return $form;
         } else {
             throw new AccessDeniedException("Vous devez être connecté pour accéder au profil de l'utilisateur");
         }
     }
-    
+
     /**
      * Crée le formulaire du profil de l'utilisateur courant
      *
@@ -84,10 +84,10 @@ class UserController extends Controller
             'method' => 'POST',
             'user' => $user,
         ));
-        
+
         return $form;
     }
-    
+
     /**
      * Met à jour le profil de l'utilisateur
      *
@@ -106,27 +106,27 @@ class UserController extends Controller
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $data = $form->getData();
-                
+
                 $newPassword = $user->getPlainPassword();
                 if (!empty($newPassword)) {
                     $encoder = $this->container->get('security.password_encoder');
                     $user->setUserPass($encoder->encodePassword($user, $newPassword));
                 }
-                
+
                 if (empty($user->getAvatar())) {
                     $user->setAvatar(null);
                 }
-                
+
                 $em->persist($user);
                 $em->flush();
-                
+
                 $this->get('session')->getFlashBag()->add('success', 'cms.user.profile_updated.success');
             }
         }
-        
+
         return $this->redirect($this->generateUrl('admin_user_profile'));
     }
-    
+
     /**
      * Affiche la liste des utilisateurs
      * @return array
@@ -138,20 +138,13 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('CoreBundle:User')->findAll();
-        $metaManager = $this->get('cms.core.meta_manager');
-        $metaManager->addMeta('firstname');
-        $metaManager->addMeta('lastname');
-        $metaManager->addMeta('id_twitter');
-        $metaManager->addMeta('facebook_url');
-        $metaManager->addMeta('gplus_url');
-        $metaManager->addMeta('about_me', null, 'textarea');
-        
+
         return $this->render('CoreBundle:User:index.html.twig', array(
             'entities' => $users,
             'url' => 'admin_user_delete',
         ));
     }
-    
+
     /**
      * Affiche le formulaire d'ajout d'un utilisateur
      * et l'ajoute à la base
@@ -174,33 +167,35 @@ class UserController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $factory = $this->container->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($user);
+                $pass_clear = $user->getUserPass();
                 $user->setUserPass($encoder->encodePassword($user->getUserPass(), $user->getSalt()));
-                
+
                 foreach ($user->getMetas() as $meta) {
                     $user->addMeta($meta);
                     $meta->setUser($user);
                 }
-                
+
                 foreach ($user->getRoles() as $role) {
                     $user->addRole($role);
                     $role->addUser($user);
                 }
-                
+
                 $em->persist($user);
                 $em->flush();
-                
+
                 $mailer = $this->get('cms.core.mailer');
-                $mailer->sendConfirmationUser($user);
-                
+
+                $mailer->sendConfirmationUser($user, $pass_clear, $this->get('cms.core.option_manager')->get('sitename', ''));
+
                 $this->get('session')->getFlashBag()->add('success', 'cms.user.profile_created.success');
-                
+
                 return $this->redirect($this->generateUrl('admin_users'));
             }
         }
-        
+
         return $this->render('CoreBundle:User:new.html.twig', array('form' => $form->createView(), 'user' => $user));
     }
-    
+
     /**
      * Affiche le formulaire d'édition de l'utilisateur passé en paramètre
      * et le met à jour
@@ -223,47 +218,47 @@ class UserController extends Controller
                 if (is_array($user->getAvatar())) {
                     $user->setAvatar("");
                 }
-                
+
                 if (!is_null($user->getPlainPassword()) && $user->getPlainPassword() != '') {
                     $user->setUserPass($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
                 }
                 $em->persist($user);
                 $em->flush();
-                
+
                 $this->get('session')->getFlashBag()->add('success', 'cms.user.profile_updated.success');
-                
+
                 return $this->redirect($this->generateUrl('admin_users'));
             }
         }
-        
+
         return $this->render('CoreBundle:User:edit.html.twig', array('form' => $form->createView(), 'user' => $user));
     }
-    
+
     /**
      * Supprime l'utilisateur passé en paramètre
-     * @param  User $user Utilisateur à supprimer
-     * @return view
+     * @param User $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route("/user/delete/{id}", name="admin_user_delete")
      */
-    public function deleteAction(User $id, Request $request)
+    public function deleteAction(User $id)
     {
-        $user = $id;
-        if ($user === null) {
+        if ($id === null) {
             $this->get('session')->getFlashBag()->add('error', 'cms.user.user_not_found');
-            
-            return $this->redirect($this->generateUrl('admin_users'));
+
+            return $this->redirectToRoute('admin_users');
         }
+
         $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
+        $em->remove($id);
         $em->flush();
-        
+
         $this->get('session')->getFlashBag()->add('success', 'cms.user.user_deleted');
-        
-        return $this->redirect($this->generateUrl('admin_users'));
+
+        return $this->redirectToRoute('admin_users');
     }
-    
-    
+
+
     /**
      * Upload l'avatar de l'utilisateur
      * @return boolean
@@ -280,7 +275,7 @@ class UserController extends Controller
         } else {
             $avatarDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/avatars';
         }
-        
+
         if (!$fs->exists($avatarDir)) {
             $fs->mkdir($avatarDir);
         }
@@ -290,14 +285,14 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
         }
-        
-        
+
+
         $response = new JsonResponse();
         $response->setData(array('status' => true));
-        
+
         return $response;
     }
-    
+
     /**
      * @Route("/user/authorize", name="admin_user_authorize")
      */
@@ -307,7 +302,7 @@ class UserController extends Controller
         $req = $WBSApi->getRequestToken();
         return $this->redirect($req);
     }
-    
+
     /**
      * @Route("/user/dashboard", name="admin_user_dashboard")
      */
@@ -315,35 +310,35 @@ class UserController extends Controller
     {
         if (isset($_SESSION['oauth_token'])) {
             $WBSApi = new WBSApi();
-    
+
             $userInfo = $WBSApi->getAccessToken();
-    
+
             $token = $userInfo['oauth_token'];
             $secret = $userInfo['oauth_token_secret'];
             $userid = $userInfo['userid'];
-    
+
             $WBSApi->setToken($token,$secret);
-    
+
             $params = array('limit' => 50, 'meastype' => 1, 'category' => 1);
-    
+
             $measure = $WBSApi->api('measure','getmeas',$params);
             $measures = json_decode($measure);
             $dates = array();
             $poids = array();
-            
+
             foreach($measures->body->measuregrps as $measure) {
                 $poids[] = ((int)($measure->measures[0]->value)/1000);
                 $dates[] = date('d/m/y H:i:s', $measure->date);
             }
-    
+
             $current_weight = current($poids);
             $imc = $current_weight / (1.78 * 1.78);
-            
+
             $imc_percent = ($imc / 40) * 100;
-            
+
             $poids = array_reverse($poids);
             $dates = array_reverse($dates);
-    
+
             $last_week = new \DateTime();
             $last_week = $last_week->sub(new \DateInterval('P10D'));
             $now = new \DateTime();
@@ -363,5 +358,5 @@ class UserController extends Controller
         }
         return $this->render('CoreBundle:User:dashboard.html.twig');
     }
-    
+
 }

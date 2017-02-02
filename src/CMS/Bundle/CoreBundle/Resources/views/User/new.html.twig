@@ -62,6 +62,9 @@ $(document).ready(function(){
 			$(this).on('keyup', function() {
 				$(target).html(elem.val());
 			});
+			$(this).on('blur', function() {
+                $(target).html(elem.val());
+            });
 		}
 	})
 });

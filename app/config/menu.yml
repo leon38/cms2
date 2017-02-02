@@ -28,6 +28,9 @@ admin_menutaxonomy:
             name: cms.core.themes
         admin_widget_index:
             name: cms.core.widget
+admin_messages:
+    name: cms.core.messages
+    icon: pe-7s-mail
 admin_options_general:
     name: cms.core.administration
     icon: pe-7s-tools

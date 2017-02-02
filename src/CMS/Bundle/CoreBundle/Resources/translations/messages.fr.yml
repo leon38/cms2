@@ -20,6 +20,7 @@ cms:
         user_registered: Date de création
         user_roles: Rôles
         user_status: Statut
+        user_deleted: L'utilisateur a bien été supprimé
         back: "← Retour sur %title%"
         remember_me: "Se souvenir de moi ?"
         user_login_email: "Identifiant ou adresse de messagerie"
@@ -100,6 +101,10 @@ cms:
         activated: Activé
         register: S'inscrire
         home: Accueil
+        messages: Messages
+        mail:
+          welcome: Bonjour,
+          thank_you: "Merci de vous être inscrit sur %name%, vos identifiants sont les suivants :"
     widget:
       widgets: Widgets
       taxonomies: Taxonomies

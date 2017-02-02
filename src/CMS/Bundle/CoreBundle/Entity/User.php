@@ -70,7 +70,7 @@ class User implements UserInterface, \Serializable
     private $user_activation_key;
 
     /**
-     * @ORM\Column(name="password_request_key", type="string", length=255)
+     * @ORM\Column(name="password_request_key", type="string", length=255, nullable=true)
      */
     private $password_request_key;
 

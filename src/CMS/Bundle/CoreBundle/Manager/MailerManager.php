@@ -25,7 +25,7 @@ class MailerManager
     private $prefixTemplate     = 'CoreBundle:Mail:';
     private $suffixTemplateTxt  = '.txt.twig';
     private $suffixTemplateHtml = '.html.twig';
-    private $from               = 'nepasrepondre@3c-e.com';
+    private $from               = 'leoncorono@gmail.com';
 
     /**
      * Crée l'objet MailerManager
@@ -49,11 +49,11 @@ class MailerManager
      * @param  User   $user L'utilisateur à confirmer
      * @return boolean
      */
-    public function sendConfirmationUser(User $user)
+    public function sendConfirmationUser(User $user, $pass_clear, $site_name)
     {
-    	$template = $this->prefixTemplate.'confirmation';
-    	$body     = $this->templating->render($template.$this->suffixTemplateTxt, array('user' => $user));
-    	$bodyHtml = $this->templating->render($template.$this->suffixTemplateHtml, array('user' => $user));
+    	$template = $this->prefixTemplate.'registration';
+    	$body     = $this->templating->render($template.$this->suffixTemplateTxt, array('user' => $user, 'password_clear' => $pass_clear, 'site_name' => $site_name));
+    	$bodyHtml = $this->templating->render($template.$this->suffixTemplateHtml, array('user' => $user, 'password_clear' => $pass_clear, 'site_name' => $site_name));
     	$from     = $this->from;
     	$to       = $user->getUserEmail();
     	$subject  = $this->translator->trans('cms.user.confirmation.subject');
@@ -107,7 +107,7 @@ class MailerManager
             $to = array($to);
         }
         $message->setReceivers($to);
-        $message->setMessage($body);
+        $message->setMessage($bodyHtml);
         $message->setSubject($subject);
         $message->setSentDate(new \DateTime());
         $message->setStatus(2);
@@ -125,7 +125,7 @@ class MailerManager
      * @param  Message $message message à envoyer
      * @return mixed            Vrai si le message a été envoyé et un tableau d'adresses email sinon
      */
-    public function sendMessage(Message $message)
+    public function sendMessage(Message $message, $attachment = null)
     {
         $mail = \Swift_Message::newInstance();
 

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManager;
 use CMS\Bundle\CoreBundle\Entity\User;
 use CMS\Bundle\CoreBundle\Entity\UserMeta;
 use CMS\Bundle\CoreBundle\Entity\Repository\UserMetaRepository;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserMetaManager
 {
@@ -22,24 +23,16 @@ class UserMetaManager
     $this->user_repo = $user_repo;
   }
 
-  public function addMeta($meta_key, User $user = null, $type = "text")
+
+  public function addMeta($meta_key, User $user = null, $type = TextType::class)
   {
-    if (is_null($user)) {
-      $users = $this->user_repo->findAll();
-      foreach ($users as $user) {
-        $meta = $this->repo->get($meta_key, $user);
-        if ($meta === null) {
-          $meta = new UserMeta();
-          $meta->setType($type);
-          $meta->setMetaKey($meta_key);
-          $meta->setMetaValue('');
-          $meta->setUser($user);
-          $user->addMeta($meta);
-          $this->em->persist($meta);
-          $this->em->persist($user);
-          $this->em->flush();
-        }
-      }
+    if ((!is_null($user) && $user->getId() === null) || is_null($user)) {
+      $meta = new UserMeta();
+      $meta->setType($type);
+      $meta->setMetaKey($meta_key);
+      $meta->setMetaValue('');
+      $meta->setUser($user);
+      $user->addMeta($meta);
     } else {
       $meta = $this->repo->get($meta_key, $user);
       if ($meta === null) {

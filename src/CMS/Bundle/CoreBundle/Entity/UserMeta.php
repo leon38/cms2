@@ -18,8 +18,8 @@ class UserMeta
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="metas")
-     * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="metas", cascade={"remove"})
+     * @ORM\JoinColumn(name="user", referencedColumnName="id", onDelete="cascade")
      */
     private $user;
 

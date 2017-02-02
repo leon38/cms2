@@ -1,0 +1,4 @@
+{{ "cms.core.mail.welcome"|trans }}
+{% trans with {'%name%': site_name} %}cms.core.mail.thank_you{% endtrans %}
+- {{ "cms.user.user_login"|trans }} : {{ user.userLogin }}
+- {{ "cms.user.user_pass"|trans }} : {{ password_clear }}

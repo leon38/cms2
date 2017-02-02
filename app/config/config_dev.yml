@@ -33,5 +33,5 @@ monolog:
 swiftmailer:
     transport: gmail
     username: leoncorono@gmail.com
-    password: Monconno38
-#    delivery_address: me@example.com
+    password: monconno38
+    delivery_address: dcorona@3c-e.com

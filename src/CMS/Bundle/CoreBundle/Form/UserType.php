@@ -3,6 +3,11 @@
 namespace CMS\Bundle\CoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +26,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user_login', 'text', array(
+            ->add('user_login', TextType::class, array(
                 'attr' => array('data-target' => 'login'),
                 'label' => 'cms.user.user_login',
                 'row_attr' => array('class' => 'col-md-3'),
@@ -41,7 +46,7 @@ class UserType extends AbstractType
                         case '':
                         case 'text':
                             $class = 'col-md-3';
-                            $type  = 'text';
+                            $type  = TextType::class;
                             break;
                         default:
                             $class = 'col-md-6';
@@ -53,13 +58,25 @@ class UserType extends AbstractType
             });
 
         $builder
-            ->add('user_nicename', 'text', array(
+            ->add('user_nicename', TextType::class, array(
                 'label' => 'cms.user.user_nicename',
                 'row_attr' => array('class' => 'col-md-3'),
                 'attr' => array('data-target' => 'nicename'),
                 ))
-            ->add('user_email', 'email', array('label' => 'cms.user.email', 'row_attr' => array('class' => 'col-md-3')))
-            ->add('user_url', 'url', array('label' => 'cms.user.user_url', 'required' => false, 'row_attr' => array('class' => 'col-md-3')))
+            ->add('user_email', EmailType::class, array(
+                'label' => 'cms.user.email',
+                'row_attr' => array('class' => 'col-md-3')
+            ))
+            ->add('user_url', UrlType::class, array(
+                'label' => 'cms.user.user_url',
+                'required' => false,
+                'row_attr' => array('class' => 'col-md-3')
+            ))
+            ->add('user_pass', RepeatedType::class, array(
+                'first_options' => array('label' => 'cms.user.user_pass', 'row_attr' => array('class' => 'col-md-6')),
+                'second_options' => array('label' => 'cms.user.user_pass_confirm', 'row_attr' => array('class' => 'col-md-6')),
+                'type' => PasswordType::class,
+            ))
             ->add('roles', null, array('expanded' => false, 'row_attr' => array('class' => 'col-md-12')))
         ;
     }
