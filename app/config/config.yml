@@ -50,6 +50,7 @@ twig:
         web_path: '%web_path%'
     paths:
         "%kernel.root_dir%/../templates": cms
+    exception_controller: cms.core.exception_controller:showAction
 
 # Assetic Configuration
 assetic:

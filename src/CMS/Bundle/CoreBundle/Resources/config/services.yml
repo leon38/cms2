@@ -157,3 +157,7 @@ services:
         arguments: ["@cms.core.repository.widget", "@service_container"]
         tags:
             - { name: twig.extension }
+
+    cms.core.exception_controller:
+        class: CMS\Bundle\CoreBundle\Exception\CMSExceptionController
+        arguments: ["@twig", "%kernel.debug%", "@cms.core.option_manager"]

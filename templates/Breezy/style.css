@@ -1812,3 +1812,29 @@ footer .logo {
     width: 66%;
     float: left;
 }
+
+/*********************************
+ * Template ERROR
+ *********************************/
+.error {
+    text-align: center;
+}
+
+.title_404 {
+    font-size: 120px;
+}
+
+.error p {
+    font-size: 30px;
+}
+
+.error ul {
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.error ul li {
+    font-size: 20px;
+}

@@ -16,11 +16,18 @@
                 {% endif %}
                 <li class="menu-item lvl-{{ entry.lvl }}{% if entry.hasChildren() %} menu-parent{% endif %}">
                 {% if entry.url is not null %}
-                    <a href="{{ path('front_single', {'alias': entry.url.url}) }}"{% if entry.url.external %}
-                        target="_blank" rel="noopener"{% endif %} title="{{ entry.title }}">
+                    {% if not entry.url.external %}
+                    <a href="{{ path('front_single', {alias: entry.url.url, _format: 'html'}) }}" title="{{ entry.title }}">
                         {% if entry.iconClass != '' %}<i class="fa {{ entry.iconClass }}"></i>{% endif %}
                         {{ entry.title }}
                     </a>
+                    {% else %}
+                        <a href="{{ entry.url }}"
+                           target="_blank" rel="noopener" title="{{ entry.title }}">
+                            {% if entry.iconClass != '' %}<i class="fa {{ entry.iconClass }}"></i>{% endif %}
+                            {{ entry.title }}
+                        </a>
+                    {% endif %}
                 {% else %}
                     <a href="{{ path('home') }}">{{ entry.title }}</a>
                 {% endif %}

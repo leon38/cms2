@@ -126,7 +126,7 @@ class FrontController extends Controller
      * @param $alias
      * @return Response
      *
-     * @Route("/amp/{alias}.{_format}", name="single_amp_content", defaults={"_format": "html"})
+     * @Route("/amp/{alias}.{_format}", name="single_amp_content", defaults={"_format": "amp"})
      */
     public function ampSingleAction($alias)
     {
@@ -233,7 +233,7 @@ class FrontController extends Controller
      * @param string $_format
      * @return Response Renvoie la vue avec le bon template selon l'alias
      *
-     * @Route("/{alias}.{_format}", name="front_single", defaults={"_format": "html", "format": "html"})
+     * @Route("/{alias}.{_format}", name="front_single", requirements={"_format": "html|amp"}, defaults={"_format": "html"})
      */
     public function singleAction($alias, $_format = "html")
     {
@@ -281,7 +281,7 @@ class FrontController extends Controller
                 return $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.'.$_format.'.twig', $parameters);
             }
 
-            return $this->render('@cms/'.$this->_theme.'/category'.$_format.'.twig', $parameters);
+            return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
         }
 
         if ($content !== null) {

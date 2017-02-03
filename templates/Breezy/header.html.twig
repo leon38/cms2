@@ -9,9 +9,11 @@
     {% elseif category is defined %}
         {{ metas(category) }}
     {% else %}
-        {% for meta in metas %}
-            {{ meta|raw }}
-        {% endfor %}
+        {% if metas is defined %}
+            {% for meta in metas %}
+                {{ meta|raw }}
+            {% endfor %}
+        {% endif %}
     {% endif %}
     <meta name="theme-color" content="#1C193C">
     <link rel="manifest" href="/templates/Breezy/assets/manifest.json">
@@ -43,6 +45,7 @@
             <div id="main-wrapper-logo">
                 <div class="container">
                     <h1><a href="{{ path('home') }}">Travel Cloud</a></h1>
+                    <img src="{{ asset('/templates/Breezy/assets/images/logo4.png') }}" width="160px" />
                 </div>
             </div>
         </div>
