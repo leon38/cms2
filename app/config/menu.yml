@@ -37,6 +37,8 @@ admin_options_general:
     children:
         admin_options_general:
             name: cms.core.settings
+        admin_languages:
+            name: cms.core.languages
         admin_users:
             name: cms.core.users
         admin_backup_index:

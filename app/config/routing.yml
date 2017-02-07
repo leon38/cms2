@@ -25,7 +25,6 @@ front:
     resource: "@FrontBundle/Controller/"
     type:     annotation
     prefix:   /
-    schemes: [https]
 
 
 rest_api:

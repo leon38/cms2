@@ -2,28 +2,38 @@
 
 {% block body %}
     <div class="section-header">
-        <h2 class="text-primary pull-left">Langues</h2>
-        <a href="{{ path('admin_languages_new') }}" class="pull-right btn ink-reaction btn-floating-action btn-primary"><i class="fa fa-plus"></i></a>
-        <div class="clearfix"></div>
+        <ol class="breadcrumb">
+            <li><a href="{{ path('admin_languages') }}">{{ "cms.core.languages"|trans }}</a></li>
+            <li class="active">Création</li>
+        </ol>
     </div>
-
-    <div class="section-body">
-        <p class="lead"></p>
-        {% for flashMessage in app.session.flashbag.get('error') %}
-            <div class="alert alert-callout alert-danger" role="alert">
-                {{ flashMessage|trans }}
-            </div>
-        {% endfor %}
-        {% for flashMessage in app.session.flashbag.get('success') %}
-            <div class="alert alert-callout alert-success" role="alert">
-                {{ flashMessage|trans }}
-            </div>
-        {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-callout alert-danger" role="alert">
+            {{ flashMessage|trans }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="alert alert-callout alert-success" role="alert">
+            {{ flashMessage|trans }}
+        </div>
+    {% endfor %}
+    <div id="main-card" class="card">
+        <div class="header">
+            <h4 class="title pull-left">{{ 'cms.content.content' |trans }}</h4>
+            <a href="{{ path('admin_languages_new') }}" class="btn btn-default" title="cms.core.language.add_new"><i class="fa fa-plus"></i></a>
+            <div class="clearfix"></div>
+      </div>
+      <div class="content">
         <table id="data_table" class="table table-striped table-hover" role="grid" aria-describedby="data_table" data-swftools="{{ asset('bundles/core/swf/copy_csv_xls_pdf.swf') }}">
             <thead>
                 <tr>
+                    <th>
+                        <div class="checkbox">
+                            <input type="checkbox" data-name="contents[]" onchange="toggleCheckbox(this)" value="0"/>
+                        </div>
+                    </th>
                     <th class="sorting" tabindex="0" aria-controls="data_table">
-                        <div class="checkbox checkbox-inline checkbox-styled"><label><input type="checkbox" id="checkAll" onclick="toggle(this);"><span></span></label></div>{{ 'cms.language.name'|trans }}
+                        {{ 'cms.language.name'|trans }}
                     </th>
                     <th>{{ 'cms.language.code_local'|trans }}</th>
                     <th>{{ 'cms.language.code_lang'|trans }}</th>
@@ -35,7 +45,12 @@
             <tbody>
             {% for entity in entities %}
                 <tr>
-                    <td><div class="checkbox checkbox-inline checkbox-styled"><label><input type="checkbox" name="selected" value="{{ entity.id }}"><span></span></label></div>{{ entity.name }}</td>
+                    <td>
+                        <div class="checkbox">
+                            <input type="checkbox" name="languages[]" value="{{ entity.id }}"/>
+                        </div>
+                    </td>
+                    <td>{{ entity.name }}</td>
                     <td>{{ entity.codelocal }}</td>
                     <td>{{ entity.codelang }}</td>
                     <td>
@@ -54,6 +69,7 @@
             {% endfor %}
             </tbody>
         </table>
+    </div>
     </div>
 
     <div class="modal fade" id="modal-delete" aria-labelledby="simpleModalLabel" aria-hidden="true">

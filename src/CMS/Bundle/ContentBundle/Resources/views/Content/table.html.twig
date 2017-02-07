@@ -10,8 +10,10 @@
         </th>
         <th{% if entities.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'cms.content.title'|trans, 'c.title')|raw }}</th>
         <th>{{ 'cms.content.categories'|trans }}</th>
-        <th>{% for language in languages %}<img
-                src="{{ asset('bundles/core/images/flags/' ~ language.codelang ~ '.png') }}" />&nbsp;{% endfor %}
+        <th>
+            {% for language in languages %}
+                <img src="{{ asset('bundles/core/images/flags/' ~ language.codelang ~ '.png') }}" />
+            {% endfor %}
         </th>
         <th>{{ 'cms.content.author'|trans }}</th>
         <th{% if entities.isSorted('c.published') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'cms.content.status'|trans, 'c.published') }}</th>

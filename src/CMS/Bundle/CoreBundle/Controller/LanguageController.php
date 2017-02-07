@@ -32,12 +32,10 @@ class LanguageController extends Controller
 
         $entities = $em->getRepository('CoreBundle:Language')->findAll();
 
-        return array(
+        return $this->render('CoreBundle:Language:index.html.twig', array(
             'entities' => $entities,
-            'bright_style' => true,
-            'export' => false,
             'url' => 'admin_languages_delete'
-        );
+        ));
     }
     /**
      * Creates a new Language entity.
@@ -60,10 +58,10 @@ class LanguageController extends Controller
             return $this->redirect($this->generateUrl('admin_languages'));
         }
 
-        return array(
+        return $this->render('CoreBundle:Language:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -98,10 +96,10 @@ class LanguageController extends Controller
         $entity = new Language();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('CoreBundle:Language:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
@@ -123,10 +121,10 @@ class LanguageController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return array(
+        return $this->render('CoreBundle:Language:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -175,10 +173,10 @@ class LanguageController extends Controller
             return $this->redirect($this->generateUrl('admin_languages'));
         }
 
-        return array(
+        return $this->render('CoreBundle:Language:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView()
-        );
+        ));
     }
     /**
      * Deletes a Language entity.
