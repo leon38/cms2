@@ -13,7 +13,10 @@
                     class="date">{{ content.created|localizeddate('full', 'none') }}</span>
         </div>
         <div class="pull-right">
-            {{ widget('share', content) }}
+            <amp-social-share type="facebook"></amp-social-share>
+            <amp-social-share type="twitter"></amp-social-share>
+            <amp-social-share type="instagram"></amp-social-share>
+            <amp-social-share type="pinterest"></amp-social-share>
         </div>
     </div>
 </div>
