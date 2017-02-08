@@ -37,32 +37,35 @@ class ContactFormExtension extends \Twig_Extension
         preg_match_all('/\[(.*)\]/', $value, $forms);
         $forms = $forms[0];
         $contactForm = $this->_contactFormRepo->findOneBy(array('tag' => $forms));
-        preg_match_all('/\[(.*)\]/', $contactForm->getHtmlForm(), $fields);
-        $htmlForm = $contactForm->getHtmlForm();
-        //dump($fields[1]); die;
-        foreach ($fields[1] as $field) {
-            $atts = explode(" ", $field);
-            $type = $atts[0];
-            $name = $atts[1];
-            unset($atts[0]);
-            unset($atts[1]);
-            switch ($type) {
-                case 'text':
-                    $htmlForm = str_replace('[' . $field . ']', $this->handleTextField($name, $atts), $htmlForm);
-                    break;
-                case 'email':
-                    $htmlForm = str_replace('[' . $field . ']', $this->handleEmailField($name, $atts), $htmlForm);
-                    break;
-                case 'textarea':
-                    $htmlForm = str_replace('[' . $field . ']', $this->handleTextareaField($name, $atts), $htmlForm);
-                    break;
-                case 'submit':
-                    $htmlForm = str_replace('[' . $field . ']', $this->handleSubmitField($name, $atts), $htmlForm);
-                    break;
+        if (!is_null($contactForm)) {
+            preg_match_all('/\[(.*)\]/', $contactForm->getHtmlForm(), $fields);
+            $htmlForm = $contactForm->getHtmlForm();
+            //dump($fields[1]); die;
+            foreach ($fields[1] as $field) {
+                $atts = explode(" ", $field);
+                $type = $atts[0];
+                $name = $atts[1];
+                unset($atts[0]);
+                unset($atts[1]);
+                switch ($type) {
+                    case 'text':
+                        $htmlForm = str_replace('[' . $field . ']', $this->handleTextField($name, $atts), $htmlForm);
+                        break;
+                    case 'email':
+                        $htmlForm = str_replace('[' . $field . ']', $this->handleEmailField($name, $atts), $htmlForm);
+                        break;
+                    case 'textarea':
+                        $htmlForm = str_replace('[' . $field . ']', $this->handleTextareaField($name, $atts), $htmlForm);
+                        break;
+                    case 'submit':
+                        $htmlForm = str_replace('[' . $field . ']', $this->handleSubmitField($name, $atts), $htmlForm);
+                        break;
+                }
             }
+            $htmlForm = $this->_templating->render('ContactBundle:Extension:contactForm.html.twig', array('htmlForm' => $htmlForm, 'contactFormId' => $contactForm->getId()));
+            return str_replace($value, $htmlForm, $value);
         }
-        $htmlForm = $this->_templating->render('ContactBundle:Extension:contactForm.html.twig', array('htmlForm' => $htmlForm, 'contactFormId' => $contactForm->getId()));
-        return str_replace($value, $htmlForm, $value);
+        return $value;
     }
 
 
