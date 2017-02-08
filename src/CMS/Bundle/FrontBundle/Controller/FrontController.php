@@ -233,7 +233,7 @@ class FrontController extends Controller
      * @param string $_format
      * @return Response Renvoie la vue avec le bon template selon l'alias
      *
-     * @Route("/{alias}.{_format}", name="front_single", requirements={"_format": "html|amp"}, defaults={"_format": "html"})
+     * @Route("/{alias}.{_format}", name="front_single", requirements={"_format": "html|amp.html"}, defaults={"_format": "html"})
      */
     public function singleAction($alias, $_format = "html")
     {
