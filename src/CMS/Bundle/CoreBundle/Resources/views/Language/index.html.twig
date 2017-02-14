@@ -22,7 +22,7 @@
             <h4 class="title pull-left">{{ 'cms.core.languages' |trans }}</h4>
             <div class="fixed-table-toolbar">
                 <div class="columns columns-right pull-right">
-                    <a href="{{ path('admin_languages_new') }}" class="btn btn-default" title="{{ "cms.core.language.add_new"|trans }}"><i class="fa fa-plus"></i></a>
+                    <a href="{{ path('admin_languages_new') }}" class="btn btn-default" title="{{ 'cms.core.language.add_new'|trans }}"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -66,8 +66,8 @@
                     </td>
                     <td><img src="{{ asset('bundles/core/images/flags/' ~ entity.codelang ~ '.png') }}" /></td>
                     <td class="text-right">
-                        <a href="{{ path('admin_languages_edit', { 'id': entity.id }) }}" class="btn btn-icon-toggle" data-toggle="tooltip" data-placement="top" data-original-title="Editer"><i class="fa fa-pencil"></i></a>
-                        <a data-toggle="modal" href='#modal-delete' class="btn btn-icon-toggle" role="button" rel="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ entity.id }}"><i class="fa fa-trash-o"></i></a>
+                        <a href="{{ path('admin_languages_edit', { 'id': entity.id }) }}" class="btn btn-simple btn-info btn-xs" data-toggle="tooltip" data-placement="top" data-original-title="Editer"><i class="fa fa-pencil"></i></a>
+                        <a data-toggle="modal" href='#modal-delete' class="btn btn-simple btn-danger btn-xs" role="button" rel="tooltip" data-placement="top" data-original-title="Supprimer" data-id="{{ entity.id }}"><i class="fa fa-trash-o"></i></a>
                     </td>
                 </tr>
             {% endfor %}
