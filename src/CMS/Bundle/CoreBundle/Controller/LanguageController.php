@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\CoreBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -79,7 +80,7 @@ class LanguageController extends Controller
             'attr'   => array('class' => 'form'),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-primary pull-right')));
 
         return $form;
     }
@@ -143,7 +144,7 @@ class LanguageController extends Controller
             'language' => $entity->getCodeLang(),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary pull-right')));
+        $form->add('submit', SubmitType::class, array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary pull-right')));
 
         return $form;
     }
