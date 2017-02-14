@@ -8,10 +8,17 @@
         {{ metas(category) }}
     {% endif %}
     <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Lato" rel="stylesheet" media="screen">
     <script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
     <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <style amp-custom="">
+        body{background-color: #f6f6f6;font-family: "Lato",sans-serif;font-size: 12px}.container{max-width: 600px;width:90%;margin:0 auto}.post.article-item {position: relative;margin:0 0 40px;box-shadow: 0 1px 5px rgba(0,0,0,0.05);-moz-box-shadow: 0 1px 5px rgba(0,0,0,0.05);-webkit-box-shadow: 0 1px 5px rgba(0,0,0,0.05);max-width:600px}.post-entry{position: relative;padding: 30px 40px;background-color: #fff}.logo{text-align:center;font-family:'Amatic SC',cursive;margin:0 0 10px 0}.logo h5{font-size:50px;margin-bottom: 20px}.logo a {color: #1c193c;text-decoration:none}
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="logo">
+            <h5><a href="{{ path('home', {'_format':'amp.html'}) }}">Travel Cloud</a></h5>
+            <amp-img src="{{ asset('/templates/Breezy/assets/images/logo4.png') }}" width="160" height="85" alt="logo van vw rouge"></amp-img>
+        </div>

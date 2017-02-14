@@ -73,7 +73,7 @@ class LanguageController extends Controller
      */
     private function createCreateForm(Language $entity)
     {
-        $form = $this->createForm(new LanguageType(), $entity, array(
+        $form = $this->createForm(LanguageType::class, $entity, array(
             'action' => $this->generateUrl('admin_languages_create'),
             'method' => 'POST',
             'attr'   => array('class' => 'form'),
@@ -136,7 +136,7 @@ class LanguageController extends Controller
     */
     private function createEditForm(Language $entity)
     {
-        $form = $this->createForm(new LanguageType(), $entity, array(
+        $form = $this->createForm(LanguageType::class, $entity, array(
             'action' => $this->generateUrl('admin_languages_update', array('id' => $entity->getId())),
             'method' => 'PUT',
             'attr'   => array('class' => 'form'),
