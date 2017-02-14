@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class="content bootstrap-table clearfix">
-            <ul role="tablist" class="nav nav-tabs">
+            <ul role="tablist" class="nav nav-tabs col-md-6">
                 <li role="presentation" class="active">
                     <a href="#published" data-toggle="tab"><i class="fa fa-file-o"></i> Contenus</a>
                 </li>
@@ -66,6 +66,11 @@
                     <a href="#trashed" data-toggle="tab"><i class="fa fa-trash-o"></i> Corbeille</a>
                 </li>
             </ul>
+            <div class="nav nav-tabs col-md-6 pull-right">
+                <form method="get">
+                    <input type="search" placeholder="Rechercher..." />
+                </form>
+            </div>
             <div class="tab-content">
                 <div id="published" class="tab-pane active">
                     {% include "ContentBundle:Content:table.html.twig" with {'entities': entities} %}
