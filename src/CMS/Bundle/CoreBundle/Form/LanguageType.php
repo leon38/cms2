@@ -3,6 +3,9 @@
 namespace CMS\Bundle\CoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,31 +19,31 @@ class LanguageType extends AbstractType
     {
         //var_dump($options['language']); die;
         $builder
-            ->add('lang', 'locale', array(
+            ->add('lang', LocaleType::class, array(
                 'label' => 'cms.language.language',
                 'mapped' => false,
                 'attr' => array('onchange' => 'getLanguageInfo($(this))'),
                 'data' => $options['language']
             ))
-            ->add('name', null, array(
+            ->add('name', TextType::class, array(
                 'label' => 'cms.language.name',
                 'attr' => array('class' => 'name')
             ))
-            ->add('code_local', null, array(
+            ->add('code_local', TextType::class, array(
                 'label' => 'cms.language.code_local',
                 'attr' => array('class' => 'code')
             ))
-            ->add('code_lang', null, array(
+            ->add('code_lang', TextType::class, array(
                 'label' => 'cms.language.code_lang',
                 'attr' => array('class' => 'code')
             ))
-            ->add('sens_ecriture', 'choice', array(
-                'choices' => array('ltr' => 'cms.language.sens.left_right', 'rtl' => 'cms.language.sens.right_left'),
+            ->add('sens_ecriture', ChoiceType::class, array(
+                'choices' => array('cms.language.sens.left_right' => 'ltr', 'cms.language.sens.right_left' => 'rtl'),
                 'label' => 'cms.language.sens_ecriture',
                 'multiple' => false,
                 'expanded' => true
             ))
-            ->add('ordre', null, array('label' => 'cms.language.ordre'))
+            ->add('ordre', TextType::class, array('label' => 'cms.language.ordre'))
         ;
     }
 
