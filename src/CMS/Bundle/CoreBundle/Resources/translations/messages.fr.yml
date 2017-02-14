@@ -102,6 +102,9 @@ cms:
         register: S'inscrire
         home: Accueil
         messages: Messages
+        languages: Langues
+        language:
+          add_new: Nouvelle langue
         mail:
           welcome: Bonjour,
           thank_you: "Merci de vous être inscrit sur %name%, vos identifiants sont les suivants :"
