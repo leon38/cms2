@@ -97,7 +97,7 @@ class ContentController extends Controller
                 'date_format' => $option->getOptionValue(),
                 'notification' => $notification,
                 'lastPost' => $lastPost,
-                'template' => $template,
+                'template' => $template
             )
         );
     }
@@ -110,10 +110,13 @@ class ContentController extends Controller
         $path = str_replace($request->getSchemeAndHttpHost(), '', $path);
 
         $matcher = $this->get('router')->getMatcher();
-        $parameters = $matcher->match($path);
-        $route = $parameters['_route'];
-
-        return $route;
+        try {
+            $parameters = $matcher->match($path);
+            $route = $parameters['_route'];
+            return $route;
+        } catch (\Exception $e) {
+            return '';
+        }
     }
 
     /**

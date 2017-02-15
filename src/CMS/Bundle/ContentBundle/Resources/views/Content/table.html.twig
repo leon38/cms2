@@ -16,7 +16,7 @@
             {% endfor %}
         </th>
         <th>{{ 'cms.content.author'|trans }}</th>
-        <th{% if entities.isSorted('c.published') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'cms.content.status'|trans, 'c.published') }}</th>
+        <th{% if entities.isSorted('c.published') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'cms.content.status.status'|trans, 'c.published') }}</th>
         <th>{{ 'cms.content.date'|trans }}</th>
         <th class="no-sort text-right">{{ 'cms.content.actions'|trans }}</th>
     </tr>
