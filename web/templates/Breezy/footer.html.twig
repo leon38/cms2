@@ -40,7 +40,7 @@ output="assetic/breezy_js.js" %}
 <script type="text/javascript">
     if ('serviceWorker' in navigator) {
         console.log('CLIENT: service worker registration in progress.');
-        navigator.serviceWorker.register('https://www.cms2.local/templates/Breezy/assets/js/service-worker.js').then(function() {
+        navigator.serviceWorker.register('{{ absolute_url('/templates/Breezy/assets/js/service-worker.js') }}').then(function() {
             console.log('CLIENT: service worker registration complete.');
         }, function() {
             console.log('CLIENT: service worker registration failure.');

@@ -34,9 +34,9 @@ class FrontController extends Controller
      * @param string $_format
      * @return Response
      * @Route("/", name="home_index")
-     * @Route("/index.{_format}", name="home", requirements={"_format": "html|amp.html"})
+     * @Route("/index.{_format}", name="home", defaults={"_format": "html"})
      */
-    public function indexAction($_format)
+    public function indexAction($_format = "html")
     {
         $this->init();
 
@@ -75,7 +75,7 @@ class FrontController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/recherche.{_format}", name="front_search", requirements={"_format": "html"})
+     * @Route("/recherche.{_format}", name="front_search", defaults={"_format": "html"})
      */
     public function searchAction(Request $request)
     {
@@ -98,7 +98,7 @@ class FrontController extends Controller
      * @param $categoryName
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/category/{categoryName}.{_format}", name="front_category", requirements={"_format": "html|amp.html"})
+     * @Route("/category/{categoryName}.{_format}", name="front_category", defaults={"_format": "html"})
      */
     public function categoryAction($categoryName)
     {
@@ -126,7 +126,7 @@ class FrontController extends Controller
      * @param $alias
      * @return Response
      *
-     * @Route("/amp/{alias}.{_format}", name="single_amp_content", requirements={"_format": "amp.html"})
+     * @Route("/amp/{alias}.{_format}", name="single_amp_content", defaults={"_format": "amp"})
      */
     public function ampSingleAction($alias)
     {
@@ -233,7 +233,7 @@ class FrontController extends Controller
      * @param string $_format
      * @return Response Renvoie la vue avec le bon template selon l'alias
      *
-     * @Route("/{alias}.{_format}", name="front_single", requirements={"_format": "html|amp.html"})
+     * @Route("/{alias}.{_format}", name="front_single", requirements={"_format": "html|amp.html"}, defaults={"_format": "html"})
      */
     public function singleAction($alias, $_format = "html")
     {
