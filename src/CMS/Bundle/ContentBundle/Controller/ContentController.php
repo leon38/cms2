@@ -47,7 +47,7 @@ class ContentController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $search = $request->get('s', '');
+        $search = $request->get('q', '');
 
         $query = $em->getRepository('ContentBundle:Content')->getAllContentsNotTrashedQuery($search);
 

@@ -115,7 +115,7 @@ class Content
     protected $fieldvalues;
 
     /**
-     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content")
+     * @ORM\OneToMany(targetEntity="MetaValue", mappedBy="content", fetch="EAGER")
      */
     protected $metavalues;
 

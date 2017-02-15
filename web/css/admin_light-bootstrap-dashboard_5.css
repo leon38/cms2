@@ -9908,3 +9908,7 @@ body *, body *:before, body *:after, html *, html *:before, html *:after {
     padding-right: 0;
     margin-bottom: 1px;
 }
+
+.highlight {
+    background-color: #ffeb3b;
+}

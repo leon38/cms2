@@ -51,7 +51,7 @@ class ContentRepository extends EntityRepository
     }
 
 
-    public function getAllContentsQuery($search = '')
+    public function getAllContentsQuery()
     {
         $query = $this->_em
             ->createQueryBuilder('c, u, cat')
@@ -59,28 +59,38 @@ class ContentRepository extends EntityRepository
             ->from('ContentBundle:Content', 'c')
             ->join('c.author', 'u')
             ->join('c.categories', 'cat');
-        if ($search != '') {
-            $query = $query->andWhere('c.title LIKE :search')
-                ->orWhere('c, u, cat.title LIKE :search')
-                ->setParameter('search', '%'.$search.'%');
-        }
+
         return $query;
     }
 
     public function getAllContentsNotTrashedQuery($search = '')
     {
-        $query = $this->getAllContentsQuery($search)
-            ->where('c.published != 5');
-
+        $query = $this->getAllContentsQuery();
+        if ($search != '') {
+            $query = $query->where('c.title LIKE :search')
+                ->setParameter('search', '%'.$search.'%')
+                ->orWhere('cat.title LIKE :search_cat')
+                ->setParameter('search_cat', '%'.$search.'%')
+                ->andWhere('c.published != 5');
+        } else {
+            $query = $query->where('c.published != 5');
+        }
         return $query->getQuery();
     }
 
 
     public function getAllContentsTrashedQuery($search = '')
     {
-        $query = $this->getAllContentsQuery($search)
-            ->where('c.published = 5');
-
+        $query = $this->getAllContentsQuery();
+        if ($search != '') {
+            $query = $query->where('c.title LIKE :search')
+                ->setParameter('search', '%'.$search.'%')
+                ->orWhere('cat.title LIKE :search_cat')
+                ->setParameter('search_cat', '%'.$search.'%')
+                ->andWhere('c.published != 5');
+        } else {
+            $query = $query->where('c.published != 5');
+        }
         return $query->getQuery();
     }
 

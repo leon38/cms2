@@ -4,6 +4,7 @@ parameters:
     cms_core.option.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\OptionExtension'
     cms_core.boolean.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\BooleanIconExtension'
     cms_core.meta_user.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\MetaUserExtension'
+    cms_core.highlight.twig.extension.class: 'CMS\Bundle\CoreBundle\Twig\Extension\HighlightSearchWordExtension'
 
 services:
     cms_core.form.extension.help:
@@ -105,6 +106,11 @@ services:
             arguments: ['@cms.core.repository.option']
             tags:
                 - { name: twig.extension }
+
+    cms.core.twig.highlight.extension:
+                class: '%cms_core.highlight.twig.extension.class%'
+                tags:
+                    - { name: twig.extension }
 
     cms.core.form.type.image:
             class: CMS\Bundle\CoreBundle\Form\Type\ImageType

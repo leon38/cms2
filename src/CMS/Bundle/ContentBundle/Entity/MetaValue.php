@@ -34,7 +34,7 @@ class MetaValue
     protected $category;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Meta", inversedBy="metavalues")
+     * @ORM\ManyToOne(targetEntity="Meta", inversedBy="metavalues", fetch="EAGER")
      * @ORM\OrderBy(value={"meta_order"= "ASC"})
      */
     protected $meta;

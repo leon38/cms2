@@ -3,12 +3,26 @@
        aria-describedby="data_table">
     <thead>
     <tr>
-        <th{% if entities.isSorted('c.id') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'Id', 'c.id') }}</th>
+        <th{% if entities.isSorted('c.id') %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(entities, 'cms.content.id'|trans, 'c.id') }}
+            {% if entities.isSorted('c.id') and queryParams.direction is defined and queryParams.direction == 'asc' %}
+                &nbsp;<i class="fa fa-caret-up"></i>
+            {% elseif entities.isSorted('c.id') and queryParams.direction is defined and queryParams.direction == 'desc' %}
+                &nbsp;<i class="fa fa-caret-down"></i>
+            {% endif %}
+        </th>
         <th>
             <div class="checkbox"><input type="checkbox" data-name="contents[]"
                                          onchange="toggleCheckbox(this)" value="0"/></div>
         </th>
-        <th{% if entities.isSorted('c.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'cms.content.title'|trans, 'c.title')|raw }}</th>
+        <th{% if entities.isSorted('c.title') %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(entities, 'cms.content.title'|trans, 'c.title')|raw }}
+            {% if entities.isSorted('c.title') and queryParams.direction is defined and queryParams.direction == 'asc' %}
+                &nbsp;<i class="fa fa-caret-up"></i>
+            {% elseif entities.isSorted('c.title') and queryParams.direction is defined and queryParams.direction == 'desc' %}
+                &nbsp;<i class="fa fa-caret-down"></i>
+            {% endif %}
+        </th>
         <th>{{ 'cms.content.categories'|trans }}</th>
         <th>
             {% for language in languages %}
@@ -16,7 +30,14 @@
             {% endfor %}
         </th>
         <th>{{ 'cms.content.author'|trans }}</th>
-        <th{% if entities.isSorted('c.published') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(entities, 'cms.content.status.status'|trans, 'c.published') }}</th>
+        <th{% if entities.isSorted('c.published') %} class="sorted"{% endif %}>
+            {{ knp_pagination_sortable(entities, 'cms.content.status.status'|trans, 'c.published') }}
+            {% if entities.isSorted('c.published') and queryParams.direction is defined and queryParams.direction == 'asc' %}
+                &nbsp;<i class="fa fa-caret-up"></i>
+            {% elseif entities.isSorted('c.published') and queryParams.direction is defined and queryParams.direction == 'desc' %}
+                &nbsp;<i class="fa fa-caret-down"></i>
+            {% endif %}
+        </th>
         <th>{{ 'cms.content.date'|trans }}</th>
         <th class="no-sort text-right">{{ 'cms.content.actions'|trans }}</th>
     </tr>
@@ -29,10 +50,8 @@
                 <div class="checkbox"><input type="checkbox" name="contents[]"
                                              value="{{ entity.id }}"/></div>
             </td>
-            <td>{{ entity.title }}</td>
-            <td>
-                {{ entity.categories|join(', ') }}
-            </td>
+            <td>{{ entity.title|highlight(search_word)|raw }}</td>
+            <td>{{ entity.categories|join(', ')|highlight(search_word)|raw }}</td>
             <td>
                 {% for language in languages %}
                     {% if language.codelocal != entity.language.codelocal %}

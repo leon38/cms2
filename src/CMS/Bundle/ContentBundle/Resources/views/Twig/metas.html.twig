@@ -1,3 +1,5 @@
 {% for metavalue in metavalues %}
-    {{ metavalue.meta.value|format(metavalue.value)|raw }}
+    {% if metavalue.value != '' %}
+        {{ metavalue.meta.value|format(metavalue.value)|raw }}
+    {% endif %}
 {% endfor %}

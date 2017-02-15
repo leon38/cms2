@@ -8,6 +8,7 @@ cms:
       draft: Brouillon
       pending: En attente
       status: Statut
+    id: Id
     title: Titre
     description: Description
     translations: Traductions
