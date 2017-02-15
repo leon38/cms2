@@ -3,7 +3,7 @@
         {% if display_title %}
             <h4 class="widget-title">{{ title }}</h4>
         {% endif %}
-        <form role="search" method="get" id="searchform" action="{{ path('front_search') }}">
+        <form role="search" method="get" id="searchform" action="{{ path('front_search', {'_format': 'html'}) }}">
             <input type="text" placeholder="Rechercher..." name="q" id="q" class="form-control">
         </form>
     </div>
@@ -12,7 +12,7 @@
         <a href="#"><i class="fa fa-search"></i></a>
     </div>
     <div class="search-form-area">
-        <form role="search" method="get" class="search-form" action="{{ path('front_search') }}">
+        <form role="search" method="get" class="search-form" action="{{ path('front_search', {'_format': 'html'}) }}">
             <div>
                 <input type="text" placeholder="Rechercher..." name="q" class="search">
                 <button type="submit" class="search-submit"><i class="fa fa-search"></i></button>
