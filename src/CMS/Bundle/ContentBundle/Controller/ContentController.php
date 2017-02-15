@@ -57,14 +57,14 @@ class ContentController extends Controller
             $nb_elem
         );
 
-        $query = $em->getRepository('ContentBundle:Content')->getAllContentsTrashedQuery($search);
+        $query_trash = $em->getRepository('ContentBundle:Content')->getAllContentsTrashedQuery($search);
 
-        $paginator_trash  = $this->get('knp_paginator');
+        /*$paginator_trash  = $this->get('knp_paginator');
         $entities_trashed = $paginator_trash->paginate(
-            $query,
+            $query_trash,
             $request->query->get('page_trash', 1),
             $nb_elem
-        );
+        );*/
 
         $languages = $em->getRepository('CoreBundle:Language')->findAll();
         $taxonomies = $em->getRepository('ContentBundle:ContentTaxonomy')->findAll();
@@ -87,7 +87,7 @@ class ContentController extends Controller
             'ContentBundle:Content:index.html.twig',
             array(
                 'entities' => $entities,
-                'entities_trashed' => $entities_trashed,
+                //'entities_trashed' => $entities_trashed,
                 'url' => 'admin_content_delete',
                 'languages' => $languages,
                 'taxonomies' => $taxonomies,
