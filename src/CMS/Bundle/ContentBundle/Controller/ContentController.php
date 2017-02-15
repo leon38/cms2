@@ -34,15 +34,16 @@ class ContentController extends Controller
 {
     /**
      * Lists all Content entities.
+     * @param $page
      * @param $nb_elem
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/{nb_elem}", name="admin_content", requirements={"nb_elem": "\d+"}, defaults={"nb_elem": 10})
+     * @Route("/{nb_elem}/{page}", name="admin_content", requirements={"nb_elem": "\d+", "page": "\d+"}, defaults={"page": 1, "nb_elem": 10})
      * @Method({"GET", "POST"})
      * @Template()
      */
-    public function indexAction($nb_elem, Request $request)
+    public function indexAction($nb_elem, $page, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -53,18 +54,20 @@ class ContentController extends Controller
         $paginator  = $this->get('knp_paginator');
         $entities = $paginator->paginate(
             $query,
-            $request->query->get('page', 1),
+            $page,
             $nb_elem
         );
 
         $query_trash = $em->getRepository('ContentBundle:Content')->getAllContentsTrashedQuery($search);
+        $page_trash = $request->query->get('page_trash', 1);
+        $nb_elem_trash = $request->query->get('nb_elem_trash', 10);
 
-        /*$paginator_trash  = $this->get('knp_paginator');
+        $paginator_trash  = $this->get('knp_paginator');
         $entities_trashed = $paginator_trash->paginate(
             $query_trash,
-            $request->query->get('page_trash', 1),
-            $nb_elem
-        );*/
+            $page_trash,
+            $nb_elem_trash
+        );
 
         $languages = $em->getRepository('CoreBundle:Language')->findAll();
         $taxonomies = $em->getRepository('ContentBundle:ContentTaxonomy')->findAll();
@@ -87,7 +90,7 @@ class ContentController extends Controller
             'ContentBundle:Content:index.html.twig',
             array(
                 'entities' => $entities,
-                //'entities_trashed' => $entities_trashed,
+                'entities_trashed' => $entities_trashed,
                 'url' => 'admin_content_delete',
                 'languages' => $languages,
                 'taxonomies' => $taxonomies,

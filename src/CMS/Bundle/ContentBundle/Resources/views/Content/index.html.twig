@@ -75,10 +75,10 @@
             </div>
             <div class="tab-content">
                 <div id="published" class="tab-pane active">
-                    {% include "ContentBundle:Content:table.html.twig" with {'entities': entities} %}
+                    {% include "ContentBundle:Content:table.html.twig" with {'entities': entities, 'page': page, 'pageCount': pageCount, 'next': next, 'previous': previous} %}
                 </div>
                 <div id="trashed" class="tab-pane">
-                    {# include "ContentBundle:Content:table.html.twig" with {'entities': entities_trashed} #}
+                    {% include "ContentBundle:Content:table.html.twig" with {'entities': entities_trashed, 'page': page_trash, 'pageCount': pageCount_trash, 'next': next_trash, 'previous': previous_trash} %}
                 </div>
             </div>
         </div>

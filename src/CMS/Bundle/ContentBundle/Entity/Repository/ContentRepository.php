@@ -50,20 +50,27 @@ class ContentRepository extends EntityRepository
         return $query;
     }
 
-    public function getAllContentsNotTrashedQuery($search = '')
+
+    public function getAllContentsQuery($search = '')
     {
         $query = $this->_em
             ->createQueryBuilder('c, u, cat')
             ->select('c, u, cat')
             ->from('ContentBundle:Content', 'c')
             ->join('c.author', 'u')
-            ->join('c.categories', 'cat')
-            ->where('c.published != 5');
+            ->join('c.categories', 'cat');
         if ($search != '') {
             $query = $query->andWhere('c.title LIKE :search')
                 ->orWhere('c, u, cat.title LIKE :search')
                 ->setParameter('search', '%'.$search.'%');
         }
+        return $query;
+    }
+
+    public function getAllContentsNotTrashedQuery($search = '')
+    {
+        $query = $this->getAllContentsQuery($search)
+            ->where('c.published != 5');
 
         return $query->getQuery();
     }
@@ -71,19 +78,8 @@ class ContentRepository extends EntityRepository
 
     public function getAllContentsTrashedQuery($search = '')
     {
-        $query = $this->_em
-            ->createQueryBuilder('c, u, cat')
-            ->select('c, u, cat')
-            ->from('ContentBundle:Content', 'c')
-            ->join('c.author', 'u')
-            ->join('c.categories', 'cat')
-            ->where('c.published = 5')
-            ->orderBy('c.id', 'DESC');
-        if ($search != '') {
-            $query = $query->andWhere('c.title LIKE :search')
-                ->orWhere('c, u, cat.title LIKE :search')
-                ->setParameter('search', '%'.$search.'%');
-        }
+        $query = $this->getAllContentsQuery($search)
+            ->where('c.published = 5');
 
         return $query->getQuery();
     }
