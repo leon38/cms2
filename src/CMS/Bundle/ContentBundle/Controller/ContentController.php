@@ -36,34 +36,37 @@ class ContentController extends Controller
      * Lists all Content entities.
      * @param $page
      * @param $nb_elem
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/{nb_elem}/{page}", name="admin_content", requirements={"nb_elem": "\d+", "page": "\d+"}, defaults={"page": 1, "nb_elem": 10})
      * @Method({"GET", "POST"})
      * @Template()
      */
-    public function indexAction($page, $nb_elem, Request $request)
+    public function indexAction($nb_elem, $page, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $offset = ($page - 1) * $nb_elem;
 
-        $query = $em->getRepository('ContentBundle:Content')->getAllContentsNotTrashedQuery($nb_elem, $offset);
+        $search = $request->get('s', '');
+
+        $query = $em->getRepository('ContentBundle:Content')->getAllContentsNotTrashedQuery($nb_elem, $offset, $search);
 
         $paginator  = $this->get('knp_paginator');
         $entities = $paginator->paginate(
             $query,
-            $page/*page number*/,
-            $nb_elem/*limit per page*/
+            $page,
+            $nb_elem
         );
 
-        $query = $em->getRepository('ContentBundle:Content')->getAllContentsTrashedQuery($nb_elem, $offset);
+        $query = $em->getRepository('ContentBundle:Content')->getAllContentsTrashedQuery($nb_elem, $offset, $search);
 
         $paginator_trash  = $this->get('knp_paginator');
         $entities_trashed = $paginator_trash->paginate(
             $query,
-            $page/*page number*/,
-            $nb_elem/*limit per page*/
+            $page,
+            $nb_elem
         );
 
         $languages = $em->getRepository('CoreBundle:Language')->findAll();
