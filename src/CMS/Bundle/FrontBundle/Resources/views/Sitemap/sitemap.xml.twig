@@ -6,7 +6,7 @@
         <loc>{{ url('front_single', {'alias': content.url, '_format': 'html'}) }}</loc>
         {% if content.thumbnail is not null %}
             <image:image>
-                <image:loc>{{ absolute_url(content.thumbnail.getWebPath())|url_encode }}</image:loc>
+                <image:loc>{{ absolute_url(content.thumbnail.getWebPath()) }}</image:loc>
                 <image:caption>{{ content.thumbnail.metas['title_1'] }}</image:caption>
             </image:image>
         {% endif %}
