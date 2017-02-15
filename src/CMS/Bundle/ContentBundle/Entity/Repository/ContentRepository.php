@@ -50,7 +50,7 @@ class ContentRepository extends EntityRepository
         return $query;
     }
 
-    public function getAllContentsNotTrashedQuery($nb_element = 0, $offset = 0, $search = '')
+    public function getAllContentsNotTrashedQuery($search = '')
     {
         $query = $this->_em
             ->createQueryBuilder('c, u, cat')
@@ -69,7 +69,7 @@ class ContentRepository extends EntityRepository
     }
 
 
-    public function getAllContentsTrashedQuery($nb_element = 0, $offset = 0, $search = '')
+    public function getAllContentsTrashedQuery($search = '')
     {
         $query = $this->_em
             ->createQueryBuilder('c, u, cat')
