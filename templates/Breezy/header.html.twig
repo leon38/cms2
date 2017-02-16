@@ -6,14 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% if content is defined %}
         {{ metas(content) }}
+        <link rel="alternate" href="{{ url('front_single', {'alias': content.url, '_format': 'html'}) }}" hreflang="fr-fr" />
     {% elseif category is defined %}
         {{ metas(category) }}
+        <link rel="alternate" href="{{ url('front_single', {'alias': category.url, '_format': 'html'}) }}" hreflang="fr-fr" />
     {% else %}
         {% if metas is defined %}
             {% for meta in metas %}
                 {{ meta|raw }}
             {% endfor %}
         {% endif %}
+        <link rel="alternate" href="{{ url('home', {'_format': 'html'}) }}" hreflang="fr-fr" />
     {% endif %}
     <link rel="manifest" href="/templates/Breezy/assets/manifest.json">
 

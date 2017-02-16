@@ -41,6 +41,18 @@ cms:
     content_created:
       success: Votre contenu a été créé avec succès !
 
+    comment:
+      pseudo: Votre nom *
+      email: Votre adresse e-mail *
+      email_placeholder: adresse@email.com
+      message: Dites-nous tout *
+      message_placeholder: Donnez votre opinion, idée ou commentaire en cliquant ici
+      success: Merci pour votre commentaire
+      not_blank:
+        message: Vous devez laisser un commentaire
+        email: Vous devez remplir votre adresse e-mail pour commenter
+        pseudo: Vous devez remplir le pseudo pour commenter
+
   category:
     modal:
       title_delete: Suppression de catégorie

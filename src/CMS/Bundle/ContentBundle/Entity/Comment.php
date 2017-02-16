@@ -66,6 +66,12 @@ class Comment
      */
     protected $likes = 0;
 
+    /**
+     * @var String $captcha
+     * @Assert\Blank()
+     */
+    protected $captcha;
+
 
     public function __construct()
     {

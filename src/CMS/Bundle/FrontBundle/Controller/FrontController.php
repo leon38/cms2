@@ -146,6 +146,7 @@ class FrontController extends Controller
             $entity,
             array(
                 'method' => 'POST',
+                'action' => $this->generateUrl('add_comment', array('content' => $content->getId())),
                 'attr' =>
                     array(
                         'class' => 'form',
@@ -175,6 +176,10 @@ class FrontController extends Controller
             $comment->setContent($content);
             $em->persist($comment);
             $em->flush();
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'cms.content.comment.success'
+            );
         } else {
             $this->get('session')->getFlashBag()->add(
                 'error',

@@ -4,6 +4,7 @@ namespace CMS\Bundle\ContentBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,25 +17,26 @@ class CommentType extends AbstractType
         $builder
             ->add('pseudo', TextType::class,
                 array(
-                    'label' => 'Votre nom *',
+                    'label' => 'cms.content.comment.pseudo',
                     'attr' => array(
-                        'placeholder' => 'Votre nom *'
+                        'placeholder' => 'cms.content.comment.pseudo'
                     )
                 ))
             ->add('email', EmailType::class,
                 array(
-                    'label' => 'Votre email *',
+                    'label' => 'cms.content.comment.email',
                     'attr' => array(
-                        'placeholder' => 'adresse@email.com'
+                        'placeholder' => 'cms.content.comment.email_placeholder'
                     )
                 ))
             ->add('message', TextareaType::class,
                 array(
-                    'label' => 'Dites-nous tout',
+                    'label' => 'cms.content.comment.message',
                     'attr' => array(
-                        'placeholder' => 'Donnez votre opinion, idée ou commentaire en cliquant ici'
+                        'placeholder' => 'cms.content.comment.message_placeholder'
                     )
-                ));
+                ))
+            ->add('captcha', HiddenType::class, array('mapped' => false));
     }
 
     public function configureOptions(OptionsResolver $resolver)
