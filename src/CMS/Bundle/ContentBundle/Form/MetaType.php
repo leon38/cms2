@@ -32,7 +32,8 @@ class MetaType extends AbstractType
                             'Thumbnail' => 'Thumbnail',
                             'Username twitter' => 'Username twitter',
                             'Username Facebook' => 'Username Facebook'
-                        )
+                        ),
+                    'required' => false
                 )
             )
             ->add('type')
