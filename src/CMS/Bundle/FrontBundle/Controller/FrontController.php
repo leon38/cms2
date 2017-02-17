@@ -42,8 +42,10 @@ class FrontController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $metas["title"] = '<title>'.$em->getRepository('CoreBundle:Option')->get('sitename').'</title>';
-        $metas["meta_description"] = '<meta name="description" value="'.$em->getRepository('CoreBundle:Option')->get('meta_description').'" />';
-        $metas["meta_keywords"] = '<meta name="keywords" value="'.$em->getRepository('CoreBundle:Option')->get('meta_keywords').'" />';
+        $metas["meta_description"] = '<meta name="description" content="'.$em->getRepository('CoreBundle:Option')->get('meta_description').'" />';
+        $metas["og_description"] = '<meta property="og:description" content="'.$em->getRepository('CoreBundle:Option')->get('meta_description').'" />';
+        $metas["og_title"] = '<meta property="og:title" content="'.$em->getRepository('CoreBundle:Option')->get('sitename').'" />';
+        $metas["meta_keywords"] = '<meta name="keywords" content="'.$em->getRepository('CoreBundle:Option')->get('meta_keywords').'" />';
 
         $contents = $em->getRepository('ContentBundle:Content')->findBy(
             array('published' => true),
