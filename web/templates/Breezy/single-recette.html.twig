@@ -1,5 +1,8 @@
 {% include "@cms/Breezy/header.html.twig" %}
 <div class="container">
+    <aside id="sidebar">
+        {{ widget('search') }}
+    </aside>
     <div id="content">
         <article id="post-{{ content.id }}" class="article-item post post-{{ content.id }}" itemscope itemtype="http://schema.org/Recipe">
             <div class="post-featured-item">
@@ -16,10 +19,10 @@
             </div>
             <div class="post-entry full" >
                 <div class="post-header">
-                    <span class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
+                    <span itemprop="articleSection" class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
                     <h1 itemprop="name">{{ content.title }}</h1>
                 </div>
-                <div class="post-entry-text">
+                <div class="post-entry-text" itemprop="articleBody">
                     {{ content.description|raw }}
                     <div class="col-1-of-3">
                         <h3>Ingrédients</h3>
@@ -38,8 +41,8 @@
                     </div>
                     <div class="date-author">
                         <div class="pull-left">
-                            Ecrit par <span class="author" itemprop="author">{{ content.author }}</span> le <span
-                                    class="date">{{ content.created|localizeddate('full', 'none') }}</span>
+                            Ecrit par <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="author" itemprop="author">{{ content.author }}</span> le <span
+                                    class="date" itemprop="datePublished" content="{{ content.created|date('Y-m-d H:i:s') }}">{{ content.created|localizeddate('full', 'none') }} à {{ content.created|date('H:i') }}</span>
                         </div>
                         <div class="pull-right">
                             {{ widget('share', content) }}
@@ -83,8 +86,6 @@
             </div>
         </div>
     </div>
-    <aside id="sidebar">
-        {{ widget('search') }}
-    </aside>
+
 </div>
 {% include "@cms/Breezy/footer.html.twig" %}

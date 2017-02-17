@@ -66,6 +66,7 @@ assetic:
           - 'templates/Breezy/style.css'
           - 'templates/Breezy/assets/swiper.min.css'
         filters: ['cssrewrite', 'uglifycss']
+        output: css/breezy.css
       breezy_js:
         inputs:
           - 'templates/Breezy/assets/js/swiper.jquery.min.js'
@@ -76,6 +77,7 @@ assetic:
           - 'templates/Breezy/assets/js/barba.min.js'
           - 'templates/Breezy/assets/js/transition.js'
         filters: ['uglifyjs2']
+        output: js/breezy.js
     filters:
         cssrewrite: ~
         sass:

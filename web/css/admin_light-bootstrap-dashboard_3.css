@@ -9912,3 +9912,7 @@ body *, body *:before, body *:after, html *, html *:before, html *:after {
 .highlight {
     background-color: #ffeb3b;
 }
+
+.table tbody td p {
+    font-size: 14px;
+}

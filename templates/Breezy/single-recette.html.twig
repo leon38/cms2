@@ -1,5 +1,8 @@
 {% include "@cms/Breezy/header.html.twig" %}
 <div class="container">
+    <aside id="sidebar">
+        {{ widget('search') }}
+    </aside>
     <div id="content">
         <article id="post-{{ content.id }}" class="article-item post post-{{ content.id }}" itemscope itemtype="http://schema.org/Recipe">
             <div class="post-featured-item">
@@ -83,8 +86,6 @@
             </div>
         </div>
     </div>
-    <aside id="sidebar">
-        {{ widget('search') }}
-    </aside>
+
 </div>
 {% include "@cms/Breezy/footer.html.twig" %}

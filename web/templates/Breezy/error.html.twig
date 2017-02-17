@@ -4,10 +4,10 @@
     <p>Cette page n'existe point.</p>
     <p>Pour continuer à naviguer vous pouvez cliquer sur les liens ci-dessous :</p>
     <ul>
-        <li><a href="{{ path('home_index', {_format: 'html'}) }}">Accueil</a></li>
-        <li><a href="{{ path('front_single', {alias: 'endroits-a-visiter', _format: '.html'}) }}">Endroits à visiter</a>
+        <li><a href="{{ path('home_index') }}">Accueil</a></li>
+        <li><a href="{{ path('front_single', {alias: 'endroits-a-visiter', _format: 'html'}) }}">Endroits à visiter</a>
         </li>
-        <li><a href="{{ path('front_single', {alias: 'recettes', _format: '.html'}) }}">Recettes</a></li>
+        <li><a href="{{ path('front_single', {alias: 'recettes', _format: 'html'}) }}">Recettes</a></li>
     </ul>
 </div>
 {% include "@cms/Breezy/footer.html.twig" %}
