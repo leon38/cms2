@@ -18,6 +18,7 @@ class MetaRepository extends EntityRepository
             ->createQueryBuilder()
             ->select('m')
             ->from('ContentBundle:Meta', 'm', 'm.name')
+            ->where('m.published = 1')
             ->orderBy('m.order')
             ->getQuery()
             ->getResult();

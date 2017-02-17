@@ -9,6 +9,7 @@
 namespace CMS\Bundle\ContentBundle\Event;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use CMS\Bundle\ContentBundle\Entity\Repository\MetaRepository;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,6 +18,15 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class ContentSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var MetaRepository $metaRepository
+     */
+    private $metaRepository;
+
+    public function __construct(MetaRepository $metaRepository)
+    {
+        $this->metaRepository = $metaRepository;
+    }
 
     public static function getSubscribedEvents()
     {
@@ -42,23 +52,25 @@ class ContentSubscriber implements EventSubscriberInterface
 
         // Remplissage des métas automatiquement
         $metavaluesTemp = $content->getMetaValuesTemp();
+        $metas = $this->metaRepository->findByIndexed();
         foreach($metavaluesTemp as $key => $value) {
-
-            switch ($key) {
-                case 'meta-description':
-                    if ($value == null) {
-                        $metavaluesTemp[$key] = $content->getChapo();
-                    }
-                    break;
-                case 'meta-title':
-                    if ($value == null) {
-                        $metavaluesTemp[$key] = $content->getTitle();
-                    }
-                    break;
-                case 'canonical':
-                    $metavaluesTemp[$key] = $settings['base_url'].'/'.$content->getUrl().'.html';
-                    break;
+            if (isset($metas[$key]) && $value == '') {
+                switch($metas[$key]->getDefaultValue()) {
+                    case 'Title':
+                        $value = $content->getTitle();
+                        break;
+                    case 'Chapo':
+                        $value = $content->getChapo();
+                        break;
+                    case 'URL':
+                        $value = $event->getSettings()['base_url'];
+                        break;
+                    case 'Thumbnail':
+                        $value = $event->getSettings()['base_url'].'/'.$content->getThumbnail()->getWebPath();
+                        break;
+                }
             }
+            $metavaluesTemp[$key] = $value;
         }
 
         $content->setMetaValuesTemp($metavaluesTemp);
