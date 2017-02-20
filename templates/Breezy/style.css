@@ -99,7 +99,7 @@ body *, body *:before, body *:after, html *, html *:before, html *:after {
     z-index: 100;
     position: absolute;
     right: 11px;
-    top: 0px;
+    top: 11px;
     color: white;
     font-size: 16px;
 }
@@ -155,7 +155,7 @@ body *, body *:before, body *:after, html *, html *:before, html *:after {
 .player.paused .lp-background {
     opacity: 0;
 }
-.player.paused .play-button .mdi-pause {
+.player.paused .play-button .fa-pause {
     opacity: 0;
 }
 .player.playing .description {
