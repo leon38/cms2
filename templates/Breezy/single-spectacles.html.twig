@@ -1,7 +1,7 @@
 {% include "@cms/Breezy/header.html.twig" %}
 <div class="container">
     <div id="content">
-        <article id="post-{{ content.id }}" class="article-item post post-{{ content.id }}">
+        <article id="post-{{ content.id }}" class="article-item post post-{{ content.id }}"  itemscope itemtype="http://schema.org/Event">
             <div class="post-featured-item">
                 <img src="{{ content.thumbnail.getWebPath()|imagine_filter('thumb_post') }}" alt="{{ content.thumbnail.metas['alt_1'] }}"
                      title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive" />
@@ -9,7 +9,7 @@
             <div class="post-entry full">
                 <div class="post-header">
                     <span class="cat">{{ content.getCategoriesArticle(',', true)|raw }}</span>
-                    <h1>{{ content.title }}</h1>
+                    <h1 itemprop="name">{{ content.title }}</h1>
                 </div>
                 <div class="post-entry-text">
                     {{ content.description|contact_form|raw }}

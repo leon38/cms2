@@ -10,10 +10,10 @@ namespace CMS\Bundle\ContentBundle\Form\EventListener;
 
 
 use CMS\Bundle\ContentBundle\Entity\Field;
+use CMS\Bundle\ContentBundle\Form\Type\DeezerType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
