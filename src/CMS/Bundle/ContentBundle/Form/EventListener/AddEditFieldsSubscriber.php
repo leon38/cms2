@@ -73,7 +73,7 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
             if ($type == DateType::class) {
                 $options['attr'] = array('class' => 'datetimepicker');
                 $type = TextType::class;
-                $options['data'] = \DateTime::createFromFormat("d/m/Y H:i", $options['data']);
+                //$options['data'] = \DateTime::createFromFormat("d/m/Y H:i", $options['data']);
             }
 
             if (isset($params['editor']) && $params['editor'] == true) {
