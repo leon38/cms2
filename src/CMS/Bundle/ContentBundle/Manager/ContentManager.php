@@ -71,8 +71,9 @@ class ContentManager
         return true;
     }
 
-    public function saveMeta($controller, $content, $request)
+    public function saveMeta($content, $request)
     {
+        $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         if (!empty($content->getMetaValuesTemp())) {
             foreach ($content->getMetaValuesTemp() as $metaname => $metavalue) {
                 $meta = $this->em->getRepository('ContentBundle:Meta')->findOneBy(array('alias' => $metaname));
@@ -86,11 +87,10 @@ class ContentManager
                             $metavalue = $content->getChapo();
                             break;
                         case 'URL':
-                            $metavalue = $controller->generateURL('front_single', array('alias' => $content->getUrl()), true);
+                            $metavalue = $baseurl.$content->getUrl().'.html';
                             break;
                         case 'Thumbnail':
                             if ($content->getHasThumbnail()) {
-                                $baseurl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
                                 $metavalue = $baseurl.$content->getThumbnail()->getWebPath();
                             }
                             break;

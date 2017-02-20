@@ -158,7 +158,7 @@ class ContentController extends Controller
                 'base_url' => $request->getSchemeAndHttpHost())
             ;
             $event = new ContentSavedEvent($content, $settings);
-            $subscriber = new ContentSubscriber();
+            $subscriber = new ContentSubscriber($this->getDoctrine()->getRepository('ContentBundle:Meta'));
             $dispatcher->addSubscriber($subscriber);
             $dispatcher->dispatch(ContentSavedEvent::NAME, $event);
 
@@ -502,14 +502,12 @@ class ContentController extends Controller
                 'base_url' => $request->getSchemeAndHttpHost())
             ;
             $event = new ContentSavedEvent($content, $settings);
-            $subscriber = new ContentSubscriber();
+            $subscriber = new ContentSubscriber($this->getDoctrine()->getRepository('ContentBundle:Meta'));
             $dispatcher->addSubscriber($subscriber);
             $dispatcher->dispatch(ContentSavedEvent::NAME, $event);
 
             $this->get('cms.content.content_manager')->save($content);
-            $this->get('cms.content.content_manager')->saveMeta($this, $content, $request);
-
-
+            $this->get('cms.content.content_manager')->saveMeta($content, $request);
 
             $this->get('session')->getFlashBag()->add(
                 'success',

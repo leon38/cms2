@@ -5,7 +5,6 @@ use CMS\Bundle\ContentBundle\Form\Type\DeezerType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\HttpFoundation\File\File;
@@ -91,7 +90,9 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
 
             if ($field->getName() == 'musique') {
                 $type = isset($options['api']) ? $options['api'] : DeezerType::class;
-            } else if ($type == FileType::class && $fieldvalue->getValue() != '') {
+            }
+
+            if ($type == FileType::class && $fieldvalue->getValue() != '') {
                 $options['data'] = new File($fieldvalue->getValue());
             }
 
@@ -132,8 +133,6 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
 
             if ($type == 'music') {
                 $type = isset($options['api']) ? $options['api'] : 'deezer';
-            } else if ($type == 'kml') {
-                $type = FileType::class;
             }
 
             //$options = array_merge($options, $attributes);

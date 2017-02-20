@@ -48,33 +48,6 @@ class ContentSubscriber implements EventSubscriberInterface
         $temps = ceil($nb_words / 250); // 250 mots en 1 minute
         $content->setTempsLecture($temps);
 
-        $settings = $event->getSettings();
-
-        // Remplissage des métas automatiquement
-        $metavaluesTemp = $content->getMetaValuesTemp();
-        $metas = $this->metaRepository->findByIndexed();
-        foreach($metavaluesTemp as $key => $value) {
-            if (isset($metas[$key]) && $value == '') {
-                switch($metas[$key]->getDefaultValue()) {
-                    case 'Title':
-                        $value = $content->getTitle();
-                        break;
-                    case 'Chapo':
-                        $value = $content->getChapo();
-                        break;
-                    case 'URL':
-                        $value = $event->getSettings()['base_url'];
-                        break;
-                    case 'Thumbnail':
-                        $value = $event->getSettings()['base_url'].'/'.$content->getThumbnail()->getWebPath();
-                        break;
-                }
-            }
-            $metavaluesTemp[$key] = $value;
-        }
-
-        $content->setMetaValuesTemp($metavaluesTemp);
-
         $chapo = $content->getChapo();
         /*if (strlen($chapo) <= 140 && $content->getPublished()) {
 
