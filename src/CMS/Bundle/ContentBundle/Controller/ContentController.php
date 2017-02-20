@@ -164,7 +164,7 @@ class ContentController extends Controller
 
 
             $this->get('cms.content.content_manager')->save($content);
-            $this->get('cms.content.content_manager')->saveMeta($this, $content, $request);
+            $this->get('cms.content.content_manager')->saveMeta($content, $request);
 
             $this->get('session')->getFlashBag()->add(
                 'success',
