@@ -92,7 +92,7 @@ class ApiManager
 
     public function getArtistDeezer($query)
     {
-        $BASE_URL = 'http://api.deezer.com/search?q='.urlencode($query);
+        $BASE_URL = 'https://api.deezer.com/search?q='.urlencode($query);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $BASE_URL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -123,7 +123,7 @@ class ApiManager
 
     public function getTracksPlaylist($id_playlist)
     {
-        $BASE_URL = 'http://api.deezer.com/playlist/'.$id_playlist.'/tracks';
+        $BASE_URL = 'https://api.deezer.com/playlist/'.$id_playlist.'/tracks';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $BASE_URL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
