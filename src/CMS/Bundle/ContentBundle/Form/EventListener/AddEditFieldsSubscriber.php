@@ -72,7 +72,7 @@ class AddEditFieldsSubscriber implements EventSubscriberInterface
             $type = $field->getField()->getTypeField();
             if ($type == DateType::class) {
                 $options['attr'] = array('class' => 'datetimepicker');
-                $options['widget'] = 'single_text';
+                $type = TextType::class;
                 $options['data'] = \DateTime::createFromFormat("d/m/Y H:i", $options['data']);
             }
 
