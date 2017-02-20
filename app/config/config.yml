@@ -63,6 +63,7 @@ assetic:
         inputs:
           - 'templates/Breezy/assets/font-awesome.min.css'
           - 'templates/Breezy/assets/slicknav.css'
+          - 'templates/Breezy/assets/materialdesignicons.min.css'
           - 'templates/Breezy/style.css'
           - 'templates/Breezy/assets/swiper.min.css'
         filters: ['cssrewrite', 'uglifycss']
