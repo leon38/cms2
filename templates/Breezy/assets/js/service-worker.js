@@ -25,6 +25,7 @@ addEventListener('activate', event => {
 
 addEventListener('fetch', event => {
     event.respondWith(async function() {
+        console.log('fetch');
         // Respond from the cache if we can
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) return cachedResponse;
