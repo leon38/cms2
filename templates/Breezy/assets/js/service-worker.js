@@ -8,9 +8,9 @@ self.addEventListener('install', e => {
                 '/css/breezy.css',
                 '/js/breezy.js',
             ])
-            .then(() => self.skipWaiting());
-        });
-    );
+            .then(() => self.skipWaiting())
+        })
+    )
 });
 
 self.addEventListener('activate',  event => {
