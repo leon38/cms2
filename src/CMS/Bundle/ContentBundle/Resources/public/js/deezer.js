@@ -19,10 +19,8 @@ var id_player = 1;
 function go($time, songLength) {
     playRunner = setInterval(function() {
         var $visualizers = $('.player#player-'+id_player+' .visualizer>div');
-        console.log($visualizers);
         //visualizers
         $visualizers.each(function() {
-            console.log('lalala');
             $(this).css('height', Math.random() * 90 + 10 + '%');
         });
         //progress bar

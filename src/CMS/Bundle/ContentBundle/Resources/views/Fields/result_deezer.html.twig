@@ -65,12 +65,12 @@
 
     <div class="play-button" onclick="playPause('{{ loop.index }}', {{ tracks[loop.index].duration }})">
         <div class="lp-background"></div>
-        <i class="mdi mdi-play"></i>
-        <i class="mdi mdi-pause"></i>
+        <i class="fa fa-play"></i>
+        <i class="fa fa-pause"></i>
     </div>
 
     <div class="time-indicator">
-        <i class="mdi mdi-clock"></i>
+        <i class="fa fa-clock-o"></i>
         <span class="time">{{ tracks[loop.index].duration|gmdate("i:s") }}</span>
     </div>
     <audio id="audio-player-{{ loop.index }}" data-target="#song-{{ loop.index }}" class="player-audio" src="{{ tracks[loop.index].preview }}" type="audio/mp3"></audio>
