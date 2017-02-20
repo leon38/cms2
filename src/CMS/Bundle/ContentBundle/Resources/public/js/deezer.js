@@ -7,7 +7,7 @@
 var activeSong;
 var activeSongJ;
 $(document).ready(function() {
-    var artist = $('#tc_bundle_contentbundle_content_fieldValuesTemp_musique_artist').val();
+    var artist = $('#content_fieldValuesTemp_musique_artist').val();
     if (artist != '') {
         search(artist);
     }
@@ -112,7 +112,7 @@ function updateTime(){
 
 
 function search(query) {
-    if (document.getElementById("content_fieldValuesTemp_musique_artist") !== null &&query != '')
+    if (document.getElementById("content_fieldValuesTemp_musique_artist") !== null && query != '')
         query = document.getElementById("content_fieldValuesTemp_musique_artist").value;
 
     if (query != '') {
