@@ -709,7 +709,7 @@
 
       this.pause();
       this.interval = requestInterval(function() {
-        var now = Date.now(),
+        var now = performance.now(),
             i;
 
         for(i = self.list.length; i--; )

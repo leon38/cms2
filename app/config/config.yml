@@ -70,6 +70,7 @@ assetic:
         output: css/breezy.css
       breezy_js:
         inputs:
+          - 'bundles/fosjsrouting/js/router.js'
           - 'templates/Breezy/assets/js/swiper.jquery.min.js'
           - 'templates/Breezy/assets/js/masonry.pkgd.min.js'
           - 'templates/Breezy/assets/js/component.js'
