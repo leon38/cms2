@@ -29,10 +29,9 @@ class SocialExtension extends \Twig_Extension
         );
     }
 
-    public function renderSocialButtons($content)
+    public function renderSocialButtons($content_url)
     {
-
-        $url = $this->makeBitlyUrl('https://choupdoune.fr/'.$content->getUrl().'.html');
+        $url = $this->makeBitlyUrl('https://choupdoune.fr/'.$content_url.'.html');
 
         return $this->_templating->render(
             'CoreBundle:Twig:social.html.twig',
