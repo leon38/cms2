@@ -33,14 +33,6 @@ class UserController extends Controller
     public function profileAction()
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $metaManager = $this->get('cms.core.meta_manager');
-        $metaManager->addMeta('firstname');
-        $metaManager->addMeta('lastname');
-        $metaManager->addMeta('id_twitter');
-        $metaManager->addMeta('facebook_url');
-        $metaManager->addMeta('gplus_url');
-        $metaManager->addMeta('about_me', null, 'textarea');
-
         $form = $this->createProfileForm($user);
 
         return $this->render('CoreBundle:User:profile.html.twig', array('form' => $form->createView()));

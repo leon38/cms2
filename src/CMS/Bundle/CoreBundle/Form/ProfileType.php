@@ -3,6 +3,8 @@ namespace CMS\Bundle\CoreBundle\Form;
 
 use CMS\Bundle\CoreBundle\Form\Type\DropzoneType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +16,7 @@ use Symfony\Component\Form\FormEvent;
 
 class ProfileType extends AbstractType
 {
-    
+
 
   /**
    * {@inheritdoc}
@@ -43,7 +45,7 @@ class ProfileType extends AbstractType
               $class = 'col-md-3';
               $type = TextType::class;
               break;
-                      
+
             default:
               $class = 'col-md-6';
               $type = TextareaType::class;
@@ -61,6 +63,7 @@ class ProfileType extends AbstractType
       ))
       ->add('user_email', EmailType::class, array('label' => 'cms.user.email', 'row_attr' => array('class' => 'col-md-3')))
       ->add('user_url', UrlType::class, array('label' => 'cms.user.user_url', 'required' => false, 'row_attr' => array('class' => 'col-md-3')))
+      ->add('plainPassword', RepeatedType::class, array('type' => PasswordType::class, 'first_options' => array('label' => 'cms.core.user_pass', 'row_attr' => array('class' => 'col-md-6')), 'second_options' => array('label' => 'cms.core.confirm_pass', 'row_attr' => array('class' => 'col-md-6'))))
       ->add('avatar', DropzoneType::class, array('attr' => array('class' => 'dropzone', 'data-url' => '/admin/upload-avatar/' . $options['user_id'], 'data-type' => 'dropzone'), 'image_path' => 'webPath', 'row_attr' => array('class' => 'col-md-3')));
 
   }
