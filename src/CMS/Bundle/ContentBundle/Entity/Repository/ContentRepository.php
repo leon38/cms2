@@ -75,6 +75,7 @@ class ContentRepository extends EntityRepository
         } else {
             $query = $query->where('c.published != 5');
         }
+        $query = $query->orderBy('c.id', 'DESC');
         return $query->getQuery();
     }
 
@@ -91,6 +92,7 @@ class ContentRepository extends EntityRepository
         } else {
             $query = $query->where('c.published != 5');
         }
+        $query = $query->orderBy('c.id', 'DESC');
         return $query->getQuery();
     }
 

@@ -37,7 +37,7 @@ class MediaController extends Controller
         $nb_media_total = $em->getRepository('MediaBundle:Media')->getNbMedia()[0][1];
         $nb_media_left = $nb_media_total - ($page + 1) * $nb_media;
         $more_pages = ($nb_media_left > 0);
-        
+
         return $this->render(
             'MediaBundle:Media:index.html.twig',
             array(
@@ -48,7 +48,7 @@ class MediaController extends Controller
             )
         );
     }
-    
+
     /**
      * @param $page
      * @param int $nb_media
@@ -65,7 +65,7 @@ class MediaController extends Controller
             $nb_media,
             ($page * $nb_media)
         );
-        
+
         return $this->render(
             'MediaBundle:Media:media.html.twig',
             array(
@@ -74,7 +74,7 @@ class MediaController extends Controller
             )
         );
     }
-    
+
     /**
      * @Route("/resize", name="admin_media_resize")
      */
@@ -128,10 +128,10 @@ class MediaController extends Controller
             }
         );
         $response->send();
-        
+
         return $response;
     }
-    
+
     /**
      * @param Media $media
      * @Route("/delete/{id}", name="admin_media_delete")
@@ -151,16 +151,16 @@ class MediaController extends Controller
                 ).'/'.$filename
             );
         }
-        
+
         $fs->remove($this->container->getParameter('kernel.root_dir').'/../web'.$origin_path);
         $em->remove($media);
         $em->flush();
         $response = new JsonResponse();
         $response->setData(array('status' => true));
-        
+
         return $response;
     }
-    
+
     private function _resizeMedia($file)
     {
         $option_manager = $this->get('cms.media.media_option_manager');
@@ -181,7 +181,7 @@ class MediaController extends Controller
             $image->__destruct();
         }
     }
-    
+
     private function _resizeThumb($targetWidth, $targetHeight, $sourceFilename)
     {
         $target = new Box($targetWidth, $targetHeight);
@@ -199,17 +199,17 @@ class MediaController extends Controller
             $h = $orgSize->getHeight() * ($target->getWidth() / $orgSize->getWidth());
             $cropBy = new Point(0, (max($h - $target->getHeight(), 0)) / 2);
         }
-        
+
         $tempBox = new Box($w, $h);
         $img = $originalImage->thumbnail($tempBox, ImageInterface::THUMBNAIL_OUTBOUND);
-        
+
         // Here is the magic..
-        
+
         return $img->crop($cropBy, $target); // Return "ready to save" final image instance
-        
+
     }
-    
-    
+
+
     /**
      * Upload l'avatar de l'utilisateur
      * @return boolean
@@ -226,12 +226,12 @@ class MediaController extends Controller
             $fileName = $file->getClientOriginalName();
             $name = pathinfo($fileName, PATHINFO_FILENAME);
             $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-            
+
             $thumbDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads/thumbs/'.date('Y').'/'.date(
                     'm'
                 );
-            
-            
+
+
             if (!$fs->exists($thumbDir)) {
                 $fs->mkdir($thumbDir);
             }
@@ -242,6 +242,8 @@ class MediaController extends Controller
             }
             try {
                 $file = $file->move($thumbDir, $fileName);
+                $path_parts = pathinfo($thumbDir.'/'.$fileName);
+                exec("cwebp -q 100 ".$thumbDir.$fileName." -o ".$thumbDir.$path_parts['filename'].".webp");
                 $em = $this->getDoctrine()->getManager();
                 $medium = new Media();
                 $fileName = date('Y').'/'.date('m').'/'.$fileName;
@@ -254,7 +256,7 @@ class MediaController extends Controller
                 $medium->setMetas($metas);
                 $em->persist($medium);
                 $em->flush();
-                
+
                 $this->_resizeMedia($file);
                 if (!$popup) {
                     return $this->render('MediaBundle:Media:thumb.html.twig', array('media' => $medium));
@@ -263,25 +265,25 @@ class MediaController extends Controller
                     $response->setData(
                         array('status' => true, "media" => $medium, 'path' => $medium->getWebPathList())
                     );
-                    
+
                     return $response;
                 }
-                
+
             } catch (FileException $e) {
                 $response = new JsonResponse();
                 $response->setData(array('status' => false, "message" => $e->getMessage()));
-                
+
                 return $response;
             }
-            
+
         }
         $response = new JsonResponse();
         $response->setData(array('status' => false));
-        
+
         return $response;
-        
+
     }
-    
+
     /**
      * @param $id
      * @param Request $request
@@ -302,13 +304,13 @@ class MediaController extends Controller
                 $em->flush();
             }
         }
-        
+
         return $this->render(
             "MediaBundle:Media:edit.html.twig",
             array("form" => $form->createView(), "medium" => $medium)
         );
     }
-    
+
     /**
      * Mise à jour des metas en ajax
      * @return JsonResponse
@@ -319,14 +321,14 @@ class MediaController extends Controller
         $media_info = $request->request->get('media_info');
         $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->find($media_info['id']);
         $media->setMetas($media_info['metas']);
-        
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($media);
         $em->flush();
-        
+
         return new JsonResponse(array('status' => true));
     }
-    
+
     /**
      * Récupère tous les médias et les présente dans une modal
      * @Route("/media-popup", name="admin_media_popup")
@@ -337,7 +339,7 @@ class MediaController extends Controller
     {
         $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->findBy(array(), array('id' => 'DESC'));
         $defaultLanguage = $this->getDoctrine()->getRepository('CoreBundle:Language')->find(1);
-        
+
         return $this->render(
             'MediaBundle:Media:mediaPopup.html.twig',
             array(
@@ -346,7 +348,7 @@ class MediaController extends Controller
             )
         );
     }
-    
+
     /**
      * Récupère tous les médias et les présente dans une modal
      * Au clic sur une image elle s'insère dans l'éditeur
@@ -358,7 +360,7 @@ class MediaController extends Controller
     {
         $media = $this->getDoctrine()->getRepository('MediaBundle:Media')->findBy(array(), array('id' => 'DESC'));
         $defaultLanguage = $this->getDoctrine()->getRepository('CoreBundle:Language')->find(1);
-        
+
         return $this->render(
             'MediaBundle:Media:mediaPopupSummernote.html.twig',
             array(
@@ -367,7 +369,7 @@ class MediaController extends Controller
             )
         );
     }
-    
+
     /**
      * Récupère les détails sur le média
      * @Route("/details-image/{form_edit}", name="admin_media_details", defaults={"form_edit": "true"})
@@ -380,7 +382,7 @@ class MediaController extends Controller
             return new JsonResponse(array('status' => false, 'msg' => 'cms.media.not_found'));
         }
         $response['medium'] = $media;
-        
+
         if ($form_edit == "true") {
             $form = $this->createForm(
                 'CMS\Bundle\MediaBundle\Form\MediaInfoType',
@@ -402,10 +404,10 @@ class MediaController extends Controller
             );
             $response['form'] = $form->createView();
         }
-        
+
         return $this->render("MediaBundle:Media:details.html.twig", $response);
     }
-    
+
     /**
      * @Route("/gallery-popup", name="admin_media_gallery")
      */
@@ -415,7 +417,7 @@ class MediaController extends Controller
         $defaultLanguage = $this->getDoctrine()->getRepository('CoreBundle:Language')->find(1);
         return $this->render("MediaBundle:Media:gallery.html.twig", array('media' => $media, 'defaultLanguage' => $defaultLanguage));
     }
-    
+
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
