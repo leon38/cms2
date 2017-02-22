@@ -67,10 +67,10 @@ class CategoryController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            if ($entity->getOrdre() != null) {
+            if ($entity->getOrdre() != null && $entity->getOrdre() != $entity->getParent()) {
                 $em->getRepository('ContentBundle:Category')->persistAsNextSiblingOf($entity, $entity->getOrdre());
-                $entity->setOrdre($entity->getOrdre()->getOrdre() + 1);
             }
+            $entity->setOrdre($entity->getOrdre()->getOrdre() + 1);
             $dispatcher = new EventDispatcher();
             $settings = array('base_url' => $request->getSchemeAndHttpHost());
             $event = new CategorySavedEvent($entity, $settings);
@@ -248,10 +248,10 @@ class CategoryController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            if ($entity->getOrdre() != null) {
+            if ($entity->getOrdre() != null && $entity->getOrdre() != $entity->getParent()) {
                 $em->getRepository('ContentBundle:Category')->persistAsNextSiblingOf($entity, $entity->getOrdre());
-                $entity->setOrdre($entity->getOrdre()->getOrdre() + 1);
             }
+            $entity->setOrdre($entity->getOrdre()->getOrdre() + 1);
             $dispatcher = new EventDispatcher();
             $settings = array('base_url' => $request->getSchemeAndHttpHost());
             $event = new CategorySavedEvent($entity, $settings);

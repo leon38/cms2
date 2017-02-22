@@ -72,6 +72,7 @@ services:
 
     cms.content.content_subscriber:
         class: CMS\Bundle\ContentBundle\Event\ContentSubscriber
+        arguments: ["@cms.content.repository.meta"]
         tags:
             - { name: kernel.event_subscriber }
 
@@ -79,6 +80,11 @@ services:
             class: CMS\Bundle\ContentBundle\Entity\Repository\ContentRepository
             factory: ['@doctrine.orm.default_entity_manager', getRepository]
             arguments: ['ContentBundle:Content']
+
+    cms.content.repository.meta:
+                class: CMS\Bundle\ContentBundle\Entity\Repository\MetaRepository
+                factory: ['@doctrine.orm.default_entity_manager', getRepository]
+                arguments: ['ContentBundle:Meta']
 
     cms.content.query.twig_extension:
         class: CMS\Bundle\ContentBundle\Twig\Extension\QueryExtension
