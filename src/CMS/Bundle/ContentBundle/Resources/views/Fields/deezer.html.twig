@@ -1,4 +1,4 @@
-{% if value is defined and value.artist is defined %}
+{% if value is defined and value.artist is defined and value.artist != '' %}
     <h5>{{ title }}</h5>
     <div class="music"></div>
     <script type="text/javascript" src="{{ asset('bundles/content/js/deezer.js') }}"></script>

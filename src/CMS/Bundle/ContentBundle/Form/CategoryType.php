@@ -59,10 +59,16 @@ class CategoryType extends AbstractType
                     'invalid_message' => "The language is not valid"
                 )
             )
-            ->add('parent', null,
+            ->add('parent', EntityType::class,
                 array(
+                    'class' => 'CMS\Bundle\ContentBundle\Entity\Category',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->orderBy('c.lft', 'asc');
+                    },
                     'error_bubbling' => false,
-                    'invalid_message' => "The parent is not valid"
+                    'invalid_message' => "The parent is not valid",
+                    'choice_label' => 'toStringLevelList'
                 )
             )
             ->add('ordre', EntityType::class, array(

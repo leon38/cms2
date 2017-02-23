@@ -525,6 +525,11 @@ class Category
         return ($this->getLevel() > 1) ? '|'.str_repeat(html_entity_decode('_', ENT_QUOTES, 'UTF-8'), $this->getLevel()-1) . ' ' .  $this->getTitle() : $this->getTitle();
     }
 
+    public function toStringLevelList()
+    {
+        return ($this->getLevel() > 0) ? str_repeat(html_entity_decode('.&nbsp;&nbsp;&nbsp;', ENT_QUOTES, 'UTF-8'), $this->getLevel()) . '|_ ' .  $this->getTitle() : $this->getTitle();
+    }
+
     /**
      * Get level
      *
