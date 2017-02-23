@@ -70,9 +70,9 @@ class ContentType extends AbstractType
                     },
                     'multiple' => true,
                     'expanded' => true,
+                    'choice_label' => 'toStringLevelSpace',
                 )
             )
-            //->add('author', 'entity_hidden', array('class' => 'CMS\Bundle\CoreBundle\Entity\User'))
             ->add('thumbnail', ImageType::class, array(
                     'class' => 'CMS\Bundle\MediaBundle\Entity\Media',
                     'image_path' => 'webPath',

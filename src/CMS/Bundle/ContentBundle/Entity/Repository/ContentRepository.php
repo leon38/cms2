@@ -277,9 +277,15 @@ class ContentRepository extends EntityRepository
                     }
                     break;
                 case 'category_name':
-                    $query = $query->leftJoin('c.categories', 'cat')
-                        ->andWhere('cat.url = :cat_url')
-                        ->setParameter('cat_url', $value);
+                    if (strpos($value, '-') === false) {
+                        $query = $query->leftJoin('c.categories', 'cat')
+                            ->andWhere('cat.url = :cat_url')
+                            ->setParameter('cat_url', $value);
+                    } else {
+                        $query = $query->leftJoin('c.categories', 'cat')
+                            ->andWhere('cat.url != :cat_url')
+                            ->setParameter('cat_url', $value);
+                    }
                     break;
                 case 'post_type':
                     $query = $query->leftJoin('c.taxonomy', 'tax')
