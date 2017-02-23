@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    <url>
+        <loc>{{ url('home', {'_format': 'html'}) }}</loc>
+        {% set last_content = contents|last %}
+        <lastmod>{{ last_content.created|date('Y-m-d') }}</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
     {% for content in contents %}
     <url>
         <loc>{{ url('front_single', {'alias': content.url, '_format': 'html'}) }}</loc>
+        <lastmod>{{ content.modified|date('Y-m-d') }}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
         {% if content.thumbnail is not null %}
             <image:image>
                 <image:loc>{{ absolute_url(content.thumbnail.getWebPath()) }}</image:loc>

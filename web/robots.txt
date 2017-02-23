@@ -7,3 +7,5 @@ Disallow: /*.png$
 Disallow: /*.gif$
 Disallow: /images/
 Allow: /
+
+Sitemap: https://choupdoune.fr/sitemap.xml
