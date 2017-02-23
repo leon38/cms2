@@ -336,7 +336,7 @@ class FrontController extends Controller
                     'comment_form' => $comment_form->createView()
                 )
             );
-//            $taxonomy = $content->getTaxonomy();
+           $taxonomy = $content->getTaxonomy();
 //            $response->setLastModified($content->getModified());
 //            $response->setPublic();
 //            if ($response->isNotModified($request)) {
