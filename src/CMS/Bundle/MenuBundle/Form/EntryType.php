@@ -3,9 +3,11 @@
 namespace CMS\Bundle\MenuBundle\Form;
 
 
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -20,13 +22,20 @@ class EntryType extends AbstractType
     {
         $entry = $options['entry'];
         $builder
-            ->add('title', null, array('label' => 'cms.entry.title'))
-            ->add('status', null, array('label' => 'cms.entry.status', 'attr' => array('data-toggle' => 'checkbox')))
+            ->add('title', TextType::class, array('label' => 'cms.entry.title'))
+            ->add('status', ChoiceType::class, array('label' => 'cms.entry.status', 'attr' => array('data-toggle' => 'checkbox')))
             ->add('icon_class', TextType::class, array('label' => 'Icone', 'required' => false))
-            ->add('external_url', null, array('label' => 'cms.entry.external'))
-            ->add('content', null, array('label' => 'cms.entry.content'))
-            ->add('category', null, array('label' => 'cms.entry.category'))
-            ->add('taxonomy', null, array('label' => 'cms.entry.taxonomy'))
+            ->add('external_url', UrlType::class, array('label' => 'cms.entry.external'))
+            ->add('content', EntityType::class, array('label' => 'cms.entry.content'))
+            ->add('category', EntityType::class, array(
+                'label' => 'cms.entry.category',
+                'class' => 'CMS\Bundle\ContentBundle\Entity\Category',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.lft', 'asc');
+                },
+                'choice_label' => 'toStringLevelList'))
+            ->add('taxonomy', EntityType::class, array('label' => 'cms.entry.taxonomy'))
             ->add('parent', EntityType::class, array(
                 'label' => 'cms.entry.parent',
                 'class' => 'CMS\Bundle\MenuBundle\Entity\Entry',
