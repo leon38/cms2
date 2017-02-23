@@ -32,12 +32,17 @@ class FrontController extends Controller
 
     /**
      * @param string $_format
+     * @param Request $request
      * @return Response
      * @Route("/", name="home_index")
      * @Route("/index.{_format}", name="home", defaults={"_format": "html"})
      */
-    public function indexAction($_format = "html")
+    public function indexAction($_format = "html", Request $request)
     {
+        $response = new Response();
+        $response->setSharedMaxAge(3600);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+
         $this->init();
 
         $em = $this->getDoctrine()->getManager();
@@ -67,22 +72,17 @@ class FrontController extends Controller
                 'tiny_url' => $this->get('cms.front.tools')->getTinyUrl($this->generateUrl("home", array(), true))
             )
         );
-        if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
-            $response = $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters);
-            // cache for 3600 seconds
-            $response->setSharedMaxAge(3600);
 
-            // (optional) set a custom Cache-Control directive
-            $response->headers->addCacheControlDirective('must-revalidate', true);
+        $response->setLastModified($contents[0]->getModified());
+        $response->setPublic();
+        if ($response->isNotModified($request)) {
             return $response;
         }
-        $response = $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
-        // cache for 3600 seconds
-        $response->setSharedMaxAge(3600);
 
-        // (optional) set a custom Cache-Control directive
-        $response->headers->addCacheControlDirective('must-revalidate', true);
-        return $response;
+        if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
+            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters, $response);
+        }
+        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters, $response);
     }
 
     /**
