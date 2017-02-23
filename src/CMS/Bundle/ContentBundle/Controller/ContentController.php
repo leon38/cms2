@@ -122,7 +122,7 @@ class ContentController extends Controller
     /**
      * Creates a new Content entity.
      *
-     * @Route("/", name="admin_content_create")
+     * @Route("/create/", name="admin_content_create")
      * @Method("POST")
      * @Template("ContentBundle:Content:new.html.twig")
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -381,7 +381,7 @@ class ContentController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/{id}/edit", name="admin_content_edit")
+     * @Route("/edit/{id}", name="admin_content_edit")
      * @Method("GET")
      * @Template()
      */
@@ -429,7 +429,7 @@ class ContentController extends Controller
             $entity,
             array(
                 'action' => $this->generateUrl('admin_content_update', array('id' => $entity->getId())),
-                'method' => 'PUT',
+                'method' => 'POST',
                 'attr' => array('class' => 'form'),
                 'user' => $this->getUser(),
                 'fields' => $fields,
@@ -467,8 +467,8 @@ class ContentController extends Controller
      * @param int $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/{id}", name="admin_content_update")
-     * @Method("PUT")
+     * @Route("/update/{id}", name="admin_content_update")
+     * @Method("POST")
      * @Template("ContentBundle:Content:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -488,7 +488,6 @@ class ContentController extends Controller
 
         $editForm = $this->createEditForm($content, $fields, $fieldvalues, $metas, $metavalues);
         $editForm->handleRequest($request);
-
         if ($editForm->isValid()) {
             $current_user = $this->get('security.token_storage')->getToken()->getUser();
             $content->setAuthor($current_user);
