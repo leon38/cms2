@@ -197,6 +197,7 @@ class ContentRepository extends EntityRepository
             ->setParameter('ids', $categories)
             ->andWhere('c.id != :id')
             ->setParameter('id', $id_post)
+            ->andWhere('c.published = 1')
             ->setMaxResults($limit)
             ->getQuery()
             ->getResult();

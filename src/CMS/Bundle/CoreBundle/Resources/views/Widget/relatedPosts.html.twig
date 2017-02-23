@@ -8,7 +8,7 @@
             <div class="related-post-image">
                 {% if content.thumbnail is not null %}
                     <a href="{{ path('front_single', {'alias': content.url}) }}">
-                        <img src="{{ content.thumbnail.webPath|imagine_filter('thumb_related') }}" alt="" class="img-responsive">
+                        <img src="{{ content.thumbnail.webPath|imagine_filter('thumb_related') }}" alt="{{ content.thumbnail.metas['alt_1'] }}" title="{{ content.thumbnail.metas['title_1'] }}" class="img-responsive">
                     </a>
                 {% endif %}
             </div>
