@@ -6012,9 +6012,9 @@ form label.radio, form label.checkbox {
     -o-user-select: none;
     user-select: none;
     /*   this code is for fixing safari bug with hidden overflow for border-radius   */
-    -webkit-mask: url("../bundles/core/images/mask.png") 0 0 no-repeat;
+    -webkit-mask: url("../../bundles/core/images/mask.png") 0 0 no-repeat;
     -webkit-mask-size: 60px 28px;
-    mask: url("../bundles/core/images/mask.png") 0 0 no-repeat;
+    mask: url("../../bundles/core/images/mask.png") 0 0 no-repeat;
 }
 
 .has-switch.deactivate {

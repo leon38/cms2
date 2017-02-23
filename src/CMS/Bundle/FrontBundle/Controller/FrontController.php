@@ -68,9 +68,21 @@ class FrontController extends Controller
             )
         );
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
-            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters);
+            $response = $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters);
+            // cache for 3600 seconds
+            $response->setSharedMaxAge(3600);
+
+            // (optional) set a custom Cache-Control directive
+            $response->headers->addCacheControlDirective('must-revalidate', true);
+            return $response;
         }
-        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
+        $response = $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
+        // cache for 3600 seconds
+        $response->setSharedMaxAge(3600);
+
+        // (optional) set a custom Cache-Control directive
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        return $response;
     }
 
     /**
@@ -118,7 +130,13 @@ class FrontController extends Controller
                 )
             );
 
-            return $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
+            $response = $this->render('@cms/'.$this->_theme.'/category.html.twig', $parameters);
+            // cache for 3600 seconds
+            $response->setSharedMaxAge(3600);
+
+            // (optional) set a custom Cache-Control directive
+            $response->headers->addCacheControlDirective('must-revalidate', true);
+            return $response;
         }
         throw new NotFoundHttpException("La catégorie n'existe pas");
     }
@@ -138,7 +156,13 @@ class FrontController extends Controller
             array(
                 'content' => $content
             ),$this->_parameters);
-        return $this->render('@cms/'.$this->_theme.'/amp/single.amp.html.twig', $parameters);
+        $response = $this->render('@cms/'.$this->_theme.'/amp/single.amp.html.twig', $parameters);
+        // cache for 3600 seconds
+        $response->setSharedMaxAge(3600);
+
+        // (optional) set a custom Cache-Control directive
+        $response->headers->addCacheControlDirective('must-revalidate', true);
+        return $response;
     }
 
     public function createCreateForm(Comment $entity, Content $content)
@@ -262,10 +286,22 @@ class FrontController extends Controller
                         )
                     );
                     if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.'.$_format.'.twig')) {
-                        return $this->render('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
+                        $response = $this->render('@cms/'.$this->_theme.'/'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
+                        // cache for 3600 seconds
+                        $response->setSharedMaxAge(3600);
+
+                        // (optional) set a custom Cache-Control directive
+                        $response->headers->addCacheControlDirective('must-revalidate', true);
+                        return $response;
                     }
 
-                    return $this->render('@cms/'.$this->_theme.'/archive.'.$_format.'.twig', $parameters);
+                    $response = $this->render('@cms/'.$this->_theme.'/archive.'.$_format.'.twig', $parameters);
+                    // cache for 3600 seconds
+                    $response->setSharedMaxAge(3600);
+
+                    // (optional) set a custom Cache-Control directive
+                    $response->headers->addCacheControlDirective('must-revalidate', true);
+                    return $response;
                 }
                 throw new NotFoundHttpException("Page not found");
             }
@@ -285,10 +321,22 @@ class FrontController extends Controller
             );
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$category->getUrl().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.'.$_format.'.twig', $parameters);
+                $response = $this->render('@cms/'.$this->_theme.'/category-'.$category->getUrl().'.'.$_format.'.twig', $parameters);
+                // cache for 3600 seconds
+                $response->setSharedMaxAge(3600);
+
+                // (optional) set a custom Cache-Control directive
+                $response->headers->addCacheControlDirective('must-revalidate', true);
+                return $response;
             }
 
-            return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
+            $response = $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
+            // cache for 3600 seconds
+            $response->setSharedMaxAge(3600);
+
+            // (optional) set a custom Cache-Control directive
+            $response->headers->addCacheControlDirective('must-revalidate', true);
+            return $response;
         }
 
         if ($content !== null) {
@@ -305,14 +353,32 @@ class FrontController extends Controller
             $taxonomy = $content->getTaxonomy();
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
+                $response = $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
+                // cache for 3600 seconds
+                $response->setSharedMaxAge(3600);
+
+                // (optional) set a custom Cache-Control directive
+                $response->headers->addCacheControlDirective('must-revalidate', true);
+                return $response;
             }
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters);
+                $response = $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters);
+                // cache for 3600 seconds
+                $response->setSharedMaxAge(3600);
+
+                // (optional) set a custom Cache-Control directive
+                $response->headers->addCacheControlDirective('must-revalidate', true);
+                return $response;
             }
 
-            return $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters);
+            $response = $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters);
+            // cache for 3600 seconds
+            $response->setSharedMaxAge(3600);
+
+            // (optional) set a custom Cache-Control directive
+            $response->headers->addCacheControlDirective('must-revalidate', true);
+            return $response;
         }
 
         throw new NotFoundHttpException("La page n'existe pas");
