@@ -73,8 +73,8 @@ assetic:
           - 'templates/Breezy/assets/js/component.js'
           - 'templates/Breezy/assets/js/app.js'
           - 'templates/Breezy/assets/js/skycons.js'
-          - 'templates/Breezy/assets/js/barba.min.js'
-          - 'templates/Breezy/assets/js/transition.js'
+          #- 'templates/Breezy/assets/js/barba.min.js'
+          #- 'templates/Breezy/assets/js/transition.js'
         filters: ['uglifyjs2']
     filters:
         cssrewrite: ~
