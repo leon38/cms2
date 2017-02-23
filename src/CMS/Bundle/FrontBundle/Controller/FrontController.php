@@ -73,16 +73,16 @@ class FrontController extends Controller
             )
         );
 
-//        $response->setLastModified($contents[0]->getModified());
-//        $response->setPublic();
-//        if ($response->isNotModified($request)) {
-//            return $response;
-//        }
+        $response->setLastModified($contents[0]->getModified());
+        $response->setPublic();
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
 
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
-            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters);
+            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters, $response);
         }
-        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
+        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters, $response);
     }
 
     /**
@@ -336,22 +336,22 @@ class FrontController extends Controller
                     'comment_form' => $comment_form->createView()
                 )
             );
-           $taxonomy = $content->getTaxonomy();
-//            $response->setLastModified($content->getModified());
-//            $response->setPublic();
-//            if ($response->isNotModified($request)) {
-//                return $response;
-//            }
+            $taxonomy = $content->getTaxonomy();
+            $response->setLastModified($content->getModified());
+            $response->setPublic();
+            if ($response->isNotModified($request)) {
+                return $response;
+            }
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
+                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters, $response);
             }
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters);
+                return $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters, $response);
             }
 
-            return $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters);
+            return $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters, $response);
         }
 
         throw new NotFoundHttpException("La page n'existe pas");
