@@ -1,3 +1,4 @@
+{% if value is not empty %}
 <div class="section gallery">
     {% for medium in value %}
         {% set alt = "alt_" ~ defaultLanguage.id %}
@@ -25,3 +26,4 @@
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('bundles/core/js/modal.js') }}"></script>
+{% endif %}

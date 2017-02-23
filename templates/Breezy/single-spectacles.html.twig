@@ -36,10 +36,12 @@
             {{ content.get('salle-de-spectacle')|raw }}
         </div>
 
+        {% if content.get('galerie-photo') != '' %}
         <div class="widget widget_galerie">
             <h4 class="widget-title">Galerie Photo</h4>
             {{ content.get('galerie-photo')|raw }}
         </div>
+        {% endif %}
 
     </aside>
 </div>
