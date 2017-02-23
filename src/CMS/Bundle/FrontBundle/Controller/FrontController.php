@@ -336,19 +336,19 @@ class FrontController extends Controller
                     'comment_form' => $comment_form->createView()
                 )
             );
-            $taxonomy = $content->getTaxonomy();
-            $response->setLastModified($content->getModified());
-            $response->setPublic();
-            if ($response->isNotModified($request)) {
-                return $response;
-            }
+//            $taxonomy = $content->getTaxonomy();
+//            $response->setLastModified($content->getModified());
+//            $response->setPublic();
+//            if ($response->isNotModified($request)) {
+//                return $response;
+//            }
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters, $response);
+                return $this->render('@cms/'.$this->_theme.'/single-'.$taxonomy->getAlias().'.'.$_format.'.twig', $parameters);
             }
 
             if ($this->get('templating')->exists('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig')) {
-                return $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters, $response);
+                return $this->render('@cms/'.$this->_theme.'/'.$content->getUrl().'.'.$_format.'.twig', $parameters);
             }
 
             return $this->render('@cms/'.$this->_theme.'/single.'.$_format.'.twig', $parameters);
