@@ -73,16 +73,16 @@ class FrontController extends Controller
             )
         );
 
-        $response->setLastModified($contents[0]->getModified());
-        $response->setPublic();
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
+//        $response->setLastModified($contents[0]->getModified());
+//        $response->setPublic();
+//        if ($response->isNotModified($request)) {
+//            return $response;
+//        }
 
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
-            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters, $response);
+            return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters);
         }
-        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters, $response);
+        return $this->render('@cms/'.$this->_theme.'/category.'.$_format.'.twig', $parameters);
     }
 
     /**

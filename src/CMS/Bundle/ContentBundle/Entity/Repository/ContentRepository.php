@@ -284,7 +284,7 @@ class ContentRepository extends EntityRepository
                     } else {
                         $query = $query->leftJoin('c.categories', 'cat')
                             ->andWhere('cat.url != :cat_url')
-                            ->setParameter('cat_url', $value);
+                            ->setParameter('cat_url', substr($value, 1));
                     }
                     break;
                 case 'post_type':
@@ -329,6 +329,7 @@ class ContentRepository extends EntityRepository
                         $order = $params['order'];
                     }
                     $query = $query->orderBy('c.'.$value, $order);
+                    break;
                 case 'title':
                     $query = $query->andWhere('c.title = :title')
                         ->setParameter('title', $value);
