@@ -9,191 +9,9 @@
  * Version: 1.0
  * Tags: responsive-layout, fluid-layout, translation-ready, microformats, masonry, lazy-load
  */
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,300);
-
 body *, body *:before, body *:after, html *, html *:before, html *:after {
     transition: all 0.5s ease;
 }
-.player a {
-    text-decoration: none;
-    color: white;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
-}
-.player a:hover {
-    text-shadow: 1px 1px 5px #000000;
-}
-.player {
-    margin-top: 50px;
-    width: 500px;
-    height: 75px;
-    background: white;
-    border-bottom: 4px #ccc solid;
-    position: relative;
-    color: black;
-    text-align: left;
-    text-shadow: none;
-    font-family: "Roboto", sans-serif;
-}
-.player .album-art {
-    position: absolute;
-    left: 0;
-    width: 15%;
-    height: 100%;
-    box-shadow: 3px 0 3px 0 rgba(0, 0, 0, 0.4);
-}
-
-.player .album-art .cover {
-    width: 100%;
-    height: 100%;
-    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
-    background-size: cover;
-}
-.player .description, .player .description {
-    position: relative;
-    width: 60%;
-    height: 50px;
-    top: 20%;
-    left: 20%;
-    overflow: hidden;
-}
-.player .description .title, .player .description .title {
-    color: black;
-    font-size: 24px;
-    font-weight: 100;
-}
-.player .description .sub-title {
-    font-size: 13px;
-    font-weight: 100;
-    color: #999;
-}
-.player .play-button {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    right: 10%;
-    border-radius: 50%;
-    top: 0px;
-    background: white;
-    /*box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.35);*/
-    border: solid 1px #aaa;
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
-    color: #D32F2F;
-    cursor: pointer;
-}
-.player .play-button .lp-background {
-    transition: all 0.35s ease;
-    background: url(assets/images/v5wy3b.png);
-    background-size: cover;
-    animation: spin 1s infinite linear;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    position: absolute;
-}
-.player .play-button i {
-    z-index: 100;
-}
-.player .play-button .fa-pause {
-    z-index: 100;
-    position: absolute;
-    right: 11px;
-    top: 11px;
-    color: white;
-    font-size: 16px;
-}
-.player .play-button:hover {
-    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.5);
-}
-.player .time-indicator {
-    position: absolute;
-    right: 11%;
-    top: 65%;
-    font-size: 13px;
-    font-weight: 100;
-}
-.player .time-indicator i {
-    color: #D32F2F;
-}
-.player .progress-bar {
-    width: 100%;
-    top: 100%;
-    opacity: 0;
-    height: 0;
-    position: absolute;
-    cursor: pointer;
-}
-.player .progress-bar .runner {
-    height: 4px;
-    background: #F44336;
-}
-.player .visualizer {
-    position: absolute;
-    top: 25%;
-    left: 37.5%;
-    width: 0%;
-    height: 50%;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-}
-.player .visualizer div {
-    width: 2px;
-    background: #F44336;
-    float: left;
-    height: 0%;
-    margin-right: 5px;
-    transition: all 0.1s ease;
-}
-.player.paused {
-    border-bottom: none;
-}
-.player.paused .visualizer {
-    opacity: 0;
-}
-.player.paused .lp-background {
-    opacity: 0;
-}
-.player.paused .play-button .fa-pause {
-    opacity: 0;
-}
-.player.playing .description {
-    opacity: 0;
-}
-.player.playing .album-art {
-    width: 0px;
-    opacity: 0;
-}
-.player.playing .visualizer {
-    left: 5%;
-    width: 65%;
-}
-.player.playing .progress-bar {
-    height: 4px;
-    margin: 0;
-    opacity: 1;
-}
-.player.playing .description {
-    left: 0%;
-    opacity: 0;
-}
-.player.playing .play-button {
-    background: transparent;
-}
-.player.playing .play-button .fa-play {
-    opacity: 0;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -1235,10 +1053,6 @@ body.search-open .search-form-area {
     line-height: 1.6;
 }
 
-
-
-
-
 .widget-title {
     position: relative;
     margin-top: 0;
@@ -1452,9 +1266,6 @@ body.search-open .search-form-area {
     }
 }
 
-
-
-
 footer {
     width:100%;
     background-color: #fff;
@@ -1614,196 +1425,6 @@ footer .logo {
     text-transform: uppercase;
     color: #1C193C;
 }
-.heart {
-    position: relative;
-    font-size: 0;
-    width: 138px;
-}
-[class*="heart-piece-"] {
-    position: absolute;
-    top: -5px;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-}
-.heart-piece-4 {
-    -webkit-animation: piece-4 3.2s infinite;
-    animation: piece-4 3.2s infinite;
-}
-.heart-piece-3,
-.heart-piece-5 {
-    -webkit-animation: piece-3 3.2s infinite;
-    animation: piece-3 3.2s infinite;
-}
-.heart-piece-2,
-.heart-piece-6 {
-    -webkit-animation: piece-2 3.2s infinite;
-    animation: piece-2 3.2s infinite;
-}
-.heart-piece-1,
-.heart-piece-7 {
-    -webkit-animation: piece-1 3.2s infinite;
-    animation: piece-1 3.2s infinite;
-}
-.heart-piece-0,
-.heart-piece-8 {
-    -webkit-animation: piece-0 3.2s infinite;
-    animation: piece-0 3.2s infinite;
-}
-.heart-piece-0 {
-    left: 0px;
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-    background-color: #ec2d73;
-}
-.heart-piece-1 {
-    left: 16px;
-    -webkit-animation-delay: 0.15s;
-    animation-delay: 0.15s;
-    background-color: #eb5324;
-}
-.heart-piece-2 {
-    left: 32px;
-    -webkit-animation-delay: 0.3s;
-    animation-delay: 0.3s;
-    background-color: #fdc800;
-}
-.heart-piece-3 {
-    left: 48px;
-    -webkit-animation-delay: 0.45s;
-    animation-delay: 0.45s;
-    background-color: #47b264;
-}
-.heart-piece-4 {
-    left: 64px;
-    -webkit-animation-delay: 0.6s;
-    animation-delay: 0.6s;
-    background-color: #1470bd;
-}
-.heart-piece-5 {
-    left: 80px;
-    -webkit-animation-delay: 0.75s;
-    animation-delay: 0.75s;
-    background-color: #76469a;
-}
-.heart-piece-6 {
-    left: 96px;
-    -webkit-animation-delay: 0.9s;
-    animation-delay: 0.9s;
-    background-color: #ec2d73;
-}
-.heart-piece-7 {
-    left: 112px;
-    -webkit-animation-delay: 1.05s;
-    animation-delay: 1.05s;
-    background-color: #eb5324;
-}
-.heart-piece-8 {
-    left: 128px;
-    -webkit-animation-delay: 1.2s;
-    animation-delay: 1.2s;
-    background-color: #fdc800;
-}
-@-webkit-keyframes piece-4 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 94px;
-        top: -23px;
-    }
-}
-@keyframes piece-4 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 94px;
-        top: -23px;
-    }
-}
-@-webkit-keyframes piece-3 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 90px;
-        top: -31px;
-    }
-}
-@keyframes piece-3 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 90px;
-        top: -31px;
-    }
-}
-@-webkit-keyframes piece-2 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 80px;
-        top: -37px;
-    }
-}
-@keyframes piece-2 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 80px;
-        top: -37px;
-    }
-}
-@-webkit-keyframes piece-1 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 60px;
-        top: -31px;
-    }
-}
-@keyframes piece-1 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 60px;
-        top: -31px;
-    }
-}
-@-webkit-keyframes piece-0 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 30px;
-        top: -15px;
-    }
-}
-@keyframes piece-0 {
-    0%, 10%, 90%, 100% {
-        height: 10px;
-        top: -5px;
-    }
-    45%, 55% {
-        height: 30px;
-        top: -15px;
-    }
-}
 
 .alert {
     padding: 15px;
@@ -1861,4 +1482,188 @@ footer .logo {
 
 .error ul li {
     font-size: 20px;
+}
+
+
+/******************************
+ * Player
+ ******************************/
+.player a {
+    text-decoration: none;
+    color: white;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
+}
+.player a:hover {
+    text-shadow: 1px 1px 5px #000000;
+}
+.player {
+    margin-top: 50px;
+    width: 500px;
+    height: 75px;
+    background: white;
+    border-bottom: 4px #ccc solid;
+    position: relative;
+    color: black;
+    text-align: left;
+    text-shadow: none;
+    font-family: Lato, sans-serif;
+}
+.player .album-art {
+    position: absolute;
+    left: 0;
+    width: 15%;
+    height: 100%;
+    box-shadow: 3px 0 3px 0 rgba(0, 0, 0, 0.4);
+}
+
+.player .album-art .cover {
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.25);
+    background-size: cover;
+}
+.player .description, .player .description {
+    position: relative;
+    width: 60%;
+    height: 50px;
+    top: 20%;
+    left: 20%;
+    overflow: hidden;
+}
+.player .description .title, .player .description .title {
+    color: black;
+    font-size: 24px;
+    font-weight: 100;
+}
+.player .description .sub-title {
+    font-size: 13px;
+    font-weight: 100;
+    color: #999;
+}
+.player .play-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 10%;
+    border-radius: 50%;
+    top: 0px;
+    background: white;
+    /*box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.35);*/
+    border: solid 1px #aaa;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    color: #D32F2F;
+    cursor: pointer;
+}
+.player .play-button .lp-background {
+    transition: all 0.35s ease;
+    background: url(assets/images/v5wy3b.png);
+    background-size: cover;
+    animation: spin 1s infinite linear;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+}
+.player .play-button i {
+    z-index: 100;
+}
+.player .play-button .fa-pause {
+    z-index: 100;
+    position: absolute;
+    right: 11px;
+    top: 11px;
+    color: white;
+    font-size: 16px;
+}
+.player .play-button:hover {
+    box-shadow: 0 3px 20px 0 rgba(0, 0, 0, 0.5);
+}
+.player .time-indicator {
+    position: absolute;
+    right: 11%;
+    top: 65%;
+    font-size: 13px;
+    font-weight: 100;
+}
+.player .time-indicator i {
+    color: #D32F2F;
+}
+.player .progress-bar {
+    width: 100%;
+    top: 100%;
+    opacity: 0;
+    height: 0;
+    position: absolute;
+    cursor: pointer;
+}
+.player .progress-bar .runner {
+    height: 4px;
+    background: #F44336;
+}
+.player .visualizer {
+    position: absolute;
+    top: 25%;
+    left: 37.5%;
+    width: 0%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.player .visualizer div {
+    width: 2px;
+    background: #F44336;
+    float: left;
+    height: 0%;
+    margin-right: 5px;
+    transition: all 0.1s ease;
+}
+.player.paused {
+    border-bottom: none;
+}
+.player.paused .visualizer {
+    opacity: 0;
+}
+.player.paused .lp-background {
+    opacity: 0;
+}
+.player.paused .play-button .fa-pause {
+    opacity: 0;
+}
+.player.playing .description {
+    opacity: 0;
+}
+.player.playing .album-art {
+    width: 0px;
+    opacity: 0;
+}
+.player.playing .visualizer {
+    left: 5%;
+    width: 65%;
+}
+.player.playing .progress-bar {
+    height: 4px;
+    margin: 0;
+    opacity: 1;
+}
+.player.playing .description {
+    left: 0%;
+    opacity: 0;
+}
+.player.playing .play-button {
+    background: transparent;
+}
+.player.playing .play-button .fa-play {
+    opacity: 0;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
