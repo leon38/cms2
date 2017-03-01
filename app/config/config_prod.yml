@@ -63,19 +63,21 @@ assetic:
         inputs:
           - 'templates/Breezy/assets/font-awesome.min.css'
           - 'templates/Breezy/assets/slicknav.css'
+          - 'templates/Breezy/assets/materialdesignicons.min.css'
           - 'templates/Breezy/style.css'
           - 'templates/Breezy/assets/swiper.min.css'
         filters: ['cssrewrite', 'uglifycss']
         output: css/breezy.css
       breezy_js:
         inputs:
+          - 'bundles/fosjsrouting/js/router.js'
           - 'templates/Breezy/assets/js/swiper.jquery.min.js'
           - 'templates/Breezy/assets/js/masonry.pkgd.min.js'
           - 'templates/Breezy/assets/js/component.js'
           - 'templates/Breezy/assets/js/app.js'
           - 'templates/Breezy/assets/js/skycons.js'
-          #- 'templates/Breezy/assets/js/barba.min.js'
-          #- 'templates/Breezy/assets/js/transition.js'
+          - 'templates/Breezy/assets/js/Chart.min.js'
+          - 'templates/Breezy/assets/js/styleMap.js'
         filters: ['uglifyjs2']
         output: js/breezy.js
     filters:

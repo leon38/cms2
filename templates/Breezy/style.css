@@ -1488,6 +1488,21 @@ footer .logo {
 /******************************
  * Player
  ******************************/
+.loader {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.loader .lp-background {
+    transition: all 0.35s ease;
+    background: url(assets/images/v5wy3b.png);
+    background-size: cover;
+    animation: spin 1s infinite linear;
+    width: 100%;
+    height: 100%;
+}
+
 .player a {
     text-decoration: none;
     color: white;
@@ -1569,6 +1584,15 @@ footer .logo {
 .player .play-button i {
     z-index: 100;
 }
+
+.player .play-button .fa-play {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    color: #D32F2F;
+    font-size: 14px;
+}
+
 .player .play-button .fa-pause {
     z-index: 100;
     position: absolute;

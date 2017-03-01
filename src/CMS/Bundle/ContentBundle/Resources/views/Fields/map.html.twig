@@ -1,8 +1,12 @@
 {% if value is iterable %}
 <div id="map"></div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwy2LBbH0VPoPB3lpb8qqqJhADEZZCYs4&callback=initMap"></script>
+<script async defer src=""></script>
 <script>
+document.addEventListener("DOMContentLoaded", function (event) {
+    loadjsfile("https://maps.googleapis.com/maps/api/js?key=AIzaSyDwy2LBbH0VPoPB3lpb8qqqJhADEZZCYs4&callback=initMap", true);
+});
+
 var map;
 var lat = {{ value.latitude }};
 var lng = {{ value.longitude }};

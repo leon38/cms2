@@ -1,10 +1,13 @@
 {% if value is defined and value.artist is defined and value.artist != '' %}
     <h5>{{ title }}</h5>
-    <div class="music"></div>
-    <script type="text/javascript" src="{{ asset('bundles/content/js/deezer.js') }}"></script>
+    <div class="music" data-artist="{{ value.artist }}">
+        <div class="loader">
+            <div class="lp-background"></div>
+        </div>
+    </div>
     <script type="text/javascript">
-        $(document).ready(function() {
-            search('{{ value.artist }}');
+        document.addEventListener("DOMContentLoaded", function (event) {
+            loadjsfile("{{ asset('bundles/content/js/deezer.js') }}", false);
         });
     </script>
 {% endif %}

@@ -214,3 +214,15 @@ function prev() {
     modal.find('.modal-content').attr('src', prev_sibling.data('url'));
 }
 
+function loadjsfile(filename, defer){
+    var fileref=document.createElement('script');
+    fileref.setAttribute("type","text/javascript");
+    fileref.setAttribute("src", filename);
+    if (defer) {
+        fileref.setAttribute("defer", "defer");
+    }
+
+    if (typeof fileref!="undefined") {
+        document.body.appendChild(fileref);
+    }
+}

@@ -110,8 +110,12 @@ function updateTime(){
 
 
 function search(query) {
-    if (document.getElementById("content_fieldValuesTemp_musique_artist") !== null && query != '')
+    if (document.getElementById("content_fieldValuesTemp_musique_artist") !== null && query != '') {
         query = document.getElementById("content_fieldValuesTemp_musique_artist").value;
+    } else {
+        query = $('.music').data('artist');
+    }
+
 
     if (query != '') {
         $.ajax({
