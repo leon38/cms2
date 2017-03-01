@@ -133,6 +133,7 @@ class ApiManager
         $json = curl_exec($ch);
         $json = json_decode($json);
         curl_close($ch);
+
         return $json->data;
     }
 
