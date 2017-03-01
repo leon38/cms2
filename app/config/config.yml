@@ -75,8 +75,8 @@ assetic:
           - 'templates/Breezy/assets/js/component.js'
           - 'templates/Breezy/assets/js/app.js'
           - 'templates/Breezy/assets/js/skycons.js'
-          #- 'templates/Breezy/assets/js/barba.min.js'
-          #- 'templates/Breezy/assets/js/transition.js'
+          - 'templates/Breezy/assets/js/Chart.min.js'
+          - 'templates/Breezy/assets/js/styleMap.js'
         filters: ['uglifyjs2']
         output: js/breezy.js
     filters:
