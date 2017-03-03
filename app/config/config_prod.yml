@@ -72,8 +72,9 @@ assetic:
         inputs:
           - 'bundles/fosjsrouting/js/router.js'
           - 'templates/Breezy/assets/js/swiper.jquery.min.js'
-          - 'templates/Breezy/assets/js/masonry.pkgd.min.js'
+          - 'templates/Breezy/assets/js/jquery.masonry.min.js'
           - 'templates/Breezy/assets/js/component.js'
+          - 'templates/Breezy/assets/js/jquery.lazyload.min.js'
           - 'templates/Breezy/assets/js/app.js'
           - 'templates/Breezy/assets/js/skycons.js'
           - 'templates/Breezy/assets/js/Chart.min.js'
