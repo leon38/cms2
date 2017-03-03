@@ -603,11 +603,14 @@ body.search-open .search-form-area {
 }
 
 @media (min-width: 1200px) {
+
     .grid-layout .post-item {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
         float: left;
-        display: inline-block;
-        vertical-align: top;
-        width: 33.3333333333333333%;
+        display: block;
+        width: 30%;
         padding: 0 24px 40px 20px;
         line-height: 1.2em;
     }
@@ -616,22 +619,28 @@ body.search-open .search-form-area {
 @media (min-width: 992px) and (max-width: 1200px) {
     .grid-layout .post-item {
         float: left;
-        display: inline-block;
-        vertical-align: top;
+        display: block;
         width: 50%;
         padding: 0 24px 40px 20px;
         line-height: 1.2em;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
 }
 
 @media (max-width: 991px) {
+
     .grid-layout .post-item {
         float: left;
-        display: inline-block;
+        display: block;
         vertical-align: top;
         width: 100%;
         padding: 0 24px 40px 20px;
         line-height: 1.2em;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
     }
 }
 
@@ -649,6 +658,9 @@ body.search-open .search-form-area {
 
 
 @media only screen and (max-width: 767px) {
+    .grid-layout .grid-sizer {
+        width: 100%;
+    }
     .grid-layout .post-item {
         width: 100% !important;
     }

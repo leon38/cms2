@@ -18,7 +18,7 @@ class ContentsController extends FOSRestController
     public function getContentsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $contents = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1));
+        $contents = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1), array('id' => 'desc'));
         $tmp_contents = array();
         foreach($contents as $content) {
             if ($content->getThumbnail() != '') {
@@ -33,8 +33,7 @@ class ContentsController extends FOSRestController
     }
 
     /**
-     * @return array
-     * @param  String $alias alias du contenu
+     * @param  String $slug alias du contenu
      * @return View
      *
      * @Get("/{slug}")

@@ -75,7 +75,7 @@ class Content
 
     /**
      * @var \DateTime $modified
-     *
+     * @JMS\Type("DateTime<'d/m/Y'>")
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="modified", type="datetime")
      */
@@ -142,7 +142,8 @@ class Content
 
     /**
      * @var Boolean $featured
-     *
+     * @JMS\Expose
+     * @JMS\Type("boolean")
      * @ORM\Column(name="featured", type="boolean")
      */
     protected $featured = false;
@@ -162,7 +163,8 @@ class Content
 
     /**
      * @var String $chapo
-     *
+     * @JMS\Expose
+     * @JMS\Type("string")
      * @ORM\Column(name="chapo", type="text")
      */
     protected $chapo;

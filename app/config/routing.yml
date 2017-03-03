@@ -30,7 +30,7 @@ front:
 rest_api:
     resource: "@RestAPIBundle/Controller/"
     type:     annotation
-    prefix:   /
+    prefix:   /restapi
 
 contents:
     type:   rest
