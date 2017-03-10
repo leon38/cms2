@@ -73,7 +73,7 @@ class FrontController extends Controller
             )
         );
 
-        $response->setLastModified($contents[0]->getModified());
+        $response->setLastModified($contents[0]->getCreated());
         $response->setPublic();
         if ($response->isNotModified($request)) {
             return $response;

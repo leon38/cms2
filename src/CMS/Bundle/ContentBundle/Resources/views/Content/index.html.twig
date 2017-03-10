@@ -28,9 +28,7 @@
             <h4 class="title pull-left">{{ 'cms.content.content' |trans }}</h4>
             <div class="fixed-table-toolbar">
                 <div class="columns columns-right pull-right">
-                    {% if notification and lastPost is not null %}
-                      <a href="javascript:initNotify()" class="btn btn-danger" title="cms.content.display_notification"><i class="fa fa-bell-o"></i></a>
-                    {% endif %}
+
                     <a data-toggle="modal" href="#modal-taxonomy" class="btn btn-default" title="cms.content.add_new"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
@@ -85,7 +83,7 @@
                     {% include "ContentBundle:Content:table.html.twig" with {'entities': entities} %}
                 </div>
                 <div id="trashed" class="tab-pane">
-                    {% include "ContentBundle:Content:table.html.twig" with {'entities': entities_trashed} %}
+                    {% include "ContentBundle:Content:table.html.twig" with {'entities': entities_trashed} only %}
                 </div>
             </div>
         </div>

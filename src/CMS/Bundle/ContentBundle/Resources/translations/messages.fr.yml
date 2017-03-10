@@ -33,6 +33,7 @@ cms:
     choose_field_type: Choisissez un type de champ
     display_notification: Affiche une notification aux abonnés
     add_new: Ajoute un nouveau contenu
+    create: Valider
 
     contents_deleted:
       success: Vos contenus ont bien été supprimés

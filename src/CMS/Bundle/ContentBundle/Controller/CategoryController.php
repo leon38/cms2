@@ -227,7 +227,7 @@ class CategoryController extends Controller
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      *
-     * @Route("/{id}", name="admin_category_update")
+     * @Route("/{id}/update", name="admin_category_update")
      * @Method("PUT")
      * @Template("ContentBundle:Category:edit.html.twig")
      */

@@ -15,7 +15,6 @@
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 13
         });
-        console.log(map);
         var curLatLong = "";
         var prevLatLong = new google.maps.LatLng({{ value.data.0.latitude }}, {{ value.data.0.longitude }});
         var bounds = new google.maps.LatLngBounds();
@@ -30,6 +29,12 @@
                     strokeColor: strokeColor,
                     strokeOpacity: 1.0,
                     strokeWeight: 4
+                });
+                var pathShadow = new google.maps.Polyline({
+                    path: [prevLatLong, curLatLong],
+                    strokeColor: 'black',
+                    strokeOpacity: 0.1,
+                    strokeWeight: 10
                 });
                 prevLatLong = curLatLong;
                 bounds.extend(p);

@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 class SitemapController extends Controller
 {
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/sitemap.{_format}", name="sitemap", requirements={"_format": "xml"})
-     */
+ * @return \Symfony\Component\HttpFoundation\Response
+ * @Route("/sitemap.{_format}", name="sitemap", requirements={"_format": "xml"})
+ */
     public function indexAction()
     {
         $query = $this->getDoctrine()->getRepository('ContentBundle:Content')->getAllContentsNotTrashedQuery();
@@ -21,4 +21,6 @@ class SitemapController extends Controller
         $response->headers->set('Content-Type', 'application/xml; charset=utf-8');
         return $this->render('FrontBundle:Sitemap:sitemap.xml.twig', array('contents' => $contents, 'categories' => $categories), $response);
     }
+
+
 }

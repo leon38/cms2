@@ -170,10 +170,8 @@ class ContentController extends Controller
                 'success',
                 'cms.content.content_created.success'
             );
-            if ($form->get('submit_stay')->isClicked()) {
-                return $this->redirect($this->generateUrl('admin_content_edit', array('id' => $content->getId())));
-            }
-            return $this->redirect($this->generateUrl('admin_content'));
+
+            return $this->redirect($this->generateUrl('admin_content_edit', array('id' => $content->getId(), 'notification' => true)));
         }
 
         return $this->render(
@@ -268,9 +266,8 @@ class ContentController extends Controller
                 'user' => $this->getUser(),
             )
         );
-        $form->add('submit_stay', SubmitType::class, array('label' => 'Create and stay', 'attr' => array('class' => 'btn btn-info btn-fill')));
-        $form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
-        $form->add('submit_seo', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        $form->add('submit', SubmitType::class, array('label' => 'cms.content.create', 'attr' => array('class' => 'btn btn-info btn-fill')));
+        $form->add('submit_seo', SubmitType::class, array('label' => 'cms.content.create', 'attr' => array('class' => 'btn btn-info btn-fill')));
 
         return $form;
     }
@@ -379,13 +376,13 @@ class ContentController extends Controller
     /**
      * Displays a form to edit an existing Content entity.
      * @param $id
+     * @param bool $notification
      * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @Route("/edit/{id}", name="admin_content_edit")
+     * @Route("/edit/{id}/{notification}", name="admin_content_edit", defaults={"notification": false})
      * @Method("GET")
      * @Template()
      */
-    public function editAction($id)
+    public function editAction($id, $notification = false)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -408,6 +405,7 @@ class ContentController extends Controller
             array(
                 'entity' => $entity,
                 'edit_form' => $editForm->createView(),
+                'notification' => $notification,
             )
         );
     }
