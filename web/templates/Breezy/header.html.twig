@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="fr">
 <head>
+    {% stylesheets
+    '@breezy'
+    filter="uglifycss" filter="cssrewrite" output="css/breezy.css" %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
+    {% endstylesheets %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -27,11 +32,7 @@
         <link rel="alternate" href="{{ url('home', {'_format': 'html'}) }}" hreflang="fr-fr" />
     {% endif %}
     <link rel="manifest" href="/templates/Breezy/assets/manifest.json">
-    {% stylesheets
-        '@breezy'
-        filter="uglifycss" filter="cssrewrite" output="css/breezy.css" %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
-    {% endstylesheets %}
+
     <script>
         function loadCSS(e,n,o,t){"use strict";var d=window.document.createElement("link"),i=n||window.document.getElementsByTagName("script")[0],r=window.document.styleSheets;return d.rel="stylesheet",d.href=e,d.media="only x",t&&(d.onload=t),i.parentNode.insertBefore(d,i),d.onloadcssdefined=function(e){for(var n,o=0;o<r.length;o++)r[o].href&&r[o].href===d.href&&(n=!0);n?e():setTimeout(function(){d.onloadcssdefined(e)})},d.onloadcssdefined(function(){d.media=o||"all"}),d}
         loadCSS('https://fonts.googleapis.com/css?family=Amatic+SC|Lato');
@@ -52,7 +53,7 @@
             <div id="main-wrapper-logo">
                 <div class="container">
                     <h1><a href="{{ path('home', {'_format': 'html'}) }}">Choup et Doune</a></h1>
-                    <a href="{{ path('home', {'_format': 'html'}) }}"><img src="{{ asset('/templates/Breezy/assets/images/logo4.png') }}" width="160px" alt="bus volkswagen" /></a>
+                    <a href="{{ path('home', {'_format': 'html'}) }}"><img src="{{ asset('/templates/Breezy/assets/images/logo4.png') }}" width="160px" height="85px" alt="bus volkswagen" /></a>
                 </div>
             </div>
         </div>
