@@ -37,9 +37,8 @@ class FrontController extends Controller
     public function indexAction($_format = "html", Request $request)
     {
         $response = new Response();
-        //$response->setSharedMaxAge(3600);
-        //$response->headers->addCacheControlDirective('must-revalidate', true);
-
+        $response->setSharedMaxAge(3600);
+        $response->headers->addCacheControlDirective('must-revalidate', true);
 
         $this->init();
 
@@ -58,8 +57,8 @@ class FrontController extends Controller
         $last_modified = $contents[0]->getModified();
         $date = new \DateTime('now');
         $date->add(new \DateInterval('P1D'));
-        //$response->setExpires($date);
-        //$response->setEtag("1".$last_modified->getTimestamp());
+        $response->setExpires($date);
+        $response->setEtag("1".$last_modified->getTimestamp());
 
         $featured = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1, 'featured' => true));
 
@@ -77,11 +76,11 @@ class FrontController extends Controller
             )
         );
 
-        //$response->setLastModified($contents[0]->getCreated());
-        //$response->setPublic();
-//        if ($response->isNotModified($request)) {
-//            return $response;
-//        }
+        $response->setLastModified($contents[0]->getCreated());
+        $response->setPublic();
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
 
         if ($this->get('templating')->exists('@cms/'.$this->_theme.'/home.html.twig')) {
             return $this->render('@cms/'.$this->_theme.'/home.'.$_format.'.twig', $parameters, $response);
