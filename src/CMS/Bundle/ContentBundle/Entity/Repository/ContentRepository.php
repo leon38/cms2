@@ -2,6 +2,7 @@
 
 namespace CMS\Bundle\ContentBundle\Entity\Repository;
 
+use CMS\Bundle\ContentBundle\Entity\Category;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -342,5 +343,22 @@ class ContentRepository extends EntityRepository
             }
         }
         return $query->getQuery()->getResult();
+    }
+
+
+    public function getDateLastContentCategory(Category $category)
+    {
+        return $this->_em
+            ->createQueryBuilder()
+            ->select('c.modified')
+            ->from('ContentBundle:Content', 'c')
+            ->leftJoin('c.categories', 'cat')
+            ->where('cat.id = :category')
+            ->setParameter('category', $category)
+            ->orderBy('c.modified', 'desc')
+            ->setMaxResults(1)
+            ->setFirstResult(0)
+            ->getQuery()
+            ->getScalarResult();
     }
 }

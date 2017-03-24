@@ -12,7 +12,7 @@ use Gedmo\Tree\Entity\Repository\NestedTreeRepository;
  */
 class CategoryRepository extends NestedTreeRepository
 {
-  
+
   public function findAll()
   {
     return $this->_em
@@ -24,7 +24,9 @@ class CategoryRepository extends NestedTreeRepository
       ->getQuery()
       ->getResult();
   }
-  
+
+
+
   public function getSiblings($id)
   {
     if ($id == 0) {
@@ -35,7 +37,7 @@ class CategoryRepository extends NestedTreeRepository
         ->where('c.level > 0')
         ->orderBy('c.lft', 'ASC');
     }
-    
+
     return $this->_em
       ->createQueryBuilder('c')
       ->select('c')
@@ -44,7 +46,7 @@ class CategoryRepository extends NestedTreeRepository
       ->setParameter('id', $id)
       ->orderBy('c.lft', 'ASC');
   }
-  
+
   public function getAll($notEmpty = false)
   {
     $query = $this->_em
@@ -56,10 +58,10 @@ class CategoryRepository extends NestedTreeRepository
       $query->groupBy('c.id');
       $query->having('COUNT(co.id) > 0');
     }
-    
+
     return $query->getQuery()->getResult();
   }
-  
+
   public function getCategoriesLinks()
   {
     return $this->_em
@@ -72,6 +74,6 @@ class CategoryRepository extends NestedTreeRepository
       ->getQuery()
       ->getResult();
   }
-  
-  
+
+
 }

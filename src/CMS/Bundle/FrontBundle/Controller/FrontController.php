@@ -4,11 +4,8 @@ namespace CMS\Bundle\FrontBundle\Controller;
 
 use CMS\Bundle\ContentBundle\Entity\Comment;
 use CMS\Bundle\ContentBundle\Entity\Content;
-use CMS\Bundle\ContentBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -43,6 +40,7 @@ class FrontController extends Controller
         $response->setSharedMaxAge(3600);
         $response->headers->addCacheControlDirective('must-revalidate', true);
 
+
         $this->init();
 
         $em = $this->getDoctrine()->getManager();
@@ -56,6 +54,12 @@ class FrontController extends Controller
             array('published' => true),
             array('created' => 'DESC')
         );
+
+        $last_modified = $contents[0]->getModified();
+        $date = new \DateTime('now');
+        $date->add(new \DateInterval('P1D'));
+        $response->setExpires($date);
+        $response->setEtag("1".$last_modified->getTimestamp());
 
         $featured = $em->getRepository('ContentBundle:Content')->findBy(array('published' => 1, 'featured' => true));
 
@@ -165,78 +169,6 @@ class FrontController extends Controller
         return $response;
     }
 
-    public function createCreateForm(Comment $entity, Content $content)
-    {
-        $comment_form = $this->createForm(
-            CommentType::class,
-            $entity,
-            array(
-                'method' => 'POST',
-                'action' => $this->generateUrl('add_comment', array('content' => $content->getId())),
-                'attr' =>
-                    array(
-                        'class' => 'form',
-                        'data-action' => $this->generateUrl('add_comment', array('content' => $content->getId()))
-                    )
-            )
-        );
-        $comment_form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));
-        return $comment_form;
-    }
-
-    /**
-     * @param Content $content
-     * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/add/comment/{content}", name="add_comment")
-     */
-    public function addCommentAction(Content $content, Request $request)
-    {
-        $this->init();
-        $comment = new Comment();
-        $comment_form = $this->createCreateForm($comment, $content);
-        $comment_form->handleRequest($request);
-
-        if ($comment_form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $comment->setContent($content);
-            $em->persist($comment);
-            $em->flush();
-            $this->get('session')->getFlashBag()->add(
-                'success',
-                'cms.content.comment.success'
-            );
-        } else {
-            $this->get('session')->getFlashBag()->add(
-                'error',
-                $comment_form->getErrors(true, true)
-            );
-        }
-        return $this->redirectToRoute('front_single', array('alias' => $content->getUrl()));
-    }
-
-    /**
-     * Add 1 Like to a comment.
-     * @param Comment $comment
-     * @return JsonResponse
-     *
-     * @Route("/add/like/{comment}", name="add_like")
-     */
-    public function addLove(Comment $comment)
-    {
-        if (is_null($comment)) {
-            return new JsonResponse(array('status' => 'ERROR', 'error' => 'cms.content.comment.not_exist'));
-        }
-        $likes = $comment->getLikes();
-        $likes++;
-        $comment->setLikes($likes);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($comment);
-        $em->flush();
-        return new JsonResponse(array('status' => 'SUCCESS', 'likes' => $likes));
-    }
-
-
     /**
      * Add 1 Like to a comment.
      * @param Content $content
@@ -271,6 +203,7 @@ class FrontController extends Controller
     {
         $response = new Response();
         $response->setSharedMaxAge(3600);
+
         $response->headers->addCacheControlDirective('must-revalidate', true);
 
         $this->init();
@@ -297,8 +230,16 @@ class FrontController extends Controller
                 }
                 throw new NotFoundHttpException("Page not found");
             }
+            $date = new DateTime('now');
+            $date->add(new DateInterval('P1D'));
             $categories = $em->getRepository('ContentBundle:Category')->getAll(true);
             $contents = $em->getRepository('ContentBundle:Content')->getAllContents($category);
+
+            $last_modified = $contents[0]->getModified();
+            $date = new \DateTime('now');
+            $date->add(new \DateInterval('P1D'));
+            $response->setExpires($date);
+            $response->setEtag($category->getId().$last_modified->getTimestamp());
 
             $parameters = array_merge(
                 $this->_parameters,
@@ -312,7 +253,7 @@ class FrontController extends Controller
                 )
             );
 
-            $response->setLastModified($category->getModified());
+            $response->setLastModified($last_modified);
             $response->setPublic();
             if ($response->isNotModified($request)) {
                 return $response;
@@ -336,8 +277,12 @@ class FrontController extends Controller
                     'comment_form' => $comment_form->createView()
                 )
             );
+            $date = new \DateTime('now');
+            $date->add(new \DateInterval('P180D'));
             $taxonomy = $content->getTaxonomy();
             $response->setLastModified($content->getModified());
+            $response->setExpires($date);
+            $response->setETag($content->getId().$content->getModified()->getTimestamp());
             $response->setPublic();
             if ($response->isNotModified($request)) {
                 return $response;
