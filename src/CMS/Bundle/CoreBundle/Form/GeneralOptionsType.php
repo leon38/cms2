@@ -32,12 +32,12 @@ class GeneralOptionsType extends AbstractType
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($general_options) {
                 $form = $event->getForm();
-                
+
                 foreach ($general_options as $option) {
                     $type = $option->getType();
                     switch ($type) {
                         case 'choice':
-                            $choices = array('d F Y' => date('d F Y', time()), 'Y-m-d' => date('Y-m-d', time()), 'm/d/Y' => date('m/d/Y', time()), 'd/m/Y' => date('d/m/Y', time()));
+                            $choices = array(date('d F Y', time()) => 'd F Y', date('Y-m-d', time()) => 'Y-m-d', date('m/d/Y', time()) => 'm/d/Y', date('d/m/Y', time()) => 'd/m/Y');
                             $form->add($option->getOptionName(), ChoiceType::class, array(
                                 'label' => ucfirst(str_replace('_', ' ', $option->getOptionName())),
                                 'data' => $option->getOptionValue(),
@@ -95,7 +95,7 @@ class GeneralOptionsType extends AbstractType
                 }
             });
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

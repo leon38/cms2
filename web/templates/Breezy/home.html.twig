@@ -16,7 +16,7 @@
                                             <h2><a href="{{ path('front_single', {'alias': article.url, '_format': 'html'}) }}"
                                                    class="link-article">{{ article.title }}</a></h2>
                                             <span class="date-author">
-                                                <span class="author">{{ article.author.displayName }}</span>
+                                                <span class="author">{{ article.author }}</span>
                                                 <span class="seperator">-</span>
                                                 <span class="date">{{ article.created|date(date_format) }}</span>
                                             </span>

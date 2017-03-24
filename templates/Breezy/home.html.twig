@@ -18,7 +18,7 @@
                                             <span class="date-author">
                                                 <span class="author">{{ article.author }}</span>
                                                 <span class="seperator">-</span>
-                                                <span class="date">{{ article.created|date(date_format) }}</span>
+                                                <span class="date">{{ article.created|gmdate(date_format) }}</span>
                                             </span>
                                         </div>
                                     </div>
