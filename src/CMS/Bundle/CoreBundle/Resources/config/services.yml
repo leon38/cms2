@@ -151,6 +151,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    cms.core.strftime.twig_extension:
+        class: CMS\Bundle\CoreBundle\Twig\Extension\StrftimeExtension
+        public: true
+        tags:
+            - { name: twig.extension }
+
     cms.core.md5.twig_extension:
             class: CMS\Bundle\CoreBundle\Twig\Extension\MD5Extension
             public: true

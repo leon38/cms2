@@ -46,6 +46,8 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes: ['::form.html.twig']
+    date:
+        timezone: Europe/Paris
     globals:
         web_path: '%web_path%'
     paths:
