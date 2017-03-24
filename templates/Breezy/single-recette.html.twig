@@ -41,7 +41,7 @@
                     </div>
                     <div class="date-author">
                         <div class="pull-left">
-                            Ecrit par <span itemprop="author"><{{ content.author }}</span> le <span
+                            Ecrit par <span itemprop="author">{{ content.author }}</span> le <span
                                     class="date" itemprop="datePublished" content="{{ content.created|date('Y-m-d H:i:s') }}">{{ content.created|localizeddate('full', 'none') }} à {{ content.created|date('H:i') }}</span>
                         </div>
                         <div class="pull-right">

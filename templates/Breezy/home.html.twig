@@ -58,7 +58,7 @@
                                                 <a href="{{ path('front_single', {'alias': content.url, '_format': 'html'}) }}">{{ content.title }}</a>
                                             </h2>
                                             <div class="date-author"><span
-                                                        class="date">{{ content.created|date(date_format) }}</span>
+                                                        class="date">{{ content.created|localizeddate("medium", "none", null, null, "d LLLL yyyy") }}</span>
                                             </div>
                                             <p>{{ content.chapo }}</p>
                                             <div class="masonry-item-footer clearfix">

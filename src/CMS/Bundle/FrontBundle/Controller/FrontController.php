@@ -4,8 +4,10 @@ namespace CMS\Bundle\FrontBundle\Controller;
 
 use CMS\Bundle\ContentBundle\Entity\Comment;
 use CMS\Bundle\ContentBundle\Entity\Content;
+use CMS\Bundle\ContentBundle\Form\CommentType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -301,6 +303,23 @@ class FrontController extends Controller
         throw new NotFoundHttpException("La page n'existe pas");
     }
 
-
+    public function createCreateForm(Comment $entity, Content $content)
+    {
+        $comment_form = $this->createForm(
+            CommentType::class,
+            $entity,
+            array(
+                'method' => 'POST',
+                'action' => $this->generateUrl('add_comment', array('content' => $content->getId())),
+                'attr' =>
+                    array(
+                        'class' => 'form',
+                        'data-action' => $this->generateUrl('add_comment', array('content' => $content->getId()))
+                    )
+            )
+        );
+        $comment_form->add('submit', SubmitType::class, array('label' => 'Create', 'attr' => array('class' => 'btn btn-info btn-fill pull-right')));
+        return $comment_form;
+    }
 
 }
